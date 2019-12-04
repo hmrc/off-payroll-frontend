@@ -26,6 +26,6 @@ class DidPaySubstituteFormProvider @Inject() extends Mappings with OptimisedErro
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsgOptimised("didPaySubstitute.error.required"))
+      "value" -> boolean(tailoredErrMsg("didPaySubstitute.error.required"))
     )
 }

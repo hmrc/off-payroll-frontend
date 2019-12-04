@@ -38,9 +38,9 @@ object ViewUtils extends FeatureSwitching {
 
   def tailorMsg(msgKey: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
 
-    val userType = request.session.getModel[UserType](SessionKeys.userType) match {
-      case Some(Agency) | None => s"${Worker.toString}."
-      case Some(user) => s"${user.toString}."
+    val userType = request.session.getModel[UserType](SessionKeys.userType).fold(""){
+      case Agency => s"${Worker.toString}."
+      case user => s"${user.toString}."
     }
 
     userType + msgKey
@@ -56,7 +56,7 @@ object ViewUtils extends FeatureSwitching {
 
     val messageBase = {
       outType match {
-        case ResultType.Agent => "agent.optimised.result.outside.whyResult"
+        case ResultType.Agent => "agent.result.outside.whyResult"
         case ResultType.IR35 => tailorMsg(s"result.outside.ir35.whyResult")
         case ResultType.PAYE => tailorMsg(s"result.outside.paye.whyResult")
       }
@@ -75,7 +75,7 @@ object ViewUtils extends FeatureSwitching {
                       isIncurCostNoReclaim: Boolean)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages): String = {
       val messageBase = {
         outType match {
-          case ResultType.Agent => "agent.optimised.result.outside.whyResult"
+          case ResultType.Agent => "agent.result.outside.whyResult"
           case ResultType.IR35 => tailorMsg(s"result.outside.ir35.whyResult")
           case ResultType.PAYE => tailorMsg(s"result.outside.paye.whyResult")
         }

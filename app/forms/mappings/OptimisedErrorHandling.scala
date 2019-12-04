@@ -18,14 +18,15 @@ package forms.mappings
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import models.UserType.Worker
+import models.UserType.{Agency, Worker}
 import models.requests.DataRequest
 
 trait OptimisedErrorHandling extends FeatureSwitching {
 
-  def tailoredErrMsg(key: String, optimisedPrefix: Boolean = false)(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): String =
-      s"${request.userType.getOrElse(Worker)}${if(optimisedPrefix) ".optimised" else ""}.$key"
+  def tailoredErrMsg(key: String)(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): String =
+    request.userType match {
+      case Some(Agency) | None=> s"$Worker.$key"
+      case Some(user) => s"$user.$key"
+    }
 
-  def tailoredErrMsgOptimised(key: String)(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): String =
-    tailoredErrMsg(key, optimisedPrefix = true)
 }

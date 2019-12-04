@@ -33,7 +33,7 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "optimised.contractStarted"
+  val messageKeyPrefix = "contractStarted"
 
   val form = new ContractStartedFormProvider()()(fakeDataRequest, frontendAppConfig)
 

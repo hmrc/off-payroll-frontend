@@ -29,11 +29,6 @@ import views.html.sections.businessOnOwnAccount.RightsOfWorkView
 
 class RightsOfWorkViewSpec extends ViewBehaviours {
 
-  override def beforeEach = {
-    super.beforeEach()
-
-  }
-
   object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "worker.rightsOfWork"
@@ -42,9 +37,9 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[RightsOfWorkView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

@@ -2,7 +2,7 @@ package controllers.setup
 
 import helpers.IntegrationSpecBase
 
-class WorkerTypeControllerISpec extends IntegrationSpecBase {
+class WorkerUsingIntermediaryControllerISpec extends IntegrationSpecBase {
 
   s"Post or Get to /workers-intermediary" should {
 

@@ -22,7 +22,7 @@ import config.featureSwitch.PrintPDF
 import connectors.httpParsers.PDFGeneratorHttpParser
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import controllers.actions._
-import forms.CustomisePDFFormProvider
+import forms.AdditionalPdfDetailsFormProvider
 import models._
 import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakeCYANavigator
@@ -43,10 +43,10 @@ class PDFControllerSpec extends ControllerSpecBase {
   }
 
 
-  val optFormProvider = new CustomisePDFFormProvider()
+  val optFormProvider = new AdditionalPdfDetailsFormProvider()
   val optForm = optFormProvider()
 
-  val formProvider = new CustomisePDFFormProvider()
+  val formProvider = new AdditionalPdfDetailsFormProvider()
   val form = formProvider()
 
   val customisePdfView = injector.instanceOf[CustomisePDFView]
@@ -301,8 +301,8 @@ class PDFControllerSpec extends ControllerSpecBase {
       "return a Bad Request and errors when invalid data is submitted" in {
 
 
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
-        val boundForm = optForm.bind(Map("completedBy" -> "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", "a" * (AdditionalPdfDetailsFormProvider.maxFieldLength + 1)))
+        val boundForm = optForm.bind(Map("completedBy" -> "a" * (AdditionalPdfDetailsFormProvider.maxFieldLength + 1)))
 
         val validData = Map(CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer")), 0)))
         val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))

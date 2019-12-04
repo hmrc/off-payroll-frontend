@@ -27,6 +27,6 @@ class IdentifyToStakeholdersFormProvider @Inject() extends Mappings with Optimis
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[IdentifyToStakeholders] =
     Form(
-      "value" -> enumerable[IdentifyToStakeholders](tailoredErrMsgOptimised("identifyToStakeholders.error.required"))
+      "value" -> enumerable[IdentifyToStakeholders](tailoredErrMsg("identifyToStakeholders.error.required"))
     )
 }

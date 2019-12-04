@@ -35,15 +35,15 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
     val link = "#value > p:nth-child(3) > a"
   }
 
-  val messageKeyPrefix = "worker.optimised.officeHolder"
+  val messageKeyPrefix = "worker.officeHolder"
 
   val form = new OfficeHolderFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[OfficeHolderView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

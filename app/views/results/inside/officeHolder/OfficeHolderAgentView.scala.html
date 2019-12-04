@@ -45,7 +45,7 @@
                 }
 
                 @components.teal_result(
-                    Html(messages("agent.optimised.result.officeHolder.heading")),
+                    Html(messages("agent.result.officeHolder.heading")),
                     "result.inside"
                 )
 
@@ -57,24 +57,24 @@
             }
             case ResultPrintPreview => {
                 @print_and_save_result()
-                @letter_layout("agent.optimised.result.officeHolder.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout("agent.result.officeHolder.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
             case ResultPDF => {
-                @letter_layout("agent.optimised.result.officeHolder.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout("agent.result.officeHolder.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }
 }
 
 @whyResult = {
-    <p>@messages("agent.optimised.result.officeHolder.whyResult.p1")</p>
-    <p>@messages("agent.optimised.result.officeHolder.whyResult.p2")</p>
+    <p>@messages("agent.result.officeHolder.whyResult.p1")</p>
+    <p>@messages("agent.result.officeHolder.whyResult.p2")</p>
 }
 
 @doNext = {
-    <p>@messages("agent.optimised.result.officeHolder.doNext.p1")</p>
+    <p>@messages("agent.result.officeHolder.doNext.p1")</p>
     <p>
-        @messages("agent.optimised.result.officeHolder.doNext.p2.preLink")
-        @components.new_window_link("agent.optimised.result.officeHolder.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+        @messages("agent.result.officeHolder.doNext.p2.preLink")
+        @components.new_window_link("agent.result.officeHolder.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
     </p>
 }

@@ -55,10 +55,10 @@ class RoutesSpec extends SpecBase {
     }
 
     "Have the correct routes for the Worker Type page" in {
-      setupRoutes.WorkerTypeController.onPageLoad(NormalMode).url mustBe fullPath("/workers-intermediary")
-      setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url mustBe fullPath("/workers-intermediary/change")
-      setupRoutes.WorkerTypeController.onSubmit(NormalMode).url mustBe fullPath("/workers-intermediary")
-      setupRoutes.WorkerTypeController.onSubmit(CheckMode).url mustBe fullPath("/workers-intermediary/change")
+      setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode).url mustBe fullPath("/workers-intermediary")
+      setupRoutes.WorkerUsingIntermediaryController.onPageLoad(CheckMode).url mustBe fullPath("/workers-intermediary/change")
+      setupRoutes.WorkerUsingIntermediaryController.onSubmit(NormalMode).url mustBe fullPath("/workers-intermediary")
+      setupRoutes.WorkerUsingIntermediaryController.onSubmit(CheckMode).url mustBe fullPath("/workers-intermediary/change")
     }
 
     "Have the correct routes for the What Do You Want To Do page" in {

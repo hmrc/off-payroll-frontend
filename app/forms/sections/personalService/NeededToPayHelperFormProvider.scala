@@ -26,6 +26,6 @@ class NeededToPayHelperFormProvider @Inject() extends Mappings with OptimisedErr
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsgOptimised("neededToPayHelper.error.required"))
+      "value" -> boolean(tailoredErrMsg("neededToPayHelper.error.required"))
     )
 }

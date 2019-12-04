@@ -33,15 +33,15 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.didPaySubstitute"
+  val messageKeyPrefix = "worker.didPaySubstitute"
 
   val form = new DidPaySubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[DidPaySubstituteView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

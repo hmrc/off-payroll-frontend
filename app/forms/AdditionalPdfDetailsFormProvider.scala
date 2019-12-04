@@ -23,9 +23,9 @@ import models.AdditionalPdfDetails
 import play.api.data.Form
 import play.api.data.Forms._
 
-class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
+class AdditionalPdfDetailsFormProvider extends Constraints with FeatureSwitching{
 
-  import CustomisePDFFormProvider._
+  import AdditionalPdfDetailsFormProvider._
 
   def apply()(implicit appConfig: FrontendAppConfig): Form[AdditionalPdfDetails] =
       Form(
@@ -46,7 +46,7 @@ class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
       )
 }
 
-object CustomisePDFFormProvider {
+object AdditionalPdfDetailsFormProvider {
 
   val maxFieldLength = 100
   val maxFieldReferenceLength = 180

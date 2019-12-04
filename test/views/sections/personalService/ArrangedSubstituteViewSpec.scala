@@ -32,15 +32,15 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.arrangedSubstitute"
+  val messageKeyPrefix = "worker.arrangedSubstitute"
 
   val form = new ArrangedSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ArrangedSubstituteView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

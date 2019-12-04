@@ -27,6 +27,6 @@ class ArrangedSubstituteFormProvider @Inject() extends Mappings with OptimisedEr
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[ArrangedSubstitute] =
     Form(
-      "value" -> enumerable[ArrangedSubstitute](tailoredErrMsgOptimised("arrangedSubstitute.error.required"))
+      "value" -> enumerable[ArrangedSubstitute](tailoredErrMsg("arrangedSubstitute.error.required"))
     )
 }

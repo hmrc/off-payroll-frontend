@@ -58,7 +58,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(ChooseWhereWork.values.head,0)))
+  val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(WorkerChooses,0)))
 
   "ChooseWhereWork Controller" must {
 
@@ -77,22 +77,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe optimisedViewAsString(form.fill(ChooseWhereWork.values.head))
-    }
-
-    "redirect to the next page when valid data is submitted" in {
-      val answers = userAnswers.set(ChooseWhereWorkPage,0, WorkerChooses)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options.head.value))
-
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ChooseWhereWork)(answers)
-
-      val result = controller().onSubmit(NormalMode)(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      contentAsString(result) mustBe optimisedViewAsString(form.fill(WorkerChooses))
     }
 
     "redirect to the next page when valid data is submitted for optimised view" in {
@@ -100,7 +85,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerChooses.toString))
 
       val answers = userAnswers.set(ChooseWhereWorkPage,0, WorkerChooses)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ChooseWhereWork)(answers)
@@ -131,7 +116,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerChooses.toString))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER

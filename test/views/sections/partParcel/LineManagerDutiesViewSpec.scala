@@ -32,15 +32,15 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.lineManagerDuties"
+  val messageKeyPrefix = "worker.lineManagerDuties"
 
   val form = new LineManagerDutiesFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[LineManagerDutiesView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages,frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages,frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

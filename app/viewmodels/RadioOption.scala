@@ -24,8 +24,7 @@ case class RadioOption(id: String,
                        value: String,
                        messageKey: String,
                        optionType: OptionType,
-                       hasTailoredMsgs: Boolean,
-                       hasOptimisedMsgs: Boolean)
+                       hasTailoredMsgs: Boolean)
 
 object RadioOption {
 
@@ -34,8 +33,7 @@ object RadioOption {
     option,
     s"$keyPrefix.$option",
     optionType,
-    hasTailoredMsgs = false,
-    hasOptimisedMsgs = true
+    hasTailoredMsgs = false
   )
 
   def apply(keyPrefix: String, option: String, optionType: OptionType, hasTailoredMsgs: Boolean): RadioOption =
@@ -44,8 +42,7 @@ object RadioOption {
       option,
       s"$keyPrefix.$option",
       optionType,
-      hasTailoredMsgs,
-      hasOptimisedMsgs = true
+      hasTailoredMsgs
     )
 
   def apply(keyPrefix: String, option: String, optionType: OptionType, dividerPrefix: Boolean, hasTailoredMsgs: Boolean): RadioOption =
@@ -54,7 +51,6 @@ object RadioOption {
       option,
       s"$keyPrefix.$option",
       optionType,
-      hasTailoredMsgs,
-      hasOptimisedMsgs = true
+      hasTailoredMsgs
     )
 }

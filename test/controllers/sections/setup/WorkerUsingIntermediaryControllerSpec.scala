@@ -32,33 +32,28 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.WorkerUsingIntermediaryView
 
-class WorkerTypeControllerSpec extends ControllerSpecBase {
+class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
 
-  val formProvider = new WorkerTypeFormProvider()
-  val formProviderInt = new WorkerUsingIntermediaryFormProvider()
-  val form = formProvider()
-  val formInt = formProviderInt()(fakeDataRequest, frontendAppConfig)
+  val formProvider = new WorkerUsingIntermediaryFormProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
+  val view = injector.instanceOf[WorkerUsingIntermediaryView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) =
-    new WorkerTypeController(
+    new WorkerUsingIntermediaryController(
       FakeIdentifierAction,
       dataRetrievalAction,
       new DataRequiredActionImpl(messagesControllerComponents),
       formProvider,
-      formProviderInt,
       messagesControllerComponents,
-      viewInt,
-      checkYourAnswersService = mockCheckYourAnswersService,
+      view,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
-
       navigator = FakeSetupNavigator,
       frontendAppConfig
     )
 
-  def viewAsStringInt(form: Form[_] = formInt) = viewInt(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsStringInt(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head,0)))
   val validDataInt = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
@@ -66,7 +61,6 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
   "WorkerType Controller" must {
 
     "return OK and the correct view for a GET in the optimised view" in {
-
 
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
@@ -77,24 +71,11 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
     "populate the view correctly on a GET when the question has previously been answered for the optimised flow" in {
 
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validDataInt)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validDataInt)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe viewAsStringInt(formInt.fill(true))
-    }
-
-    "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
-      val answers = userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      val result = controller().onSubmit(NormalMode)(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      contentAsString(result) mustBe viewAsStringInt(form.fill(true))
     }
 
     "redirect to the next page when valid data is submitted for the optimised flow" in {
@@ -116,7 +97,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = formInt.bind(Map("value" -> "invalid value"))
+      val boundForm = form.bind(Map("value" -> "invalid value"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

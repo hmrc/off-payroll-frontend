@@ -58,7 +58,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.values.head,0)))
+  val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.CanMoveWorkerWithPermission,0)))
 
   "MoveWorker Controller" must {
 
@@ -74,31 +74,17 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
 
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe optimisedViewAsString(form.fill(MoveWorker.values.head))
-    }
-
-    "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options.head.value))
-
-
-      val answers = userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),MoveWorker)(answers)
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      val result = controller().onSubmit(NormalMode)(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      contentAsString(result) mustBe optimisedViewAsString(form.fill(MoveWorker.CanMoveWorkerWithPermission))
     }
 
     "redirect to the next page when valid data is submitted for optimised view" in {
 
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.CanMoveWorkerWithPermission.toString))
 
       val answers = userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),MoveWorker)(answers)

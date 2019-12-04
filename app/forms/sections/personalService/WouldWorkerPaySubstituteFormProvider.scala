@@ -26,6 +26,6 @@ class WouldWorkerPaySubstituteFormProvider @Inject() extends Mappings with Optim
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsgOptimised("wouldWorkerPaySubstitute.error.required"))
+      "value" -> boolean(tailoredErrMsg("wouldWorkerPaySubstitute.error.required"))
     )
 }

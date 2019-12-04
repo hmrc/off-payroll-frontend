@@ -16,10 +16,6 @@
 
 package views
 
-import config.SessionKeys
-import models.UserType.{Agency, Hirer, Worker}
-import play.api.libs.json.Json
-
 class ViewUtilsSpec extends ViewSpecBase {
 
   "Calling .tailorMsg" should {
@@ -36,7 +32,7 @@ class ViewUtilsSpec extends ViewSpecBase {
 
     "If the user is of type Agency, do not prefix the supplied message key" in {
       val req = agencyFakeRequest
-      ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "key"
+      ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "worker.key"
     }
 
     "If the user is unknown, do not prefix the supplied message key" in {

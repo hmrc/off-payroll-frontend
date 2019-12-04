@@ -17,7 +17,7 @@
 package views
 
 import controllers.routes
-import forms.CustomisePDFFormProvider
+import forms.AdditionalPdfDetailsFormProvider
 import models.{AdditionalPdfDetails, NormalMode}
 import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
@@ -27,7 +27,7 @@ class CustomisePDFViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] 
 
   val messageKeyPrefix = "customisePDF"
 
-  val form = new CustomisePDFFormProvider()()
+  val form = new AdditionalPdfDetailsFormProvider()()
 
   val view = injector.instanceOf[CustomisePDFView]
 

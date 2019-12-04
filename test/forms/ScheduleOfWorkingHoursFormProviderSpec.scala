@@ -49,7 +49,7 @@ class ScheduleOfWorkingHoursFormProviderSpec extends OptionFieldBehaviours with 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
         )
       }
 
@@ -61,7 +61,7 @@ class ScheduleOfWorkingHoursFormProviderSpec extends OptionFieldBehaviours with 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
         )
       }
     }

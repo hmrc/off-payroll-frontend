@@ -23,7 +23,7 @@ import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import connectors.httpParsers.PDFGeneratorHttpParser.SuccessfulPDF
 import controllers.actions._
-import forms.CustomisePDFFormProvider
+import forms.AdditionalPdfDetailsFormProvider
 import handlers.ErrorHandler
 import models._
 import models.requests.DataRequest
@@ -46,7 +46,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               identify: IdentifierAction,
                               getData: DataRetrievalAction,
                               requireData: DataRequiredAction,
-                              formProvider: CustomisePDFFormProvider,
+                              formProvider: AdditionalPdfDetailsFormProvider,
                               controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
                               optimisedView: AddDetailsView,

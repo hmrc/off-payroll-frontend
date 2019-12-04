@@ -30,15 +30,15 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.chooseWhereWork"
+  val messageKeyPrefix = "worker.chooseWhereWork"
 
   val form = new ChooseWhereWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ChooseWhereWorkView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

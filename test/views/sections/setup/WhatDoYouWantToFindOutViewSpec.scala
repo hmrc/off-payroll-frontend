@@ -49,7 +49,7 @@ class WhatDoYouWantToFindOutViewSpec extends ViewBehaviours with FeatureSwitchin
 
     "If the user type is of Worker" should {
 
-      lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
+      lazy val document = asDocument(createViewWithRequest(fakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(WhatDoYouWantToFindOutMessages.title, Some(WhatDoYouWantToFindOutMessages.subheading))

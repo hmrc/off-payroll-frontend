@@ -30,15 +30,15 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.identifyToStakeholders"
+  val messageKeyPrefix = "worker.identifyToStakeholders"
 
   val form = new IdentifyToStakeholdersFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

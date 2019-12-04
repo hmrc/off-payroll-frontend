@@ -47,7 +47,7 @@ class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours with Guic
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
         )
       }
 
@@ -59,7 +59,7 @@ class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours with Guic
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
         )
       }
     }

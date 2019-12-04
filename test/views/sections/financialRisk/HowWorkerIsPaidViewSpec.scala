@@ -30,15 +30,15 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.howWorkerIsPaid"
+  val messageKeyPrefix = "worker.howWorkerIsPaid"
 
   val form = new HowWorkerIsPaidFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[HowWorkerIsPaidView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

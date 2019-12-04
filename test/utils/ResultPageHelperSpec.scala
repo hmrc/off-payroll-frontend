@@ -38,8 +38,6 @@ import viewmodels.AnswerRow
 
 class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
-  lazy val workerRequest = workerFakeRequest
-  lazy val hirerRequest = hirerFakeRequest
 
   ".cannotClaimAsExpense" when {
 
@@ -56,7 +54,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-          new ResultPageHelper(cacheMap).cannotClaimAsExpense(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).cannotClaimAsExpense(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answers = Seq(AnswerRow(
@@ -72,7 +70,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-          new ResultPageHelper(cacheMap).cannotClaimAsExpense(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).cannotClaimAsExpense(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answers = Seq(AnswerRow(
@@ -119,7 +117,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Worker answer row" in {
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
-            new ResultPageHelper(cacheMap).officeHolder(messages, workerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).officeHolder(messages, workerFakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
                 label = s"$Worker.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
@@ -132,7 +130,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Hirer answer row" in {
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
-            new ResultPageHelper(cacheMap).officeHolder(messages, hirerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).officeHolder(messages, hirerFakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
                 label = s"$Hirer.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
@@ -185,7 +183,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new ResultPageHelper(cacheMap).workerType(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).workerType(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$WorkerTypePage.checkYourAnswersLabel",
               answer = s"$Worker.$WorkerTypePage.$LimitedCompany",
@@ -198,7 +196,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new ResultPageHelper(cacheMap).workerType(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).workerType(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$WorkerTypePage.checkYourAnswersLabel",
               answer = s"$Hirer.$WorkerTypePage.$LimitedCompany",
@@ -207,14 +205,14 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new ResultPageHelper(cacheMap).workerType(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).workerType(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"$WorkerTypePage.$LimitedCompany",
+              label = s"$Worker.$WorkerTypePage.checkYourAnswersLabel",
+              answer = s"$Worker.$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true
             ))
         }
@@ -262,7 +260,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
           "Return correctly formatted answer row" in {
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
-            new ResultPageHelper(cacheMap).contractStarted(messages, workerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).contractStarted(messages, workerFakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
                 label = s"$Worker.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
@@ -275,7 +273,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
           "Return correctly formatted answer row" in {
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
-            new ResultPageHelper(cacheMap).contractStarted(messages, hirerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).contractStarted(messages, hirerFakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
                 label = s"$Hirer.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
@@ -328,7 +326,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
-          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$Worker.$ArrangedSubstitutePage.$YesClientAgreed",
@@ -341,7 +339,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
-          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$Hirer.$ArrangedSubstitutePage.$YesClientAgreed",
@@ -350,14 +348,14 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
-          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$ArrangedSubstitutePage.checkYourAnswersLabel",
-              answer = s"$ArrangedSubstitutePage.$YesClientAgreed",
+              label = s"$Worker.$ArrangedSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Worker.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true
             ))
         }
@@ -382,7 +380,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Worker answer row" in {
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
-            new ResultPageHelper(cacheMap).benefits(messages, workerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).benefits(messages, workerFakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
                 label = s"$Worker.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
@@ -395,7 +393,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Hirer answer row" in {
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
-            new ResultPageHelper(cacheMap).benefits(messages, hirerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).benefits(messages, hirerFakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
                 label = s"$Hirer.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
@@ -448,7 +446,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
-          new ResultPageHelper(cacheMap).chooseWhereWork(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).chooseWhereWork(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$ChooseWhereWorkPage.checkYourAnswersLabel",
               answer = s"$Worker.$ChooseWhereWorkPage.$WorkerChooses",
@@ -461,7 +459,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
-          new ResultPageHelper(cacheMap).chooseWhereWork(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).chooseWhereWork(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$ChooseWhereWorkPage.checkYourAnswersLabel",
               answer = s"$Hirer.$ChooseWhereWorkPage.$WorkerChooses",
@@ -470,14 +468,14 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
-          new ResultPageHelper(cacheMap).chooseWhereWork(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).chooseWhereWork(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$ChooseWhereWorkPage.checkYourAnswersLabel",
-              answer = s"$ChooseWhereWorkPage.$WorkerChooses",
+              label = s"$Worker.$ChooseWhereWorkPage.checkYourAnswersLabel",
+              answer = s"$Worker.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true
             ))
         }
@@ -500,7 +498,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).didPaySubstitute(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).didPaySubstitute(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -513,7 +511,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).didPaySubstitute(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).didPaySubstitute(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -522,13 +520,13 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).didPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).didPaySubstitute(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$DidPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -552,7 +550,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
-          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$HowWorkerIsPaidPage.checkYourAnswersLabel",
               answer = s"$Worker.$HowWorkerIsPaidPage.$Commission",
@@ -565,7 +563,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
-          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$HowWorkerIsPaidPage.checkYourAnswersLabel",
               answer = s"$Hirer.$HowWorkerIsPaidPage.$Commission",
@@ -574,14 +572,14 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
-          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$HowWorkerIsPaidPage.checkYourAnswersLabel",
-              answer = s"$HowWorkerIsPaidPage.$Commission",
+              label = s"$Worker.$HowWorkerIsPaidPage.checkYourAnswersLabel",
+              answer = s"$Worker.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true
             ))
         }
@@ -604,7 +602,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
-          new ResultPageHelper(cacheMap).howWorkIsDone(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkIsDone(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$HowWorkIsDonePage.checkYourAnswersLabel",
               answer = s"$Worker.$HowWorkIsDonePage.$NoWorkerInputAllowed",
@@ -617,7 +615,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
-          new ResultPageHelper(cacheMap).howWorkIsDone(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkIsDone(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$HowWorkIsDonePage.checkYourAnswersLabel",
               answer = s"$Hirer.$HowWorkIsDonePage.$NoWorkerInputAllowed",
@@ -626,14 +624,14 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
-          new ResultPageHelper(cacheMap).howWorkIsDone(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkIsDone(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$HowWorkIsDonePage.checkYourAnswersLabel",
-              answer = s"$HowWorkIsDonePage.$NoWorkerInputAllowed",
+              label = s"$Worker.$HowWorkIsDonePage.checkYourAnswersLabel",
+              answer = s"$Worker.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true
             ))
         }
@@ -656,7 +654,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
               answer = s"$Worker.$IdentifyToStakeholdersPage.$WorkForEndClient",
@@ -669,7 +667,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
               answer = s"$Hirer.$IdentifyToStakeholdersPage.$WorkForEndClient",
@@ -678,14 +676,14 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"$IdentifyToStakeholdersPage.$WorkForEndClient",
+              label = s"$Worker.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$Worker.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true
             ))
         }
@@ -708,7 +706,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
-          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -721,7 +719,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
-          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -730,13 +728,13 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
-          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$InteractWithStakeholdersPage.checkYourAnswersLabel",
+              label = s"$Worker.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -760,7 +758,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
-          new ResultPageHelper(cacheMap).lineManagerDuties(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).lineManagerDuties(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -773,7 +771,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
-          new ResultPageHelper(cacheMap).lineManagerDuties(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).lineManagerDuties(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -782,13 +780,13 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
-          new ResultPageHelper(cacheMap).lineManagerDuties(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).lineManagerDuties(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$LineManagerDutiesPage.checkYourAnswersLabel",
+              label = s"$Worker.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -812,7 +810,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
-          new ResultPageHelper(cacheMap).moveWorker(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).moveWorker(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$MoveWorkerPage.checkYourAnswersLabel",
               answer = s"$Worker.$MoveWorkerPage.$CanMoveWorkerWithPermission",
@@ -825,7 +823,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
-          new ResultPageHelper(cacheMap).moveWorker(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).moveWorker(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$MoveWorkerPage.checkYourAnswersLabel",
               answer = s"$Hirer.$MoveWorkerPage.$CanMoveWorkerWithPermission",
@@ -834,14 +832,14 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
-          new ResultPageHelper(cacheMap).moveWorker(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).moveWorker(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$MoveWorkerPage.checkYourAnswersLabel",
-              answer = s"$MoveWorkerPage.$CanMoveWorkerWithPermission",
+              label = s"$Worker.$MoveWorkerPage.checkYourAnswersLabel",
+              answer = s"$Worker.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true
             ))
         }
@@ -864,7 +862,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
-          new ResultPageHelper(cacheMap).neededToPayHelper(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).neededToPayHelper(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -877,7 +875,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
-          new ResultPageHelper(cacheMap).neededToPayHelper(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).neededToPayHelper(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -886,13 +884,13 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
-          new ResultPageHelper(cacheMap).neededToPayHelper(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).neededToPayHelper(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$NeededToPayHelperPage.checkYourAnswersLabel",
+              label = s"$Worker.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -916,7 +914,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).rejectSubstitute(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).rejectSubstitute(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = s"$Worker.$RejectSubstitutePage.yes",
@@ -929,7 +927,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).rejectSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).rejectSubstitute(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = s"$Hirer.$RejectSubstitutePage.yes",
@@ -938,14 +936,14 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).rejectSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).rejectSubstitute(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = s"$RejectSubstitutePage.yes",
+              label = s"$Worker.$RejectSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Worker.$RejectSubstitutePage.yes",
               answerIsMessageKey = true
             ))
         }
@@ -968,7 +966,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, workerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -981,7 +979,7 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, hirerFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
@@ -990,13 +988,13 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
         }
       }
 
-      "the user is of type is not set" should {
+      "the user is of type agency" should {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
-          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, agencyFakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))

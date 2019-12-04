@@ -27,6 +27,6 @@ class HowWorkerIsPaidFormProvider @Inject() extends Mappings with OptimisedError
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[HowWorkerIsPaid] =
     Form(
-      "value" -> enumerable[HowWorkerIsPaid](tailoredErrMsgOptimised("howWorkerIsPaid.error.required"))
+      "value" -> enumerable[HowWorkerIsPaid](tailoredErrMsg("howWorkerIsPaid.error.required"))
     )
 }

@@ -38,9 +38,9 @@ class OtherExpensesViewSpec extends YesNoViewBehaviours {
 
   val view = injector.instanceOf[OtherExpensesView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -51,9 +51,6 @@ class OtherExpensesViewSpec extends YesNoViewBehaviours {
     behave like pageWithBackLink(createView)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.OtherExpensesController.onSubmit(NormalMode).url)
-
-    lazy val request = workerFakeRequest
-    lazy val document = asDocument(createViewWithRequest(request))
 
     "If the user type is of Worker" should {
 

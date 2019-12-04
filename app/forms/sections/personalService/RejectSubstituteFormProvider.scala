@@ -26,6 +26,6 @@ class RejectSubstituteFormProvider @Inject() extends Mappings with OptimisedErro
 
   def apply()(implicit request: DataRequest[_], appConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsgOptimised("rejectSubstitute.error.required"))
+      "value" -> boolean(tailoredErrMsg("rejectSubstitute.error.required"))
     )
 }

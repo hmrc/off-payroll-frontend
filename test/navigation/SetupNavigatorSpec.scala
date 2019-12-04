@@ -68,7 +68,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
               .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
 
 
-            nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+            nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
           }
         }
 
@@ -83,7 +83,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
                 .set(WhoAreYouPage, WhoAreYou.Client)
 
 
-              nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+              nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
             }
           }
 
@@ -143,7 +143,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
               .set(WhatDoYouWantToDoPage, WhatDoYouWantToDo.MakeNewDetermination)
 
 
-            nextPage(WhatDoYouWantToDoPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+            nextPage(WhatDoYouWantToDoPage, userAnswers) mustBe setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
           }
         }
 
@@ -255,7 +255,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
               .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
 
 
-            nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+            nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
           }
         }
       }

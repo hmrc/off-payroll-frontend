@@ -42,10 +42,10 @@ POST       /work-started                                controllers.sections.set
 GET        /work-started/change                         controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = CheckMode)
 POST       /work-started/change                         controllers.sections.setup.ContractStartedController.onSubmit(mode: Mode = CheckMode)
 
-GET        /workers-intermediary                        controllers.sections.setup.WorkerTypeController.onPageLoad(mode: Mode = NormalMode)
-POST       /workers-intermediary                        controllers.sections.setup.WorkerTypeController.onSubmit(mode: Mode = NormalMode)
-GET        /workers-intermediary/change                 controllers.sections.setup.WorkerTypeController.onPageLoad(mode: Mode = CheckMode)
-POST       /workers-intermediary/change                 controllers.sections.setup.WorkerTypeController.onSubmit(mode: Mode = CheckMode)
+GET        /workers-intermediary                        controllers.sections.setup.WorkerUsingIntermediaryController.onPageLoad(mode: Mode = NormalMode)
+POST       /workers-intermediary                        controllers.sections.setup.WorkerUsingIntermediaryController.onSubmit(mode: Mode = NormalMode)
+GET        /workers-intermediary/change                 controllers.sections.setup.WorkerUsingIntermediaryController.onPageLoad(mode: Mode = CheckMode)
+POST       /workers-intermediary/change                 controllers.sections.setup.WorkerUsingIntermediaryController.onSubmit(mode: Mode = CheckMode)
 
 GET        /office-holder                               controllers.sections.exit.OfficeHolderController.onPageLoad(mode: Mode = NormalMode)
 POST       /office-holder                               controllers.sections.exit.OfficeHolderController.onSubmit(mode: Mode = NormalMode)

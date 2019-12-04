@@ -27,6 +27,6 @@ class PutRightAtOwnCostFormProvider @Inject() extends Mappings with OptimisedErr
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[PutRightAtOwnCost] =
     Form(
-      "value" -> enumerable[PutRightAtOwnCost](tailoredErrMsgOptimised("putRightAtOwnCost.error.required"))
+      "value" -> enumerable[PutRightAtOwnCost](tailoredErrMsg("putRightAtOwnCost.error.required"))
     )
 }

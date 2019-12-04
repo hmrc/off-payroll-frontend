@@ -27,6 +27,6 @@ class MoveWorkerFormProvider @Inject() extends Mappings with OptimisedErrorHandl
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[MoveWorker] =
     Form(
-      "value" -> enumerable[MoveWorker](tailoredErrMsgOptimised("moveWorker.error.required"))
+      "value" -> enumerable[MoveWorker](tailoredErrMsg("moveWorker.error.required"))
     )
 }

@@ -27,6 +27,6 @@ class ScheduleOfWorkingHoursFormProvider @Inject() extends Mappings with Optimis
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[ScheduleOfWorkingHours] =
     Form(
-      "value" -> enumerable[ScheduleOfWorkingHours](tailoredErrMsgOptimised("scheduleOfWorkingHours.error.required"))
+      "value" -> enumerable[ScheduleOfWorkingHours](tailoredErrMsg("scheduleOfWorkingHours.error.required"))
     )
 }

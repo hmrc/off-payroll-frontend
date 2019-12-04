@@ -26,6 +26,6 @@ class LineManagerDutiesFormProvider @Inject() extends Mappings with OptimisedErr
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsgOptimised("lineManagerDuties.error.required"))
+      "value" -> boolean(tailoredErrMsg("lineManagerDuties.error.required"))
     )
 }

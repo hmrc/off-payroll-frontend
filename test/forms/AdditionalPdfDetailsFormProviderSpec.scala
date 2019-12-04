@@ -22,62 +22,32 @@ import forms.behaviours.StringFieldBehaviours
 import models.AdditionalPdfDetails
 import play.api.data.FormError
 
-class CustomisePDFFormProviderSpec extends GuiceAppSpecBase with StringFieldBehaviours {
+class AdditionalPdfDetailsFormProviderSpec extends GuiceAppSpecBase with StringFieldBehaviours {
 
-  val lengthKey = (field: String) => s"customisePDF.$field.error.length"
-  val maxLength = 100
-  val maxLengthRef = 180
+  val form = new AdditionalPdfDetailsFormProvider()()
 
-  val form = new CustomisePDFFormProvider()()
-
-  val optFields = Seq("completedBy", "client", "job")
-
-  val fields = Seq("completedBy", "client", "job", "reference")
+  val fields = Seq("completedBy", "client", "job")
 
   for (fieldName <- fields) {
-
-    s"$fieldName" must {
-      behave like fieldThatBindsValidData(
-        form,
-        fieldName,
-        stringsWithMaxLength(maxLength)
-      )
-      behave like fieldWithMaxLength(
-        form,
-        fieldName,
-        maxLength = maxLength,
-        lengthError = FormError(fieldName, lengthKey(fieldName), Seq(maxLength))
-      )
-    }
-  }
-
-
-  val optForm = new CustomisePDFFormProvider()()
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-  }
-
-  for (fieldName <- optFields) {
 
     s"$fieldName" must {
 
       "behave well" in {
 
-        val result = optForm.bind(Map(fieldName -> "Testing this out")).apply(fieldName)
+        val result = form.bind(Map(fieldName -> "Testing this out")).apply(fieldName)
         result.value.value mustBe "Testing this out"
 
       }
 
       "return a length error" in {
 
-        val result = optForm.bind(Map(fieldName -> (1 to 101).map(a => "a").mkString(""))).apply(fieldName)
+        val result = form.bind(Map(fieldName -> ("a" * 101))).apply(fieldName)
         result.errors mustBe Seq(FormError(fieldName, s"pdfDetails.$fieldName.error.maxLength", Seq(100)))
 
-        val resultNoError = optForm.bind(Map(fieldName -> (1 to 99).map(a => "a").mkString(""))).apply(fieldName)
+        val resultNoError = form.bind(Map(fieldName -> ("a" * 99))).apply(fieldName)
         resultNoError.errors mustBe Seq()
 
-        val resultNoErrorBoundary = optForm.bind(Map(fieldName -> (1 to 100).map(a => "a").mkString(""))).apply(fieldName)
+        val resultNoErrorBoundary = form.bind(Map(fieldName -> ("a" * 100))).apply(fieldName)
         resultNoErrorBoundary.errors mustBe Seq()
       }
     }
@@ -87,7 +57,7 @@ class CustomisePDFFormProviderSpec extends GuiceAppSpecBase with StringFieldBeha
     "create the form" in {
 
       Seq("completedBy", "client", "job")
-      val result = optForm.bind(Map("completedBy" -> "Testing this out vbscript:",
+      val result = form.bind(Map("completedBy" -> "Testing this out vbscript:",
         "client" -> "Testing this out vbscript:",
         "job" -> "Testing this out vbscript:",
         "reference" -> "Testing this out vbscript:"))
@@ -101,19 +71,19 @@ class CustomisePDFFormProviderSpec extends GuiceAppSpecBase with StringFieldBeha
   "reference" must {
     "behave well" in {
 
-      val result = optForm.bind(Map("reference" -> "Testing this out")).apply("reference")
+      val result = form.bind(Map("reference" -> "Testing this out")).apply("reference")
       result.value.value mustBe "Testing this out"
     }
 
     "return a length error" in {
 
-      val result = optForm.bind(Map("reference" -> (1 to 181).map(a => "a").mkString(""))).apply("reference")
+      val result = form.bind(Map("reference" -> ("a" * 181))).apply("reference")
       result.errors mustBe Seq(FormError("reference", s"pdfDetails.reference.error.maxLength", Seq(180)))
 
-      val resultNoError = optForm.bind(Map("reference" -> (1 to 179).map(a => "a").mkString(""))).apply("reference")
+      val resultNoError = form.bind(Map("reference" -> ("a" * 179))).apply("reference")
       resultNoError.errors mustBe Seq()
 
-      val resultNoErrorBoundary = optForm.bind(Map("reference" -> (1 to 180).map(a => "a").mkString(""))).apply("reference")
+      val resultNoErrorBoundary = form.bind(Map("reference" -> ("a" * 180))).apply("reference")
       resultNoErrorBoundary.errors mustBe Seq()
     }
   }

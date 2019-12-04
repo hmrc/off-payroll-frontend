@@ -41,14 +41,14 @@ class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Na
     AboutYourResultPage -> (_ => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)),
     WhatDoYouWantToFindOutPage -> (_ => setupRoutes.WhoAreYouController.onPageLoad(NormalMode)),
     WhoAreYouPage -> (answers => (answers.getAnswer(WhatDoYouWantToFindOutPage), answers.getAnswer(WhoAreYouPage)) match {
-      case (Some(WhatDoYouWantToFindOut.PAYE),_) | (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Client)) => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+      case (Some(WhatDoYouWantToFindOut.PAYE),_) | (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Client)) => setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
       case (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Worker)) => setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
       case (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Agency)) => setupRoutes.AgencyAdvisoryController.onPageLoad()
       case (None,_) => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
       case (_,_) => setupRoutes.WhoAreYouController.onPageLoad(NormalMode)
     }),
     WhatDoYouWantToDoPage -> (answers => answers.getAnswer(WhatDoYouWantToDoPage) match {
-      case Some(WhatDoYouWantToDo.MakeNewDetermination) => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+      case Some(WhatDoYouWantToDo.MakeNewDetermination) => setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
       case Some(WhatDoYouWantToDo.CheckDetermination) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       case None => setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
     }),
@@ -59,7 +59,7 @@ class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Na
       case (Some(true),Some(WhatDoYouWantToFindOut.IR35)) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       case (Some(false),Some(WhatDoYouWantToFindOut.IR35)) => setupRoutes.NoIntermediaryController.onPageLoad()
       case (_,None) => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
-      case (None,_) => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+      case (None,_) => setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
     }),
     ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
   )

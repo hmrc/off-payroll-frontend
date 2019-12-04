@@ -182,9 +182,7 @@ hirer.officeholder.link = Deiliaid Swydd
 ## Arranged Substitute
 #########################
 worker.arrangedSubstitute.error.required = Dewiswch os ydych erioed wedi anfon eilydd i wneud eich gwaith
-agency.arrangedSubstitute.error.required = Dewiswch os ydych erioed wedi anfon eilydd i wneud eich gwaith
 worker.arrangedSubstitute.error.invalid = Dewiswch os ydych erioed wedi anfon eilydd i wneud eich gwaith
-agency.arrangedSubstitute.error.invalid = Dewiswch os ydych erioed wedi anfon eilydd i wneud eich gwaith
 worker.arrangedSubstitute.title = A ydych erioed wedi anfon eilydd i wneud eich gwaith?
 worker.arrangedSubstitute.subheading = Eilyddion a chynorthwywyr
 worker.arrangedSubstitute.heading = A ydych erioed wedi anfon eilydd i wneud eich gwaith?

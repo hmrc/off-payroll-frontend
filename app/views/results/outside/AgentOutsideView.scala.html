@@ -47,7 +47,7 @@
                 }
 
                 @components.teal_result(
-                    Html(messages("agent.optimised.result.outside.heading")),
+                    Html(messages("agent.result.outside.heading")),
                     "result.outside"
                 )
 
@@ -59,10 +59,10 @@
             }
             case ResultPrintPreview => {
                 @print_and_save_result()
-                @letter_layout("agent.optimised.result.outside.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout("agent.result.outside.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
             case ResultPDF => {
-                @letter_layout("agent.optimised.result.outside.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout("agent.result.outside.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }
@@ -71,21 +71,21 @@
 @whyResult = {
 
     @if(allOutReasons(Agent, substituteToDoWork, clientNotControlWork, incurCostNoReclaim).length == 0){
-        <p>@messages("agent.optimised.result.outside.whyResult.businessToBusiness")</p>
+        <p>@messages("agent.result.outside.whyResult.businessToBusiness")</p>
     } else if(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim).length == 1){
         <p>@messages(singleOutReason(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim))</p>
-        <p>@messages("agent.optimised.result.outside.whyResult.p2")</p>
+        <p>@messages("agent.result.outside.whyResult.p2")</p>
     } else {
-        <p>@messages("agent.optimised.result.outside.whyResult.p1")</p>
+        <p>@messages("agent.result.outside.whyResult.p1")</p>
         @components.bulleted_list(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim))
-        <p>@messages("agent.optimised.result.outside.whyResult.p2")</p>
+        <p>@messages("agent.result.outside.whyResult.p2")</p>
     }
 }
 
 @doNext = {
-    <p>@messages("agent.optimised.result.outside.doNext.p1")</p>
+    <p>@messages("agent.result.outside.doNext.p1")</p>
     <p>
-        @messages("agent.optimised.result.outside.doNext.p2.text")
-        @components.new_window_link("agent.optimised.result.outside.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+        @messages("agent.result.outside.doNext.p2.text")
+        @components.new_window_link("agent.result.outside.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
     </p>
 }

@@ -26,6 +26,6 @@ class BenefitsFormProvider @Inject() extends Mappings with OptimisedErrorHandlin
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsgOptimised("benefits.error.required"))
+      "value" -> boolean(tailoredErrMsg("benefits.error.required"))
     )
 }

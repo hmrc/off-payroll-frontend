@@ -26,6 +26,6 @@ class OfficeHolderFormProvider @Inject() extends Mappings with OptimisedErrorHan
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsgOptimised("officeHolder.error.required"))
+      "value" -> boolean(tailoredErrMsg("officeHolder.error.required"))
     )
 }

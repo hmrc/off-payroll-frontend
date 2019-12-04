@@ -50,7 +50,7 @@ class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours with GuiceAp
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
         )
       }
 
@@ -62,7 +62,7 @@ class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours with GuiceAp
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
         )
       }
     }

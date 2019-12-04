@@ -27,6 +27,6 @@ class HowWorkIsDoneFormProvider @Inject() extends Mappings with OptimisedErrorHa
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[HowWorkIsDone] =
     Form(
-      "value" -> enumerable[HowWorkIsDone](tailoredErrMsgOptimised("howWorkIsDone.error.required"))
+      "value" -> enumerable[HowWorkIsDone](tailoredErrMsg("howWorkIsDone.error.required"))
     )
 }

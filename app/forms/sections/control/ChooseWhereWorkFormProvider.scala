@@ -27,6 +27,6 @@ class ChooseWhereWorkFormProvider @Inject() extends Mappings with OptimisedError
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[ChooseWhereWork] =
     Form(
-      "value" -> enumerable[ChooseWhereWork](tailoredErrMsgOptimised("chooseWhereWork.error.required"))
+      "value" -> enumerable[ChooseWhereWork](tailoredErrMsg("chooseWhereWork.error.required"))
     )
 }

@@ -37,38 +37,25 @@ import views.html.sections.setup.WorkerUsingIntermediaryView
 
 import scala.concurrent.Future
 
-class WorkerTypeController @Inject()(identify: IdentifierAction,
-                                     getData: DataRetrievalAction,
-                                     requireData: DataRequiredAction,
-                                     workerTypeFormProvider: WorkerTypeFormProvider,
-                                     newFormProvider: WorkerUsingIntermediaryFormProvider,
-                                     controllerComponents: MessagesControllerComponents,
-                                     workerUsingIntermediaryView: WorkerUsingIntermediaryView,
-                                     checkYourAnswersService: CheckYourAnswersService,
-                                     compareAnswerService: CompareAnswerService,
-                                     dataCacheConnector: DataCacheConnector,
-                                     navigator: SetupNavigator,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
-
-  val workerTypeForm: Form[WorkerType] = workerTypeFormProvider()
-  def workerUsingIntermediaryForm(implicit request: DataRequest[_]): Form[Boolean] = newFormProvider()
+class WorkerUsingIntermediaryController @Inject()(identify: IdentifierAction,
+                                                  getData: DataRetrievalAction,
+                                                  requireData: DataRequiredAction,
+                                                  workerUsingIntermediaryFormProvider: WorkerUsingIntermediaryFormProvider,
+                                                  controllerComponents: MessagesControllerComponents,
+                                                  workerUsingIntermediaryView: WorkerUsingIntermediaryView,
+                                                  compareAnswerService: CompareAnswerService,
+                                                  dataCacheConnector: DataCacheConnector,
+                                                  navigator: SetupNavigator,
+                                                  implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(mode))
+    Ok(workerUsingIntermediaryView(fillForm(WorkerUsingIntermediaryPage, workerUsingIntermediaryFormProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    submitWorkerUsingIntermediary(mode)
-  }
-
-  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]): Html = {
-    workerUsingIntermediaryView(request.userAnswers.get(WorkerUsingIntermediaryPage).fold(workerUsingIntermediaryForm)
-    (answerModel => workerUsingIntermediaryForm.fill(answerModel.answer)), mode)
-  }
-
-  private[controllers] def submitWorkerUsingIntermediary(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
-    workerUsingIntermediaryForm.bindFromRequest().fold(
+    workerUsingIntermediaryFormProvider().bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(workerUsingIntermediaryView(formWithErrors, mode))),
       value => redirect(mode,value,WorkerUsingIntermediaryPage)
     )
+  }
 }

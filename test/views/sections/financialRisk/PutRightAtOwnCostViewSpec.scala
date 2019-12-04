@@ -29,15 +29,15 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.putRightAtOwnCost"
+  val messageKeyPrefix = "worker.putRightAtOwnCost"
 
   val form = new PutRightAtOwnCostFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
