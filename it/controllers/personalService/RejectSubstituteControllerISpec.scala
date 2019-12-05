@@ -1,6 +1,7 @@
 package controllers.personalService
 
 import helpers.IntegrationSpecBase
+import models.{CheckMode, NormalMode}
 
 class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
@@ -41,8 +42,8 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/right-to-reject-substitute", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Would you have to pay your substitute?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.personalService.routes.WouldWorkerPaySubstituteController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -84,8 +85,8 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/right-to-reject-substitute/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Would you have to pay your substitute?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.personalService.routes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
       }
     }
   }
