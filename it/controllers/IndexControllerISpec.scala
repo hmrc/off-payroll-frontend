@@ -1,7 +1,6 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import play.api.http.Status
+import helpers.IntegrationSpecBase
 
 class IndexControllerISpec extends IntegrationSpecBase {
 
@@ -9,7 +8,7 @@ class IndexControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on successful get" in {
 
-      lazy val res = getRequest("/setup", true)
+      lazy val res = getRequest("/setup")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -30,7 +29,7 @@ class IndexControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on successful get" in {
 
-      lazy val res = getRequest("/", true)
+      lazy val res = getRequest("/")
 
       whenReady(res) { result =>
         result.status shouldBe OK

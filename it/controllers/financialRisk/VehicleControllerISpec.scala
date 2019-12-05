@@ -1,6 +1,8 @@
 package controllers.financialRisk
 
+import models.Section.financialRisk
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class VehicleControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +38,13 @@ class VehicleControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/vehicle-costs", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Will you have to buy materials before your client pays you?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.financialRisk.routes.MaterialsController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,12 +81,13 @@ class VehicleControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and redirect to check your answers with financial risk" in {
 
       lazy val res = postSessionRequest("/vehicle-costs/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(financialRisk)).url)
       }
     }
   }

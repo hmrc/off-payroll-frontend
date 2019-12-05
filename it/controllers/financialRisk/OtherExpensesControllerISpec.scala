@@ -1,6 +1,8 @@
 package controllers.financialRisk
 
+import models.Section.financialRisk
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +38,13 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/other-costs", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("How will you be paid for this work?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.financialRisk.routes.HowWorkerIsPaidController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,12 +81,13 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post as no other answers given" in {
+    "Return a 409 on Successful post and redirect to the check your answers page with financial risk" in {
 
       lazy val res = postSessionRequest("/other-costs/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(financialRisk)).url)
       }
     }
   }

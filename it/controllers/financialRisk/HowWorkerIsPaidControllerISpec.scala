@@ -1,6 +1,8 @@
 package controllers.financialRisk
 
+import models.Section.financialRisk
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +38,13 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/how-worker-is-paid",workerCompValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.financialRisk.routes.PutRightAtOwnCostController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,13 +81,13 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 303 on Successful post and redirect to the Check your answers page with Financial risk" in {
 
       lazy val res = postSessionRequest("/how-worker-is-paid/change",workerCompValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        titleOf(result) should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(financialRisk)).url)
       }
     }
   }
