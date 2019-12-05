@@ -43,7 +43,7 @@ class WhoAreYouControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WhatDoYouWantToDoController.onPageLoad(NormalMode).url)
+        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WhoAreYouController.onPageLoad(NormalMode).url)
       }
     }
   }
