@@ -1,6 +1,7 @@
 package controllers.businessOnOwnAccount
 
 import helpers.IntegrationSpecBase
+import models.{CheckMode, NormalMode}
 
 class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +37,13 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Previous Contract page" in {
 
       lazy val res = postSessionRequest("/client-buys-rights", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Have you had a previous contract with this client?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.PreviousContractController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,15 +80,14 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Previous Contract page" in {
 
       lazy val res = postSessionRequest("/client-buys-rights/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Have you had a previous contract with this client?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.PreviousContractController.onPageLoad(CheckMode).url)
       }
-
     }
   }
 }

@@ -1,6 +1,7 @@
 package controllers.businessOnOwnAccount
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import models.{CheckMode, NormalMode}
 import play.api.http.Status
 
 class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
@@ -37,13 +38,13 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Buy the Rights page" in {
 
       lazy val res = postSessionRequest("/client-owns-rights", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Does the contract give your client the option to buy the rights for a separate fee?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.TransferOfRightsController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -80,12 +81,13 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto Buy the Rights page" in {
 
-      lazy val res = postSessionRequest("/client-owns-rights/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/client-owns-rights/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/client-buys-rights/change")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.TransferOfRightsController.onPageLoad(CheckMode).url)
       }
     }
   }
