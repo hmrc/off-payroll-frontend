@@ -11,7 +11,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/material-costs")
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will you have to buy materials before your client pays you?")
+        titleOf(result) should include ("Will you have to buy materials before your client pays you?")
       }
     }
 
@@ -30,7 +30,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have to buy materials before your client pays you?")
+        titleOf(result) should include ("Will you have to buy materials before your client pays you?")
 
       }
     }
@@ -41,7 +41,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you have to fund any other costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any other costs before your client pays you?")
       }
     }
   }
@@ -54,7 +54,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you have to buy materials before your client pays you?")
+        titleOf(result) should include ("Will you have to buy materials before your client pays you?")
       }
     }
 
@@ -73,7 +73,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have to buy materials before your client pays you?")
+        titleOf(result) should include ("Will you have to buy materials before your client pays you?")
 
       }
     }

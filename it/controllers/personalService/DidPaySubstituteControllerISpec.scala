@@ -12,7 +12,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Did you pay your substitute?")
+        titleOf(result) should include ("Did you pay your substitute?")
       }
     }
 
@@ -31,7 +31,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Did you pay your substitute?")
+        titleOf(result) should include ("Did you pay your substitute?")
 
       }
     }
@@ -42,7 +42,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you paid another person to do a significant amount of this work?")
+        titleOf(result) should include ("Have you paid another person to do a significant amount of this work?")
       }
     }
   }
@@ -55,7 +55,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Did you pay your substitute?")
+        titleOf(result) should include ("Did you pay your substitute?")
       }
     }
 
@@ -74,7 +74,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Did you pay your substitute?")
+        titleOf(result) should include ("Did you pay your substitute?")
 
       }
     }
@@ -85,7 +85,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you paid another person to do a significant amount of this work?")
+        titleOf(result) should include ("Have you paid another person to do a significant amount of this work?")
       }
     }
   }

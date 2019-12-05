@@ -12,7 +12,7 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does your client have the right to decide your working hours?")
+        titleOf(result) should include ("Does your client have the right to decide your working hours?")
       }
     }
 
@@ -31,7 +31,7 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the right to decide your working hours?")
+        titleOf(result) should include ("Does your client have the right to decide your working hours?")
 
       }
     }
@@ -42,7 +42,7 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to decide where you do the work?")
+        titleOf(result) should include ("Does your client have the right to decide where you do the work?")
       }
     }
   }
@@ -55,7 +55,7 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/decide-working-hours/change")
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to decide your working hours?")
+        titleOf(result) should include ("Does your client have the right to decide your working hours?")
       }
     }
 
@@ -74,7 +74,7 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the right to decide your working hours?")
+        titleOf(result) should include ("Does your client have the right to decide your working hours?")
 
       }
     }
@@ -85,7 +85,7 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        titleOf(result) should include ("Something went wrong")
       }
     }
   }

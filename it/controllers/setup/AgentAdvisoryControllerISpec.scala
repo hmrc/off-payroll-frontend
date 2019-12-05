@@ -12,7 +12,7 @@ class AgentAdvisoryControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Continue as the worker to check a determination")
+        titleOf(result) should include ("Continue as the worker to check a determination")
       }
     }
 

@@ -13,7 +13,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will this contract start immediately after the previous one ended?")
+        titleOf(result) should include ("Will this contract start immediately after the previous one ended?")
       }
     }
 
@@ -32,7 +32,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will this contract start immediately after the previous one ended?")
+        titleOf(result) should include ("Will this contract start immediately after the previous one ended?")
 
       }
     }
@@ -43,7 +43,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
       }
     }
   }
@@ -56,7 +56,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will this contract start immediately after the previous one ended?")
+        titleOf(result) should include ("Will this contract start immediately after the previous one ended?")
       }
     }
 
@@ -75,7 +75,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will this contract start immediately after the previous one ended?")
+        titleOf(result) should include ("Will this contract start immediately after the previous one ended?")
 
       }
     }

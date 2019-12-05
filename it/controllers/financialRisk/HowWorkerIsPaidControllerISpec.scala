@@ -12,7 +12,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("How will you be paid for this work?")
+        titleOf(result) should include ("How will you be paid for this work?")
       }
     }
 
@@ -31,7 +31,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("How will you be paid for this work?")
+        titleOf(result) should include ("How will you be paid for this work?")
 
       }
     }
@@ -42,7 +42,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
       }
     }
   }
@@ -55,7 +55,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("How will you be paid for this work?")
+        titleOf(result) should include ("How will you be paid for this work?")
       }
     }
 
@@ -74,7 +74,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("How will you be paid for this work?")
+        titleOf(result) should include ("How will you be paid for this work?")
 
       }
     }
@@ -85,7 +85,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        titleOf(result) should include ("Something went wrong")
       }
     }
   }

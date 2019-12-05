@@ -13,7 +13,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does the contract state the rights to this work belong to your client?")
+        titleOf(result) should include ("Does the contract state the rights to this work belong to your client?")
       }
     }
 
@@ -32,7 +32,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does the contract state the rights to this work belong to your client?")
+        titleOf(result) should include ("Does the contract state the rights to this work belong to your client?")
 
       }
     }
@@ -43,7 +43,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee?")
+        titleOf(result) should include ("Does the contract give your client the option to buy the rights for a separate fee?")
       }
     }
   }
@@ -56,7 +56,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does the contract state the rights to this work belong to your client?")
+        titleOf(result) should include ("Does the contract state the rights to this work belong to your client?")
       }
     }
 
@@ -75,7 +75,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does the contract state the rights to this work belong to your client?")
+        titleOf(result) should include ("Does the contract state the rights to this work belong to your client?")
 
       }
     }

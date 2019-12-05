@@ -49,7 +49,7 @@ trait CreateRequestHelper extends ServerProvider {
 
   def postRequest(path: String, formString: String, followRedirect: Boolean = true): Future[WSResponse] =
     buildSessionRequest(path, followRedirect)
-      .addHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded")
+      .addHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded", "Csrf-Token" -> "nocheck")
       .post(formString)
 
   def postSessionRequest(path: String, formString: String, followRedirect: Boolean = true)(implicit  cookies: Seq[WSCookie]): Future[WSResponse] =

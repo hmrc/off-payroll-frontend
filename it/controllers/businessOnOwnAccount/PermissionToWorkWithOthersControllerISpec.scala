@@ -13,7 +13,7 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Are you required to ask permission to work for other clients?")
+        titleOf(result) should include ("Are you required to ask permission to work for other clients?")
       }
     }
 
@@ -32,7 +32,7 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Are you required to ask permission to work for other clients?")
+        titleOf(result) should include ("Are you required to ask permission to work for other clients?")
 
       }
     }
@@ -43,7 +43,7 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are there any ownership rights relating to this contract?")
+        titleOf(result) should include ("Are there any ownership rights relating to this contract?")
       }
     }
   }
@@ -56,7 +56,7 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you required to ask permission to work for other clients?")
+        titleOf(result) should include ("Are you required to ask permission to work for other clients?")
       }
     }
 
@@ -75,7 +75,7 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Are you required to ask permission to work for other clients?")
+        titleOf(result) should include ("Are you required to ask permission to work for other clients?")
 
       }
     }

@@ -12,7 +12,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you paid another person to do a significant amount of this work?")
+        titleOf(result) should include ("Have you paid another person to do a significant amount of this work?")
       }
     }
 
@@ -31,7 +31,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you paid another person to do a significant amount of this work?")
+        titleOf(result) should include ("Have you paid another person to do a significant amount of this work?")
 
       }
     }
@@ -42,7 +42,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        titleOf(result) should include ("Does your client have the right to move you from the task you originally agreed to do?")
       }
     }
   }
@@ -55,7 +55,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you paid another person to do a significant amount of this work?")
+        titleOf(result) should include ("Have you paid another person to do a significant amount of this work?")
       }
     }
 
@@ -74,7 +74,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you paid another person to do a significant amount of this work?")
+        titleOf(result) should include ("Have you paid another person to do a significant amount of this work?")
 
       }
     }

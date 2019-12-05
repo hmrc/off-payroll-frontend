@@ -2,6 +2,7 @@ package helpers
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import org.jsoup.Jsoup
 import org.scalatest._
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
@@ -21,6 +22,8 @@ trait IntegrationSpecBase extends WordSpec
   with WiremockHelper
   with GuiceOneServerPerSuite
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with Status with TestData with FeatureSwitching {
+
+  def titleOf(response: WSResponse): String = Jsoup.parse(response.body).title
 
   implicit lazy val cookies: Seq[WSCookie] = whenReady(getRequest("/disclaimer", true))(_.cookies)
 

@@ -11,7 +11,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/sent-substitute")
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you ever sent a substitute to do this work?")
+        titleOf(result) should include ("Have you ever sent a substitute to do this work?")
       }
     }
 
@@ -30,7 +30,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you ever sent a substitute to do this work?")
+        titleOf(result) should include ("Have you ever sent a substitute to do this work?")
 
       }
     }
@@ -41,7 +41,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to reject a substitute?")
+        titleOf(result) should include ("Does your client have the right to reject a substitute?")
       }
     }
   }
@@ -53,7 +53,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/sent-substitute/change")
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you ever sent a substitute to do this work?")
+        titleOf(result) should include ("Have you ever sent a substitute to do this work?")
       }
     }
 
@@ -72,7 +72,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you ever sent a substitute to do this work?")
+        titleOf(result) should include ("Have you ever sent a substitute to do this work?")
 
       }
     }
@@ -83,7 +83,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to reject a substitute?")
+        titleOf(result) should include ("Does your client have the right to reject a substitute?")
       }
     }
   }

@@ -12,8 +12,8 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
       lazy val res = getSessionRequest("/no-similar-work")
 
       whenReady(res) { result =>
-         result.status shouldBe OK
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        result.status shouldBe OK
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
       }
     }
 
@@ -32,7 +32,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
 
       }
     }
@@ -43,7 +43,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you required to ask permission to work for other clients?")
+        titleOf(result) should include ("Are you required to ask permission to work for other clients?")
       }
     }
   }
@@ -56,7 +56,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
       }
     }
 
@@ -75,7 +75,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
 
       }
     }

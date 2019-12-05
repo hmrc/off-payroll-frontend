@@ -13,7 +13,7 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
       }
     }
 
@@ -32,7 +32,7 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
 
       }
     }
@@ -43,7 +43,7 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does the current contract allow for it to be extended?")
+        titleOf(result) should include ("Does the current contract allow for it to be extended?")
       }
     }
   }
@@ -56,7 +56,7 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
       }
     }
 
@@ -75,7 +75,7 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
 
       }
     }

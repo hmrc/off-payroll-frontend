@@ -13,7 +13,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will this work take up the majority of your available working time?")
+        titleOf(result) should include ("Will this work take up the majority of your available working time?")
       }
     }
 
@@ -32,7 +32,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will this work take up the majority of your available working time?")
+        titleOf(result) should include ("Will this work take up the majority of your available working time?")
 
       }
     }
@@ -43,7 +43,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
+        titleOf(result) should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
       }
     }
   }
@@ -56,7 +56,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will this work take up the majority of your available working time?")
+        titleOf(result) should include ("Will this work take up the majority of your available working time?")
       }
     }
 
@@ -75,7 +75,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will this work take up the majority of your available working time?")
+        titleOf(result) should include ("Will this work take up the majority of your available working time?")
 
       }
     }

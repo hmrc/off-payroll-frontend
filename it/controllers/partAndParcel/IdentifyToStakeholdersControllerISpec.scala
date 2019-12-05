@@ -12,7 +12,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        titleOf(result) should include ("How would you introduce yourself to your client’s consumers or suppliers?")
       }
     }
 
@@ -31,7 +31,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        titleOf(result) should include ("How would you introduce yourself to your client’s consumers or suppliers?")
 
       }
     }
@@ -45,7 +45,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        titleOf(result) should include ("How would you introduce yourself to your client’s consumers or suppliers?")
       }
     }
 
@@ -64,7 +64,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        titleOf(result) should include ("How would you introduce yourself to your client’s consumers or suppliers?")
 
       }
     }
@@ -75,7 +75,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        titleOf(result) should include ("Something went wrong")
       }
     }
   }

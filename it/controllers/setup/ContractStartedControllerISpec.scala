@@ -12,7 +12,7 @@ class ContractStartedControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started working for this client?")
+        titleOf(result) should include ("Have you already started working for this client?")
       }
     }
 
@@ -31,7 +31,7 @@ class ContractStartedControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started working for this client?")
+        titleOf(result) should include ("Have you already started working for this client?")
 
       }
     }
@@ -42,7 +42,7 @@ class ContractStartedControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you be an ‘Office Holder’?")
+        titleOf(result) should include ("Will you be an ‘Office Holder’?")
       }
     }
   }
@@ -55,7 +55,7 @@ class ContractStartedControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started working for this client?")
+        titleOf(result) should include ("Have you already started working for this client?")
       }
     }
 
@@ -74,7 +74,7 @@ class ContractStartedControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started working for this client?")
+        titleOf(result) should include ("Have you already started working for this client?")
 
       }
     }
@@ -85,7 +85,7 @@ class ContractStartedControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you be an ‘Office Holder’?")
+        titleOf(result) should include ("Will you be an ‘Office Holder’?")
       }
     }
   }

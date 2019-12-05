@@ -41,9 +41,6 @@ class SessionIdFilter (
 
     lazy val sessionId: String = s"session-$uuid"
 
-
-    println(s"######## \n\n ${rh.session} \n\n ########")
-
     if (rh.session.get(SessionKeys.sessionId).isEmpty) {
 
       val cookies: String = {

@@ -13,7 +13,7 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does your organisation know who will be doing this work?")
+        titleOf(result) should include ("Does your organisation know who will be doing this work?")
       }
     }
 
@@ -32,7 +32,7 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your organisation know who will be doing this work?")
+        titleOf(result) should include ("Does your organisation know who will be doing this work?")
 
       }
     }
@@ -43,7 +43,7 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
       }
     }
   }
@@ -56,7 +56,7 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your organisation know who will be doing this work?")
+        titleOf(result) should include ("Does your organisation know who will be doing this work?")
       }
     }
 
@@ -75,7 +75,7 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your organisation know who will be doing this work?")
+        titleOf(result) should include ("Does your organisation know who will be doing this work?")
 
       }
     }

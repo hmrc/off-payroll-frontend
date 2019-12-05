@@ -12,7 +12,7 @@ class NoIntermediaryControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Off-payroll working rules (IR35) cannot apply")
+        titleOf(result) should include ("Off-payroll working rules (IR35) cannot apply")
       }
     }
 

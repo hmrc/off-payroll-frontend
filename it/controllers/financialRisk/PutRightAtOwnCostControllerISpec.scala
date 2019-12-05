@@ -12,7 +12,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
       }
     }
 
@@ -31,7 +31,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
 
       }
     }
@@ -42,7 +42,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will your client provide you with paid-for corporate benefits?")
+        titleOf(result) should include ("Will your client provide you with paid-for corporate benefits?")
       }
     }
   }
@@ -56,7 +56,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
       }
     }
 
@@ -75,7 +75,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
 
       }
     }
@@ -86,7 +86,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        titleOf(result) should include ("Something went wrong")
       }
     }
   }

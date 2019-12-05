@@ -12,7 +12,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Would you have to pay your substitute?")
+        titleOf(result) should include ("Would you have to pay your substitute?")
       }
     }
 
@@ -31,7 +31,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Would you have to pay your substitute?")
+        titleOf(result) should include ("Would you have to pay your substitute?")
 
       }
     }
@@ -42,7 +42,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        titleOf(result) should include ("Does your client have the right to move you from the task you originally agreed to do?")
       }
     }
   }
@@ -55,7 +55,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/would-pay-substitute/change")
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Would you have to pay your substitute?")
+        titleOf(result) should include ("Would you have to pay your substitute?")
       }
     }
 
@@ -74,7 +74,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Would you have to pay your substitute?")
+        titleOf(result) should include ("Would you have to pay your substitute?")
 
       }
     }

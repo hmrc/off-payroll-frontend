@@ -12,7 +12,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("What do you want to do?")
+        titleOf(result) should include ("What do you want to do?")
       }
     }
 
@@ -31,7 +31,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("What do you want to do?")
+        titleOf(result) should include ("What do you want to do?")
 
       }
     }
@@ -42,7 +42,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
       }
     }
   }
@@ -55,7 +55,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("What do you want to do?")
+        titleOf(result) should include ("What do you want to do?")
       }
     }
 
@@ -74,7 +74,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("What do you want to do?")
+        titleOf(result) should include ("What do you want to do?")
 
       }
     }
