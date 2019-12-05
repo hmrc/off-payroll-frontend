@@ -56,8 +56,8 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/office-holder", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Have you already started working for this client?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.ContractStartedController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -111,7 +111,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/office-holder/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+      result.status shouldBe SEE_OTHER
       }
     }
   }

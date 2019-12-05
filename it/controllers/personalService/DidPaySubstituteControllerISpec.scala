@@ -1,6 +1,7 @@
 package controllers.personalService
 
 import helpers.IntegrationSpecBase
+import models.{CheckMode, NormalMode}
 
 class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
@@ -41,8 +42,8 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/paid-substitute", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Have you paid another person to do a significant amount of this work?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.personalService.routes.NeededToPayHelperController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -84,8 +85,8 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/paid-substitute/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Have you paid another person to do a significant amount of this work?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.personalService.routes.NeededToPayHelperController.onPageLoad(CheckMode).url)
       }
     }
   }

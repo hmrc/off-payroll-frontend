@@ -1,6 +1,7 @@
 package controllers.personalService
 
 import helpers.IntegrationSpecBase
+import models.{CheckMode, NormalMode}
 
 class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
@@ -40,8 +41,8 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/sent-substitute",arrangeSubValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Does your client have the right to reject a substitute?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.personalService.routes.RejectSubstituteController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -82,8 +83,8 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/sent-substitute/change",arrangeSubValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Does your client have the right to reject a substitute?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.personalService.routes.RejectSubstituteController.onPageLoad(CheckMode).url)
       }
     }
   }
