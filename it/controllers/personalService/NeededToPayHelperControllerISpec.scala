@@ -37,7 +37,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/paid-helper", selectedNo)
 

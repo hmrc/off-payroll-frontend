@@ -1,7 +1,8 @@
 package controllers.personalService
 
+import models.Section.personalService
 import helpers.IntegrationSpecBase
-import models.NormalMode
+import models.{CheckMode, NormalMode}
 
 class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
@@ -37,7 +38,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/would-pay-substitute", selectedNo)
 
@@ -86,6 +87,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(personalService)).url)
       }
     }
   }

@@ -39,7 +39,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       val response = Json.toJson(DecisionResponse(
         "1.6.0",
@@ -94,7 +94,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post as answers not complete" in {
 
       val response = Json.toJson(DecisionResponse(
         "1.6.0",
