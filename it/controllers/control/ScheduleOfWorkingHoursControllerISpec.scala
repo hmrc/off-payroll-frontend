@@ -1,6 +1,7 @@
 package controllers.control
 
 import helpers.IntegrationSpecBase
+import models.{NormalMode, Section}
 
 class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +37,13 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/decide-working-hours",chooseWhenDoneValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Does your client have the right to decide where you do the work?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.control.routes.ChooseWhereWorkController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,13 +80,13 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 303 on Successful post and move onto CheckYourAnswers Page" in {
 
       lazy val res = postSessionRequest("/decide-working-hours/change",chooseWhenDoneValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        titleOf(result) should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(Section.control)).url)
       }
     }
   }
