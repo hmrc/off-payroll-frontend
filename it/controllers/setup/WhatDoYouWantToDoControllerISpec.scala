@@ -1,6 +1,7 @@
 package controllers.setup
 
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +37,13 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and redirect to the Worker using intermediary page" in {
 
       lazy val res = postSessionRequest("/what-do-you-want-to-do",whatDoYouWantToDoValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WorkerUsingIntermediaryController.onPageLoad(NormalMode).url)
       }
     }
   }

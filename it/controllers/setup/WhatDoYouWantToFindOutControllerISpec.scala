@@ -1,6 +1,7 @@
 package controllers.setup
 
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class WhatDoYouWantToFindOutControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +37,13 @@ class WhatDoYouWantToFindOutControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and redirect to the Who Are You page" in {
 
       lazy val res = postSessionRequest("/what-do-you-want-to-find-out",whatDoYouWantToFindOutValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Who are you?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WhoAreYouController.onPageLoad(NormalMode).url)
       }
     }
   }
