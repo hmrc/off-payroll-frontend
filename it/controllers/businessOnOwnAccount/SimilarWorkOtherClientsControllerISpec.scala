@@ -1,6 +1,7 @@
 package controllers.businessOnOwnAccount
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import models.Section
 import play.api.http.Status
 
 class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
@@ -37,12 +38,13 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto review answers" in {
 
-      lazy val res = postSessionRequest("/similar-work", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/similar-work", selectedNo)
 
       whenReady(res) { result =>
-          redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad().url)
       }
     }
   }
@@ -81,10 +83,11 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
     "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/similar-work/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/similar-work/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers?sectionToExpand=businessOnOwnAccount")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(Section.businessOnOwnAccount)).url)
       }
     }
   }
