@@ -1,6 +1,7 @@
 package controllers.setup
 
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class ContractStartedControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +37,13 @@ class ContractStartedControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and redirect to the Office Holder page" in {
 
       lazy val res = postSessionRequest("/work-started", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Will you be an ‘Office Holder’?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.exit.routes.OfficeHolderController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,13 +80,13 @@ class ContractStartedControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and redirect to the Office Holder page" in {
 
       lazy val res = postSessionRequest("/work-started/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Will you be an ‘Office Holder’?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.exit.routes.OfficeHolderController.onPageLoad(NormalMode).url)
       }
     }
   }

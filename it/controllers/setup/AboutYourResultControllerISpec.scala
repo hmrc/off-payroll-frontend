@@ -1,6 +1,7 @@
 package controllers.setup
 
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class AboutYourResultControllerISpec extends IntegrationSpecBase {
 
@@ -25,12 +26,13 @@ class AboutYourResultControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on unsuccessful post" in {
+    "Return a 303 on unsuccessful post" in {
 
       lazy val res = postRequest("/disclaimer", defaultValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode).url)
       }
     }
   }
