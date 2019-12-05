@@ -504,184 +504,6 @@ hirer.didPaySubstitute.p1 = This includes payments made by the worker or their b
 #########################
 
 
-# Common Result Page Messages
-result.whyResult.h2 = Why are you getting this result
-
-result.showAnswers = View my answers for this section
-
-result.peopleInvolved.h2 = About the people involved
-result.workersDuties.h2 = About the worker’s duties
-result.substitutesHelpers.h2 = About substitutes and helpers
-result.workArrangements.h2 = About the work arrangements
-result.financialRisk.h2 = About the worker’s financial risk
-result.partAndParcel.h2 = About the worker’s integration into the organisation
-
-result.shouldNowDo.h2 = You should now do the following:
-result.shouldNowDo.h3.public = Public sector
-result.shouldNowDo.h3.public.office = Public sector engagements
-result.shouldNowDo.h3.private = Private sector
-result.shouldNowDo.h3.private.office = Private sector engagements
-
-result.aboutResult.h2 = About this result
-result.aboutResult.willStandByResult = HMRC will stand by the result given unless a compliance check finds the information provided is not accurate.
-result.aboutResult.willNotStandByResult = HMRC will not stand by results achieved through contrived arrangements designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.
-result.aboutResult.reviewTaxes = HMRC can review your taxes for up to 20 years.
-result.aboutResult.exclamation = HMRC will not keep a record of this result.
-
-result.decisionVersion = Decision Service Version:
-
-result.declaration.checkbox = Before you rely on this result, please confirm that you have:
-result.declaration.bullet1 = read the guidance for each question
-result.declaration.bullet2 = reviewed your answers
-result.declaration.bullet3 = given answers that reflect the actual or expected working practices of this engagement
-result.declaration.noLongerHold = If the working practices of this engagement change you accept this result may no longer hold.
-result.declaration.error.required = In order to download a PDF, you will need to check the declaration box
-
-# Early Exit, Office Holder Inside IR35
-result.officeHolderInsideIR35.title = The intermediaries legislation applies to this engagement
-result.officeHolderInsideIR35.heading = The intermediaries legislation applies to this engagement
-result.officeHolderInsideIR35.whyResult.p1 = Workers that perform office holder duties for the end client are classed as employed for tax purposes.
-result.officeHolderInsideIR35.shouldNowDo.public.p1 = If you are the worker you should tell the organisation that pays your fees (the fee-payer) to deduct Income Tax and National Insurance contributions from your payment.
-result.officeHolderInsideIR35.shouldNowDo.public.p2.beforeLink = If you are the fee-payer you need to deduct Income Tax and National Insurance contributions from the worker’s
-result.officeHolderInsideIR35.shouldNowDo.public.p2.link = deemed employment payment(s)
-result.officeHolderInsideIR35.shouldNowDo.public.p2.afterLink = during this engagement.
-result.officeHolderInsideIR35.shouldNowDo.private.p1.beforeLink = If you are the worker you need to follow
-result.officeHolderInsideIR35.shouldNowDo.private.p1.link = this guidance
-result.officeHolderInsideIR35.shouldNowDo.private.p1.afterLink = about your taxes.
-result.officeHolderInsideIR35.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
-result.officeHolderInsideIR35.aboutResult.p1.link = these specific conditions of liability
-result.officeHolderInsideIR35.aboutResult.p1.afterLink = .
-
-
-# Early Exit, Office Holder Employed
-result.officeHolderEmployed.title = This engagement should be classed as employed for tax purposes
-result.officeHolderEmployed.heading = This engagement should be classed as employed for tax purposes
-result.officeHolderEmployed.whyResult.p1 = Workers that perform office holder duties for the end client are classed as employed for tax purposes.
-result.officeHolderEmployed.shouldNowDo.engager.beforeLink = If you are the engager you need to
-result.officeHolderEmployed.shouldNowDo.engager.link = operate PAYE
-result.officeHolderEmployed.shouldNowDo.engager.afterLink = for this worker.
-result.officeHolderEmployed.shouldNowDo.worker = If you are the worker you should tell your engager to operate PAYE for you.
-
-# Early Exit, Future Substitution
-result.futureSubstitution.title = The intermediaries legislation does not apply to this engagement
-result.futureSubstitution.heading = The intermediaries legislation does not apply to this engagement
-result.futureSubstitution.whyResult.p1 = You have told us that the worker’s business could arrange and pay for a substitute to work on this engagement, and that the end client would accept it. This suggests that the end client is engaging the worker on a business to business basis, rather than on a personal service basis.
-result.futureSubstitution.whyResult.exclamation = If HMRC investigate this engagement, the end client will need to confirm that they would accept substitution. They may also be asked to demonstrate that they have accepted substitution during this, or a similar engagement.
-result.futureSubstitution.whyResult.p2 = It is important to demonstrate that it is the worker’s business that will pay, and provide the substitute, not the agency, and not the end client
-result.futureSubstitution.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
-result.futureSubstitution.shouldNowDo.p1.link = this guidance
-result.futureSubstitution.shouldNowDo.p1.afterLink = about your taxes.
-result.futureSubstitution.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
-result.futureSubstitution.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
-result.futureSubstitution.aboutResult.p1.link = these specific conditions of liability
-result.futureSubstitution.aboutResult.p1.afterLink = .
-
-# Early Exit, Current Substitution
-result.currentSubstitution.title = The intermediaries legislation does not apply to this engagement
-result.currentSubstitution.heading = The intermediaries legislation does not apply to this engagement
-result.currentSubstitution.whyResult.p1 = You have told us that the worker’s business has arranged and paid for a substitute to work on this engagement, and that the end client accepted it. This suggests that the end client is engaging the worker on a business to business basis, rather than on a personal service basis.
-result.currentSubstitution.whyResult.exclamation = If HMRC investigate this engagement, the worker and the end client will need to demonstrate that paid substitution has happened.
-result.currentSubstitution.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
-result.currentSubstitution.shouldNowDo.p1.link = this guidance
-result.currentSubstitution.shouldNowDo.p1.afterLink = about your taxes.
-result.currentSubstitution.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
-
-# Self Employed Result
-result.selfEmployed.title = This engagement should be classed as self-employed for tax purposes
-result.selfEmployed.heading = This engagement should be classed as self-employed for tax purposes
-result.selfEmployed.whyResult.p1 = The answers you have given tell us that the worker is a sole trader, and the working practices of this engagement mean they are self-employed for tax purposes.
-result.selfEmployed.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
-result.selfEmployed.shouldNowDo.p1.link = this guidance
-result.selfEmployed.shouldNowDo.p1.afterLink = about your taxes.
-result.selfEmployed.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
-
-# Employed Result
-result.employed.title = This engagement should be classed as employed for tax purposes
-result.employed.heading = This engagement should be classed as employed for tax purposes
-result.employed.whyResult.p1 = The answers you have given tell us that the worker is directly engaged, and the working practices of this engagement means that they are employed for tax purposes.
-result.employed.shouldNowDo.p1.beforeLink = If you are the engager you need to
-result.employed.shouldNowDo.p1.link = operate PAYE
-result.employed.shouldNowDo.p1.afterLink = for this worker.
-result.employed.shouldNowDo.p2 = If you are the worker you should tell your engager to operate PAYE for you.
-
-# Control Result
-result.control.title = The intermediaries legislation does not apply to this engagement
-result.control.heading = The intermediaries legislation does not apply to this engagement
-result.control.whyResult.p1 = Your answers suggest that the end client does not have a right of control over the work for this engagement to be classed as employed for tax purposes.
-result.control.whyResult.exclamation = If HMRC investigate this engagement, the end client would need to agree and demonstrate that they could not or did not exert their right of control over the worker.
-result.control.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
-result.control.shouldNowDo.p1.link = this guidance
-result.control.shouldNowDo.p1.afterLink = about your taxes.
-result.control.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
-result.control.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
-result.control.aboutResult.p1.link = these specific conditions of liability
-result.control.aboutResult.p1.afterLink = .
-
-# Financial Risk Result
-result.financialRisk.title = The intermediaries legislation does not apply to this engagement
-result.financialRisk.heading = The intermediaries legislation does not apply to this engagement
-result.financialRisk.whyResult.p1 = You have told us that the worker’s business must make a significant capital investment to work on this engagement. These costs cannot be claimed back from the end client or an agency. Workers who risk their own money by, for example, buying assets, or paying for overheads and materials are acting more like a business in their own account and are likely to be self-employed for tax purposes.
-result.financialRisk.whyResult.exclamation = If HMRC investigate this engagement, the worker will need to demonstrate that they had to incur significant costs for materials, equipment, vehicles or other expenses that cannot be claimed back from the end client or agency.
-result.financialRisk.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
-result.financialRisk.shouldNowDo.p1.link = this guidance
-result.financialRisk.shouldNowDo.p1.afterLink = about your taxes.
-result.financialRisk.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
-result.financialRisk.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
-result.financialRisk.aboutResult.p1.link = these specific conditions of liability
-result.financialRisk.aboutResult.p1.afterLink = .
-
-# Indeterminate Result
-result.indeterminate.title = We are unable to determine the tax status of this engagement
-result.indeterminate.heading = We are unable to determine the tax status of this engagement
-result.indeterminate.whyResult.p1 = We need more information to understand the working practices of this engagement.
-result.indeterminate.whyResult.p2 = You can review the answers you have given below.
-result.indeterminate.shouldNowDo.p1 = If you require further assistance, please contact HMRC’s Employment Status and Intermediaries helpline for advice:
-result.indeterminate.shouldNowDo.bullet1 = by phone on 0300 123 2326
-result.indeterminate.shouldNowDo.bullet2 = by email at ir35@hmrc.gov.uk
-result.indeterminate.shouldNowDo.p2.beforeLink = You could also read through the
-result.indeterminate.shouldNowDo.p2.link = Employment status manual
-
-# Inside IR35
-result.insideIR35.title = The intermediaries legislation applies to this engagement
-result.insideIR35.heading = The intermediaries legislation applies to this engagement
-result.insideIR35.whyResult.p1 = The answers you have given suggest that the working practices of this engagement mean the worker is employed for tax purposes.
-result.insideIR35.shouldNowDo.public.p1 = If you are the worker you should tell the organisation that pays your fees (the fee-payer) to deduct Income Tax and National Insurance contributions from your payment.
-result.insideIR35.shouldNowDo.public.p2.beforeLink = If you are the fee-payer you need to deduct Income Tax and National Insurance contributions from the worker’s
-result.insideIR35.shouldNowDo.public.p2.link = deemed employment payment(s)
-result.insideIR35.shouldNowDo.public.p2.afterLink = during this engagement.
-result.insideIR35.shouldNowDo.public.p3.beforeLink = If you are the end client, and not the organisation paying the worker (fee-payer). You should tell the fee paying agency to deduct Income Tax and National Insurance contributions from the worker’s
-result.insideIR35.shouldNowDo.public.p3.link = deemed employment payment(s)
-result.insideIR35.shouldNowDo.public.p3.afterLink = during this engagement.
-result.insideIR35.shouldNowDo.private.p1.beforeLink = If you are the worker you need to follow
-result.insideIR35.shouldNowDo.private.p1.link = this guidance
-result.insideIR35.shouldNowDo.private.p1.afterLink = about your taxes.
-result.insideIR35.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
-result.insideIR35.aboutResult.p1.link = these specific conditions of liability
-result.insideIR35.aboutResult.p1.afterLink = .
-
-customisePDF.title = Customise this result record
-customisePDF.heading = Customise this result record
-customisePDF.hint = You can add some information to this page before you print it. This is for your reference only and will not be stored by HMRC. All fields are optional
-customisePDF.customisedBy = Name of the person that completed this check
-customisePDF.time = Date of result: {0} (UTC)
-customisePDF.client = End client’s name
-customisePDF.job = Engagement job title
-customisePDF.reference = Reference (for example, worker’s name or contract number)
-customisePDF.completedBy.error.length = Name must be 100 characters or less
-customisePDF.client.error.length = Name must be 100 characters or less
-customisePDF.job.error.length = Job title must be 100 characters or less
-customisePDF.reference.error.length = Reference must be 100 characters or less
-
-#Result summary text
-result.substitutesAndHelpers.summary = We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client has not or would not agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they are being engaged on a personal service basis.
-result.workArrangements.summary = We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
-result.financialRisk.summary = We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who do not risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
-result.partParcel.summary = We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
-
-
-
-
-
 ########## OPTIMISED FLOW MESSAGES START ############
 # --------------------------------------------------#
 
@@ -746,19 +568,19 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
 
 ## Common Result Messages
 ## ----------------------
-optimised.result.title = Result
-optimised.result.whyResult.h2 = Why you are getting this result
-optimised.result.doNext.h2 = What you should do next
-optimised.result.download.p1.determined = It is important that you keep a copy of this determination for your records.
-optimised.result.download.p1.undetermined = It is important that you keep a copy of this result for your records.
-optimised.result.download.getCopy = Get a copy of this result
-optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
-optimised.result.download.p2.exitLink = exit
-optimised.result.download.p2.exitLink.aria = Exit the check employment status for tax tool
-optimised.result.download.p2.preStartAgain = now, or
-optimised.result.download.p2.startAgainLink = start again
-optimised.result.download.p2.startAgainLink.aria = Start the check employment status for tax tool again
-optimised.result.download.p2.postStartAgain = to check the employment status of some other work.
+result.title = Result
+result.whyResult.h2 = Why you are getting this result
+result.doNext.h2 = What you should do next
+result.download.p1.determined = It is important that you keep a copy of this determination for your records.
+result.download.p1.undetermined = It is important that you keep a copy of this result for your records.
+result.download.getCopy = Get a copy of this result
+result.download.p2.preExit = If you do not want to download a copy of your result, you can
+result.download.p2.exitLink = exit
+result.download.p2.exitLink.aria = Exit the check employment status for tax tool
+result.download.p2.preStartAgain = now, or
+result.download.p2.startAgainLink = start again
+result.download.p2.startAgainLink.aria = Start the check employment status for tax tool again
+result.download.p2.postStartAgain = to check the employment status of some other work.
 
 
 ## Office Holder PAYE

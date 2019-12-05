@@ -1,6 +1,7 @@
 package controllers.setup
 
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class WhoAreYouControllerISpec extends IntegrationSpecBase {
 
@@ -38,11 +39,11 @@ class WhoAreYouControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/who-are-you",whoAreYouValue)
+      lazy val res = postSessionRequest("/who-are-you", whoAreYouValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("What do you want to find out?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WhatDoYouWantToDoController.onPageLoad(NormalMode).url)
       }
     }
   }

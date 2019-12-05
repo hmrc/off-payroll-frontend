@@ -1,6 +1,7 @@
 package controllers.partAndParcel
 
 import helpers.IntegrationSpecBase
+import models.Section.partAndParcel
 
 class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
@@ -69,13 +70,13 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post and move onto the something went wrong page" in {
+    "Return a 303 on Successful post redirecting to the check your answers page with part and parcel section" in {
 
       lazy val res = postSessionRequest("/introduce-worker/change",introduceValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        titleOf(result) should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(partAndParcel)).url)
       }
     }
   }

@@ -509,184 +509,6 @@ hirer.didPaySubstitute.p1 = Mae hyn yn cynnwys taliadau a wneir gan y gweithiwr 
 #########################
 
 
-# Common Result Page Messages
-result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
-
-result.showAnswers = Gweld fy atebion ar gyfer yr adran hon
-
-result.peopleInvolved.h2 = Ynglŷn â’r bobl berthnasol
-result.workersDuties.h2 = Ynglŷn â dyletswyddau’r gweithiwr
-result.substitutesHelpers.h2 = Ynglŷn ag eilyddion a chynorthwywyr
-result.workArrangements.h2 = Ynglŷn â’r trefniadau gwaith
-result.financialRisk.h2 = Ynglŷn â risg ariannol y gweithiwr
-result.partAndParcel.h2 = Ynglŷn ag integreiddio’r gweithiwr i mewn i’r sefydliad
-
-result.shouldNowDo.h2 = Dylech nawr wneud y canlynol:
-result.shouldNowDo.h3.public = Sector cyhoeddus
-result.shouldNowDo.h3.public.office = Swyddi yn y sector cyhoeddus
-result.shouldNowDo.h3.private = Sector preifat
-result.shouldNowDo.h3.private.office = Swyddi yn y sector preifat
-
-result.aboutResult.h2 = Ynghylch y canlyniad hwn
-result.aboutResult.willStandByResult = Bydd CThEM yn cadw at y canlyniad oni bai bod gwiriad cydymffurfiad yn darganfod gwybodaeth nad yw’n gywir.
-result.aboutResult.willNotStandByResult = Ni fydd CThEM yn cadw at ganlyniadau sy’n hanu o drefniadau ffug wedi’u cynllunio i gyrraedd at ganlyniad penodol o’r gwasanaeth. Caiff hyn ei drin fel tystiolaeth o ddigydymffurfiad bwriadol sydd â chosbau uwch.
-result.aboutResult.reviewTaxes = Gall CThEM adolygu’ch trethi am hyd at 20 mlynedd.
-result.aboutResult.exclamation = Ni fydd CThEM yn cadw cofnod o’r canlyniad hwn.
-
-result.decisionVersion = Fersiwn y Gwasanaeth Penderfyniadau:
-
-result.declaration.checkbox = Cyn i chi ddibynnu ar y canlyniad hwn, cadarnhewch eich bod wedi:
-result.declaration.bullet1 = darllen yr arweiniad ar gyfer pob cwestiwn
-result.declaration.bullet2 = adolygu’ch atebion
-result.declaration.bullet3 = rhoi atebion sy’n adlewyrchu arferion gwaith, gwirioneddol neu ddisgwyliedig, y swydd hon
-result.declaration.noLongerHold = Os bydd arferion gwaith y swydd hon yn newid, rydych yn derbyn na fydd y canlyniad hwn, o bosib, yn sefyll.
-result.declaration.error.required = Bydd angen i chi dicio’r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
-
-# Early Exit, Office Holder Inside IR35
-result.officeHolderInsideIR35.title = Mae’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.officeHolderInsideIR35.heading = Mae’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.officeHolderInsideIR35.whyResult.p1 = Mae gweithwyr sy’n cyflawni dyletswyddau deiliad swydd ar gyfer y cleient terfynol yn cael eu hystyried i fod yn gyflogedig at ddibenion treth.
-result.officeHolderInsideIR35.shouldNowDo.public.p1 = Os mai chi yw’r gweithiwr, dylech roi gwybod i’r sefydliad sy’n talu’ch ffioedd (talwr y ffi) y dylai ddidynnu treth ac Yswiriant Gwladol o’ch taliad.
-result.officeHolderInsideIR35.shouldNowDo.public.p2.beforeLink = Os mai chi sy’n talu’r ffi, dylech ddidynnu treth ac Yswiriant Gwladol o
-result.officeHolderInsideIR35.shouldNowDo.public.p2.link = daliad(au) tybiedig y gyflogaeth
-result.officeHolderInsideIR35.shouldNowDo.public.p2.afterLink = y gweithiwr yn ystod y swydd hon.
-result.officeHolderInsideIR35.shouldNowDo.private.p1.beforeLink = Os mai chi yw’r gweithiwr, bydd angen i chi ddilyn
-result.officeHolderInsideIR35.shouldNowDo.private.p1.link = yr arweiniad hwn
-result.officeHolderInsideIR35.shouldNowDo.private.p1.afterLink = ynghylch eich treth.
-result.officeHolderInsideIR35.aboutResult.p1.beforeLink = Ni fydd y ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon pan fo busnes y gweithiwr (y cyfryngwr) yn bodloni
-result.officeHolderInsideIR35.aboutResult.p1.link = amodau penodol y rhwymedigaeth
-result.officeHolderInsideIR35.aboutResult.p1.afterLink =.
-
-
-# Early Exit, Office Holder Employed
-result.officeHolderEmployed.title = Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
-result.officeHolderEmployed.heading = Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
-result.officeHolderEmployed.whyResult.p1 = Mae gweithwyr sy’n cyflawni dyletswyddau deiliad swydd ar gyfer y cleient terfynol yn cael eu hystyried i fod yn gyflogedig at ddibenion treth.
-result.officeHolderEmployed.shouldNowDo.engager.beforeLink = Os mai chi yw’r huriwr, bydd angen i chi
-result.officeHolderEmployed.shouldNowDo.engager.link = weithredu TWE
-result.officeHolderEmployed.shouldNowDo.engager.afterLink = ar gyfer y gweithiwr hwn.
-result.officeHolderEmployed.shouldNowDo.worker = Os mai chi yw’r gweithiwr, dylech roi gwybod i’ch huriwr i weithredu TWE ar eich cyfer.
-
-# Early Exit, Future Substitution
-result.futureSubstitution.title = Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.futureSubstitution.heading = Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.futureSubstitution.whyResult.p1 = Rydych wedi rhoi gwybod i ni y gallai busnes y gweithiwr drefnu a thalu i rywun arall am weithio ar y swydd hon, ac y byddai’r cleient terfynol yn derbyn hyn. Mae hyn yn awgrymu bod y cleient terfynol yn hurio’r gweithiwr ar sail busnes i fusnes, yn hytrach nag ar sail gwasanaeth personol.
-result.futureSubstitution.whyResult.exclamation = Os bydd CThEM yn ymchwilio i’r swydd hon, bydd yn rhaid i’r cleient terfynol gadarnhau y byddai’n derbyn bod rhywun arall yn gwneud hyn. Mae’n bosibl y gofynnir iddo hefyd ddangos ei fod wedi derbyn bod rhywun arall yn gwneud hyn yn ystod y swydd hon neu swydd debyg.
-result.futureSubstitution.whyResult.p2 = Mae’n bwysig dangos mai busnes y gweithiwr fydd yn trefnu a thalu i rywun arall am wneud hyn, nid yr asiantaeth, ac nid y cleient terfynol.
-result.futureSubstitution.shouldNowDo.p1.beforeLink = Os mai chi yw’r gweithiwr, dylai’ch busnes gael swm gros a dilyn
-result.futureSubstitution.shouldNowDo.p1.link = yr arweiniad hwn
-result.futureSubstitution.shouldNowDo.p1.afterLink = ynghylch eich treth.
-result.futureSubstitution.shouldNowDo.p2 = Os mai chi sy’n talu’r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
-result.futureSubstitution.aboutResult.p1.beforeLink = Ni fydd y ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon pan fo busnes y gweithiwr (y cyfryngwr) yn bodloni
-result.futureSubstitution.aboutResult.p1.link = amodau penodol y rhwymedigaeth
-result.futureSubstitution.aboutResult.p1.afterLink =.
-
-# Early Exit, Current Substitution
-result.currentSubstitution.title = Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.currentSubstitution.heading = Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.currentSubstitution.whyResult.p1 = Rydych wedi rhoi gwybod i ni bod busnes y gweithiwr wedi trefnu a thalu i rywun arall am weithio ar y swydd hon, a bod y cleient terfynol wedi derbyn hyn. Mae hyn yn awgrymu bod y cleient terfynol yn hurio’r gweithiwr ar sail busnes i fusnes, yn hytrach nag ar sail gwasanaeth personol.
-result.currentSubstitution.whyResult.exclamation = Os bydd CThEM yn ymchwilio i’r swydd hon, bydd yn rhaid i’r gweithiwr a’r cleient terfynol ddangos eu bod wedi trefnu a thalu i rywun arall am wneud hyn.
-result.currentSubstitution.shouldNowDo.p1.beforeLink = Os mai chi yw’r gweithiwr, dylai’ch busnes gael swm gros a dilyn
-result.currentSubstitution.shouldNowDo.p1.link = yr arweiniad hwn
-result.currentSubstitution.shouldNowDo.p1.afterLink = ynghylch eich treth.
-result.currentSubstitution.shouldNowDo.p2 = Os mai chi sy’n talu’r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
-
-# Self Employed Result
-result.selfEmployed.title = Dylid ystyried y swydd hon i fod yn un hunangyflogedig at ddibenion treth
-result.selfEmployed.heading = Dylid ystyried y swydd hon i fod yn un hunangyflogedig at ddibenion treth
-result.selfEmployed.whyResult.p1 = Mae’r atebion a roddwyd gennych yn rhoi gwybod i ni bod y gweithiwr yn hunan fasnachwr, ac mae arferion gwaith y swydd hon yn golygu ei fod yn hunangyflogedig at ddibenion treth.
-result.selfEmployed.shouldNowDo.p1.beforeLink = Os mai chi yw’r gweithiwr, dylai’ch busnes gael swm gros a dilyn
-result.selfEmployed.shouldNowDo.p1.link = yr arweiniad hwn
-result.selfEmployed.shouldNowDo.p1.afterLink = ynghylch eich treth.
-result.selfEmployed.shouldNowDo.p2 = Os mai chi sy’n talu’r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
-
-# Employed Result
-result.employed.title = Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
-result.employed.heading = Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
-result.employed.whyResult.p1 = Mae gweithwyr sy’n cyflawni dyletswyddau deiliad swydd ar gyfer y cleient terfynol yn cael eu hystyried i fod yn gyflogedig at ddibenion treth.
-result.employed.shouldNowDo.p1.beforeLink = Os mai chi yw’r huriwr, bydd angen i chi
-result.employed.shouldNowDo.p1.link = weithredu TWE
-result.employed.shouldNowDo.p1.afterLink = ar gyfer y gweithiwr hwn.
-result.employed.shouldNowDo.p2 = Os mai chi yw’r gweithiwr, dylech roi gwybod i’ch huriwr i weithredu TWE ar eich cyfer.
-
-# Control Result
-result.control.title = Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.control.heading = Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.control.whyResult.p1 = Mae’ch atebion yn awgrymu nad oes gan y cleient terfynol hawl i reoli’r gwaith er mwyn i’r swydd hon gael ei hystyried i fod yn un gyflogedig at ddibenion treth.
-result.control.whyResult.exclamation = Petai CThEM yn ymchwilio i’r swydd hon, byddai’n rhaid i’r cleient terfynol gytuno a dangos na allai fynnu’i hawl i reoli’r gweithiwr, neu os na wnaeth hynny.
-result.control.shouldNowDo.p1.beforeLink = Os mai chi yw’r gweithiwr, dylai’ch busnes gael swm gros a dilyn
-result.control.shouldNowDo.p1.link = yr arweiniad hwn
-result.control.shouldNowDo.p1.afterLink = ynghych eich treth.
-result.control.shouldNowDo.p2 = Os mai chi sy’n talu’r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
-result.control.aboutResult.p1.beforeLink = Ni fydd y ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon pan fo busnes y gweithiwr (y cyfryngwr) yn bodloni
-result.control.aboutResult.p1.link = amodau penodol y rhwymedigaeth
-result.control.aboutResult.p1.afterLink =.
-
-# Financial Risk Result
-result.financialRisk.title = Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.financialRisk.heading = Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.financialRisk.whyResult.p1 = Rydych wedi rhoi gwybod i ni bod yn rhaid i fusnes y gweithiwr fuddsoddi’n sylweddol o ran cyfalaf er mwyn gweithio ar y swydd hon. Ni ellir hawlio’r costau hyn yn ôl o’r cleient terfynol neu asiantaeth. Mae gweithwyr sy’n mentro’u harian eu hunain drwy, er enghraifft, brynu asedion neu dalu am orbenion a deunyddiau, yn gweithredu mwy fel busnes ar eu liwt ei hunain ac yn debygol o fod yn hunangyflogedig at ddibenion treth.
-result.financialRisk.whyResult.exclamation = Os bydd CThEM yn ymchwilio i’r swydd hon, bydd yn rhaid i’r gweithiwr ddangos bod yn rhaid iddo fynd i gostau sylweddol ar gyfer deunyddiau, cyfarpar, cerbydau neu dreuliau eraill na ellir eu hawlio yn ôl o’r cleient terfynol neu asiantaeth.
-result.financialRisk.shouldNowDo.p1.beforeLink = Os mai chi yw’r gweithiwr, dylai’ch busnes gael swm gros a dilyn
-result.financialRisk.shouldNowDo.p1.link = yr arweiniad hwn
-result.financialRisk.shouldNowDo.p1.afterLink = ynghylch eich treth.
-result.financialRisk.shouldNowDo.p2 = Os mai chi sy’n talu’r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
-result.financialRisk.aboutResult.p1.beforeLink = Ni fydd y ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon pan fo busnes y gweithiwr (y cyfryngwr) yn bodloni
-result.financialRisk.aboutResult.p1.link = amodau penodol y rhwymedigaeth
-result.financialRisk.aboutResult.p1.afterLink =.
-
-# Indeterminate Result
-result.indeterminate.title = Ni allwn bennu’r statws treth ar gyfer y swydd hon
-result.indeterminate.heading = Ni allwn bennu’r statws treth ar gyfer y swydd hon
-result.indeterminate.whyResult.p1 = Mae angen rhagor o wybodaeth arnom er mwyn deall arferion gwaith y swydd hon.
-result.indeterminate.whyResult.p2 = Gallwch adolygu’r atebion a roddwyd gennych, isod.
-result.indeterminate.shouldNowDo.p1 = Os oes angen rhagor o gymorth arnoch, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM:
-result.indeterminate.shouldNowDo.bullet1 = dros y ffôn ar 0300 200 1900
-result.indeterminate.shouldNowDo.bullet2 = drwy e-bostio gwasanaeth.cymraeg@hmrc.gov.uk
-result.indeterminate.shouldNowDo.p2.beforeLink = Gallech hefyd ddarllen y
-result.indeterminate.shouldNowDo.p2.link = Canllaw Statws Cyflogaeth
-
-# Inside IR35
-result.insideIR35.title = Mae’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.insideIR35.heading = Mae’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
-result.insideIR35.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu bod arferion gwaith y swydd hon yn golygu bod y gweithiwr yn gyflogedig at ddibenion treth.
-result.insideIR35.shouldNowDo.public.p1 = Os mai chi yw’r gweithiwr, dylech roi gwybod i’r sefydliad sy’n talu’ch ffioedd (talwr y ffi) i ddidynnu treth ac Yswiriant Gwladol o’ch taliad.
-result.insideIR35.shouldNowDo.public.p2.beforeLink = Os mai chi sy’n talu’r ffi, mae’n rhaid i chi ddidynnu treth ac Yswiriant Gwladol o
-result.insideIR35.shouldNowDo.public.p2.link = daliad(au) tybiedig y gyflogaeth y gweithiwr
-result.insideIR35.shouldNowDo.public.p2.afterLink = yn ystod y swydd hon.
-result.insideIR35.shouldNowDo.public.p3.beforeLink = Os mai chi yw’r cleient terfynol, ac nid y sefydliad sy’n talu’r gweithiwr (talwr y ffi). Dylech roi gwybod i dalwr y ffi i ddidynnu treth ac Yswiriant Gwladol o
-result.insideIR35.shouldNowDo.public.p3.link = daliad(au) tybiedig y gyflogaeth
-result.insideIR35.shouldNowDo.public.p3.afterLink = y gweithiwr yn ystod y swydd hon.
-result.insideIR35.shouldNowDo.private.p1.beforeLink = Os mai chi yw’r gweithiwr, bydd angen i chi ddilyn
-result.insideIR35.shouldNowDo.private.p1.link = yr arweiniad hwn
-result.insideIR35.shouldNowDo.private.p1.afterLink = ynghylch eich treth.
-result.insideIR35.aboutResult.p1.beforeLink = Ni fydd y ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon pan fo busnes y gweithiwr (y cyfryngwr) yn bodloni
-result.insideIR35.aboutResult.p1.link = amodau penodol y rhwymedigaeth
-result.insideIR35.aboutResult.p1.afterLink =.
-
-customisePDF.title = Addasu cofnod y canlyniad hwn
-customisePDF.heading = Addasu cofnod y canlyniad hwn
-customisePDF.hint = Gallwch ychwanegu ychydig o wybodaeth I’r dudalen hon cyn i chi’I hargraffu. Mae hwn er eich gwybodaeth yn unig ac ni chaiff ei storio gan CThEM. Mae pob maes yn ddewisol
-customisePDF.customisedBy = Enw’r person sydd wedi cyflawni’r gwiriad hwn
-customisePDF.time = Dyddiad y canlyniad: {0} (UTC)
-customisePDF.client = Enw’r cleient terfynol
-customisePDF.job = Teitl y swydd
-customisePDF.reference = Cyfeirnod (enw’r gweithiwr neu rif y cytundeb, er enghraifft)
-customisePDF.completedBy.error.length = Rhaid i’r enw fod yn 100 o gymeriadau neu’n llai
-customisePDF.client.error.length = Rhaid i’r enw fod yn 100 o gymeriadau neu’n llai
-customisePDF.job.error.length = Rhaid i deitl y swydd fod yn 100 o gymeriadau neu’n llai
-customisePDF.reference.error.length = Rhaid i’r cyfeirnod fod yn 100 o gymeriadau neu’n llai
-
-#Result summary text
-result.substitutesAndHelpers.summary = Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod a yw’r gweithiwr yn cael ei hurio fel busnes neu ar sail gwasanaeth personol. Os nad yw’r cleient terfynol wedi cytuno bod busnes y gweithiwr yn trefnu bod rhywun arall yn cael ei dalu i wneud y gwaith yn ei le, neu os na fyddai’n cytuno i hynny, mae’n awgrymu ei fod yn cael ei hurio ar sail gwasanaeth personol.
-result.workArrangements.summary = Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod faint o hawl sydd gan y cleient terfynol i reoli’r hyn y mae’r gweithiwr yn ei wneud yn ystod y swydd hon. Os oes gan y cleient terfynol yr hawl i reoli, byddai hynny’n awgrymu bod yr arferion gwaith yn debyg i’r rheiny a ddilynir gan gyflogai.
-result.financialRisk.summary = Rydym yn gofyn y cwestiynau hyn er mwyn canfod lefel y risg ariannol sy’n rhaid i’r gweithiwr fentro iddi yn ystod y swydd hon. Mae gweithwyr nad ydynt yn mentro’u harian eu hunain drwy, er enghraifft, brynu asedion neu dalu am orbenion a deunyddiau, yn fwy tebygol o fod yn gyflogedig at ddibenion treth.
-result.partParcel.summary = Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i ba raddau y mae’r gweithiwr wedi’i integreiddio i mewn i sefydliad y cleient terfynol. Mae gweithwyr sy’n cael buddiannau, sy’n gyfrifol am fod yn rheolwr llinell ar bobl eraill, ac sy’n rhoi’r argraff eu bod yn gweithio i’r cleient terfynol, yn fwy tebygol o fod yn gyflogedig at ddibenion treth.
-
-
-
-
-
 ########## OPTIMISED ONLY FLOW MESSAGES START ############
 # -------------------------------------------------------#
 
@@ -752,19 +574,19 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Contractau’r gweithiwr
 ## Common Result Messages
 ## ----------------------
 ##TODO: Need Welsh
-optimised.result.title = Result
-optimised.result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
-optimised.result.doNext.h2 = Beth y dylech ei wneud nesaf
-optimised.result.download.p1.determined = Mae’n bwysig eich bod yn cadw copi o’r penderfyniad hwn ar gyfer eich cofnodion.
-optimised.result.download.p1.undetermined = It is important that you keep a copy of this result for your records.
-optimised.result.download.getCopy = Cael copi o’r canlyniad hwn
-optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
-optimised.result.download.p2.exitLink = gadael
-optimised.result.download.p2.exitLink.aria = Exit the check employment status for tax tool
-optimised.result.download.p2.preStartAgain = nawr, neu
-optimised.result.download.p2.startAgainLink = dechrau eto
-optimised.result.download.p2.startAgainLink.aria = Start the check employment status for tax tool again
-optimised.result.download.p2.postStartAgain = i wirio statws cyflogaeth rhyw waith arall.
+result.title = Result
+result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
+result.doNext.h2 = Beth y dylech ei wneud nesaf
+result.download.p1.determined = Mae’n bwysig eich bod yn cadw copi o’r penderfyniad hwn ar gyfer eich cofnodion.
+result.download.p1.undetermined = It is important that you keep a copy of this result for your records.
+result.download.getCopy = Cael copi o’r canlyniad hwn
+result.download.p2.preExit = If you do not want to download a copy of your result, you can
+result.download.p2.exitLink = gadael
+result.download.p2.exitLink.aria = Exit the check employment status for tax tool
+result.download.p2.preStartAgain = nawr, neu
+result.download.p2.startAgainLink = dechrau eto
+result.download.p2.startAgainLink.aria = Start the check employment status for tax tool again
+result.download.p2.postStartAgain = i wirio statws cyflogaeth rhyw waith arall.
 
 ## Office Holder PAYE
 ## ------------------
