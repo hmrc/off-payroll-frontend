@@ -49,8 +49,8 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               formProvider: AdditionalPdfDetailsFormProvider,
                               controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
-                              optimisedView: AddDetailsView,
-                              optimisedDecisionService: OptimisedDecisionService,
+                              view: AddDetailsView,
+                              decisionService: DecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
                               time: Timestamp,
@@ -69,12 +69,12 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
     val decryptedForm = request.userAnswers.get(CustomisePDFPage).fold(AdditionalPdfDetails())(answer => encryption.decryptDetails(answer))
 
-    Ok(optimisedView(form.fill(decryptedForm), mode))
+    Ok(view(form.fill(decryptedForm), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
       additionalData => {
 
         val encryptedDetails = encryption.encryptDetails(additionalData)
@@ -90,13 +90,13 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
     val timestamp = time.timestamp(request.userAnswers.get(Timestamp))
 
     decisionResponse match {
-      case Some(decision) => optimisedPrintResult(decision, pdfDetails, timestamp)
+      case Some(decision) => printResult(decision, pdfDetails, timestamp)
       case _ => Future.successful(Redirect(controllers.routes.StartAgainController.somethingWentWrong()))
     }
   }
-  private def optimisedPrintResult(decision: DecisionResponse, additionalPdfDetails: AdditionalPdfDetails, timestamp: String)
+  private def printResult(decision: DecisionResponse, additionalPdfDetails: AdditionalPdfDetails, timestamp: String)
                                   (implicit request: DataRequest[_]): Future[Result] = {
-    optimisedDecisionService.determineResultView(
+    decisionService.determineResultView(
       decision,
       None,
       checkYourAnswersService.sections,

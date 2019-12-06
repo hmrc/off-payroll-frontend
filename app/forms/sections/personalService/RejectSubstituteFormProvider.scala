@@ -17,12 +17,12 @@
 package forms.sections.personalService
 
 import config.FrontendAppConfig
-import forms.mappings.{Mappings, OptimisedErrorHandling}
+import forms.mappings.{Mappings, ErrorHandling}
 import javax.inject.Inject
 import models.requests.DataRequest
 import play.api.data.Form
 
-class RejectSubstituteFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
+class RejectSubstituteFormProvider @Inject() extends Mappings with ErrorHandling {
 
   def apply()(implicit request: DataRequest[_], appConfig: FrontendAppConfig): Form[Boolean] =
     Form(

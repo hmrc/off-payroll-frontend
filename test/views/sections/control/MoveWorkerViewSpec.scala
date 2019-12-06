@@ -52,7 +52,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {
@@ -77,7 +77,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MoveWorkerMessages.OptimisedHirer.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(MoveWorkerMessages.OptimisedHirer.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {
@@ -102,7 +102,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {

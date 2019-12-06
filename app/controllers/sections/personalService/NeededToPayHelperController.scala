@@ -37,7 +37,7 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
-                                            optimisedView: NeededToPayHelperView,
+                                            view: NeededToPayHelperView,
                                             controllerComponents: MessagesControllerComponents,
                                             checkYourAnswersService: CheckYourAnswersService,
                                             compareAnswerService: CompareAnswerService,
@@ -47,13 +47,13 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(optimisedView(fillForm(NeededToPayHelperPage, formProvider()), mode))
+    Ok(view(fillForm(NeededToPayHelperPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         redirect(mode,value, NeededToPayHelperPage)
       }

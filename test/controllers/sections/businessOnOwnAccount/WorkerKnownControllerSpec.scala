@@ -82,7 +82,7 @@ class WorkerKnownControllerSpec extends ControllerSpecBase {
       val validData = Map(WorkerKnownPage.toString -> Json.toJson(true))
 
       val answers = userAnswers.set(WorkerKnownPage,true)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

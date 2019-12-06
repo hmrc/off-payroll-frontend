@@ -35,7 +35,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
   val formProvider = new WouldWorkerPaySubstituteFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[WouldWorkerPaySubstituteView]
+  val view = injector.instanceOf[WouldWorkerPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WouldWorkerPaySubstituteController(
     FakeIdentifierAction,
@@ -43,7 +43,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
@@ -52,7 +52,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
     navigator = FakePersonalServiceNavigator
   )
 
-  def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(true))
 
@@ -60,7 +60,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
 
     "For the OptimisedJourney" should {
 
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
 
@@ -86,7 +86,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val answers = userAnswers.set(WouldWorkerPaySubstitutePage, true)
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

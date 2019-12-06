@@ -18,7 +18,6 @@ package assets.messages
 
 object IdentifyToStakeholdersMessages extends BaseMessages {
 
-  object Optimised {
     object Worker {
       val error = "Select how you would introduce yourself to your client’s consumers or suppliers"
       val heading = "How would you introduce yourself to your client’s consumers or suppliers?"
@@ -37,29 +36,4 @@ object IdentifyToStakeholdersMessages extends BaseMessages {
       val workAsBusiness = "They work for their own business"
       val wouldNotHappen = "This would not happen"
     }
-  }
-
-  object Worker {
-    val heading = "When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?"
-    val title = heading
-    val workForEndClient = "I work for the end client"
-    val workAsIndependent = "I am an independent worker acting on behalf of the end client"
-    val workAsBusiness = "I work for my own business"
-  }
-
-  object Hirer {
-    val heading = "When the worker interacts with your customers, clients, audience or users, how do they identify themselves?"
-    val title = heading
-    val workForEndClient = "They work for you"
-    val workAsIndependent = "They are an independent worker acting on your behalf"
-    val workAsBusiness = "They work for their own business"
-  }
-
-  object NonTailored {
-    val heading = "When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?"
-    val title = heading
-    val workForEndClient = "They work for the end client"
-    val workAsIndependent = "They are an independent worker acting on behalf of the end client"
-    val workAsBusiness = "They work for their own business"
-  }
 }

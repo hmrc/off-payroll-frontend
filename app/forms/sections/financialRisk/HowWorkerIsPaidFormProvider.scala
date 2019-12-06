@@ -17,13 +17,13 @@
 package forms.sections.financialRisk
 
 import config.FrontendAppConfig
-import forms.mappings.{Mappings, OptimisedErrorHandling}
+import forms.mappings.{Mappings, ErrorHandling}
 import javax.inject.Inject
 import models.requests.DataRequest
 import models.sections.financialRisk.HowWorkerIsPaid
 import play.api.data.Form
 
-class HowWorkerIsPaidFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
+class HowWorkerIsPaidFormProvider @Inject() extends Mappings with ErrorHandling {
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[HowWorkerIsPaid] =
     Form(

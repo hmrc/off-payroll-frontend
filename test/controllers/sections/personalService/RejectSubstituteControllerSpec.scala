@@ -36,7 +36,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
   val formProvider = new RejectSubstituteFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[RejectSubstituteView]
+  val view = injector.instanceOf[RejectSubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new RejectSubstituteController(
     FakeIdentifierAction,
@@ -44,7 +44,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
@@ -58,7 +58,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
 
     "For the OptimisedJourney" should {
 
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
 
@@ -80,7 +80,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
         val answers = userAnswers.set(RejectSubstitutePage,true)
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)

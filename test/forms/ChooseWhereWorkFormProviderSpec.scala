@@ -40,7 +40,7 @@ class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours with GuiceAp
       invalidError = FormError(fieldName, "error.invalid")
     )
 
-    "for the optimised flow" should {
+    "for the normal flow" should {
 
       "if the user type is 'Worker'" must {
 

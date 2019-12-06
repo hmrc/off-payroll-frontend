@@ -18,7 +18,6 @@ package assets.messages
 
 object WouldPaySubstituteMessages extends BaseMessages {
 
-  object Optimised {
     object Worker {
       val error = "Select yes if you would have to pay your substitute"
       val heading = "Would you have to pay your substitute?"
@@ -32,23 +31,4 @@ object WouldPaySubstituteMessages extends BaseMessages {
       val title = heading
       val p1 = "This would include payments made by the worker or their business."
     }
-  }
-
-  object Worker {
-    val heading = "Would your business have to pay the person who did the work instead of you?"
-    val title = heading
-    val exclamation = "If the substitute would be paid by an agency, it will not count as substitution."
-  }
-
-  object Hirer {
-    val heading = "Would the worker’s business have to pay the person who did the work instead of them?"
-    val title = heading
-    val exclamation = "If the substitute would be paid by an agency, it will not count as substitution."
-  }
-
-  object NonTailored {
-    val heading = "Would the worker’s business have to pay the person who did the work instead of them?"
-    val title = heading
-    val exclamation = "If the substitute would be paid by an agency, it will not count as substitution."
-  }
 }

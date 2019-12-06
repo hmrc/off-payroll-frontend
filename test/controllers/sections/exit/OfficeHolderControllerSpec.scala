@@ -35,7 +35,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
   val formProvider = new OfficeHolderFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[OfficeHolderView]
+  val view = injector.instanceOf[OfficeHolderView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new OfficeHolderController(
     identify = FakeIdentifierAction,
@@ -44,7 +44,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
-    optimisedView = optimisedView,
+    view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
@@ -68,7 +68,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller(getRelevantData).onSubmit(CheckMode)(postRequest)
 
@@ -78,7 +78,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
     "If the OptimisedFlow is enabled" should {
 
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
 
@@ -106,7 +106,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -122,7 +122,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(CheckMode)(postRequest)
 

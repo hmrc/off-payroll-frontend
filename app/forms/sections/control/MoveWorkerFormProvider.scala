@@ -17,13 +17,13 @@
 package forms.sections.control
 
 import config.FrontendAppConfig
-import forms.mappings.{Mappings, OptimisedErrorHandling}
+import forms.mappings.{Mappings, ErrorHandling}
 import javax.inject.Inject
 import models.requests.DataRequest
 import models.sections.control.MoveWorker
 import play.api.data.Form
 
-class MoveWorkerFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
+class MoveWorkerFormProvider @Inject() extends Mappings with ErrorHandling {
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[MoveWorker] =
     Form(

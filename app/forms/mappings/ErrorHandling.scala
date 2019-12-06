@@ -21,7 +21,7 @@ import config.featureSwitch.FeatureSwitching
 import models.UserType.{Agency, Worker}
 import models.requests.DataRequest
 
-trait OptimisedErrorHandling extends FeatureSwitching {
+trait ErrorHandling extends FeatureSwitching {
 
   def tailoredErrMsg(key: String)(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): String =
     request.userType match {

@@ -82,7 +82,7 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
       val validData = Map(RightsOfWorkPage.toString -> Json.toJson(true))
 
       val answers = userAnswers.set(RightsOfWorkPage,true)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers), true)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers), true)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

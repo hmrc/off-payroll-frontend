@@ -28,7 +28,7 @@ import models.{NormalMode, Timestamp}
 import navigation.CYANavigator
 import pages.{ResultPage, Timestamp}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, OptimisedDecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import utils.SessionUtils._
 import utils.UserAnswersUtils
 
@@ -42,19 +42,19 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
                                  compareAnswerService: CompareAnswerService,
-                                 optimisedDecisionService: OptimisedDecisionService,
+                                 decisionService: DecisionService,
                                  checkYourAnswersService: CheckYourAnswersService,
                                  errorHandler: ErrorHandler,
                                  implicit val appConfig: FrontendAppConfig)
   extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching with UserAnswersUtils {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val timestamp = compareAnswerService.optimisedConstructAnswers(request,time.timestamp(),Timestamp)
+    val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)
 
     dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
-      optimisedDecisionService.decide.map {
+      decisionService.decide.map {
         case Right(decision) =>
-          optimisedDecisionService.determineResultView(decision) match {
+          decisionService.determineResultView(decision) match {
             case Right(result) => Ok(result).addingToSession(SessionKeys.decisionResponse -> decision)
             case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
           }

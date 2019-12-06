@@ -58,7 +58,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MaterialsMessages.Worker.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(MaterialsMessages.Worker.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {
@@ -81,7 +81,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MaterialsMessages.Hirer.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(MaterialsMessages.Hirer.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {

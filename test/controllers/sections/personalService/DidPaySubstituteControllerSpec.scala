@@ -35,7 +35,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
   val formProvider = new DidPaySubstituteFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[DidPaySubstituteView]
+  val view = injector.instanceOf[DidPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new DidPaySubstituteController(
     FakeIdentifierAction,
@@ -43,7 +43,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
@@ -51,7 +51,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
     navigator = FakePersonalServiceNavigator
   )
 
-  def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(DidPaySubstitutePage.toString -> Json.toJson(true))
 
@@ -84,7 +84,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val answers = userAnswers.set(DidPaySubstitutePage,true)
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

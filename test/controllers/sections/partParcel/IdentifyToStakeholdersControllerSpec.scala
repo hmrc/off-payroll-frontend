@@ -38,7 +38,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
   val formProvider = new IdentifyToStakeholdersFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[IdentifyToStakeholdersView]
+  val view = injector.instanceOf[IdentifyToStakeholdersView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IdentifyToStakeholdersController(
     FakeIdentifierAction,
@@ -46,7 +46,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
@@ -61,7 +61,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
     "If the OptimisedFlow is enabled" should {
 
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
 
@@ -86,7 +86,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
         val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, WorkForEndClient)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
 

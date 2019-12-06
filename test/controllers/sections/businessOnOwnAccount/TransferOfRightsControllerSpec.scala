@@ -81,7 +81,7 @@ class TransferOfRightsControllerSpec extends ControllerSpecBase {
       val validData = Map(TransferOfRightsPage.toString -> Json.toJson(true))
 
       val answers = userAnswers.set(TransferOfRightsPage,true)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

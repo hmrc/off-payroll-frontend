@@ -57,7 +57,7 @@ import views.html.results.outside.{AgentOutsideView, IR35OutsideView, PAYEOutsid
 import views.html.results.undetermined.{AgentUndeterminedView, IR35UndeterminedView, PAYEUndeterminedView}
 import views.results.ResultViewFixture
 
-class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector
+class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector
   with MockDataCacheConnector with MockErrorHandler with FeatureSwitching with ScalaFutures with ResultViewFixture with MockAuditConnector {
 
   val formProvider = new DownloadPDFCopyFormProvider()
@@ -76,7 +76,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
   val IR35OutsideView = injector.instanceOf[IR35OutsideView]
   val PAYEOutsideView = injector.instanceOf[PAYEOutsideView]
 
-  val service: OptimisedDecisionService = new OptimisedDecisionService(
+  val service: DecisionService = new DecisionService(
     mockDecisionConnector,
     mockErrorHandler,
     formProvider,

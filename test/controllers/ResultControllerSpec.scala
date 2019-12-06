@@ -28,13 +28,13 @@ import play.api.i18n.Messages
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import services.mocks.{MockCheckYourAnswersService, MockOptimisedDecisionService}
+import services.mocks.{MockCheckYourAnswersService, MockDecisionService}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
 import utils.SessionUtils._
 import viewmodels.AnswerSection
 
-class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecisionService with MockCheckYourAnswersService with Enumerable.Implicits {
+class ResultControllerSpec extends ControllerSpecBase with MockDecisionService with MockCheckYourAnswersService with Enumerable.Implicits {
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
@@ -66,7 +66,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
     mockDataCacheConnector,
     FakeTimestamp,
     mockCompareAnswerService,
-    mockOptimisedDecisionService,
+    mockDecisionService,
     mockCheckYourAnswersService,
     errorHandler,
     frontendAppConfig
@@ -74,7 +74,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
   "ResultPage Controller" must {
 
-    "If the Optimised Flow is enabled" should {
+    "If the normal flow is enabled" should {
 
       "If a success response is returned from the Optimised Decision Service" should {
 
@@ -86,7 +86,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
           val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)
           implicit val dataRequest = DataRequest(fakeRequest, "id", answers)
 
-          mockOptimisedConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
+          mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockDecide(Right(decisionResponse))
           mockDetermineResultView(decisionResponse)(Right(Html("Success")))
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
@@ -108,7 +108,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
           val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
           implicit val dataRequest = DataRequest(fakeRequest, "id", answers)
 
-          mockOptimisedConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
+          mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockDecide(Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, "Err")))
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -129,7 +129,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
           val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)
           implicit val dataRequest = DataRequest(fakeRequest, "id", answers)
 
-          mockOptimisedConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
+          mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockDecide(Right(decisionResponse))
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
           mockDetermineResultView(decisionResponse)(Left(Html("Error")))
@@ -150,7 +150,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        mockOptimisedConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
+        mockConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = TestResultController.onSubmit(postRequest)

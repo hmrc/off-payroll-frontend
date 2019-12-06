@@ -21,7 +21,6 @@ import config.featureSwitch.FeatureSwitching
 import models.requests.DataRequest
 import models.sections.businessOnOwnAccount._
 import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
-import models.sections.financialRisk.CannotClaimAsExpense.{ExpensesAreNotRelevantForRole, WorkerHadOtherExpenses, WorkerProvidedEquipment, WorkerProvidedMaterials, WorkerUsedVehicle}
 import models.sections.financialRisk.{HowWorkerIsPaid, PutRightAtOwnCost}
 import models.sections.partAndParcel.IdentifyToStakeholders
 import models.sections.partAndParcel.IdentifyToStakeholders.WouldNotHappen
@@ -33,7 +32,7 @@ import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{VehiclePage, _}
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.libs.json._
@@ -157,13 +156,11 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
     )
   }
 
-  def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = optimisedApply(userAnswers)
-
   private def getAnswer[A](page: QuestionPage[A])(implicit userAnswers: UserAnswers, rds: Reads[A]): Option[A] ={
     userAnswers.get(page).fold(None: Option[A]) { answer => Some(answer) }
   }
 
-  private def optimisedApply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
+  def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
     implicit val implicitUserAnswers: UserAnswers = userAnswers
 
     val workerProvidedMaterials = getAnswer[Boolean](MaterialsPage)
@@ -272,37 +269,5 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
       case (None, Some(false), Some(true)) => Some(SeriesOfContracts.ContractCouldBeExtended)
       case _ => None
     }
-  }
-
-  private def subOptimisedApply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
-    implicit val implicitUserAnswers: UserAnswers = userAnswers
-
-    Interview(
-      correlationId = userAnswers.cacheMap.id, endUserRole = request.userType,
-      hasContractStarted = getAnswer[Boolean](ContractStartedPage),
-      provideServices = getAnswer[WorkerType](WorkerTypePage),
-      isUsingIntermediary = getAnswer[Boolean](WorkerUsingIntermediaryPage),
-      officeHolder = getAnswer[Boolean](OfficeHolderPage),
-      workerSentActualSubstitute = getAnswer[ArrangedSubstitute](ArrangedSubstitutePage),
-      workerPayActualSubstitute = getAnswer[Boolean](DidPaySubstitutePage),
-      possibleSubstituteRejection = getAnswer[Boolean](RejectSubstitutePage),
-      possibleSubstituteWorkerPay = getAnswer[Boolean](WouldWorkerPaySubstitutePage),
-      wouldWorkerPayHelper = getAnswer[Boolean](NeededToPayHelperPage),
-      engagerMovingWorker = getAnswer[MoveWorker](MoveWorkerPage),
-      workerDecidingHowWorkIsDone = getAnswer[HowWorkIsDone](HowWorkIsDonePage),
-      whenWorkHasToBeDone = getAnswer[ScheduleOfWorkingHours](ScheduleOfWorkingHoursPage),
-      workerDecideWhere = getAnswer[ChooseWhereWork](ChooseWhereWorkPage),
-      workerProvidedMaterials = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(WorkerProvidedMaterials)),
-      workerProvidedEquipment = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(WorkerProvidedEquipment)),
-      workerUsedVehicle = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(WorkerUsedVehicle)),
-      workerHadOtherExpenses = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(WorkerHadOtherExpenses)),
-      expensesAreNotRelevantForRole = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(ExpensesAreNotRelevantForRole)),
-      workerMainIncome = getAnswer[HowWorkerIsPaid](HowWorkerIsPaidPage),
-      paidForSubstandardWork = getAnswer[PutRightAtOwnCost](PutRightAtOwnCostPage),
-      workerReceivesBenefits = getAnswer[Boolean](BenefitsPage),
-      workerAsLineManager = getAnswer[Boolean](LineManagerDutiesPage),
-      contactWithEngagerCustomer = userAnswers.get(InteractWithStakeholdersPage).fold[Option[Boolean]](None)(x => Some(x)),
-      workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(x => Some(x))
-    )
   }
 }

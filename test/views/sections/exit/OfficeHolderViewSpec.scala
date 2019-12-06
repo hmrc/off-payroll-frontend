@@ -17,14 +17,10 @@
 package views.sections.exit
 
 import assets.messages.{OfficeHolderMessages, SubHeadingMessages}
-import config.SessionKeys
-
 import controllers.sections.exit.routes
 import forms.sections.exit.OfficeHolderFormProvider
 import models.NormalMode
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.exit.OfficeHolderView
@@ -60,16 +56,16 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.exit))
+        document.title mustBe title(OfficeHolderMessages.Worker.title, Some(SubHeadingMessages.officeHolder))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.heading
       }
 
       "have the correct page content" in {
-        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Optimised.Worker.p1
-        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Optimised.Worker.p2
+        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Worker.p1
+        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Worker.p2
       }
 
       "have the correct link" in {
@@ -87,16 +83,16 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.exit))
+        document.title mustBe title(OfficeHolderMessages.Hirer.title, Some(SubHeadingMessages.officeHolder))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.heading
       }
 
       "have the correct page content" in {
-        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Optimised.Hirer.p1
-        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Optimised.Hirer.p2
+        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Hirer.p1
+        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Hirer.p2
       }
 
       "have the correct link" in {
@@ -114,16 +110,16 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.exit))
+        document.title mustBe title(OfficeHolderMessages.Worker.title, Some(SubHeadingMessages.officeHolder))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.heading
       }
 
       "have the correct page content" in {
-        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Optimised.Worker.p1
-        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Optimised.Worker.p2
+        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Worker.p1
+        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Worker.p2
       }
 
       "have the correct link" in {

@@ -55,15 +55,15 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(LineManagerDutiesMessages.Worker.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.Worker.heading
       }
 
       "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Worker.p1
       }
     }
 
@@ -72,15 +72,15 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(LineManagerDutiesMessages.Hirer.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.Hirer.heading
       }
 
       "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Worker.p1
       }
     }
 
@@ -89,15 +89,15 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(LineManagerDutiesMessages.Worker.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.Worker.heading
       }
 
       "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Worker.p1
       }
     }
   }

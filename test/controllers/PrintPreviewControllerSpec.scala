@@ -33,7 +33,7 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
     identify = FakeIdentifierAction,
     dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
-    optimisedDecisionService = mockOptimisedDecisionService,
+    decisionService = mockDecisionService,
     checkYourAnswersService = mockCheckYourAnswersService,
     finishedCheckingView = view,
     encryptionService = mockEncryptionService,

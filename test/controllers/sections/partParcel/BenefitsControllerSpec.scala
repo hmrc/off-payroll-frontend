@@ -35,7 +35,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
   val formProvider = new BenefitsFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[BenefitsView]
+  val view = injector.instanceOf[BenefitsView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BenefitsController(
     FakeIdentifierAction,
@@ -43,7 +43,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
@@ -58,7 +58,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
     "If the OptimisedFlow is enabled" should {
 
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
 
@@ -82,7 +82,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
         val userAnswers = UserAnswers("id").set(BenefitsPage, true)
 
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),true)(UserAnswers("id")set(BenefitsPage,true))
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),true)(UserAnswers("id")set(BenefitsPage,true))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
 

@@ -107,7 +107,7 @@ class InterviewSpec extends GuiceAppSpecBase {
           workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
         ).route mustBe "IR35"
       }
-      "use the optimised flow is both are provided" in {
+      "use the normal flow is both are provided" in {
         Interview(
           correlationId = "id",
           endUserRole = Some(UserType.Worker),

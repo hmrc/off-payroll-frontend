@@ -18,7 +18,6 @@ package assets.messages
 
 object NeededToPayHelperMessages extends BaseMessages {
 
-  object Optimised {
     object Worker {
       val error = "Select yes if you paid another person to do a significant amount of this work"
       val heading = "Have you paid another person to do a significant amount of this work?"
@@ -30,32 +29,4 @@ object NeededToPayHelperMessages extends BaseMessages {
       val heading = "Has the worker paid another person to do a significant amount of this work?"
       val title = heading
     }
-  }
-
-  object Worker {
-    val heading = "Has your business needed to pay a helper to do a significant amount of the work for this engagement?"
-    val title = heading
-    val p1 = "A helper is someone who does some of the job you are hired to do, either for or with you."
-    val p2 = "For example if a lecturer was hired by a university to write and deliver a study module:"
-    val b1 = "A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work"
-    val b2 = "A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work"
-  }
-
-  object Hirer {
-    val heading = "Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?"
-    val title = heading
-    val p1 = "A helper is someone who does some of the job the worker is hired to do, either for or with them."
-    val p2 = "For example if a lecturer was hired by a university to write and deliver a study module:"
-    val b1 = "A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work"
-    val b2 = "A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work"
-  }
-
-  object NonTailored {
-    val heading = "Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?"
-    val title = heading
-    val p1 = "A helper is someone who does some of the job the worker is hired to do, either for or with them."
-    val p2 = "For example, if a lecturer was hired by a university to write and deliver a study module:"
-    val b1 = "a researcher hired to source information could be classed as doing a significant amount of the lecturer’s work"
-    val b2 = "a company the lecturer pays to print and bind materials for the module would not be classed as doing a significant amount of the work"
-  }
 }

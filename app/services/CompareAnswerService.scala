@@ -30,14 +30,14 @@ import scala.concurrent.ExecutionContext
 
 class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLookup) {
 
-  def optimisedConstructAnswers[T](request: DataRequest[_], value: T,
+  def constructAnswers[T](request: DataRequest[_], value: T,
                           page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],ec: ExecutionContext): UserAnswers = {
     request.userAnswers.get(page) match {
       case Some(answer) if answer == value => request.userAnswers
       case _ => {
         val userAnswers = request.userAnswers.set(page,value)
         val pagesToRemove = questionDeletionLookup.getPagesToRemove(page)(userAnswers)
-        Logger.debug(s"[CompareAnswerService][optimisedConstructAnswers] Questions to be removed: \n$pagesToRemove")
+        Logger.debug(s"[CompareAnswerService][constructAnswers] Questions to be removed: \n$pagesToRemove")
         recursivelyClearQuestions(pagesToRemove, userAnswers)
       }
     }

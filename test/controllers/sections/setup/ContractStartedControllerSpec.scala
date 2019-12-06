@@ -34,7 +34,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
   val formProvider = new ContractStartedFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[views.html.sections.setup.ContractStartedView]
+  val view = injector.instanceOf[views.html.sections.setup.ContractStartedView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
     appConfig = frontendAppConfig,
@@ -43,7 +43,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
@@ -51,13 +51,13 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     navigator = FakeSetupNavigator
   )
 
-  def viewAsStringOptimised(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsStringOptimised(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(ContractStartedPage.toString -> Json.toJson(true))
 
   "ContractStarted Controller" must {
 
-    "return OK and the correct view for a GET for the optimised flow" in {
+    "return OK and the correct view for a GET for the normal flow" in {
 
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
@@ -65,7 +65,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsStringOptimised()
     }
 
-    "populate the view correctly on a GET when the question has previously been answered for optimised flow" in {
+    "populate the view correctly on a GET when the question has previously been answered for normal flow" in {
 
       val validData = Map(ContractStartedPage.toString -> Json.toJson(true))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
@@ -79,7 +79,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val answers = userAnswers.set(ContractStartedPage,true)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

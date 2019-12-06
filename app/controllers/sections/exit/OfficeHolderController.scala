@@ -38,7 +38,7 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        requireData: DataRequiredAction,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
-                                       optimisedView: OfficeHolderView,
+                                       view: OfficeHolderView,
                                        checkYourAnswersService: CheckYourAnswersService,
                                        compareAnswerService: CompareAnswerService,
                                        dataCacheConnector: DataCacheConnector,
@@ -47,13 +47,13 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(optimisedView(fillForm(OfficeHolderPage, formProvider()), mode))
+    Ok(view(fillForm(OfficeHolderPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         val currentAnswer = request.userAnswers.getAnswer(OfficeHolderPage)
         val overrideMode = if(mode == CheckMode && !value && currentAnswer.contains(true)) NormalMode else mode

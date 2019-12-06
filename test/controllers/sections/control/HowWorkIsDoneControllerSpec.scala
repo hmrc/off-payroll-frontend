@@ -37,7 +37,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
   val formProvider = new HowWorkIsDoneFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[HowWorkIsDoneView]
+  val view = injector.instanceOf[HowWorkIsDoneView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkIsDoneController(
     FakeIdentifierAction,
@@ -46,7 +46,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     formProvider,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
-    optimisedView = optimisedView,
+    view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
@@ -54,7 +54,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     navigator = FakeControlNavigator
   )
 
-  def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(HowWorkIsDone.values.head))
 
@@ -64,7 +64,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
       status(result) mustBe OK
-      contentAsString(result) mustBe optimisedViewAsString()
+      contentAsString(result) mustBe viewAsString()
     }
 
     "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
@@ -74,7 +74,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe optimisedViewAsString(form.fill(HowWorkIsDone.values.head))
+      contentAsString(result) mustBe viewAsString(form.fill(HowWorkIsDone.values.head))
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -83,7 +83,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val answers = userAnswers.set(HowWorkIsDonePage,HowWorkIsDone.NoWorkerInputAllowed)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -99,7 +99,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val answers = userAnswers.set(HowWorkIsDonePage,HowWorkIsDone.NoWorkerInputAllowed)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -116,7 +116,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe optimisedViewAsString(boundForm)
+      contentAsString(result) mustBe viewAsString(boundForm)
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {

@@ -53,7 +53,7 @@ abstract class BaseNavigationController @Inject()(mcc: MessagesControllerCompone
     //Remove the Personal Service warning page viewed flag from the request
     val req = DataRequest(request.request, request.internalId ,request.userAnswers.remove(PersonalServiceSectionChangeWarningPage).remove(BusinessOnOwnAccountSectionChangeWarningPage))
 
-    val answers = compareAnswerService.optimisedConstructAnswers(req, value, page)
+    val answers = compareAnswerService.constructAnswers(req, value, page)
 
     dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
       (answerUnchanged, personalWarning, boOAWarning) match {

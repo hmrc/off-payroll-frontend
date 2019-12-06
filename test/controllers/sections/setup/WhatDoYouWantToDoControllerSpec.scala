@@ -77,7 +77,7 @@ class WhatDoYouWantToDoControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhatDoYouWantToDo.options.head.value))
       val answers = userAnswers.set(WhatDoYouWantToDoPage,WhatDoYouWantToDo.MakeNewDetermination)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),WhatDoYouWantToDo)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),WhatDoYouWantToDo)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

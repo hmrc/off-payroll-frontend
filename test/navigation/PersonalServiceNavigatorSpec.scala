@@ -97,7 +97,7 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
     "go from the WouldWorkerPaySubstitutePage" when {
 
-      "both ContractStartedPage and WouldWorkerPaySubstitutePage answers is false and optimised flow is enabled to NeededToPayHelperPage " in {
+      "both ContractStartedPage and WouldWorkerPaySubstitutePage answers is false and normal flow is enabled to NeededToPayHelperPage " in {
 
 
         lazy val userAnswers = UserAnswers("id")

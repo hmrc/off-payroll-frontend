@@ -50,7 +50,7 @@ class ControlNavigatorSpec extends GuiceAppSpecBase {
 
     "go from the ChooseWhereWorkPage" when {
 
-      "The optimised flow is enabled go to the EquipmentExpensesPage" in {
+      "The normal flow is enabled go to the EquipmentExpensesPage" in {
 
         nextPage(ChooseWhereWorkPage) mustBe finacialRiskRoutes.EquipmentExpensesController.onPageLoad(NormalMode)
       }

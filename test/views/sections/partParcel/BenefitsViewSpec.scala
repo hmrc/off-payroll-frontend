@@ -58,15 +58,15 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(BenefitsMessages.Worker.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe BenefitsMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe BenefitsMessages.Worker.heading
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Worker.p1
       }
     }
 
@@ -75,15 +75,15 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(BenefitsMessages.Hirer.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe BenefitsMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe BenefitsMessages.Hirer.heading
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Hirer.p1
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Hirer.p1
       }
     }
 
@@ -92,15 +92,15 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(BenefitsMessages.Worker.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe BenefitsMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe BenefitsMessages.Worker.heading
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Worker.p1
       }
     }
   }

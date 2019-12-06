@@ -39,7 +39,7 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ContractStartedFormProvider,
                                           controllerComponents: MessagesControllerComponents,
-                                          optimisedView: views.html.sections.setup.ContractStartedView,
+                                          view: views.html.sections.setup.ContractStartedView,
                                           checkYourAnswersService: CheckYourAnswersService,
                                           compareAnswerService: CompareAnswerService,
                                           dataCacheConnector: DataCacheConnector,
@@ -51,11 +51,11 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
 
   def renderView(mode: Mode, oForm: Option[Form[Boolean]] = None)(implicit request: DataRequest[_]) = {
     val formData = oForm.getOrElse(fillForm(ContractStartedPage, form))
-    optimisedView(formData, mode)
+    view(formData, mode)
   }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-      Ok(optimisedView(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel)), mode))
+      Ok(view(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

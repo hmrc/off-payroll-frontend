@@ -40,17 +40,6 @@ import views.ViewUtils._
 //noinspection ScalaStyle
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
-  private def yesNoRowTailoredOptimised(page: QuestionPage[Boolean], changeRoute: Call)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig) =
-    userAnswers.get(page) map { answer =>
-      AnswerRow(
-        tailorMsg(s"$page.checkYourAnswersLabel"),
-        if(answer) "site.yes" else "site.no",
-        answerIsMessageKey = true,
-        Some(changeRoute.url),
-        changeContextMsgKey = Some(tailorMsg(s"$page.changeLinkContext"))
-      )
-    }
-
   private def yesNoRowTailored(page: QuestionPage[Boolean], changeRoute: Call)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig) =
     userAnswers.get(page) map { answer =>
       AnswerRow(
@@ -87,16 +76,16 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     }
 
   def didPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(DidPaySubstitutePage, routes.PersonalServiceSectionChangeWarningController.onPageLoad(DidPaySubstitutePage))
+    yesNoRowTailored(DidPaySubstitutePage, routes.PersonalServiceSectionChangeWarningController.onPageLoad(DidPaySubstitutePage))
 
   def rejectSubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(RejectSubstitutePage, routes.PersonalServiceSectionChangeWarningController.onPageLoad(RejectSubstitutePage))
+    yesNoRowTailored(RejectSubstitutePage, routes.PersonalServiceSectionChangeWarningController.onPageLoad(RejectSubstitutePage))
 
   def wouldWorkerPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(WouldWorkerPaySubstitutePage, routes.PersonalServiceSectionChangeWarningController.onPageLoad(WouldWorkerPaySubstitutePage))
+    yesNoRowTailored(WouldWorkerPaySubstitutePage, routes.PersonalServiceSectionChangeWarningController.onPageLoad(WouldWorkerPaySubstitutePage))
 
   def neededToPayHelper(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(NeededToPayHelperPage, routes.PersonalServiceSectionChangeWarningController.onPageLoad(NeededToPayHelperPage))
+    yesNoRowTailored(NeededToPayHelperPage, routes.PersonalServiceSectionChangeWarningController.onPageLoad(NeededToPayHelperPage))
 
   def moveWorker(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     answerRowTailored(MoveWorkerPage, controlRoutes.MoveWorkerController.onPageLoad(CheckMode))
@@ -117,10 +106,10 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     answerRowTailored(PutRightAtOwnCostPage, financialRiskRoutes.PutRightAtOwnCostController.onPageLoad(CheckMode))
 
   def benefits(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(BenefitsPage, partParcelRoutes.BenefitsController.onPageLoad(CheckMode))
+    yesNoRowTailored(BenefitsPage, partParcelRoutes.BenefitsController.onPageLoad(CheckMode))
 
   def lineManagerDuties(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(LineManagerDutiesPage, partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode))
+    yesNoRowTailored(LineManagerDutiesPage, partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode))
 
   def identifyToStakeholders(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     answerRowTailored(IdentifyToStakeholdersPage, partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode))
@@ -141,10 +130,10 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     yesNoRowTailored(OtherExpensesPage, financialRiskRoutes.OtherExpensesController.onPageLoad(CheckMode))
 
   def officeHolder(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(OfficeHolderPage, exitRoutes.OfficeHolderController.onPageLoad(CheckMode))
+    yesNoRowTailored(OfficeHolderPage, exitRoutes.OfficeHolderController.onPageLoad(CheckMode))
 
   def contractStarted(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(ContractStartedPage, controllers.routes.ResetAnswersWarningController.onPageLoad())
+    yesNoRowTailored(ContractStartedPage, controllers.routes.ResetAnswersWarningController.onPageLoad())
 
   def whatDoYouWantToFindOut(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     answerRow(WhatDoYouWantToFindOutPage, controllers.routes.ResetAnswersWarningController.onPageLoad())

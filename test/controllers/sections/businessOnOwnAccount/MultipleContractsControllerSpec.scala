@@ -81,7 +81,7 @@ class MultipleContractsControllerSpec extends ControllerSpecBase {
       val validData = Map(MultipleContractsPage.toString -> Json.toJson(true))
 
       val answers = userAnswers.set(MultipleContractsPage,true)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

@@ -38,7 +38,7 @@ class HowWorkIsDoneController @Inject()(identify: IdentifierAction,
                                         requireData: DataRequiredAction,
                                         formProvider: HowWorkIsDoneFormProvider,
                                         controllerComponents: MessagesControllerComponents,
-                                        optimisedView: HowWorkIsDoneView,
+                                        view: HowWorkIsDoneView,
                                         checkYourAnswersService: CheckYourAnswersService,
                                         compareAnswerService: CompareAnswerService,
                                         dataCacheConnector: DataCacheConnector,
@@ -47,13 +47,13 @@ class HowWorkIsDoneController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(optimisedView(fillForm(HowWorkIsDonePage, formProvider()), mode))
+    Ok(view(fillForm(HowWorkIsDonePage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => redirect(mode,value,HowWorkIsDonePage)
     )
   }

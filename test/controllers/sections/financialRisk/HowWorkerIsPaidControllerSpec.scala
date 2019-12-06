@@ -36,7 +36,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
   val formProvider = new HowWorkerIsPaidFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[HowWorkerIsPaidView]
+  val view = injector.instanceOf[HowWorkerIsPaidView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkerIsPaidController(
     FakeIdentifierAction,
@@ -44,7 +44,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
@@ -56,9 +56,9 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
   "HowWorkerIsPaid Controller" when {
 
-    "the optimised flow is enabled" must {
+    "the normal flow is enabled" must {
 
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
 
@@ -81,7 +81,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
         val answers = userAnswers.set(HowWorkerIsPaidPage,HowWorkerIsPaid.HourlyDailyOrWeekly)
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

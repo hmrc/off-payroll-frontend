@@ -35,7 +35,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
   val formProvider = new NeededToPayHelperFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[NeededToPayHelperView]
+  val view = injector.instanceOf[NeededToPayHelperView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new NeededToPayHelperController(
     FakeIdentifierAction,
@@ -43,7 +43,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
@@ -58,7 +58,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
 
     "If the OptimisedFlow is enabled" should {
 
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
 
@@ -84,7 +84,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val answers = userAnswers.set(NeededToPayHelperPage, true)
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

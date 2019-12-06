@@ -58,11 +58,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(NeededToPayHelperMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Worker.heading
       }
 
       "have the correct radio option messages" in {
@@ -76,11 +76,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(NeededToPayHelperMessages.Hirer.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Hirer.heading
       }
 
       "have the correct radio option messages" in {
@@ -94,11 +94,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(NeededToPayHelperMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Worker.heading
       }
 
       "have the correct radio option messages" in {

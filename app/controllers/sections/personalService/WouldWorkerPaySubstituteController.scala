@@ -38,7 +38,7 @@ class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
                                                    requireData: DataRequiredAction,
                                                    formProvider: WouldWorkerPaySubstituteFormProvider,
                                                    controllerComponents: MessagesControllerComponents,
-                                                   optimisedView: WouldWorkerPaySubstituteView,
+                                                   view: WouldWorkerPaySubstituteView,
                                                    checkYourAnswersService: CheckYourAnswersService,
                                                    compareAnswerService: CompareAnswerService,
                                                    dataCacheConnector: DataCacheConnector,
@@ -47,13 +47,13 @@ class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(optimisedView(fillForm(WouldWorkerPaySubstitutePage, formProvider()), mode))
+    Ok(view(fillForm(WouldWorkerPaySubstitutePage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         redirect(mode,value, WouldWorkerPaySubstitutePage)
       }

@@ -52,7 +52,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {
@@ -72,7 +72,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.OptimisedHirer.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(ChooseWhereWorkMessages.OptimisedHirer.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {
@@ -92,7 +92,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {

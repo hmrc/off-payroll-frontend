@@ -38,7 +38,7 @@ class WouldWorkerPaySubstituteFormProviderSpec extends BooleanFieldBehaviours wi
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    "for the optimised flow" should {
+    "for the normal flow" should {
 
       "if the user type is 'Worker'" must {
 

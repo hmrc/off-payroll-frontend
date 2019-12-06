@@ -62,7 +62,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     customisePdfView,
     addDetailsView,
-    mockOptimisedDecisionService,
+    mockDecisionService,
     mockPDFService,
     errorHandler,
     FakeTimestamp,
@@ -83,7 +83,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     customisePdfView,
     addDetailsView,
-    mockOptimisedDecisionService,
+    mockDecisionService,
     mockPDFService,
     errorHandler,
     FakeTimestamp,
@@ -249,7 +249,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
         val answers = userAnswers.set(CustomisePDFPage,AdditionalPdfDetails(Some("answer")))
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -270,7 +270,7 @@ class PDFControllerSpec extends ControllerSpecBase {
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
 
         val answers = userAnswers.set(CustomisePDFPage,AdditionalPdfDetails(Some("answer")))
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -290,7 +290,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
         val answers = userAnswers.set(CustomisePDFPage,AdditionalPdfDetails(Some("answer")))
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)

@@ -24,7 +24,7 @@ import javax.inject.Inject
 import models.{AdditionalPdfDetails, DecisionResponse, Timestamp}
 import pages.{CustomisePDFPage, Timestamp}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, EncryptionService, OptimisedDecisionService}
+import services.{CheckYourAnswersService, EncryptionService, DecisionService}
 import utils.SessionUtils._
 import viewmodels.ResultPrintPreview
 import views.html.FinishedCheckingView
@@ -33,7 +33,7 @@ class PrintPreviewController @Inject()(identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        controllerComponents: MessagesControllerComponents,
-                                       optimisedDecisionService: OptimisedDecisionService,
+                                       decisionService: DecisionService,
                                        checkYourAnswersService: CheckYourAnswersService,
                                        finishedCheckingView: FinishedCheckingView,
                                        encryptionService: EncryptionService,
@@ -49,7 +49,7 @@ class PrintPreviewController @Inject()(identify: IdentifierAction,
 
     request.session.getModel[DecisionResponse](SessionKeys.decisionResponse) match {
       case Some(decision) =>
-        optimisedDecisionService.determineResultView(
+        decisionService.determineResultView(
           decision = decision,
           resultMode = ResultPrintPreview,
           answerSections = checkYourAnswersService.sections,

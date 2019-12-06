@@ -38,7 +38,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
   val formProvider = new MoveWorkerFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[MoveWorkerView]
+  val view = injector.instanceOf[MoveWorkerView]
 
   def controller(dataRetrievalAction: DataRetrievalAction =
                  FakeEmptyCacheMapDataRetrievalAction) = new MoveWorkerController(
@@ -47,7 +47,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
@@ -56,7 +56,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     navigator = FakeControlNavigator
   )
 
-  def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(MoveWorkerPage.toString -> Json.toJson(MoveWorker.CanMoveWorkerWithPermission))
 
@@ -68,7 +68,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe optimisedViewAsString()
+      contentAsString(result) mustBe viewAsString()
     }
 
     "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
@@ -78,7 +78,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe optimisedViewAsString(form.fill(MoveWorker.CanMoveWorkerWithPermission))
+      contentAsString(result) mustBe viewAsString(form.fill(MoveWorker.CanMoveWorkerWithPermission))
     }
 
     "redirect to the next page when valid data is submitted for optimised view" in {
@@ -87,7 +87,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.CanMoveWorkerWithPermission.toString))
 
       val answers = userAnswers.set(MoveWorkerPage,MoveWorker.CanMoveWorkerWithPermission)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),MoveWorker)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),MoveWorker)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -106,7 +106,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe optimisedViewAsString(boundForm)
+      contentAsString(result) mustBe viewAsString(boundForm)
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {

@@ -32,7 +32,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.Future
 
 trait ControllerSpecBase extends GuiceAppSpecBase with MockCompareAnswerService with MockCheckYourAnswersService
-  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler with MockEncryptionService {
+  with MockDataCacheConnector with MockPDFService with MockDecisionService with MockDecisionConnector with MockErrorHandler with MockEncryptionService {
 
   val onwardRoute = Call("POST", "/foo")
   val userAnswers = UserAnswers("id")

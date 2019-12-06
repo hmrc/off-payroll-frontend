@@ -38,7 +38,7 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
                                           requireData: DataRequiredAction,
                                           formProvider: HowWorkerIsPaidFormProvider,
                                           controllerComponents: MessagesControllerComponents,
-                                          optimisedView: HowWorkerIsPaidView,
+                                          view: HowWorkerIsPaidView,
                                           checkYourAnswersService: CheckYourAnswersService,
                                           compareAnswerService: CompareAnswerService,
                                           dataCacheConnector: DataCacheConnector,
@@ -47,13 +47,13 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(optimisedView(fillForm(HowWorkerIsPaidPage, formProvider()), mode))
+    Ok(view(fillForm(HowWorkerIsPaidPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => redirect(mode,value,HowWorkerIsPaidPage)
     )
   }

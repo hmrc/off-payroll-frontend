@@ -55,15 +55,15 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(WouldPaySubstituteMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Worker.heading
       }
 
       "have the correct p1" in {
-        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Worker.p1
       }
 
       "have the correct radio option messages" in {
@@ -77,15 +77,15 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(WouldPaySubstituteMessages.Hirer.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Hirer.heading
       }
 
       "have the correct p1" in {
-        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Hirer.p1
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Hirer.p1
       }
 
       "have the correct radio option messages" in {
@@ -99,15 +99,15 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(WouldPaySubstituteMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Worker.heading
       }
 
       "have the correct p1" in {
-        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Worker.p1
       }
 
       "have the correct radio option messages" in {

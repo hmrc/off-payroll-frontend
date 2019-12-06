@@ -45,23 +45,23 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
-                                         errorHandler: ErrorHandler,
-                                         formProvider: DownloadPDFCopyFormProvider,
-                                         val officeAgency: OfficeHolderAgentView,
-                                         val officeIR35: OfficeHolderIR35View,
-                                         val officePAYE: OfficeHolderPAYEView,
-                                         val undeterminedAgency: AgentUndeterminedView,
-                                         val undeterminedIR35: IR35UndeterminedView,
-                                         val undeterminedPAYE: PAYEUndeterminedView,
-                                         val insideAgent: AgentInsideView,
-                                         val insideIR35: IR35InsideView,
-                                         val insidePAYE: PAYEInsideView,
-                                         val outsideAgent: AgentOutsideView,
-                                         val outsideIR35: IR35OutsideView,
-                                         val outsidePAYE: PAYEOutsideView,
-                                         val auditConnector: AuditConnector,
-                                         implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
+class DecisionService @Inject()(decisionConnector: DecisionConnector,
+                                errorHandler: ErrorHandler,
+                                formProvider: DownloadPDFCopyFormProvider,
+                                val officeAgency: OfficeHolderAgentView,
+                                val officeIR35: OfficeHolderIR35View,
+                                val officePAYE: OfficeHolderPAYEView,
+                                val undeterminedAgency: AgentUndeterminedView,
+                                val undeterminedIR35: IR35UndeterminedView,
+                                val undeterminedPAYE: PAYEUndeterminedView,
+                                val insideAgent: AgentInsideView,
+                                val insideIR35: IR35InsideView,
+                                val insidePAYE: PAYEInsideView,
+                                val outsideAgent: AgentOutsideView,
+                                val outsideIR35: IR35OutsideView,
+                                val outsidePAYE: PAYEOutsideView,
+                                val auditConnector: AuditConnector,
+                                implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
 
   lazy val defaultForm: Form[Boolean] = formProvider()
 
@@ -108,7 +108,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
       case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
       case ResultEnum.UNKNOWN => Right(routeUndetermined)
-      case ResultEnum.NOT_MATCHED => Logger.error("[OptimisedDecisionService][determineResultView]: NOT MATCHED final decision")
+      case ResultEnum.NOT_MATCHED => Logger.error("[decisionService][determineResultView]: NOT MATCHED final decision")
         Left(errorHandler.internalServerErrorTemplate)
     }
   }

@@ -22,24 +22,24 @@ import org.scalamock.scalatest.MockFactory
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.twirl.api.Html
-import services.OptimisedDecisionService
+import services.DecisionService
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.{AnswerSection, ResultMode}
 
 import scala.concurrent.Future
 
-trait MockOptimisedDecisionService extends MockFactory {
+trait MockDecisionService extends MockFactory {
 
-  val mockOptimisedDecisionService = mock[OptimisedDecisionService]
+  val mockDecisionService = mock[DecisionService]
 
   def mockDecide(response: Either[ErrorResponse, DecisionResponse]): Unit = {
-    (mockOptimisedDecisionService.decide(_: DataRequest[_], _: HeaderCarrier))
+    (mockDecisionService.decide(_: DataRequest[_], _: HeaderCarrier))
       .expects(*, *)
       .returns(Future.successful(response))
   }
 
   def mockDetermineResultView(decisionResponse: DecisionResponse, form : Option[Form[Boolean]] = None)(response: Either[Html, Html]): Unit = {
-    (mockOptimisedDecisionService.determineResultView(
+    (mockDecisionService.determineResultView(
       _: DecisionResponse,
       _: Option[Form[Boolean]],
       _: Seq[AnswerSection],

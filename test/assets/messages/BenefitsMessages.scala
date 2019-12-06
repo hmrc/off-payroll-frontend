@@ -18,7 +18,6 @@ package assets.messages
 
 object BenefitsMessages extends BaseMessages {
 
-  object Optimised {
     object Worker {
       val error = "Select yes if your client will provide you with paid-for corporate benefits"
       val heading = "Will your client provide you with paid-for corporate benefits?"
@@ -33,37 +32,3 @@ object BenefitsMessages extends BaseMessages {
       val p1 = "This can include external gym memberships, health insurance or retail discounts."
     }
   }
-
-  object Worker {
-    val heading = "Are you entitled to any of these benefits from the end client?"
-    val title = heading
-    val b1 = "Sick pay"
-    val b2 = "Holiday pay"
-    val b3 = "A workplace pension"
-    val b4 = "Maternity/paternity pay"
-    val b5 = "Other benefits (such as gym membership and health insurance)"
-    val p1 = "These do not include benefits provided by a third party or agency."
-  }
-
-  object Hirer {
-    val heading = "Is the worker entitled to any of these benefits from your organisation?"
-    val title = heading
-    val b1 = "Sick pay"
-    val b2 = "Holiday pay"
-    val b3 = "A workplace pension"
-    val b4 = "Maternity/paternity pay"
-    val b5 = "Other benefits (such as gym membership and health insurance)"
-    val p1 = "These do not include benefits provided by a third party or agency."
-  }
-
-  object NonTailored {
-    val heading = "Is the worker entitled to any of these benefits from the end client?"
-    val title = heading
-    val b1 = "Sick pay"
-    val b2 = "Holiday pay"
-    val b3 = "A workplace pension"
-    val b4 = "Maternity/paternity pay"
-    val b5 = "Other benefits (such as gym membership and health insurance)"
-    val p1 = "These do not include benefits provided by a third party or agency."
-  }
-}

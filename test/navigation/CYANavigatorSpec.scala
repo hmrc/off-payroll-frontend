@@ -39,7 +39,7 @@ class CYANavigatorSpec extends GuiceAppSpecBase {
 
     "go from the ResultPage" when {
 
-      "optimised flow is enabled" when {
+      "normal flow is enabled" when {
 
         "and the ResultPage has the answer true, go to the AddReferenceDetailsPage" in {
 

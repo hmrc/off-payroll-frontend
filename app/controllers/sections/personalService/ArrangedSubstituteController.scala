@@ -38,7 +38,7 @@ class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
                                              requireData: DataRequiredAction,
                                              formProvider: ArrangedSubstituteFormProvider,
                                              controllerComponents: MessagesControllerComponents,
-                                             optimisedView: ArrangedSubstituteView,
+                                             view: ArrangedSubstituteView,
                                              checkYourAnswersService: CheckYourAnswersService,
                                              compareAnswerService: CompareAnswerService,
                                              dataCacheConnector: DataCacheConnector,
@@ -48,12 +48,12 @@ class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
 
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(optimisedView(fillForm(ArrangedSubstitutePage, formProvider()), mode))
+    Ok(view(fillForm(ArrangedSubstitutePage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
       value => redirect(mode,value,ArrangedSubstitutePage)
     )
   }

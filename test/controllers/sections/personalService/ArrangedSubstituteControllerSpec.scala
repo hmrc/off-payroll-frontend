@@ -37,7 +37,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
   val formProvider = new ArrangedSubstituteFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[ArrangedSubstituteView]
+  val view = injector.instanceOf[ArrangedSubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ArrangedSubstituteController(
     FakeIdentifierAction,
@@ -45,7 +45,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
+    view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
@@ -54,7 +54,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
     navigator = FakePersonalServiceNavigator
   )
 
-  def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(ArrangedSubstitutePage.toString -> Json.toJson(ArrangedSubstitute.values.head))
 
@@ -85,7 +85,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val answers = userAnswers.set(ArrangedSubstitutePage,ArrangedSubstitute.YesClientAgreed)
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ArrangedSubstitute)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),ArrangedSubstitute)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

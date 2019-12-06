@@ -68,7 +68,7 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsStringInt()
     }
 
-    "populate the view correctly on a GET when the question has previously been answered for the optimised flow" in {
+    "populate the view correctly on a GET when the question has previously been answered for the normal flow" in {
 
 
       val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validDataInt)))
@@ -78,12 +78,12 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsStringInt(form.fill(true))
     }
 
-    "redirect to the next page when valid data is submitted for the optimised flow" in {
+    "redirect to the next page when valid data is submitted for the normal flow" in {
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val answers = userAnswers.set(WorkerTypePage,WorkerType.LimitedCompany)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -93,7 +93,7 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "return a Bad Request and errors when invalid data is submitted for the optimised flow" in {
+    "return a Bad Request and errors when invalid data is submitted for the normal flow" in {
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))

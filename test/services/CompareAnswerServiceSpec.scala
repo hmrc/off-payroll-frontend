@@ -61,7 +61,7 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
 
         val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
 
-        val answers = service.optimisedConstructAnswers(DataRequest(request, "id", userAnswers), YesClientAgreed, ArrangedSubstitutePage)
+        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), YesClientAgreed, ArrangedSubstitutePage)
 
         val resultFirst = answers.get(WouldWorkerPaySubstitutePage)
         val resultSecond = answers.get(RejectSubstitutePage)
@@ -87,7 +87,7 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
 
         val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
 
-        val answers = service.optimisedConstructAnswers(DataRequest(request, "id", userAnswers), YesClientAgreed, ArrangedSubstitutePage)
+        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), YesClientAgreed, ArrangedSubstitutePage)
 
         val resultFirst = answers.get(WouldWorkerPaySubstitutePage)
         val resultSecond = answers.get(RejectSubstitutePage)
@@ -110,7 +110,7 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
 
         val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
 
-        val answers = service.optimisedConstructAnswers(DataRequest(request, "id", userAnswers), No, ArrangedSubstitutePage)
+        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), No, ArrangedSubstitutePage)
 
         val resultFirst = answers.get(WouldWorkerPaySubstitutePage)
         val resultSecond = answers.get(RejectSubstitutePage)

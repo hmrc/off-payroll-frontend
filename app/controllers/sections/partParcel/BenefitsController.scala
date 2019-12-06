@@ -38,7 +38,7 @@ class BenefitsController @Inject()(identify: IdentifierAction,
                                    requireData: DataRequiredAction,
                                    formProvider: BenefitsFormProvider,
                                    controllerComponents: MessagesControllerComponents,
-                                   optimisedView: BenefitsView,
+                                   view: BenefitsView,
                                    checkYourAnswersService: CheckYourAnswersService,
                                    compareAnswerService: CompareAnswerService,
                                    dataCacheConnector: DataCacheConnector,
@@ -48,13 +48,13 @@ class BenefitsController @Inject()(identify: IdentifierAction,
 
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(optimisedView(fillForm(BenefitsPage, formProvider()), mode))
+    Ok(view(fillForm(BenefitsPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         redirect(mode,value,BenefitsPage)
       }

@@ -38,7 +38,7 @@ class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: IdentifyToStakeholdersFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
-                                                 optimisedView: IdentifyToStakeholdersView,
+                                                 view: IdentifyToStakeholdersView,
                                                  checkYourAnswersService: CheckYourAnswersService,
                                                  compareAnswerService: CompareAnswerService,
                                                  dataCacheConnector: DataCacheConnector,
@@ -47,13 +47,13 @@ class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(optimisedView(fillForm(IdentifyToStakeholdersPage, formProvider()), mode))
+    Ok(view(fillForm(IdentifyToStakeholdersPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         redirect(mode,value, IdentifyToStakeholdersPage)
       }

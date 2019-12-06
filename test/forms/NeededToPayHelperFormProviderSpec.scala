@@ -38,7 +38,7 @@ class NeededToPayHelperFormProviderSpec extends BooleanFieldBehaviours with Guic
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    "for the optimised flow" should {
+    "for the normal flow" should {
 
       "if the user type is 'Worker'" must {
 
