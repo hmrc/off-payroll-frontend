@@ -1,6 +1,7 @@
 package controllers.businessOnOwnAccount
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import models.{CheckMode, NormalMode}
 import play.api.http.Status
 
 class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
@@ -37,13 +38,13 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto the Ownership Rights page" in {
 
       lazy val res = postSessionRequest("/need-permission", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Are there any ownership rights relating to this contract?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.OwnershipRightsController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -80,12 +81,13 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto the Ownership Rights page" in {
 
-      lazy val res = postSessionRequest("/need-permission/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/need-permission/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/ownership-rights/change")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.OwnershipRightsController.onPageLoad(CheckMode).url)
       }
     }
   }

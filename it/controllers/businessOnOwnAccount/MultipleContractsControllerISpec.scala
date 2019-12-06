@@ -1,6 +1,7 @@
 package controllers.businessOnOwnAccount
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import models.{CheckMode, NormalMode}
 import play.api.http.Status
 
 class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
@@ -37,13 +38,13 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Permission to Work page" in {
 
       lazy val res = postSessionRequest("/no-similar-work", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Are you required to ask permission to work for other clients?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.PermissionToWorkWithOthersController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -80,12 +81,13 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto Permission to Work page" in {
 
-      lazy val res = postSessionRequest("/no-similar-work/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/no-similar-work/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/need-permission/change")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
       }
     }
   }

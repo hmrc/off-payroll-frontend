@@ -20,8 +20,8 @@ package controllers.sections.setup
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.ContractStartedFormProvider
+import models.NormalMode
 import models.requests.DataRequest
-import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
@@ -53,7 +53,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
 
   def viewAsStringOptimised(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
+  val validData = Map(ContractStartedPage.toString -> Json.toJson(true))
 
   "ContractStarted Controller" must {
 
@@ -67,7 +67,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered for optimised flow" in {
 
-      val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(ContractStartedPage.toString -> Json.toJson(true))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -78,7 +78,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val answers = userAnswers.set(ContractStartedPage,0,true)
+      val answers = userAnswers.set(ContractStartedPage,true)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

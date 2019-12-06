@@ -1,6 +1,7 @@
 package controllers.personalService
 
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +37,13 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/paid-helper", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.control.routes.MoveWorkerController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,12 +80,12 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post as no other answers given" in {
+    "Return a 303 on Successful post as no other answers given" in {
 
       lazy val res = postSessionRequest("/paid-helper/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        result.status shouldBe SEE_OTHER
       }
     }
   }

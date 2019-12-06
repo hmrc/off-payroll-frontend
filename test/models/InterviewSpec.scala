@@ -388,28 +388,28 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
           val userAnswers = UserAnswers("id")
-            .set(AboutYouPage, 0, Worker)
-            .set(ContractStartedPage, 1, true)
-            .set(WorkerTypePage, 2, SoleTrader)
-            .set(OfficeHolderPage, 3, false)
-            .set(ArrangedSubstitutePage, 4, YesClientAgreed)
-            .set(DidPaySubstitutePage, 5, false)
-            .set(WouldWorkerPaySubstitutePage, 6, true)
-            .set(RejectSubstitutePage, 7, false)
-            .set(NeededToPayHelperPage, 8, false)
-            .set(MoveWorkerPage, 9, CanMoveWorkerWithPermission)
-            .set(HowWorkIsDonePage, 10, WorkerFollowStrictEmployeeProcedures)
-            .set(ScheduleOfWorkingHoursPage, 11, WorkerAgreeSchedule)
-            .set(ChooseWhereWorkPage, 12, WorkerAgreeWithOthers)
-            .set(MaterialsPage, 13, false)
-            .set(EquipmentExpensesPage, 14, false)
-            .set(VehiclePage, 15, true)
-            .set(OtherExpensesPage, 16, true)
-            .set(HowWorkerIsPaidPage, 17, Commission)
-            .set(PutRightAtOwnCostPage, 18, CannotBeCorrected)
-            .set(BenefitsPage, 19, false)
-            .set(LineManagerDutiesPage, 20, false)
-            .set(IdentifyToStakeholdersPage, 22, WorkAsIndependent)
+            .set(AboutYouPage, Worker)
+            .set(ContractStartedPage, true)
+            .set(WorkerTypePage, SoleTrader)
+            .set(OfficeHolderPage, false)
+            .set(ArrangedSubstitutePage, YesClientAgreed)
+            .set(DidPaySubstitutePage, false)
+            .set(WouldWorkerPaySubstitutePage, true)
+            .set(RejectSubstitutePage, false)
+            .set(NeededToPayHelperPage, false)
+            .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+            .set(HowWorkIsDonePage, WorkerFollowStrictEmployeeProcedures)
+            .set(ScheduleOfWorkingHoursPage, WorkerAgreeSchedule)
+            .set(ChooseWhereWorkPage, WorkerAgreeWithOthers)
+            .set(MaterialsPage, false)
+            .set(EquipmentExpensesPage, false)
+            .set(VehiclePage, true)
+            .set(OtherExpensesPage, true)
+            .set(HowWorkerIsPaidPage, Commission)
+            .set(PutRightAtOwnCostPage, CannotBeCorrected)
+            .set(BenefitsPage, false)
+            .set(LineManagerDutiesPage, false)
+            .set(IdentifyToStakeholdersPage, WorkAsIndependent)
 
           val expected = Interview(
             correlationId = "id",
@@ -450,28 +450,28 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
           val userAnswers = UserAnswers("id")
-            .set(AboutYouPage, 0, Worker)
-            .set(ContractStartedPage, 1, true)
-            .set(WorkerTypePage, 2, SoleTrader)
-            .set(OfficeHolderPage, 3, false)
-            .set(ArrangedSubstitutePage, 4, YesClientAgreed)
-            .set(DidPaySubstitutePage, 5, false)
-            .set(WouldWorkerPaySubstitutePage, 6, true)
-            .set(RejectSubstitutePage, 7, false)
-            .set(NeededToPayHelperPage, 8, false)
-            .set(MoveWorkerPage, 9, CanMoveWorkerWithPermission)
-            .set(HowWorkIsDonePage, 10, WorkerFollowStrictEmployeeProcedures)
-            .set(ScheduleOfWorkingHoursPage, 11, WorkerAgreeSchedule)
-            .set(ChooseWhereWorkPage, 12, WorkerAgreeWithOthers)
-            .set(MaterialsPage, 13, false)
-            .set(EquipmentExpensesPage, 14, false)
-            .set(VehiclePage, 15, false)
-            .set(OtherExpensesPage, 16, false)
-            .set(HowWorkerIsPaidPage, 17, Commission)
-            .set(PutRightAtOwnCostPage, 18, CannotBeCorrected)
-            .set(BenefitsPage, 19, false)
-            .set(LineManagerDutiesPage, 20, false)
-            .set(IdentifyToStakeholdersPage, 22, WorkAsIndependent)
+            .set(AboutYouPage, Worker)
+            .set(ContractStartedPage, true)
+            .set(WorkerTypePage, SoleTrader)
+            .set(OfficeHolderPage, false)
+            .set(ArrangedSubstitutePage, YesClientAgreed)
+            .set(DidPaySubstitutePage, false)
+            .set(WouldWorkerPaySubstitutePage, true)
+            .set(RejectSubstitutePage, false)
+            .set(NeededToPayHelperPage, false)
+            .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+            .set(HowWorkIsDonePage, WorkerFollowStrictEmployeeProcedures)
+            .set(ScheduleOfWorkingHoursPage, WorkerAgreeSchedule)
+            .set(ChooseWhereWorkPage, WorkerAgreeWithOthers)
+            .set(MaterialsPage, false)
+            .set(EquipmentExpensesPage, false)
+            .set(VehiclePage, false)
+            .set(OtherExpensesPage, false)
+            .set(HowWorkerIsPaidPage, Commission)
+            .set(PutRightAtOwnCostPage, CannotBeCorrected)
+            .set(BenefitsPage, false)
+            .set(LineManagerDutiesPage, false)
+            .set(IdentifyToStakeholdersPage, WorkAsIndependent)
 
           val expected = Interview(
             correlationId = "id",
@@ -518,7 +518,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(MultipleContractsPage, 23, true)
+                  .set(MultipleContractsPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -538,8 +538,8 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(MultipleContractsPage, 23, false)
-                  .set(PermissionToWorkWithOthersPage, 24, true)
+                  .set(MultipleContractsPage, false)
+                  .set(PermissionToWorkWithOthersPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -559,8 +559,8 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(MultipleContractsPage, 1, false)
-                  .set(PermissionToWorkWithOthersPage, 2, false)
+                  .set(MultipleContractsPage, false)
+                  .set(PermissionToWorkWithOthersPage, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -583,7 +583,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(OwnershipRightsPage, 1, false)
+                  .set(OwnershipRightsPage, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -603,8 +603,8 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(OwnershipRightsPage, 1, true)
-                  .set(RightsOfWorkPage, 2, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -624,9 +624,9 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(OwnershipRightsPage, 1, true)
-                  .set(RightsOfWorkPage, 2, false)
-                  .set(TransferOfRightsPage, 2, false)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -646,9 +646,9 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(OwnershipRightsPage, 1, true)
-                  .set(RightsOfWorkPage, 2, false)
-                  .set(TransferOfRightsPage, 2, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -671,7 +671,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(SimilarWorkOtherClientsPage, 1, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -691,7 +691,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(SimilarWorkOtherClientsPage, 1, false)
+                  .set(SimilarWorkOtherClientsPage, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -714,7 +714,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(MajorityOfWorkingTimePage, 1, true)
+                  .set(MajorityOfWorkingTimePage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -734,7 +734,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(MajorityOfWorkingTimePage, 1, false)
+                  .set(MajorityOfWorkingTimePage, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -758,8 +758,8 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, true)
-                  .set(FollowOnContractPage, 2, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -779,9 +779,9 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, true)
-                  .set(FollowOnContractPage, 2, false)
-                  .set(FollowOnContractPage, 3, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FollowOnContractPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -801,10 +801,10 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, true)
-                  .set(FollowOnContractPage, 2, false)
-                  .set(FirstContractPage, 3, false)
-                  .set(ExtendContractPage, 4, false)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -824,10 +824,10 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, true)
-                  .set(FollowOnContractPage, 2, false)
-                  .set(FirstContractPage, 3, false)
-                  .set(ExtendContractPage, 4, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -847,8 +847,8 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, false)
-                  .set(FirstContractPage, 2, true)
+                  .set(PreviousContractPage, false)
+                  .set(FirstContractPage, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -868,9 +868,9 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, false)
-                  .set(FirstContractPage, 2, false)
-                  .set(ExtendContractPage, 3, false)
+                  .set(PreviousContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -890,9 +890,9 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, false)
-                  .set(FirstContractPage, 2, false)
-                  .set(ExtendContractPage, 3, true)
+                  .set(PreviousContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
 
                 val expected = Interview(
                   correlationId = "id",

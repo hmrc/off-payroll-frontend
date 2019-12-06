@@ -97,26 +97,26 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
   )
 
   val userAnswers: UserAnswers = UserAnswers("id")
-    .set(WhichDescribesYouPage,0, WorkerPAYE)
-    .set(ContractStartedPage,1, true)
-    .set(WorkerTypePage,2, SoleTrader)
-    .set(OfficeHolderPage,3, false)
-    .set(ArrangedSubstitutePage,4, YesClientAgreed)
-    .set(DidPaySubstitutePage, 5,false)
-    .set(WouldWorkerPaySubstitutePage,6, true)
-    .set(RejectSubstitutePage,7, false)
-    .set(NeededToPayHelperPage,8, false)
-    .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-    .set(HowWorkIsDonePage, 10,WorkerFollowStrictEmployeeProcedures)
-    .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-    .set(ChooseWhereWorkPage,12,WorkerAgreeWithOthers)
-    .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-    .set(HowWorkerIsPaidPage,14,Commission)
-    .set(PutRightAtOwnCostPage,15,CannotBeCorrected)
-    .set(BenefitsPage,16,false)
-    .set(LineManagerDutiesPage,17, false)
-    .set(InteractWithStakeholdersPage,18, false)
-    .set(IdentifyToStakeholdersPage, 19,WorkAsIndependent)
+    .set(WhichDescribesYouPage, WorkerPAYE)
+    .set(ContractStartedPage, true)
+    .set(WorkerTypePage, SoleTrader)
+    .set(OfficeHolderPage, false)
+    .set(ArrangedSubstitutePage, YesClientAgreed)
+    .set(DidPaySubstitutePage, false)
+    .set(WouldWorkerPaySubstitutePage, true)
+    .set(RejectSubstitutePage, false)
+    .set(NeededToPayHelperPage, false)
+    .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+    .set(HowWorkIsDonePage, WorkerFollowStrictEmployeeProcedures)
+    .set(ScheduleOfWorkingHoursPage, WorkerAgreeSchedule)
+    .set(ChooseWhereWorkPage,WorkerAgreeWithOthers)
+    .set(CannotClaimAsExpensePage, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+    .set(HowWorkerIsPaidPage,Commission)
+    .set(PutRightAtOwnCostPage,CannotBeCorrected)
+    .set(BenefitsPage,false)
+    .set(LineManagerDutiesPage, false)
+    .set(InteractWithStakeholdersPage, false)
+    .set(IdentifyToStakeholdersPage, WorkAsIndependent)
 
   "decide" should {
 
@@ -166,8 +166,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the OfficeHolderAgentView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, PAYE)
-                .set(OfficeHolderPage, 3, true)
+                .set(WhatDoYouWantToFindOutPage,  PAYE)
+                .set(OfficeHolderPage,  true)
 
               val decisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
 
@@ -186,9 +186,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the OfficeHolderIR35View" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, IR35)
-                .set(OfficeHolderPage, 3, true)
-                .set(WhatDoYouWantToDoPage, answerNumber = 4, MakeNewDetermination)
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(OfficeHolderPage,  true)
+                .set(WhatDoYouWantToDoPage, MakeNewDetermination)
 
               val decisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
 
@@ -207,8 +207,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the OfficeHolderPAYEView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, PAYE)
-                .set(OfficeHolderPage, 3, true)
+                .set(WhatDoYouWantToFindOutPage,  PAYE)
+                .set(OfficeHolderPage,  true)
 
               val decisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
 
@@ -230,8 +230,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the AgentInsideView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, PAYE)
-                .set(OfficeHolderPage, 3, false)
+                .set(WhatDoYouWantToFindOutPage,  PAYE)
+                .set(OfficeHolderPage,  false)
 
               val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
 
@@ -252,9 +252,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               "render the IR35InsideView" in {
 
                 val userAnswers: UserAnswers = UserAnswers("id")
-                  .set(WhatDoYouWantToFindOutPage, 2, IR35)
-                  .set(WorkerKnownPage,1,true)
-                  .set(OfficeHolderPage, 3, false)
+                  .set(WhatDoYouWantToFindOutPage,  IR35)
+                  .set(WorkerKnownPage,true)
+                  .set(OfficeHolderPage,  false)
 
                 val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
 
@@ -273,9 +273,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               "render the IR35InsideView" in {
 
                 val userAnswers: UserAnswers = UserAnswers("id")
-                  .set(WhatDoYouWantToFindOutPage, 2, IR35)
-                  .set(WorkerKnownPage,1,false)
-                  .set(OfficeHolderPage, 3, false)
+                  .set(WhatDoYouWantToFindOutPage,  IR35)
+                  .set(WorkerKnownPage,false)
+                  .set(OfficeHolderPage,  false)
 
                 val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
 
@@ -295,8 +295,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the PAYEInsideView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, PAYE)
-                .set(OfficeHolderPage, 3, false)
+                .set(WhatDoYouWantToFindOutPage,  PAYE)
+                .set(OfficeHolderPage,  false)
 
               val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)
 
@@ -319,7 +319,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
           "render the AgentUndeterminedView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WhatDoYouWantToFindOutPage, 2, PAYE)
+              .set(WhatDoYouWantToFindOutPage,  PAYE)
 
             val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
 
@@ -340,8 +340,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the IR35UndeterminedView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, IR35)
-                .set(WorkerKnownPage,1,true)
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(WorkerKnownPage,true)
 
               val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
 
@@ -360,8 +360,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the IR35UndeterminedView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, IR35)
-                .set(WorkerKnownPage,1,false)
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(WorkerKnownPage,false)
 
               val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
 
@@ -381,7 +381,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
           "render the OfficeHolderPAYEView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WhatDoYouWantToFindOutPage, 2, PAYE)
+              .set(WhatDoYouWantToFindOutPage,  PAYE)
 
             val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
 
@@ -433,8 +433,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the IR35OutsideView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, IR35)
-                .set(WorkerKnownPage,1, true)
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(WorkerKnownPage, true)
 
               val decisionResponse = DecisionResponse("", "", Score(
                 personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
@@ -465,8 +465,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the IR35OutsideView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, IR35)
-                .set(WorkerKnownPage,1, false)
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(WorkerKnownPage, false)
 
               val decisionResponse = DecisionResponse("", "", Score(
                 personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
@@ -498,7 +498,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
           "render the PAYEOutsideView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WhatDoYouWantToFindOutPage, 2, PAYE)
+              .set(WhatDoYouWantToFindOutPage,  PAYE)
 
             val decisionResponse = DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),

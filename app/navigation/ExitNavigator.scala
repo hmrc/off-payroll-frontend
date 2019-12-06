@@ -40,7 +40,7 @@ class ExitNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Nav
         mode match {
           case CheckMode => CheckYourAnswersController.onPageLoad(Some(Section.earlyExit))
           case NormalMode => answers.get(ContractStartedPage) match {
-                case Some(Answers(true, _)) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
+                case Some(true) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
                 case Some(_) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
                 case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
               }

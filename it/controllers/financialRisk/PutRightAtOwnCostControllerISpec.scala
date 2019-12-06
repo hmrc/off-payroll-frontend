@@ -1,6 +1,8 @@
 package controllers.financialRisk
 
 import helpers.IntegrationSpecBase
+import models.NormalMode
+import models.Section.financialRisk
 
 class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +38,13 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/put-work-right",putWorkRightValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Will your client provide you with paid-for corporate benefits?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.partParcel.routes.BenefitsController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -80,13 +82,13 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 409 on Successful post and redirect to the check your answers page with financial risk" in {
 
       lazy val res = postSessionRequest("/put-work-right/change",putWorkRightValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        titleOf(result) should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(financialRisk)).url)
       }
     }
   }

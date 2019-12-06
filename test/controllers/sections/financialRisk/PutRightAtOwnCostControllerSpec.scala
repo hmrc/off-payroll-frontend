@@ -20,7 +20,7 @@ package controllers.sections.financialRisk
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.financialRisk.PutRightAtOwnCostFormProvider
-import models.Answers._
+
 import models._
 import models.requests.DataRequest
 import models.sections.financialRisk.PutRightAtOwnCost
@@ -56,7 +56,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     frontendAppConfig
   )
 
-  val validData = Map(PutRightAtOwnCostPage.toString -> Json.toJson(Answers(PutRightAtOwnCost.values.head,0)))
+  val validData = Map(PutRightAtOwnCostPage.toString -> Json.toJson(PutRightAtOwnCost.values.head))
 
   "PutRightAtOwnCost Controller" when {
 
@@ -86,7 +86,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
         implicit val hc = new HeaderCarrier()
 
 
-        val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, 0, OutsideOfHoursNoCharge)
+        val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, OutsideOfHoursNoCharge)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
 

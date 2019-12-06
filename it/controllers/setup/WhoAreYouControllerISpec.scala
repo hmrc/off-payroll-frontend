@@ -37,13 +37,13 @@ class WhoAreYouControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/who-are-you", whoAreYouValue)
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WhatDoYouWantToDoController.onPageLoad(NormalMode).url)
+        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode).url)
       }
     }
   }

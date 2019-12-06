@@ -21,10 +21,10 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.control.ScheduleOfWorkingHoursFormProvider
-import models.Answers._
+
 import models.requests.DataRequest
 import models.sections.control.ScheduleOfWorkingHours
-import models.{Answers, NormalMode}
+import models.NormalMode
 import navigation.mocks.FakeNavigators.FakeControlNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
@@ -57,7 +57,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
 
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(ScheduleOfWorkingHoursPage.toString -> Json.toJson(Answers(ScheduleOfWorkingHours.values.head,0)))
+  val validData = Map(ScheduleOfWorkingHoursPage.toString -> Json.toJson(ScheduleOfWorkingHours.values.head))
 
   "ScheduleOfWorkingHours Controller" must {
 
@@ -83,7 +83,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options.head.value))
 
-      val answers = userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker)
+      val answers = userAnswers.set(ScheduleOfWorkingHoursPage,ScheduleOfWorkingHours.ScheduleDecidedForWorker)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ScheduleOfWorkingHours)(answers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -100,7 +100,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-      val answers = userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker)
+      val answers = userAnswers.set(ScheduleOfWorkingHoursPage,ScheduleOfWorkingHours.ScheduleDecidedForWorker)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ScheduleOfWorkingHours)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)

@@ -21,10 +21,10 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.control.MoveWorkerFormProvider
-import models.Answers._
+
 import models.requests.DataRequest
 import models.sections.control.MoveWorker
-import models.{Answers, NormalMode}
+import models.NormalMode
 import navigation.mocks.FakeNavigators.FakeControlNavigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
@@ -58,7 +58,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.CanMoveWorkerWithPermission,0)))
+  val validData = Map(MoveWorkerPage.toString -> Json.toJson(MoveWorker.CanMoveWorkerWithPermission))
 
   "MoveWorker Controller" must {
 
@@ -86,7 +86,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.CanMoveWorkerWithPermission.toString))
 
-      val answers = userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission)
+      val answers = userAnswers.set(MoveWorkerPage,MoveWorker.CanMoveWorkerWithPermission)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),MoveWorker)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

@@ -38,5 +38,5 @@ abstract class BaseController @Inject()(mcc: MessagesControllerComponents)
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   def fillForm[A](page: QuestionPage[A], form: Form[A])(implicit request: DataRequest[_], format: Format[A]): Form[A] =
-    request.userAnswers.get(page).fold(form)(answerModel => form.fill(answerModel.answer))
+    request.userAnswers.get(page).fold(form)(answerModel => form.fill(answerModel))
 }

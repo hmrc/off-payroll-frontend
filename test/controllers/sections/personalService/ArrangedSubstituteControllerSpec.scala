@@ -21,10 +21,9 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.personalService.ArrangedSubstituteFormProvider
-import models.Answers._
+import models.NormalMode
 import models.requests.DataRequest
 import models.sections.personalService.ArrangedSubstitute
-import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
 import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
@@ -57,7 +56,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
 
   def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(ArrangedSubstitutePage.toString -> Json.toJson(Answers(ArrangedSubstitute.values.head, 0)))
+  val validData = Map(ArrangedSubstitutePage.toString -> Json.toJson(ArrangedSubstitute.values.head))
 
   "ArrangedSubstitute Controller" must {
 
@@ -85,7 +84,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-        val answers = userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed)
+        val answers = userAnswers.set(ArrangedSubstitutePage,ArrangedSubstitute.YesClientAgreed)
         mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ArrangedSubstitute)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)

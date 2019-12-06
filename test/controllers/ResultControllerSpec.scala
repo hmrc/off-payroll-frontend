@@ -81,8 +81,8 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
         "return OK and the HTML returned from the Decision Service" in {
 
 
-          val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
-          val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
+          val validData = Map(Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp()))
+          val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
           val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)
           implicit val dataRequest = DataRequest(fakeRequest, "id", answers)
 
@@ -104,8 +104,8 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
         "redirect to the something went wrong page" in {
 
 
-          val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
-          val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
+          val validData = Map(Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp()))
+          val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
           implicit val dataRequest = DataRequest(fakeRequest, "id", answers)
 
           mockOptimisedConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
@@ -124,8 +124,8 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
         "redirect to the something went wrong page" in {
 
 
-          val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
-          val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
+          val validData = Map(Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp()))
+          val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
           val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)
           implicit val dataRequest = DataRequest(fakeRequest, "id", answers)
 
@@ -144,9 +144,9 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
       "redirect to next page" in {
 
 
-        val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+        val validData = Map(Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp()))
 
-        val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
+        val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

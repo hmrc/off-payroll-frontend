@@ -63,7 +63,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
       def viewAsString(form: Form[_] = whichDescribesYouForm) = whichDescribesYouview(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-      val validData = Map(WhichDescribesYouPage.toString -> Json.toJson(Answers(WhichDescribesYouAnswer.values.head,0)))
+      val validData = Map(WhichDescribesYouPage.toString -> Json.toJson(WhichDescribesYouAnswer.values.head))
 
       "return OK and the correct view for a GET" in {
 
@@ -86,7 +86,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichDescribesYouAnswer.values.head.toString))
 
-        val answers = userAnswers.set(WhichDescribesYouPage,0,WhichDescribesYouAnswer.WorkerPAYE)
+        val answers = userAnswers.set(WhichDescribesYouPage,WhichDescribesYouAnswer.WorkerPAYE)
         mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),AboutYouAnswer)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

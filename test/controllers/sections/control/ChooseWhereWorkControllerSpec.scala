@@ -21,7 +21,6 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.control.ChooseWhereWorkFormProvider
-import models.Answers._
 import models._
 import models.requests.DataRequest
 import models.sections.control.ChooseWhereWork
@@ -58,7 +57,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(WorkerChooses,0)))
+  val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(WorkerChooses))
 
   "ChooseWhereWork Controller" must {
 
@@ -87,7 +86,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerChooses.toString))
 
-      val answers = userAnswers.set(ChooseWhereWorkPage,0, WorkerChooses)
+      val answers = userAnswers.set(ChooseWhereWorkPage,WorkerChooses)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ChooseWhereWork)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)

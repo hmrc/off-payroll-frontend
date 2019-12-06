@@ -20,7 +20,6 @@ package controllers.sections.financialRisk
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.financialRisk.HowWorkerIsPaidFormProvider
-import models.Answers._
 import models._
 import models.requests.DataRequest
 import models.sections.financialRisk.HowWorkerIsPaid
@@ -53,7 +52,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
     frontendAppConfig
   )
 
-  val validData = Map(HowWorkerIsPaidPage.toString -> Json.toJson(Answers(HowWorkerIsPaid.values.head,0)))
+  val validData = Map(HowWorkerIsPaidPage.toString -> Json.toJson(HowWorkerIsPaid.values.head))
 
   "HowWorkerIsPaid Controller" when {
 
@@ -81,7 +80,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
       "redirect to the next page when valid data is submitted" in {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
-        val answers = userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly)
+        val answers = userAnswers.set(HowWorkerIsPaidPage,HowWorkerIsPaid.HourlyDailyOrWeekly)
         mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

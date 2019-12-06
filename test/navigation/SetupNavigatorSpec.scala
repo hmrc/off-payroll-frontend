@@ -32,8 +32,8 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
 
   val navigator = new SetupNavigator
   def nextPage(fromPage: Page, userAnswers: UserAnswers = emptyUserAnswers) = navigator.nextPage(fromPage, NormalMode)(userAnswers)
-  def setAnswers[A](answers: (QuestionPage[A], A)*)(implicit writes: Writes[A],aWrites: Writes[Answers[A]]) =
-    answers.foldLeft(UserAnswers.apply("id"))((o, a) => o.set(a._1,0, a._2))
+  def setAnswers[A](answers: (QuestionPage[A], A)*)(implicit writes: Writes[A]) =
+    answers.foldLeft(UserAnswers.apply("id"))((o, a) => o.set(a._1, a._2))
 
   "SetupNavigator" when {
 

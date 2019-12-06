@@ -67,7 +67,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val decryptedForm = request.userAnswers.get(CustomisePDFPage).fold(AdditionalPdfDetails())(x => encryption.decryptDetails(x.answer))
+    val decryptedForm = request.userAnswers.get(CustomisePDFPage).fold(AdditionalPdfDetails())(answer => encryption.decryptDetails(answer))
 
     Ok(optimisedView(form.fill(decryptedForm), mode))
   }
@@ -86,8 +86,8 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     val decisionResponse = request.session.getModel[DecisionResponse](SessionKeys.decisionResponse)
-    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryption.decryptDetails(answer.answer)).getOrElse(AdditionalPdfDetails())
-    val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
+    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryption.decryptDetails(answer)).getOrElse(AdditionalPdfDetails())
+    val timestamp = time.timestamp(request.userAnswers.get(Timestamp))
 
     decisionResponse match {
       case Some(decision) => optimisedPrintResult(decision, pdfDetails, timestamp)

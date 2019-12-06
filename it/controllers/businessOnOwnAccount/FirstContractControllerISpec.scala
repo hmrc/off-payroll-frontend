@@ -1,6 +1,7 @@
 package controllers.businessOnOwnAccount
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import models.{CheckMode, NormalMode}
 import play.api.http.Status
 
 class FirstContractControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
@@ -37,13 +38,13 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and redirect to the Contract Extended page" in {
 
       lazy val res = postSessionRequest("/first-contract-in-series", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Does the current contract allow for it to be extended?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.ExtendContractController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -80,12 +81,13 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and redirect to the Contract Extended page" in {
 
-      lazy val res = postSessionRequest("/first-contract-in-series/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/first-contract-in-series/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/extend-contract/change")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.ExtendContractController.onPageLoad(CheckMode).url)
       }
     }
   }

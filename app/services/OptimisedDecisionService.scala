@@ -85,8 +85,8 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     val form = formWithErrors.getOrElse(defaultForm)
 
     implicit val resultsDetails: ResultsDetails = ResultsDetails(
-      officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer),
-      isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination),
+      officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(ans => ans),
+      isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(ans => ans == MakeNewDetermination),
       usingIntermediary = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35),
       userType = request.userType,
       personalServiceOption = decision.score.personalService,

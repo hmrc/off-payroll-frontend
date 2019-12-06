@@ -21,8 +21,8 @@ import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, FakeIdentifierAction, _}
 import forms.sections.businessOnOwnAccount.OwnershipRightsFormProvider
+import models.NormalMode
 import models.requests.DataRequest
-import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeBusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.OwnershipRightsPage
 import play.api.data.Form
@@ -69,7 +69,7 @@ class OwnershipRightsControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(OwnershipRightsPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(OwnershipRightsPage.toString -> Json.toJson(true))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -79,9 +79,9 @@ class OwnershipRightsControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val validData = Map(OwnershipRightsPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(OwnershipRightsPage.toString -> Json.toJson(true))
 
-      val answers = userAnswers.set(OwnershipRightsPage,0,true)
+      val answers = userAnswers.set(OwnershipRightsPage,true)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)

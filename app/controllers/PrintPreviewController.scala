@@ -44,8 +44,8 @@ class PrintPreviewController @Inject()(identify: IdentifierAction,
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryptionService.decryptDetails(answer.answer)).getOrElse(AdditionalPdfDetails())
-    val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
+    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryptionService.decryptDetails(answer)).getOrElse(AdditionalPdfDetails())
+    val timestamp = time.timestamp(request.userAnswers.get(Timestamp))
 
     request.session.getModel[DecisionResponse](SessionKeys.decisionResponse) match {
       case Some(decision) =>

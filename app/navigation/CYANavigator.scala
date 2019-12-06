@@ -31,14 +31,14 @@ class CYANavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navi
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
     CheckYourAnswersPage -> (_ => ResultController.onPageLoad()),
     ResultPage -> { answer => answer.get(ResultPage) match {
-          case Some(Answers(true, _)) => AddReferenceDetailsController.onPageLoad()
+          case Some(true) => AddReferenceDetailsController.onPageLoad()
           case _ => PrintPreviewController.onPageLoad()
         }
     },
     AddReferenceDetailsPage -> {
       answer =>
         answer.get(AddReferenceDetailsPage) match {
-          case Some(Answers(true, _)) => PDFController.onPageLoad(NormalMode)
+          case Some(true) => PDFController.onPageLoad(NormalMode)
           case _ => PrintPreviewController.onPageLoad()
         }
     },

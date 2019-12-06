@@ -20,7 +20,6 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.personalService.WouldWorkerPaySubstituteFormProvider
-import models.Answers._
 import models._
 import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
@@ -55,7 +54,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
 
   def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(Answers(true, 0)))
+  val validData = Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(true))
 
   "WouldWorkerPaySubstitute Controller" must {
 
@@ -86,7 +85,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        val answers = userAnswers.set(WouldWorkerPaySubstitutePage, 0, true)
+        val answers = userAnswers.set(WouldWorkerPaySubstitutePage, true)
         mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)

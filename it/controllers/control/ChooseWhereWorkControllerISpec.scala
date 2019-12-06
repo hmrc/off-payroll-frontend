@@ -1,6 +1,7 @@
 package controllers.control
 
 import helpers.IntegrationSpecBase
+import models.{CheckMode, NormalMode, Section}
 
 class ChooseWhereWorkControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +37,13 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/decide-where-work-is-done",chooseWhereDoneValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Will you have to buy equipment before your client pays you?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.financialRisk.routes.EquipmentExpensesController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,13 +80,13 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 309 on Successful post and move onto CheckYourAnswers Page" in {
 
       lazy val res = postSessionRequest("/decide-where-work-is-done/change",chooseWhereDoneValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        titleOf(result) should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(Section.control)).url)
       }
     }
   }

@@ -48,7 +48,7 @@ class PersonalServiceSectionChangeWarningController @Inject()(identify: Identifi
 
   def onSubmit(page: String): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val userAnswers = request.userAnswers.set(PersonalServiceSectionChangeWarningPage, 0, true)
+    val userAnswers = request.userAnswers.set(PersonalServiceSectionChangeWarningPage, true)
 
     dataCacheConnector.save(userAnswers.cacheMap).map { _ =>
       Page(page) match {

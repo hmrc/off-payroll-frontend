@@ -21,7 +21,6 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.control.HowWorkIsDoneFormProvider
-import models.Answers._
 import models._
 import models.requests.DataRequest
 import models.sections.control.HowWorkIsDone
@@ -57,7 +56,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(Answers(HowWorkIsDone.values.head,0)))
+  val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(HowWorkIsDone.values.head))
 
   "HowWorkIsDone Controller" must {
 
@@ -83,7 +82,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-      val answers = userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed)
+      val answers = userAnswers.set(HowWorkIsDonePage,HowWorkIsDone.NoWorkerInputAllowed)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
@@ -99,7 +98,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-      val answers = userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed)
+      val answers = userAnswers.set(HowWorkIsDonePage,HowWorkIsDone.NoWorkerInputAllowed)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)

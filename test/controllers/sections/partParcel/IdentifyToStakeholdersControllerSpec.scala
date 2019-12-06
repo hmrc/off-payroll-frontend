@@ -20,7 +20,7 @@ package controllers.sections.partParcel
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.partAndParcel.IdentifyToStakeholdersFormProvider
-import models.Answers._
+
 import models._
 import models.requests.DataRequest
 import models.sections.partAndParcel.IdentifyToStakeholders
@@ -55,7 +55,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     frontendAppConfig
   )
 
-  val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(Answers(IdentifyToStakeholders.values.head,0)))
+  val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(IdentifyToStakeholders.values.head))
 
   "IdentifyToStakeholders Controller" must {
 
@@ -77,14 +77,13 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-        val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0,IdentifyToStakeholders.WorkForEndClient)
         contentAsString(result) mustBe viewAsString(form.fill(IdentifyToStakeholders.values.head))
       }
 
       "redirect to the next page when valid data is submitted" in {
 
 
-        val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, 0, WorkForEndClient)
+        val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, WorkForEndClient)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 
         mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)

@@ -1,6 +1,8 @@
 package controllers.personalService
 
+import models.Section.personalService
 import helpers.IntegrationSpecBase
+import models.{CheckMode, NormalMode}
 
 class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
@@ -36,13 +38,13 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/would-pay-substitute", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.control.routes.MoveWorkerController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,12 +81,13 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post as check your answers is not complete" in {
+    "Return a 303 on Successful post as check your answers is not complete" in {
 
       lazy val res = postSessionRequest("/would-pay-substitute/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(personalService)).url)
       }
     }
   }

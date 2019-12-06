@@ -32,145 +32,145 @@ import views.ViewUtils._
 class ResultPageHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
   def didPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(DidPaySubstitutePage) map { x =>
+    userAnswers.get(DidPaySubstitutePage) map { answer =>
       AnswerRow(
         tailorMsg("didPaySubstitute.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
+        if(answer) "site.yes" else "site.no",
         answerIsMessageKey = true
       )
     }
 
   def rejectSubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(RejectSubstitutePage) map { x =>
+    userAnswers.get(RejectSubstitutePage) map { answer =>
       AnswerRow(
         tailorMsg("rejectSubstitute.checkYourAnswersLabel"),
-        tailorMsg(if(x.answer) "rejectSubstitute.yes" else "rejectSubstitute.no"),
+        tailorMsg(if(answer) "rejectSubstitute.yes" else "rejectSubstitute.no"),
         answerIsMessageKey = true
       )
     }
 
   def wouldWorkerPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(WouldWorkerPaySubstitutePage) map { x =>
+    userAnswers.get(WouldWorkerPaySubstitutePage) map { answer =>
       AnswerRow(
         tailorMsg("wouldWorkerPaySubstitute.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
+        if(answer) "site.yes" else "site.no",
         answerIsMessageKey = true
       )
     }
 
   def neededToPayHelper(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(NeededToPayHelperPage) map { x =>
+    userAnswers.get(NeededToPayHelperPage) map { answer =>
       AnswerRow(
         tailorMsg("neededToPayHelper.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
+        if(answer) "site.yes" else "site.no",
         answerIsMessageKey = true
       )
     }
 
   def moveWorker(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(MoveWorkerPage) map { x =>
+    userAnswers.get(MoveWorkerPage) map { answer =>
       AnswerRow(
         tailorMsg("moveWorker.checkYourAnswersLabel"),
-        tailorMsg(s"moveWorker.${x.answer}"),
+        tailorMsg(s"moveWorker.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def howWorkIsDone(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(HowWorkIsDonePage) map { x =>
+    userAnswers.get(HowWorkIsDonePage) map { answer =>
       AnswerRow(
         tailorMsg("howWorkIsDone.checkYourAnswersLabel"),
-        tailorMsg(s"howWorkIsDone.${x.answer}"),
+        tailorMsg(s"howWorkIsDone.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def scheduleOfWorkingHours(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(ScheduleOfWorkingHoursPage) map { x =>
+    userAnswers.get(ScheduleOfWorkingHoursPage) map { answer =>
       AnswerRow(
         tailorMsg("scheduleOfWorkingHours.checkYourAnswersLabel"),
-        tailorMsg(s"scheduleOfWorkingHours.${x.answer}"),
+        tailorMsg(s"scheduleOfWorkingHours.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def chooseWhereWork(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(ChooseWhereWorkPage) map { x =>
+    userAnswers.get(ChooseWhereWorkPage) map { answer =>
       AnswerRow(
         tailorMsg("chooseWhereWork.checkYourAnswersLabel"),
-        tailorMsg(s"chooseWhereWork.${x.answer}"),
+        tailorMsg(s"chooseWhereWork.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def howWorkerIsPaid(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(HowWorkerIsPaidPage) map { x =>
+    userAnswers.get(HowWorkerIsPaidPage) map { answer =>
       AnswerRow(
         tailorMsg("howWorkerIsPaid.checkYourAnswersLabel"),
-        tailorMsg(s"howWorkerIsPaid.${x.answer}"),
+        tailorMsg(s"howWorkerIsPaid.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def putRightAtOwnCost(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(PutRightAtOwnCostPage) map { x =>
+    userAnswers.get(PutRightAtOwnCostPage) map { answer =>
       AnswerRow(
         tailorMsg("putRightAtOwnCost.checkYourAnswersLabel"),
-        tailorMsg(s"putRightAtOwnCost.${x.answer}"),
+        tailorMsg(s"putRightAtOwnCost.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def benefits(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(BenefitsPage) map { x =>
+    userAnswers.get(BenefitsPage) map { answer =>
       AnswerRow(
         tailorMsg("benefits.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
+        if(answer) "site.yes" else "site.no",
         answerIsMessageKey = true
       )
     }
 
   def lineManagerDuties(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(LineManagerDutiesPage) map { x =>
+    userAnswers.get(LineManagerDutiesPage) map { answer =>
       AnswerRow(
         tailorMsg("lineManagerDuties.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
+        if(answer) "site.yes" else "site.no",
         answerIsMessageKey = true
       )
     }
 
   def interactWithStakeholders(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(InteractWithStakeholdersPage) map { x =>
+    userAnswers.get(InteractWithStakeholdersPage) map { answer =>
       AnswerRow(
         tailorMsg("interactWithStakeholders.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
+        if(answer) "site.yes" else "site.no",
         answerIsMessageKey = true
       )
     }
 
   def identifyToStakeholders(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(IdentifyToStakeholdersPage) map { x =>
+    userAnswers.get(IdentifyToStakeholdersPage) map { answer =>
       AnswerRow(
         tailorMsg("identifyToStakeholders.checkYourAnswersLabel"),
-        tailorMsg(s"identifyToStakeholders.${x.answer}"),
+        tailorMsg(s"identifyToStakeholders.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def arrangedSubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(ArrangedSubstitutePage) map { x =>
+    userAnswers.get(ArrangedSubstitutePage) map { answer =>
       AnswerRow(
         tailorMsg("arrangedSubstitute.checkYourAnswersLabel"),
-        tailorMsg(s"arrangedSubstitute.${x.answer}"),
+        tailorMsg(s"arrangedSubstitute.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def cannotClaimAsExpense(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(CannotClaimAsExpensePage) map { x =>
+    userAnswers.get(CannotClaimAsExpensePage) map { answer =>
       AnswerRow(
         label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
-        answers = x.answer.map(ans =>
+        answers = answer.map(ans =>
           AnswerRow(
             label = tailorMsg(s"cannotClaimAsExpense.checkYourAnswersLabel"),
             answer = tailorMsg(s"cannotClaimAsExpense.$ans"),
@@ -181,36 +181,36 @@ class ResultPageHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
     }
 
   def officeHolder(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(OfficeHolderPage) map { x =>
+    userAnswers.get(OfficeHolderPage) map { answer =>
       AnswerRow(
         tailorMsg("officeHolder.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
+        if(answer) "site.yes" else "site.no",
         answerIsMessageKey = true
       )
     }
 
   def workerType(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(WorkerTypePage) map { x =>
+    userAnswers.get(WorkerTypePage) map { answer =>
       AnswerRow(
         tailorMsg("workerType.checkYourAnswersLabel"),
-        tailorMsg(s"workerType.${x.answer}"),
+        tailorMsg(s"workerType.$answer"),
         answerIsMessageKey = true
       )
     }
 
   def contractStarted(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(ContractStartedPage) map { x =>
+    userAnswers.get(ContractStartedPage) map { answer =>
       AnswerRow(
         tailorMsg("contractStarted.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
+        if(answer) "site.yes" else "site.no",
         answerIsMessageKey = true
       )
     }
 
-  def aboutYou: Option[AnswerRow] = userAnswers.get(AboutYouPage) map { x =>
+  def aboutYou: Option[AnswerRow] = userAnswers.get(AboutYouPage) map { answer =>
     AnswerRow(
       "aboutYou.checkYourAnswersLabel",
-      s"aboutYou.${x.answer}", answerIsMessageKey = true
+      s"aboutYou.$answer", answerIsMessageKey = true
     )
   }
 }

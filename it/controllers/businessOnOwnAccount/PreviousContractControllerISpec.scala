@@ -1,6 +1,7 @@
 package controllers.businessOnOwnAccount
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import models.{CheckMode, NormalMode}
 import play.api.http.Status
 
 class PreviousContractControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
@@ -42,8 +43,8 @@ class PreviousContractControllerISpec extends IntegrationSpecBase with CreateReq
       lazy val res = postSessionRequest("/previous-contract", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.FirstContractController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -80,12 +81,13 @@ class PreviousContractControllerISpec extends IntegrationSpecBase with CreateReq
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/previous-contract/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/previous-contract/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/first-contract-in-series/change")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.FirstContractController.onPageLoad(CheckMode).url)
       }
     }
   }

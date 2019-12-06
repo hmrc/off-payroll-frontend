@@ -21,8 +21,8 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.personalService.RejectSubstituteFormProvider
+import models.NormalMode
 import models.requests.DataRequest
-import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
@@ -52,7 +52,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
     navigator = FakePersonalServiceNavigator
   )
 
-  val validData = Map(RejectSubstitutePage.toString -> Json.toJson(Answers(true, 0)))
+  val validData = Map(RejectSubstitutePage.toString -> Json.toJson(true))
 
   "RejectSubstitute Controller" must {
 
@@ -79,7 +79,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
       "redirect to the next page when valid data is submitted" in {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
-        val answers = userAnswers.set(RejectSubstitutePage,0,true)
+        val answers = userAnswers.set(RejectSubstitutePage,true)
         mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

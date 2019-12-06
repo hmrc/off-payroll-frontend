@@ -20,7 +20,7 @@ package controllers.sections.setup
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
-import models.Answers._
+
 import models._
 import models.requests.DataRequest
 import models.sections.setup.WorkerType
@@ -55,8 +55,8 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
 
   def viewAsStringInt(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head,0)))
-  val validDataInt = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
+  val validData = Map(WorkerTypePage.toString -> Json.toJson(WorkerType.values.head))
+  val validDataInt = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(true))
 
   "WorkerType Controller" must {
 
@@ -82,7 +82,7 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val answers = userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany)
+      val answers = userAnswers.set(WorkerTypePage,WorkerType.LimitedCompany)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

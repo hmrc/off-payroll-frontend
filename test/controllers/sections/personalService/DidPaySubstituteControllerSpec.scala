@@ -21,7 +21,7 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.personalService.DidPaySubstituteFormProvider
 import models.requests.DataRequest
-import models.{Answers, NormalMode}
+import models.NormalMode
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
 import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form
@@ -53,7 +53,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(DidPaySubstitutePage.toString -> Json.toJson(Answers(true, 0)))
+  val validData = Map(DidPaySubstitutePage.toString -> Json.toJson(true))
 
   "DidPaySubstitute Controller" must {
 
@@ -83,7 +83,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        val answers = userAnswers.set(DidPaySubstitutePage,0,true)
+        val answers = userAnswers.set(DidPaySubstitutePage,true)
         mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)

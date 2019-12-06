@@ -46,165 +46,6 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
 
   val service = new CompareAnswerService(mockQuestionDeletionLookup)
 
-  "sub-optimised" should {
-
-    "compare answer service (consecutive answer)" should {
-
-      "add an About You Answer" in {
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), AboutYouAnswer.Worker, AboutYouPage)
-
-        val result = answers.get(AboutYouPage).get
-
-        result.answer mustBe Worker
-        result.answerNumber mustBe 0
-      }
-
-      "add a Contract Started Answer" in {
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), true, ContractStartedPage)
-
-        val result = answers.get(ContractStartedPage).get
-
-        result.answer mustBe true
-        result.answerNumber mustBe 1
-      }
-
-      "add a Worker Type Answer" in {
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-          .set(ContractStartedPage, 1, true)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), WorkerType.SoleTrader, WorkerTypePage)
-
-        val result = answers.get(WorkerTypePage).get
-
-        result.answer mustBe WorkerType.SoleTrader
-        result.answerNumber mustBe 2
-      }
-    }
-
-    "compare answer service (change new answer)" should {
-      "change a Who are you Answer if it's a new value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(WhoAreYouPage, 0, WhoAreYou.Worker)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), WhoAreYou.Agency, WhoAreYouPage)
-
-        val result = answers.get(WhoAreYouPage).get
-
-        result.answer mustBe WhoAreYou.Agency
-        result.answerNumber mustBe 0
-      }
-
-      "change a Contract Started Answer if it's a new value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-          .set(ContractStartedPage, 1, true)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), false, ContractStartedPage)
-
-        val result = answers.get(ContractStartedPage).get
-
-        result.answer mustBe false
-        result.answerNumber mustBe 1
-      }
-
-      "change all answers after current answer if it's changed to a new value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(WhoAreYouPage, 0, WhoAreYou.Worker)
-          .set(WhatDoYouWantToDoPage, 1, WhatDoYouWantToDo.CheckDetermination)
-          .set(ContractStartedPage, 2, true)
-          .set(OfficeHolderPage, 3, false)
-          .set(ArrangedSubstitutePage, 4, YesClientAgreed)
-          .set(DidPaySubstitutePage, 5, false)
-          .set(WouldWorkerPaySubstitutePage, 6, true)
-          .set(RejectSubstitutePage, 7, false)
-          .set(NeededToPayHelperPage, 8, false)
-          .set(MoveWorkerPage, 9, CanMoveWorkerWithPermission)
-          .set(HowWorkIsDonePage, 10, WorkerFollowStrictEmployeeProcedures)
-          .set(ScheduleOfWorkingHoursPage, 11, WorkerAgreeSchedule)
-          .set(ChooseWhereWorkPage, 12, WorkerAgreeWithOthers)
-          .set(CannotClaimAsExpensePage, 13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-          .set(HowWorkerIsPaidPage, 14, Commission)
-          .set(PutRightAtOwnCostPage, 15, CannotBeCorrected)
-          .set(BenefitsPage, 16, false)
-          .set(LineManagerDutiesPage, 17, false)
-          .set(InteractWithStakeholdersPage, 18, false)
-          .set(IdentifyToStakeholdersPage, 19, WorkAsIndependent)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), false, ContractStartedPage)
-
-        val result = answers.get(ContractStartedPage).get
-
-        result.answer mustBe false
-        result.answerNumber mustBe 2
-        answers.size mustBe 3
-        answers.get(OfficeHolderPage) mustBe None
-        answers.get(IdentifyToStakeholdersPage) mustBe None
-      }
-    }
-
-    "compare answer service (change same answer)" should {
-      "not change a Who are you Answer if it's the same value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(WhoAreYouPage, 0, WhoAreYou.Worker)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), WhoAreYou.Worker, WhoAreYouPage)
-
-        val result = answers.get(WhoAreYouPage).get
-
-        result.answer mustBe WhoAreYou.Worker
-        result.answerNumber mustBe 0
-      }
-
-      "not change a Contract Started Answer if it's the same value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-          .set(ContractStartedPage, 1, true)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), true, ContractStartedPage)
-
-        val result = answers.get(ContractStartedPage).get
-
-        result.answer mustBe true
-        result.answerNumber mustBe 1
-      }
-    }
-  }
-
   "optimised" should {
 
     "optimised compare answer service" should {
@@ -212,9 +53,9 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
       "remove answers if an answer is added" in {
 
         val userAnswers: UserAnswers = UserAnswers("id")
-          .set(WouldWorkerPaySubstitutePage, 0, true)
-          .set(RejectSubstitutePage, 1, true)
-          .set(NeededToPayHelperPage, 2, true)
+          .set(WouldWorkerPaySubstitutePage, true)
+          .set(RejectSubstitutePage, true)
+          .set(NeededToPayHelperPage, true)
 
         mockGetPagesToRemove(ArrangedSubstitutePage)(List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage))
 
@@ -231,15 +72,15 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
         resultThird mustBe None
 
         val newPage = answers.get(ArrangedSubstitutePage)
-        newPage mustBe Some(Answers(YesClientAgreed, 0))
+        newPage mustBe Some(YesClientAgreed)
       }
 
       "remove answers if an answer is changed" in {
         val userAnswers: UserAnswers = UserAnswers("id")
-          .set(ArrangedSubstitutePage, 0, No)
-          .set(WouldWorkerPaySubstitutePage, 1, true)
-          .set(RejectSubstitutePage, 2, true)
-          .set(NeededToPayHelperPage, 3, true)
+          .set(ArrangedSubstitutePage, No)
+          .set(WouldWorkerPaySubstitutePage, true)
+          .set(RejectSubstitutePage, true)
+          .set(NeededToPayHelperPage, true)
 
 
         mockGetPagesToRemove(ArrangedSubstitutePage)(List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage))
@@ -257,15 +98,15 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
         resultThird mustBe None
 
         val newPage = answers.get(ArrangedSubstitutePage)
-        newPage mustBe Some(Answers(YesClientAgreed, 0))
+        newPage mustBe Some(YesClientAgreed)
       }
 
       "return same answers if an answer is not changed" in {
         val userAnswers: UserAnswers = UserAnswers("id")
-          .set(ArrangedSubstitutePage, 0, No)
-          .set(WouldWorkerPaySubstitutePage, 0, true)
-          .set(RejectSubstitutePage, 0, true)
-          .set(NeededToPayHelperPage, 0, true)
+          .set(ArrangedSubstitutePage, No)
+          .set(WouldWorkerPaySubstitutePage, true)
+          .set(RejectSubstitutePage, true)
+          .set(NeededToPayHelperPage, true)
 
         val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
 
@@ -275,12 +116,12 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
         val resultSecond = answers.get(RejectSubstitutePage)
         val resultThird = answers.get(NeededToPayHelperPage)
 
-        resultFirst mustBe Some(Answers(true, 0))
-        resultSecond mustBe Some(Answers(true, 0))
-        resultThird mustBe Some(Answers(true, 0))
+        resultFirst mustBe Some(true)
+        resultSecond mustBe Some(true)
+        resultThird mustBe Some(true)
 
         val newPage = answers.get(ArrangedSubstitutePage)
-        newPage mustBe Some(Answers(No, 0))
+        newPage mustBe Some(No)
       }
     }
   }

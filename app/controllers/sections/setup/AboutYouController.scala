@@ -64,7 +64,7 @@ class AboutYouController @Inject()(identify: IdentifierAction,
 
   private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]) = {
     whichDescribesYouView(request.userAnswers.get(WhichDescribesYouPage)
-      .fold(whichDescribedForm)(answerModel => whichDescribedForm.fill(answerModel.answer)), mode)
+      .fold(whichDescribedForm)(answerModel => whichDescribedForm.fill(answerModel)), mode)
   }
 
   private[controllers] def submitWhichDescribesYou(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =

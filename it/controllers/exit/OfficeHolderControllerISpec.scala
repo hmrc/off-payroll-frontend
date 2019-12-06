@@ -39,7 +39,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       val response = Json.toJson(DecisionResponse(
         "1.6.0",
@@ -56,8 +56,8 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/office-holder", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Have you already started working for this client?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.personalService.routes.RejectSubstituteController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -94,7 +94,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post as answers not complete" in {
 
       val response = Json.toJson(DecisionResponse(
         "1.6.0",
@@ -111,7 +111,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/office-holder/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+      result.status shouldBe SEE_OTHER
       }
     }
   }

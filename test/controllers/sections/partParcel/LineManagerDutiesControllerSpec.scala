@@ -21,7 +21,7 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.partAndParcel.LineManagerDutiesFormProvider
 import models.requests.DataRequest
-import models.{Answers, NormalMode, UserAnswers}
+import models.{NormalMode, UserAnswers}
 import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
 import pages.sections.partParcel.LineManagerDutiesPage
 import play.api.data.Form
@@ -52,7 +52,7 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
     appConfig = frontendAppConfig
   )
 
-  val validData = Map(LineManagerDutiesPage.toString -> Json.toJson(Answers(true,0)))
+  val validData = Map(LineManagerDutiesPage.toString -> Json.toJson(true))
 
   "LineManagerDuties Controller" must {
 
@@ -78,7 +78,7 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
 
       "redirect to the next page when valid data is submitted" in {
 
-        val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, 0,true)
+        val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, true)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

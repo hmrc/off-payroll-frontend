@@ -61,7 +61,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       showAgency
     )(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(WhoAreYouPage.toString -> Json.toJson(Answers(Worker,0)))
+  val validData = Map(WhoAreYouPage.toString -> Json.toJson(Worker))
 
   "WhoAreYou Controller" must {
 

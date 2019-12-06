@@ -49,7 +49,7 @@ class BusinessOnOwnAccountSectionChangeWarningController @Inject()(identify: Ide
 
   def onSubmit(page: String): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val userAnswers = request.userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+    val userAnswers = request.userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
 
     dataCacheConnector.save(userAnswers.cacheMap).map { _ =>
       Page(page) match {

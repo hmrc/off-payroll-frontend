@@ -21,7 +21,7 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.partAndParcel.BenefitsFormProvider
 import models.requests.DataRequest
-import models.{Answers, NormalMode, UserAnswers}
+import models.{NormalMode, UserAnswers}
 import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
@@ -52,7 +52,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
     frontendAppConfig
   )
 
-  val validData = Map(BenefitsPage.toString -> Json.toJson(Answers(true,0)))
+  val validData = Map(BenefitsPage.toString -> Json.toJson(true))
 
   "Benefits Controller" must {
 
@@ -80,9 +80,9 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        val userAnswers = UserAnswers("id").set(BenefitsPage, 0, true)
+        val userAnswers = UserAnswers("id").set(BenefitsPage, true)
 
-        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),true)(UserAnswers("id")set(BenefitsPage,0, true))
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),true)(UserAnswers("id")set(BenefitsPage,true))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
 

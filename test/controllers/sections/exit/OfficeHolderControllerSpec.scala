@@ -21,7 +21,7 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.exit.OfficeHolderFormProvider
 import models.requests.DataRequest
-import models.{Answers, CheckMode, NormalMode}
+import models.{CheckMode, NormalMode}
 import navigation.mocks.FakeNavigators.FakeExitNavigator
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
@@ -52,15 +52,15 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     navigator = FakeExitNavigator
   )
 
-  val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true, 0)))
+  val validData = Map(OfficeHolderPage.toString -> Json.toJson(true))
 
   "OfficeHolder Controller" must {
 
     "override the mode if office holder set to false in check mode" in {
 
-      val answers = userAnswers.set(OfficeHolderPage, 0, false)
+      val answers = userAnswers.set(OfficeHolderPage, false)
 
-      val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(false, 0)))
+      val validData = Map(OfficeHolderPage.toString -> Json.toJson(false))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -100,7 +100,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       "redirect to the next page when valid data is submitted" in {
 
-        val answers = userAnswers.set(OfficeHolderPage, 0, true)
+        val answers = userAnswers.set(OfficeHolderPage, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -116,7 +116,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       "override the mode if changing from Yes to No, so that Normal flow is continued" in {
 
-        val answers = userAnswers.set(OfficeHolderPage, 0, true)
+        val answers = userAnswers.set(OfficeHolderPage, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

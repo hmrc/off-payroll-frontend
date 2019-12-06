@@ -23,19 +23,15 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 
 case class UserAnswers(cacheMap: CacheMap) extends Enumerable.Implicits with FeatureSwitching {
 
-  def get[A](page: QuestionPage[A])(implicit rds: Reads[A],ans: Reads[Answers[A]]): Option[Answers[A]] =
-    cacheMap.getEntry[Answers[A]](page)
+  def get[A](page: QuestionPage[A])(implicit rds: Reads[A]): Option[A] =
+    cacheMap.getEntry[A](page)
 
-  def getAnswer[A](page: QuestionPage[A])(implicit rds: Reads[A],ans: Reads[Answers[A]]): Option[A] =
-    get(page).map(_.answer)
+  def getAnswer[A](page: QuestionPage[A])(implicit rds: Reads[A]): Option[A] =
+    get(page)
 
-  def set[A](page: QuestionPage[A], answerNumber: Int, value: A)(implicit writes: Writes[A],ans: Writes[Answers[A]]): UserAnswers = {
-    val updatedAnswers = UserAnswers(cacheMap copy (data = cacheMap.data + (page.toString -> Json.toJson(Answers(value,answerNumber)))))
+  def set[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A]): UserAnswers = {
+    val updatedAnswers = UserAnswers(cacheMap copy (data = cacheMap.data + (page.toString -> Json.toJson(value))))
     page.cleanup(Some(value), updatedAnswers)
-  }
-
-  def set[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A],ans: Writes[Answers[A]]): UserAnswers = {
-    set(page, 0, value)
   }
 
   def remove[A](page: QuestionPage[A]): UserAnswers = {
@@ -44,7 +40,6 @@ case class UserAnswers(cacheMap: CacheMap) extends Enumerable.Implicits with Fea
     page.cleanup(None, updatedAnswers)
   }
 
-  def size: Int = cacheMap.data.size
 }
 
 object UserAnswers {

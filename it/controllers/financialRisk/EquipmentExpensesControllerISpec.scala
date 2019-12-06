@@ -1,6 +1,8 @@
 package controllers.financialRisk
 
+import models.Section.financialRisk
 import helpers.IntegrationSpecBase
+import models.NormalMode
 
 class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
@@ -41,8 +43,9 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/equipment-costs", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Will you have to fund any vehicle costs before your client pays you?")
+        result.status shouldBe SEE_OTHER
+
+        redirectLocation(result) shouldBe Some(controllers.sections.financialRisk.routes.VehicleController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -79,13 +82,13 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    "Return a 409 on Successful post and move onto soemthing went wrong" in {
+    "Return a 303 on Successful post and redirect to the check your answers page with financial risk" in {
 
       lazy val res = postSessionRequest("/equipment-costs/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        titleOf(result) should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(financialRisk)).url)
       }
     }
   }

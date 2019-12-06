@@ -20,8 +20,8 @@ package controllers.sections.personalService
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.personalService.NeededToPayHelperFormProvider
+import models.NormalMode
 import models.requests.DataRequest
-import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
@@ -52,7 +52,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
     navigator = FakePersonalServiceNavigator
   )
 
-  val validData = Map(NeededToPayHelperPage.toString -> Json.toJson(Answers(true, 0)))
+  val validData = Map(NeededToPayHelperPage.toString -> Json.toJson(true))
 
   "NeededToPayHelper Controller" must {
 
@@ -83,7 +83,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        val answers = userAnswers.set(NeededToPayHelperPage, 0, true)
+        val answers = userAnswers.set(NeededToPayHelperPage, true)
         mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)

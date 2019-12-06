@@ -38,11 +38,9 @@ abstract class BaseNavigationController @Inject()(mcc: MessagesControllerCompone
                   value: T,
                   page: QuestionPage[T])(implicit request: DataRequest[AnyContent],
                                                         reads: Reads[T],
-                                                        writes: Writes[T],
-                                                        aWrites: Writes[Answers[T]],
-                                                        aReads: Reads[Answers[T]]): Future[Result] = {
+                                                        writes: Writes[T]): Future[Result] = {
 
-    val currentAnswer = request.userAnswers.get(page).map(_.answer)
+    val currentAnswer = request.userAnswers.get(page)
 
     // If this is the first redirect since the Personal Service warning page was displayed
     // And, it is in CheckMode. And, the Answer has not changed.

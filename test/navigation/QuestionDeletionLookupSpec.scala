@@ -38,7 +38,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
     "Office holder" must {
       "remove all further questions" in {
         val res = navigator.getPagesToRemove(OfficeHolderPage)(
-          userAnswers.set(OfficeHolderPage, 0, false))
+          userAnswers.set(OfficeHolderPage, false))
 
         res mustBe List(
           ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage,
@@ -62,7 +62,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is anything, return expected pages" in {
 
           val res = navigator.getPagesToRemove(WhatDoYouWantToFindOutPage)(
-            userAnswers.set(WhatDoYouWantToFindOutPage, 0, WhatDoYouWantToFindOut.IR35))
+            userAnswers.set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35))
 
           res mustBe List(WhoAreYouPage,WorkerUsingIntermediaryPage,WhatDoYouWantToDoPage)
         }
@@ -73,7 +73,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is Agent, return expected pages" in {
 
           val res = navigator.getPagesToRemove(WhoAreYouPage)(
-            userAnswers.set(WhoAreYouPage, 0, WhoAreYou.Agency))
+            userAnswers.set(WhoAreYouPage, WhoAreYou.Agency))
 
           res mustBe List(WhatDoYouWantToDoPage,WorkerUsingIntermediaryPage)
         }
@@ -81,7 +81,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is Client, return expected pages" in {
 
           val res = navigator.getPagesToRemove(WhoAreYouPage)(
-            userAnswers.set(WhoAreYouPage, 0, WhoAreYou.Client))
+            userAnswers.set(WhoAreYouPage, WhoAreYou.Client))
 
           res mustBe List(WhatDoYouWantToDoPage)
         }
@@ -90,8 +90,8 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
           val res = navigator.getPagesToRemove(WhoAreYouPage)(
             userAnswers
-              .set(WhoAreYouPage, 0, WhoAreYou.Worker)
-              .set(WhatDoYouWantToFindOutPage,1,WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage,WhatDoYouWantToFindOut.PAYE)
           )
 
           res mustBe List(WhatDoYouWantToDoPage)
@@ -101,7 +101,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is anything else, return no pages" in {
 
           val res = navigator.getPagesToRemove(WorkerUsingIntermediaryPage)(
-            userAnswers.set(WhoAreYouPage, 0, WhoAreYou.Worker))
+            userAnswers.set(WhoAreYouPage, WhoAreYou.Worker))
 
           res mustBe List()
         }
@@ -112,7 +112,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is Check, return expected pages" in {
 
           val res = navigator.getPagesToRemove(WhatDoYouWantToDoPage)(
-            userAnswers.set(WhatDoYouWantToDoPage, 0, WhatDoYouWantToDo.CheckDetermination))
+            userAnswers.set(WhatDoYouWantToDoPage, WhatDoYouWantToDo.CheckDetermination))
 
           res mustBe List(WorkerUsingIntermediaryPage)
         }
@@ -120,7 +120,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is Make, return no pages" in {
 
           val res = navigator.getPagesToRemove(WhatDoYouWantToDoPage)(
-            userAnswers.set(WhatDoYouWantToDoPage, 0, WhatDoYouWantToDo.MakeNewDetermination))
+            userAnswers.set(WhatDoYouWantToDoPage, WhatDoYouWantToDo.MakeNewDetermination))
 
           res mustBe List()
         }
@@ -145,7 +145,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is no, return expected pages" in {
 
           val res = navigator.getPagesToRemove(ArrangedSubstitutePage)(
-            userAnswers.set(ArrangedSubstitutePage,0,No))
+            userAnswers.set(ArrangedSubstitutePage,No))
 
           res mustBe List(DidPaySubstitutePage, NeededToPayHelperPage)
         }
@@ -153,7 +153,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is yes client agreed, return expected pages" in {
 
           val res = navigator.getPagesToRemove(ArrangedSubstitutePage)(
-            userAnswers.set(ArrangedSubstitutePage,0,YesClientAgreed))
+            userAnswers.set(ArrangedSubstitutePage,YesClientAgreed))
 
           res mustBe List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage)
         }
@@ -161,7 +161,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is yes client not agreed, return expected pages" in {
 
           val res = navigator.getPagesToRemove(ArrangedSubstitutePage)(
-            userAnswers.set(ArrangedSubstitutePage,0,YesClientNotAgreed))
+            userAnswers.set(ArrangedSubstitutePage,YesClientNotAgreed))
 
           res mustBe List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage)
         }
@@ -180,7 +180,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is yes, return expected pages" in {
 
           val res = navigator.getPagesToRemove(DidPaySubstitutePage)(
-            userAnswers.set(DidPaySubstitutePage,0,true))
+            userAnswers.set(DidPaySubstitutePage,true))
 
           res mustBe List(NeededToPayHelperPage)
         }
@@ -188,7 +188,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is no, return empty list" in {
 
           val res = navigator.getPagesToRemove(DidPaySubstitutePage)(
-            userAnswers.set(DidPaySubstitutePage,0,false))
+            userAnswers.set(DidPaySubstitutePage,false))
 
           res mustBe List.empty
         }
@@ -199,7 +199,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is yes, return expected pages" in {
 
           val res = navigator.getPagesToRemove(RejectSubstitutePage)(
-            userAnswers.set(RejectSubstitutePage,0,true))
+            userAnswers.set(RejectSubstitutePage,true))
 
           res mustBe List(WouldWorkerPaySubstitutePage)
         }
@@ -207,7 +207,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is no, return empty list" in {
 
           val res = navigator.getPagesToRemove(RejectSubstitutePage)(
-            userAnswers.set(RejectSubstitutePage,0,false))
+            userAnswers.set(RejectSubstitutePage,false))
 
           res mustBe List(NeededToPayHelperPage)
         }
@@ -218,7 +218,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is yes, return expected pages" in {
 
           val res = navigator.getPagesToRemove(WouldWorkerPaySubstitutePage)(
-            userAnswers.set(WouldWorkerPaySubstitutePage,0,true))
+            userAnswers.set(WouldWorkerPaySubstitutePage,true))
 
           res mustBe List(NeededToPayHelperPage)
         }
@@ -226,7 +226,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
         "answer is no, return empty list" in {
 
           val res = navigator.getPagesToRemove(WouldWorkerPaySubstitutePage)(
-            userAnswers.set(WouldWorkerPaySubstitutePage,0,false))
+            userAnswers.set(WouldWorkerPaySubstitutePage,false))
 
           res mustBe List.empty
         }

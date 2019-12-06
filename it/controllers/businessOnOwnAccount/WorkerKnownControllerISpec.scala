@@ -1,6 +1,7 @@
 package controllers.businessOnOwnAccount
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import models.{CheckMode, NormalMode}
 import play.api.http.Status
 
 class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
@@ -37,13 +38,13 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Similar work with Other clients page" in {
 
       lazy val res = postSessionRequest("/worker-known", selectedYes)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.MultipleContractsController.onPageLoad(NormalMode).url)
       }
     }
   }
@@ -80,12 +81,13 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto Similar work with Other clients page" in {
 
-      lazy val res = postSessionRequest("/worker-known/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/worker-known/change", selectedYes)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers?sectionToExpand=businessOnOwnAccount")
+        result.status shouldBe SEE_OTHER
+        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.MultipleContractsController.onPageLoad(CheckMode).url)
       }
     }
   }

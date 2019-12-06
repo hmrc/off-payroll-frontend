@@ -160,7 +160,7 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
   def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = optimisedApply(userAnswers)
 
   private def getAnswer[A](page: QuestionPage[A])(implicit userAnswers: UserAnswers, rds: Reads[A]): Option[A] ={
-    userAnswers.get(page).fold(None: Option[A]) { answer => Some(answer.answer) }
+    userAnswers.get(page).fold(None: Option[A]) { answer => Some(answer) }
   }
 
   private def optimisedApply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
@@ -177,9 +177,9 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
       case _ => Some(false)
     }
 
-    val contactWithEngagerCustomer: Option[Boolean] = userAnswers.get(IdentifyToStakeholdersPage).map(x => !(x.answer == WouldNotHappen))
+    val contactWithEngagerCustomer: Option[Boolean] = userAnswers.get(IdentifyToStakeholdersPage).map(x => !(x == WouldNotHappen))
     val workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(
-      x => if(x.answer == WouldNotHappen) None else Some(x.answer))
+      x => if(x == WouldNotHappen) None else Some(x))
 
     Interview(correlationId = userAnswers.cacheMap.id, endUserRole = request.userType,
       hasContractStarted = getAnswer[Boolean](ContractStartedPage),
@@ -292,17 +292,17 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
       workerDecidingHowWorkIsDone = getAnswer[HowWorkIsDone](HowWorkIsDonePage),
       whenWorkHasToBeDone = getAnswer[ScheduleOfWorkingHours](ScheduleOfWorkingHoursPage),
       workerDecideWhere = getAnswer[ChooseWhereWork](ChooseWhereWorkPage),
-      workerProvidedMaterials = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(WorkerProvidedMaterials)),
-      workerProvidedEquipment = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(WorkerProvidedEquipment)),
-      workerUsedVehicle = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(WorkerUsedVehicle)),
-      workerHadOtherExpenses = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(WorkerHadOtherExpenses)),
-      expensesAreNotRelevantForRole = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(ExpensesAreNotRelevantForRole)),
+      workerProvidedMaterials = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(WorkerProvidedMaterials)),
+      workerProvidedEquipment = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(WorkerProvidedEquipment)),
+      workerUsedVehicle = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(WorkerUsedVehicle)),
+      workerHadOtherExpenses = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(WorkerHadOtherExpenses)),
+      expensesAreNotRelevantForRole = userAnswers.get(CannotClaimAsExpensePage).map(result => result.contains(ExpensesAreNotRelevantForRole)),
       workerMainIncome = getAnswer[HowWorkerIsPaid](HowWorkerIsPaidPage),
       paidForSubstandardWork = getAnswer[PutRightAtOwnCost](PutRightAtOwnCostPage),
       workerReceivesBenefits = getAnswer[Boolean](BenefitsPage),
       workerAsLineManager = getAnswer[Boolean](LineManagerDutiesPage),
-      contactWithEngagerCustomer = userAnswers.get(InteractWithStakeholdersPage).fold[Option[Boolean]](None)(x => Some(x.answer)),
-      workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(x => Some(x.answer))
+      contactWithEngagerCustomer = userAnswers.get(InteractWithStakeholdersPage).fold[Option[Boolean]](None)(x => Some(x)),
+      workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(x => Some(x))
     )
   }
 }
