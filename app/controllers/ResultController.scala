@@ -29,7 +29,6 @@ import pages.{ResultPage, Timestamp}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import utils.SessionUtils._
-import utils.UserAnswersUtils
 
 class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
@@ -44,8 +43,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  decisionService: DecisionService,
                                  checkYourAnswersService: CheckYourAnswersService,
                                  errorHandler: ErrorHandler,
-                                 implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController with FeatureSwitching with UserAnswersUtils {
+                                 implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)

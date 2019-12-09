@@ -38,8 +38,6 @@ object Page {
   def unapply(arg: QuestionPage[_]): String = questionToPage.map(_.swap).apply(arg)
 
   lazy val questionToPage = Map[String, QuestionPage[_]](
-    AboutYouPage.toString -> AboutYouPage,
-    WhichDescribesYouPage.toString -> WhichDescribesYouPage,
     WhatDoYouWantToFindOutPage.toString -> WhatDoYouWantToFindOutPage,
     WhoAreYouPage.toString -> WhoAreYouPage,
     WhatDoYouWantToDoPage.toString -> WhatDoYouWantToDoPage,

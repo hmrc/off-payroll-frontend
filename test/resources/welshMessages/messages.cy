@@ -518,19 +518,6 @@ aboutYourResult.p1 = Bydd CThEM yn glynu wrth y canlyniad a gewch o’r twlsyn h
 aboutYourResult.p2 = Ni fyddai hyn yn wir os cafodd yr wybodaeth a ddarparwyd gennych ei gwirio a chanfuwyd ei bod yn anghywir.
 aboutYourResult.p3 = Hefyd, ni fydd CThEM yn glynu wrth ganlyniadau a gyflawnir drwy drefniadau ffug sydd wedi’u cynllunio i sicrhau canlyniad penodol o’r gwasanaeth. Byddai hyn yn cael ei drin fel tystiolaeth o ddiffyg cydymffurfio bwriadol, sy’n gallu dwyn cosbau cysylltiedig uwch.
 
-
-##### TODO NEED WELSH FOR ####
-whichDescribesYou.title = Beth yr hoffech gael gwybod?
-whichDescribesYou.heading = Beth yr hoffech gael gwybod?
-whichDescribesYou.checkYourAnswersLabel = Beth yr hoffech gael gwybod?
-whichDescribesYou.worker.paye = Os ydych yn gyflogedig neu’n hunangyflogedig at ddibenion treth
-whichDescribesYou.client.paye = If a job you’re hiring for is classed as employed or self-employed for tax purposes
-whichDescribesYou.worker.ir35 = If a contract you’re working on, or could be working on, is within the off-payroll working rules (IR35)
-whichDescribesYou.client.ir35 = If a contract your organisation is offering is within the off-payroll working rules (IR35)
-whichDescribesYou.agency = If a contract your agency is recruiting for is within the off-payroll working rules (IR35)
-whichDescribesYou.error.required = Mae angen i chi ddewis ateb
-whichDescribesYou.error.invalid = Mae angen i chi ddewis ateb
-
 agencyAdvisory.title = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.heading = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.p1 = Nid cyfrifoldeb yr asiantaeth yw penderfynu a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract neu gyfnod arall o waith. Gallwch fynd yn eich blaen fel pe bai chi yw’r gweithiwr i wirio penderfyniad.

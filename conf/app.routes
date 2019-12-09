@@ -17,11 +17,6 @@ GET        /exit-survey                                 controllers.ExitSurveyCo
 GET        /disclaimer                                  controllers.sections.setup.AboutYourResultController.onPageLoad
 POST       /disclaimer                                  controllers.sections.setup.AboutYourResultController.onSubmit
 
-GET        /reason-for-using-tool                       controllers.sections.setup.AboutYouController.onPageLoad(mode: Mode = NormalMode)
-POST       /reason-for-using-tool                       controllers.sections.setup.AboutYouController.onSubmit(mode: Mode = NormalMode)
-GET        /reason-for-using-tool/change                controllers.sections.setup.AboutYouController.onPageLoad(mode: Mode = CheckMode)
-POST       /reason-for-using-tool/change                controllers.sections.setup.AboutYouController.onSubmit(mode: Mode = CheckMode)
-
 GET        /who-are-you                                 controllers.sections.setup.WhoAreYouController.onPageLoad(mode: Mode = NormalMode)
 POST       /who-are-you                                 controllers.sections.setup.WhoAreYouController.onSubmit(mode: Mode = NormalMode)
 GET        /who-are-you/change                          controllers.sections.setup.WhoAreYouController.onPageLoad(mode: Mode = CheckMode)

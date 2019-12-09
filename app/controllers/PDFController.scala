@@ -34,7 +34,7 @@ import play.core.utils.AsciiSet
 import play.twirl.api.Html
 import services._
 import utils.SessionUtils._
-import utils.{SourceUtil, UserAnswersUtils}
+import utils.SourceUtil
 import viewmodels.ResultPDF
 import views.html.{AddDetailsView, CustomisePDFView}
 
@@ -58,9 +58,7 @@ class PDFController @Inject()(override val dataCacheConnector: DataCacheConnecto
                               encryption: EncryptionService,
                               source: SourceUtil,
                               implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController
-
-    with FeatureSwitching with UserAnswersUtils {
+  extends BaseNavigationController with FeatureSwitching {
 
   def form: Form[AdditionalPdfDetails] = formProvider()
 
