@@ -24,7 +24,7 @@ import javax.inject.Inject
 import models.{AdditionalPdfDetails, DecisionResponse, Timestamp}
 import pages.{CustomisePDFPage, Timestamp}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, EncryptionService, DecisionService}
+import services.{CheckYourAnswersService, DecisionService, EncryptionService}
 import utils.SessionUtils._
 import viewmodels.ResultPrintPreview
 import views.html.FinishedCheckingView
@@ -32,7 +32,7 @@ import views.html.FinishedCheckingView
 class PrintPreviewController @Inject()(identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
-                                       controllerComponents: MessagesControllerComponents,
+                                       override val controllerComponents: MessagesControllerComponents,
                                        decisionService: DecisionService,
                                        checkYourAnswersService: CheckYourAnswersService,
                                        finishedCheckingView: FinishedCheckingView,
@@ -40,7 +40,7 @@ class PrintPreviewController @Inject()(identify: IdentifierAction,
                                        time: Timestamp,
                                        errorHandler: ErrorHandler,
                                        implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents) with FeatureSwitching {
+  extends BaseController with FeatureSwitching {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 

@@ -20,11 +20,10 @@ import config.FrontendAppConfig
 import controllers.actions.IdentifierAction
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 class ExitSurveyController @Inject()(identify: IdentifierAction,
-                                     controllerComponents: MessagesControllerComponents,
-                                     implicit val appConfig: FrontendAppConfig) extends FrontendController(controllerComponents) {
+                                     override val controllerComponents: MessagesControllerComponents,
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController {
 
   def redirectToExitSurvey: Action[AnyContent] = identify { implicit request =>
     Redirect(appConfig.exitSurveyUrl).withNewSession

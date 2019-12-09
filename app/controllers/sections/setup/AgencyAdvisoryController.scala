@@ -29,17 +29,16 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.setup.AgencyAdvisoryView
 
-class AgencyAdvisoryController @Inject()(navigator: SetupNavigator,
+class AgencyAdvisoryController @Inject()(override val navigator: SetupNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
-                                         controllerComponents: MessagesControllerComponents,
+                                         override val controllerComponents: MessagesControllerComponents,
                                          view: AgencyAdvisoryView,
                                          checkYourAnswersService: CheckYourAnswersService,
-                                         compareAnswerService: CompareAnswerService,
-                                         dataCacheConnector: DataCacheConnector,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
+                                         override val compareAnswerService: CompareAnswerService,
+                                         override val dataCacheConnector: DataCacheConnector,
+                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(

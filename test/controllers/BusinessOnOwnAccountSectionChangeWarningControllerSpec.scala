@@ -55,7 +55,6 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
     view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
-    compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     errorHandler = app.injector.instanceOf[ErrorHandler]
   )

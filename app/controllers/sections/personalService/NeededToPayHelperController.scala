@@ -16,14 +16,13 @@
 
 package controllers.sections.personalService
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.personalService.NeededToPayHelperFormProvider
+import javax.inject.Inject
 import models.Mode
 import navigation.PersonalServiceNavigator
 import pages.sections.personalService.NeededToPayHelperPage
@@ -38,13 +37,13 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             requireData: DataRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
                                             view: NeededToPayHelperView,
-                                            controllerComponents: MessagesControllerComponents,
+                                            override val controllerComponents: MessagesControllerComponents,
                                             checkYourAnswersService: CheckYourAnswersService,
-                                            compareAnswerService: CompareAnswerService,
-                                            dataCacheConnector: DataCacheConnector,
-                                            navigator: PersonalServiceNavigator,
+                                            override val compareAnswerService: CompareAnswerService,
+                                            override val dataCacheConnector: DataCacheConnector,
+                                            override val navigator: PersonalServiceNavigator,
                                             implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
+  extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(NeededToPayHelperPage, formProvider()), mode))

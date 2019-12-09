@@ -125,7 +125,6 @@ class DecisionService @Inject()(decisionConnector: DecisionConnector,
     val isSubstituteToDoWork: Boolean = result.personalServiceOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
     val isClientNotControlWork: Boolean = result.controlOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
     val isIncurCostNoReclaim: Boolean = result.financialRiskOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
-    val isBoOA: Boolean = result.boOAOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>

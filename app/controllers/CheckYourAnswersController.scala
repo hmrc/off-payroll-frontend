@@ -29,24 +29,24 @@ import play.api.mvc._
 import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService}
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersController @Inject()(navigator: CYANavigator,
+class CheckYourAnswersController @Inject()(override val navigator: CYANavigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
-                                           controllerComponents: MessagesControllerComponents,
+                                           override val controllerComponents: MessagesControllerComponents,
                                            view: CheckYourAnswersView,
                                            checkYourAnswersService: CheckYourAnswersService,
                                            checkYourAnswersValidationService: CheckYourAnswersValidationService,
-                                           compareAnswerService: CompareAnswerService,
-                                           dataCacheConnector: DataCacheConnector,
+                                           override val compareAnswerService: CompareAnswerService,
+                                           override val dataCacheConnector: DataCacheConnector,
                                            errorHandler: ErrorHandler,
                                            implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+  extends BaseNavigationController {
 
   def onPageLoad(sectionToExpand: Option[SectionEnum] = None): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     checkYourAnswersValidationService.isValid(request.userAnswers) match {
       case Right(_) => Ok(view(checkYourAnswersService.sections, sectionToExpand))
-      case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
+      case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
     }
   }
 

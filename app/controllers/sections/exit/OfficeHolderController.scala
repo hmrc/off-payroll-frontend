@@ -16,14 +16,13 @@
 
 package controllers.sections.exit
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.exit.OfficeHolderFormProvider
+import javax.inject.Inject
 import models.{CheckMode, Mode, NormalMode}
 import navigation.ExitNavigator
 import pages.sections.exit.OfficeHolderPage
@@ -37,14 +36,14 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: OfficeHolderFormProvider,
-                                       controllerComponents: MessagesControllerComponents,
+                                       override val controllerComponents: MessagesControllerComponents,
                                        view: OfficeHolderView,
                                        checkYourAnswersService: CheckYourAnswersService,
-                                       compareAnswerService: CompareAnswerService,
-                                       dataCacheConnector: DataCacheConnector,
-                                       navigator: ExitNavigator,
+                                       override val compareAnswerService: CompareAnswerService,
+                                       override val dataCacheConnector: DataCacheConnector,
+                                       override val navigator: ExitNavigator,
                                        implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
+  extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(OfficeHolderPage, formProvider()), mode))

@@ -17,17 +17,17 @@
 package controllers.errors
 
 import config.FrontendAppConfig
+import controllers.BaseController
 import javax.inject.{Inject, Singleton}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.errors.UnauthorisedView
 
 @Singleton
 class UnauthorisedController @Inject()(val appConfig: FrontendAppConfig,
-                                       controllerComponents: MessagesControllerComponents,
+                                       override val controllerComponents: MessagesControllerComponents,
                                        view: UnauthorisedView
-                                      ) extends FrontendController(controllerComponents) with I18nSupport {
+                                      ) extends BaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
     Ok(view(appConfig))

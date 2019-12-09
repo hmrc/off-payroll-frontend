@@ -16,13 +16,12 @@
 
 package controllers.sections.financialRisk
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.financialRisk.OtherExpensesFormProvider
+import javax.inject.Inject
 import models.Mode
 import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.OtherExpensesPage
@@ -32,17 +31,17 @@ import views.html.sections.financialRisk.OtherExpensesView
 
 import scala.concurrent.Future
 
-class OtherExpensesController @Inject()(dataCacheConnector: DataCacheConnector,
-                                        navigator: FinancialRiskNavigator,
+class OtherExpensesController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                        override val navigator: FinancialRiskNavigator,
                                         identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
                                         formProvider: OtherExpensesFormProvider,
-                                        controllerComponents: MessagesControllerComponents,
+                                        override val controllerComponents: MessagesControllerComponents,
                                         view: OtherExpensesView,
-                                        compareAnswerService: CompareAnswerService,
+                                        override val compareAnswerService: CompareAnswerService,
                                         implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(OtherExpensesPage, formProvider()), mode))

@@ -31,7 +31,7 @@ import navigation.SetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form
 import play.api.mvc._
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 import utils.SessionUtils._
 import views.html.sections.setup.WhoAreYouView
 
@@ -41,13 +41,13 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
                                     getData: DataRetrievalAction,
                                     requireData: DataRequiredAction,
                                     whoAreYouFormProvider: WhoAreYouFormProvider,
-                                    controllerComponents: MessagesControllerComponents,
+                                    override val controllerComponents: MessagesControllerComponents,
                                     view: WhoAreYouView,
-                                    compareAnswerService: CompareAnswerService,
-                                    dataCacheConnector: DataCacheConnector,
-                                    navigator: SetupNavigator,
+                                    override val compareAnswerService: CompareAnswerService,
+                                    override val dataCacheConnector: DataCacheConnector,
+                                    override val navigator: SetupNavigator,
                                     implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents, compareAnswerService, dataCacheConnector, navigator) with FeatureSwitching {
+  extends BaseNavigationController with FeatureSwitching {
 
   private def renderedView(mode: Mode, form: Form[WhoAreYou])(implicit request: DataRequest[_]) = {
     val showAgency = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage) match {
@@ -67,6 +67,6 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
       value => {
         redirect(mode, value, WhoAreYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
-        )
+    )
   }
 }

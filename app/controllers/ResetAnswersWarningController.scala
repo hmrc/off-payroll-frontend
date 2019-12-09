@@ -28,9 +28,9 @@ class ResetAnswersWarningController @Inject()(identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,
                                               formProvider: ResetAnswersWarningFormProvider,
-                                              controllerComponents: MessagesControllerComponents,
+                                              override val controllerComponents: MessagesControllerComponents,
                                               view: ResetAnswersWarningView,
-                                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                              implicit val appConfig: FrontendAppConfig) extends BaseController {
 
   val form: Form[Boolean] = formProvider()
 

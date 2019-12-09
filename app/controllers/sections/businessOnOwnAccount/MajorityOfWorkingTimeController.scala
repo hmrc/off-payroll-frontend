@@ -25,24 +25,23 @@ import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.MajorityOfWorkingTimePage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.MajorityOfWorkingTimeView
 
 import scala.concurrent.Future
 
-class MajorityOfWorkingTimeController @Inject()(dataCacheConnector: DataCacheConnector,
-                                                navigator: BusinessOnOwnAccountNavigator,
+class MajorityOfWorkingTimeController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                                override val navigator: BusinessOnOwnAccountNavigator,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
                                                 formProvider: MajorityOfWorkingTimeFormProvider,
-                                                controllerComponents: MessagesControllerComponents,
-                                                compareAnswerService: CompareAnswerService,
+                                                override val controllerComponents: MessagesControllerComponents,
+                                                override val compareAnswerService: CompareAnswerService,
                                                 view: MajorityOfWorkingTimeView,
                                                 implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(MajorityOfWorkingTimePage, formProvider()), mode))

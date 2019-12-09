@@ -18,31 +18,30 @@ package controllers.sections.businessOnOwnAccount
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.{BaseController, BaseNavigationController}
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.businessOnOwnAccount.SimilarWorkOtherClientsFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.SimilarWorkOtherClientsPage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.SimilarWorkOtherClientsView
 
 import scala.concurrent.Future
 
-class SimilarWorkOtherClientsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                                  navigator: BusinessOnOwnAccountNavigator,
+class SimilarWorkOtherClientsController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                                  override val navigator: BusinessOnOwnAccountNavigator,
                                                   identify: IdentifierAction,
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,
                                                   formProvider: SimilarWorkOtherClientsFormProvider,
-                                                  controllerComponents: MessagesControllerComponents,
-                                                  compareAnswerService: CompareAnswerService,
+                                                  override val controllerComponents: MessagesControllerComponents,
+                                                  override val compareAnswerService: CompareAnswerService,
                                                   view: SimilarWorkOtherClientsView,
                                                   implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(SimilarWorkOtherClientsPage, formProvider()), mode))

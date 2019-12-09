@@ -17,23 +17,19 @@
 package controllers
 
 
-import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import javax.inject.Inject
 import models._
 import models.requests.DataRequest
 import pages.QuestionPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.libs.json.Format
-import play.api.mvc.MessagesControllerComponents
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 
 import scala.concurrent.ExecutionContext
 
-abstract class BaseController @Inject()(mcc: MessagesControllerComponents)
-                                       (implicit frontendAppConfig: FrontendAppConfig)
-  extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with FeatureSwitching {
+trait BaseController
+  extends FrontendBaseController with I18nSupport with Enumerable.Implicits with FeatureSwitching {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

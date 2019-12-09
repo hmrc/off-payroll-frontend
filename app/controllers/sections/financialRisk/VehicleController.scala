@@ -16,13 +16,12 @@
 
 package controllers.sections.financialRisk
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.financialRisk.VehicleFormProvider
+import javax.inject.Inject
 import models.Mode
 import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.VehiclePage
@@ -32,17 +31,17 @@ import views.html.sections.financialRisk.VehicleView
 
 import scala.concurrent.Future
 
-class VehicleController @Inject()(dataCacheConnector: DataCacheConnector,
-                                  navigator: FinancialRiskNavigator,
+class VehicleController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                  override val navigator: FinancialRiskNavigator,
                                   identify: IdentifierAction,
                                   getData: DataRetrievalAction,
                                   requireData: DataRequiredAction,
                                   formProvider: VehicleFormProvider,
-                                  controllerComponents: MessagesControllerComponents,
-                                  compareAnswerService: CompareAnswerService,
+                                  override val controllerComponents: MessagesControllerComponents,
+                                  override val compareAnswerService: CompareAnswerService,
                                   view: VehicleView,
                                   implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(VehiclePage, formProvider()), mode))

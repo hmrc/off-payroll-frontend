@@ -16,23 +16,18 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.sections.setup.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
+import forms.sections.setup.WorkerUsingIntermediaryFormProvider
+import javax.inject.Inject
 import models.Mode
-import models.requests.DataRequest
-import models.sections.setup.WorkerType
 import navigation.SetupNavigator
-import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import play.twirl.api.Html
-import services.{CheckYourAnswersService, CompareAnswerService}
+import pages.sections.setup.WorkerUsingIntermediaryPage
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.CompareAnswerService
 import views.html.sections.setup.WorkerUsingIntermediaryView
 
 import scala.concurrent.Future
@@ -41,12 +36,12 @@ class WorkerUsingIntermediaryController @Inject()(identify: IdentifierAction,
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,
                                                   workerUsingIntermediaryFormProvider: WorkerUsingIntermediaryFormProvider,
-                                                  controllerComponents: MessagesControllerComponents,
+                                                  override val controllerComponents: MessagesControllerComponents,
                                                   workerUsingIntermediaryView: WorkerUsingIntermediaryView,
-                                                  compareAnswerService: CompareAnswerService,
-                                                  dataCacheConnector: DataCacheConnector,
-                                                  navigator: SetupNavigator,
-                                                  implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
+                                                  override val compareAnswerService: CompareAnswerService,
+                                                  override val dataCacheConnector: DataCacheConnector,
+                                                  override val navigator: SetupNavigator,
+                                                  implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(workerUsingIntermediaryView(fillForm(WorkerUsingIntermediaryPage, workerUsingIntermediaryFormProvider()), mode))

@@ -16,14 +16,13 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.ErrorHandler
+import javax.inject.Inject
 import models.{NormalMode, Timestamp}
 import navigation.CYANavigator
 import pages.{ResultPage, Timestamp}
@@ -35,18 +34,18 @@ import utils.UserAnswersUtils
 class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
                                  requireData: DataRequiredAction,
-                                 controllerComponents: MessagesControllerComponents,
+                                 override val controllerComponents: MessagesControllerComponents,
                                  formProvider: DeclarationFormProvider,
                                  formProviderPDF: DownloadPDFCopyFormProvider,
-                                 navigator: CYANavigator,
-                                 dataCacheConnector: DataCacheConnector,
+                                 override val navigator: CYANavigator,
+                                 override val dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
-                                 compareAnswerService: CompareAnswerService,
+                                 override val compareAnswerService: CompareAnswerService,
                                  decisionService: DecisionService,
                                  checkYourAnswersService: CheckYourAnswersService,
                                  errorHandler: ErrorHandler,
                                  implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching with UserAnswersUtils {
+  extends BaseNavigationController with FeatureSwitching with UserAnswersUtils {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)

@@ -27,22 +27,22 @@ import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.WorkerKnownView
 
 import scala.concurrent.Future
 
-class WorkerKnownController @Inject()(dataCacheConnector: DataCacheConnector,
-                                      navigator: BusinessOnOwnAccountNavigator,
+class WorkerKnownController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                      override val navigator: BusinessOnOwnAccountNavigator,
                                       identify: IdentifierAction,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
                                       formProvider: WorkerKnownFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      compareAnswerService: CompareAnswerService,
+                                      override val controllerComponents: MessagesControllerComponents,
+                                      override val compareAnswerService: CompareAnswerService,
                                       view: WorkerKnownView,
                                       implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+  extends BaseNavigationController {
 
   val form: Form[Boolean] = formProvider()
 

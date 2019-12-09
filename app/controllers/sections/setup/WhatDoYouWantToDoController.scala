@@ -38,14 +38,14 @@ class WhatDoYouWantToDoController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             WhatDoYouWantToDoFormProvider: WhatDoYouWantToDoFormProvider,
-                                            controllerComponents: MessagesControllerComponents,
+                                            override val controllerComponents: MessagesControllerComponents,
                                             whatDoYouWantToDoView: WhatDoYouWantToDoView,
                                             checkYourAnswersService: CheckYourAnswersService,
-                                            compareAnswerService: CompareAnswerService,
-                                            dataCacheConnector: DataCacheConnector,
-                                            navigator: SetupNavigator,
+                                            override val compareAnswerService: CompareAnswerService,
+                                            override val dataCacheConnector: DataCacheConnector,
+                                            override val navigator: SetupNavigator,
                                             implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents, compareAnswerService, dataCacheConnector, navigator) with FeatureSwitching {
+  extends BaseNavigationController with FeatureSwitching {
 
   val form: Form[WhatDoYouWantToDo] = WhatDoYouWantToDoFormProvider()
 

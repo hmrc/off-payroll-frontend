@@ -20,27 +20,26 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.actions._
-import javax.inject.Inject
-import models.CheckMode
-import pages.{Page, PersonalServiceSectionChangeWarningPage}
-import pages.sections.personalService._
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService}
-import views.html.PersonalServiceSectionChangeWarningView
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import handlers.ErrorHandler
+import javax.inject.Inject
+import models.CheckMode
+import pages.sections.personalService._
+import pages.{Page, PersonalServiceSectionChangeWarningPage}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.CheckYourAnswersService
+import views.html.PersonalServiceSectionChangeWarningView
 
 class PersonalServiceSectionChangeWarningController @Inject()(identify: IdentifierAction,
                                                               getData: DataRetrievalAction,
                                                               requireData: DataRequiredAction,
-                                                              controllerComponents: MessagesControllerComponents,
+                                                              override val controllerComponents: MessagesControllerComponents,
                                                               view: PersonalServiceSectionChangeWarningView,
                                                               checkYourAnswersService: CheckYourAnswersService,
-                                                              compareAnswerService: CompareAnswerService,
                                                               dataCacheConnector: DataCacheConnector,
                                                               errorHandler: ErrorHandler,
                                                               implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents) with FeatureSwitching {
+  extends BaseController with FeatureSwitching {
 
   def onPageLoad(page: String): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(routes.PersonalServiceSectionChangeWarningController.onSubmit(page)))

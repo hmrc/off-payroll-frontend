@@ -25,24 +25,22 @@ import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.PreviousContractPage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.PreviousContractView
 
 import scala.concurrent.Future
 
-class PreviousContractController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: BusinessOnOwnAccountNavigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: PreviousContractFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         compareAnswerService: CompareAnswerService,
-                                         view: PreviousContractView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+class PreviousContractController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                           override val navigator: BusinessOnOwnAccountNavigator,
+                                           identify: IdentifierAction,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           formProvider: PreviousContractFormProvider,
+                                           override val controllerComponents: MessagesControllerComponents,
+                                           override val compareAnswerService: CompareAnswerService,
+                                           view: PreviousContractView,
+                                           implicit val appConfig: FrontendAppConfig) extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(PreviousContractPage, formProvider()), mode))

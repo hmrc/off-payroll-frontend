@@ -16,8 +16,6 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.featureSwitch.{FeatureSwitching, PrintPDF}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
@@ -25,6 +23,7 @@ import connectors.httpParsers.PDFGeneratorHttpParser.SuccessfulPDF
 import controllers.actions._
 import forms.AdditionalPdfDetailsFormProvider
 import handlers.ErrorHandler
+import javax.inject.Inject
 import models._
 import models.requests.DataRequest
 import navigation.CYANavigator
@@ -41,25 +40,25 @@ import views.html.{AddDetailsView, CustomisePDFView}
 
 import scala.concurrent.Future
 
-class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
-                              navigator: CYANavigator,
+class PDFController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                              override val navigator: CYANavigator,
                               identify: IdentifierAction,
                               getData: DataRetrievalAction,
                               requireData: DataRequiredAction,
                               formProvider: AdditionalPdfDetailsFormProvider,
-                              controllerComponents: MessagesControllerComponents,
+                              override val controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
                               view: AddDetailsView,
                               decisionService: DecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
                               time: Timestamp,
-                              compareAnswerService: CompareAnswerService,
+                              override val compareAnswerService: CompareAnswerService,
                               checkYourAnswersService: CheckYourAnswersService,
                               encryption: EncryptionService,
                               source: SourceUtil,
                               implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator)
+  extends BaseNavigationController
 
     with FeatureSwitching with UserAnswersUtils {
 
@@ -95,7 +94,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
     }
   }
   private def printResult(decision: DecisionResponse, additionalPdfDetails: AdditionalPdfDetails, timestamp: String)
-                                  (implicit request: DataRequest[_]): Future[Result] = {
+                         (implicit request: DataRequest[_]): Future[Result] = {
     decisionService.determineResultView(
       decision,
       None,

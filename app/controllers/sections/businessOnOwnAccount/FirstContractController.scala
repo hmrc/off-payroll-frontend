@@ -26,22 +26,22 @@ import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.FirstContractPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.FirstContractView
 
 import scala.concurrent.Future
 
-class FirstContractController @Inject()(dataCacheConnector: DataCacheConnector,
-                                        navigator: BusinessOnOwnAccountNavigator,
+class FirstContractController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                        override val navigator: BusinessOnOwnAccountNavigator,
                                         identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
                                         formProvider: FirstContractFormProvider,
-                                        controllerComponents: MessagesControllerComponents,
-                                        compareAnswerService: CompareAnswerService,
+                                        override val controllerComponents: MessagesControllerComponents,
+                                        override val compareAnswerService: CompareAnswerService,
                                         view: FirstContractView,
                                         implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(FirstContractPage, formProvider()), mode))

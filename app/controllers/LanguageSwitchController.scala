@@ -22,8 +22,8 @@ import config.featureSwitch.{FeatureSwitching, WelshLanguage}
 import play.api.i18n.Lang
 import play.api.mvc._
 
-class LanguageSwitchController @Inject()(controllerComponents: MessagesControllerComponents,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
+class LanguageSwitchController @Inject()(override val controllerComponents: MessagesControllerComponents,
+                                         implicit val appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   private def fallbackURL: String = routes.IndexController.onPageLoad().url
 

@@ -36,13 +36,13 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,
                                               formProvider: AddReferenceDetailsFormProvider,
-                                              controllerComponents: MessagesControllerComponents,
+                                              override val controllerComponents: MessagesControllerComponents,
                                               addReferenceDetails: AddReferenceDetailsView,
-                                              navigator: CYANavigator,
-                                              dataCacheConnector: DataCacheConnector,
-                                              compareAnswerService: CompareAnswerService,
+                                              override val navigator: CYANavigator,
+                                              override val dataCacheConnector: DataCacheConnector,
+                                              override val compareAnswerService: CompareAnswerService,
                                               implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
+  extends BaseNavigationController with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 

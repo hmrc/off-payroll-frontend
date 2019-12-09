@@ -16,14 +16,13 @@
 
 package controllers.sections.financialRisk
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.financialRisk.HowWorkerIsPaidFormProvider
+import javax.inject.Inject
 import models.Mode
 import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.HowWorkerIsPaidPage
@@ -37,14 +36,14 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: HowWorkerIsPaidFormProvider,
-                                          controllerComponents: MessagesControllerComponents,
+                                          override val controllerComponents: MessagesControllerComponents,
                                           view: HowWorkerIsPaidView,
                                           checkYourAnswersService: CheckYourAnswersService,
-                                          compareAnswerService: CompareAnswerService,
-                                          dataCacheConnector: DataCacheConnector,
-                                          navigator: FinancialRiskNavigator,
+                                          override val compareAnswerService: CompareAnswerService,
+                                          override val dataCacheConnector: DataCacheConnector,
+                                          override val navigator: FinancialRiskNavigator,
                                           implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
+  extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(HowWorkerIsPaidPage, formProvider()), mode))

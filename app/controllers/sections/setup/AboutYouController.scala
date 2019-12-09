@@ -16,19 +16,18 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.setup.{AboutYouFormProvider, WhichDescribesYouFormProvider}
+import javax.inject.Inject
 import models.requests.DataRequest
 import models.sections.setup.{AboutYouAnswer, WhichDescribesYouAnswer}
 import models.{Mode, UserType}
 import navigation.SetupNavigator
-import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
+import pages.sections.setup.WhichDescribesYouPage
 import play.api.data.Form
 import play.api.mvc._
 import services.{CheckYourAnswersService, CompareAnswerService}
@@ -42,14 +41,14 @@ class AboutYouController @Inject()(identify: IdentifierAction,
                                    requireData: DataRequiredAction,
                                    aboutYouFormProvider: AboutYouFormProvider,
                                    whichDescribesYouFormProvider: WhichDescribesYouFormProvider,
-                                   controllerComponents: MessagesControllerComponents,
+                                   override val controllerComponents: MessagesControllerComponents,
                                    whichDescribesYouView: WhichDescribesYouView,
                                    checkYourAnswersService: CheckYourAnswersService,
-                                   compareAnswerService: CompareAnswerService,
-                                   dataCacheConnector: DataCacheConnector,
-                                   navigator: SetupNavigator,
+                                   override val compareAnswerService: CompareAnswerService,
+                                   override val dataCacheConnector: DataCacheConnector,
+                                   override val navigator: SetupNavigator,
                                    implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents, compareAnswerService, dataCacheConnector, navigator) with FeatureSwitching {
+  extends BaseNavigationController with FeatureSwitching {
 
   val form: Form[AboutYouAnswer] = aboutYouFormProvider()
   val whichDescribedForm: Form[WhichDescribesYouAnswer] = whichDescribesYouFormProvider()

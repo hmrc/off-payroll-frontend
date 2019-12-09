@@ -43,7 +43,6 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
     }
   }
 
-
   @tailrec
   private def recursivelyClearQuestions(pages: List[QuestionPage[_]], userAnswers: UserAnswers): UserAnswers = {
     if(pages.isEmpty) userAnswers else {

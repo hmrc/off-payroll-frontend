@@ -21,11 +21,12 @@ import javax.inject.Inject
 import views.html.AccessibilityStatementView
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 
-class AccessibilityStatementController @Inject()(controllerComponents: MessagesControllerComponents,
+class AccessibilityStatementController @Inject()(override val controllerComponents: MessagesControllerComponents,
                                                  view: AccessibilityStatementView,
-                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                                 implicit val appConfig: FrontendAppConfig) extends BaseController{
 
   def onPageLoad(problemPageUri: String): Action[AnyContent] = Action { implicit request =>
       Ok(view(problemPageUri))
   }
+
 }

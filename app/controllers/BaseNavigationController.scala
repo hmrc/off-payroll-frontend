@@ -16,9 +16,6 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{Section, _}
@@ -30,15 +27,17 @@ import services.CompareAnswerService
 
 import scala.concurrent.Future
 
-abstract class BaseNavigationController @Inject()(mcc: MessagesControllerComponents, compareAnswerService: CompareAnswerService,
-                                                  dataCacheConnector: DataCacheConnector, navigator: Navigator)
-                                                 (implicit frontendAppConfig: FrontendAppConfig) extends BaseController(mcc) {
+trait BaseNavigationController extends BaseController {
+
+  val compareAnswerService: CompareAnswerService
+  val dataCacheConnector: DataCacheConnector
+  val navigator: Navigator
 
   def redirect[T](mode: Mode,
                   value: T,
                   page: QuestionPage[T])(implicit request: DataRequest[AnyContent],
-                                                        reads: Reads[T],
-                                                        writes: Writes[T]): Future[Result] = {
+                                         reads: Reads[T],
+                                         writes: Writes[T]): Future[Result] = {
 
     val currentAnswer = request.userAnswers.get(page)
 

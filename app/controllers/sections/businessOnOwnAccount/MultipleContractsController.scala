@@ -25,24 +25,23 @@ import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.MultipleContractsPage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.MultipleContractsView
 
 import scala.concurrent.Future
 
-class MultipleContractsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                            navigator: BusinessOnOwnAccountNavigator,
+class MultipleContractsController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                            override val navigator: BusinessOnOwnAccountNavigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: MultipleContractsFormProvider,
-                                            controllerComponents: MessagesControllerComponents,
-                                            compareAnswerService: CompareAnswerService,
+                                            override val controllerComponents: MessagesControllerComponents,
+                                            override val compareAnswerService: CompareAnswerService,
                                             view: MultipleContractsView,
                                             implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(MultipleContractsPage, formProvider()), mode))
