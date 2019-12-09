@@ -44,7 +44,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.PermissionToWorkWithOthersController.onPageLoad(NormalMode).url)
+
       }
     }
   }
@@ -87,7 +87,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+
       }
     }
   }

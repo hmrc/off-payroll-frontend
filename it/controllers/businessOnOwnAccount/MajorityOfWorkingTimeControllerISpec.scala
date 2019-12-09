@@ -44,7 +44,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.SimilarWorkOtherClientsController.onPageLoad(NormalMode).url)
+
       }
     }
   }
@@ -87,7 +87,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
+
       }
     }
   }

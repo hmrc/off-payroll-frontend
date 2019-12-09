@@ -44,7 +44,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.control.routes.MoveWorkerController.onPageLoad(NormalMode).url)
+
       }
     }
   }
@@ -87,7 +87,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(personalService)).url)
+
       }
     }
   }

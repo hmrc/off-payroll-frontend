@@ -44,7 +44,7 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.MultipleContractsController.onPageLoad(NormalMode).url)
+
       }
     }
   }
@@ -87,7 +87,7 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.MultipleContractsController.onPageLoad(CheckMode).url)
+
       }
     }
   }

@@ -43,7 +43,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WorkerUsingIntermediaryController.onPageLoad(NormalMode).url)
+
       }
     }
   }

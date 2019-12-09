@@ -44,7 +44,7 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.OwnershipRightsController.onPageLoad(NormalMode).url)
+
       }
     }
   }
@@ -87,7 +87,7 @@ class PermissionToWorkWithOthersControllerISpec extends IntegrationSpecBase with
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.OwnershipRightsController.onPageLoad(CheckMode).url)
+
       }
     }
   }

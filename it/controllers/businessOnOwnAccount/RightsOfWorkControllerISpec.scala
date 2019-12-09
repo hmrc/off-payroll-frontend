@@ -44,7 +44,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.TransferOfRightsController.onPageLoad(NormalMode).url)
+
       }
     }
   }
@@ -87,7 +87,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.businessOnOwnAccount.routes.TransferOfRightsController.onPageLoad(CheckMode).url)
+
       }
     }
   }

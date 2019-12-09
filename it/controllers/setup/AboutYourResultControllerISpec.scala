@@ -32,7 +32,7 @@ class AboutYourResultControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.setup.routes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode).url)
+
       }
     }
   }

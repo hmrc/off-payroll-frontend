@@ -44,7 +44,7 @@ class VehicleControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.financialRisk.routes.MaterialsController.onPageLoad(NormalMode).url)
+
       }
     }
   }
@@ -87,7 +87,7 @@ class VehicleControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(financialRisk)).url)
+
       }
     }
   }

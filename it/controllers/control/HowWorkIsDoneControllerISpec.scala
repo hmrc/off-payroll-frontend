@@ -44,7 +44,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.sections.control.routes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode).url)
+
       }
     }
 
@@ -88,7 +88,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe SEE_OTHER
-        redirectLocation(result) shouldBe Some(controllers.routes.CheckYourAnswersController.onPageLoad(Some(Section.control)).url)
+
       }
     }
   }
