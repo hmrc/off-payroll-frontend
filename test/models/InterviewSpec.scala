@@ -17,7 +17,6 @@
 package models
 
 import base.GuiceAppSpecBase
-
 import models.requests.DataRequest
 import models.sections.businessOnOwnAccount.ExclusiveContract.{AbleToProvideServices, UnableToProvideServices, _}
 import models.sections.businessOnOwnAccount.MultipleEngagements.{NoKnowledgeOfExternalActivity, OnlyContractForPeriod, ProvidedServicesToOtherEngagers}
@@ -28,20 +27,19 @@ import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
 import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
 import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
 import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
 import models.sections.financialRisk.HowWorkerIsPaid.Commission
 import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
 import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
 import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
-import models.sections.setup.AboutYouAnswer.Worker
+import models.sections.setup.WhoAreYou.Worker
 import models.sections.setup.WorkerType.{LimitedCompany, SoleTrader}
 import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WhoAreYouPage, WorkerTypePage}
 import play.api.libs.json.{Json, Writes}
 
 class InterviewSpec extends GuiceAppSpecBase {
@@ -388,7 +386,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
           val userAnswers = UserAnswers("id")
-            .set(AboutYouPage, Worker)
+            .set(WhoAreYouPage, Worker)
             .set(ContractStartedPage, true)
             .set(WorkerTypePage, SoleTrader)
             .set(OfficeHolderPage, false)
@@ -450,7 +448,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
 
           val userAnswers = UserAnswers("id")
-            .set(AboutYouPage, Worker)
+            .set(WhoAreYouPage, Worker)
             .set(ContractStartedPage, true)
             .set(WorkerTypePage, SoleTrader)
             .set(OfficeHolderPage, false)
@@ -749,163 +747,163 @@ class InterviewSpec extends GuiceAppSpecBase {
           }
         }
 
-          "SeriesOfContracts answer" when {
+        "SeriesOfContracts answer" when {
 
-            "PreviousContractPage is true and FollowOnContractPage is true" must {
+          "PreviousContractPage is true and FollowOnContractPage is true" must {
 
-              "be ContractIsPartOfASeries" in {
+            "be ContractIsPartOfASeries" in {
 
 
 
-                val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, true)
-                  .set(FollowOnContractPage, true)
+              val userAnswers = UserAnswers("id")
+                .set(PreviousContractPage, true)
+                .set(FollowOnContractPage, true)
 
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  seriesOfContracts = Some(ContractIsPartOfASeries)
-                )
+              val expected = Interview(
+                correlationId = "id",
+                endUserRole = Some(UserType.Worker),
+                seriesOfContracts = Some(ContractIsPartOfASeries)
+              )
 
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
+              val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+              actual mustBe expected
             }
+          }
 
-            "PreviousContractPage is true and FollowOnContractPage is false and FirstInSeries is true" must {
+          "PreviousContractPage is true and FollowOnContractPage is false and FirstInSeries is true" must {
 
-              "be ContractIsPartOfASeries" in {
+            "be ContractIsPartOfASeries" in {
 
 
 
-                val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, true)
-                  .set(FollowOnContractPage, false)
-                  .set(FollowOnContractPage, true)
+              val userAnswers = UserAnswers("id")
+                .set(PreviousContractPage, true)
+                .set(FollowOnContractPage, false)
+                .set(FollowOnContractPage, true)
 
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  seriesOfContracts = Some(ContractIsPartOfASeries)
-                )
+              val expected = Interview(
+                correlationId = "id",
+                endUserRole = Some(UserType.Worker),
+                seriesOfContracts = Some(ContractIsPartOfASeries)
+              )
 
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
+              val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+              actual mustBe expected
             }
+          }
 
-            "PreviousContractPage is true, FollowOnContract is false and FirstContractPage is false and Extended is false" must {
+          "PreviousContractPage is true, FollowOnContract is false and FirstContractPage is false and Extended is false" must {
 
-              "be StandAloneContract" in {
+            "be StandAloneContract" in {
 
 
 
-                val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, true)
-                  .set(FollowOnContractPage, false)
-                  .set(FirstContractPage, false)
-                  .set(ExtendContractPage, false)
+              val userAnswers = UserAnswers("id")
+                .set(PreviousContractPage, true)
+                .set(FollowOnContractPage, false)
+                .set(FirstContractPage, false)
+                .set(ExtendContractPage, false)
 
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  seriesOfContracts = Some(StandAloneContract)
-                )
+              val expected = Interview(
+                correlationId = "id",
+                endUserRole = Some(UserType.Worker),
+                seriesOfContracts = Some(StandAloneContract)
+              )
 
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
+              val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+              actual mustBe expected
             }
+          }
 
-            "PreviousContractPage is true, FollowOnContract is false and FirstContractPage is false and Extended is true" must {
+          "PreviousContractPage is true, FollowOnContract is false and FirstContractPage is false and Extended is true" must {
 
-              "be ContractCouldBeExtended" in {
+            "be ContractCouldBeExtended" in {
 
 
 
-                val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, true)
-                  .set(FollowOnContractPage, false)
-                  .set(FirstContractPage, false)
-                  .set(ExtendContractPage, true)
+              val userAnswers = UserAnswers("id")
+                .set(PreviousContractPage, true)
+                .set(FollowOnContractPage, false)
+                .set(FirstContractPage, false)
+                .set(ExtendContractPage, true)
 
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  seriesOfContracts = Some(ContractCouldBeExtended)
-                )
+              val expected = Interview(
+                correlationId = "id",
+                endUserRole = Some(UserType.Worker),
+                seriesOfContracts = Some(ContractCouldBeExtended)
+              )
 
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
+              val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+              actual mustBe expected
             }
+          }
 
-            "PreviousContractPage is false, FirstContractPage is true" must {
+          "PreviousContractPage is false, FirstContractPage is true" must {
 
-              "be ContractIsPartOfASeries" in {
+            "be ContractIsPartOfASeries" in {
 
 
 
-                val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, false)
-                  .set(FirstContractPage, true)
+              val userAnswers = UserAnswers("id")
+                .set(PreviousContractPage, false)
+                .set(FirstContractPage, true)
 
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  seriesOfContracts = Some(ContractIsPartOfASeries)
-                )
+              val expected = Interview(
+                correlationId = "id",
+                endUserRole = Some(UserType.Worker),
+                seriesOfContracts = Some(ContractIsPartOfASeries)
+              )
 
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
+              val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+              actual mustBe expected
             }
+          }
 
-            "PreviousContractPage is false, FirstContractPage is false and ExtendContract is false" must {
+          "PreviousContractPage is false, FirstContractPage is false and ExtendContract is false" must {
 
-              "be StandaloneContract" in {
+            "be StandaloneContract" in {
 
 
 
-                val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, false)
-                  .set(FirstContractPage, false)
-                  .set(ExtendContractPage, false)
+              val userAnswers = UserAnswers("id")
+                .set(PreviousContractPage, false)
+                .set(FirstContractPage, false)
+                .set(ExtendContractPage, false)
 
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  seriesOfContracts = Some(StandAloneContract)
-                )
+              val expected = Interview(
+                correlationId = "id",
+                endUserRole = Some(UserType.Worker),
+                seriesOfContracts = Some(StandAloneContract)
+              )
 
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
+              val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+              actual mustBe expected
             }
+          }
 
-            "PreviousContractPage is false, FirstContractPage is false and ExtendContract is true" must {
+          "PreviousContractPage is false, FirstContractPage is false and ExtendContract is true" must {
 
-              "be StandaloneContract" in {
+            "be StandaloneContract" in {
 
 
 
-                val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, false)
-                  .set(FirstContractPage, false)
-                  .set(ExtendContractPage, true)
+              val userAnswers = UserAnswers("id")
+                .set(PreviousContractPage, false)
+                .set(FirstContractPage, false)
+                .set(ExtendContractPage, true)
 
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  seriesOfContracts = Some(ContractCouldBeExtended)
-                )
+              val expected = Interview(
+                correlationId = "id",
+                endUserRole = Some(UserType.Worker),
+                seriesOfContracts = Some(ContractCouldBeExtended)
+              )
 
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
+              val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+              actual mustBe expected
             }
           }
         }
+      }
 
       "minimum values are supplied" in {
 

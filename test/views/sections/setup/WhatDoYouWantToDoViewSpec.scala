@@ -50,7 +50,7 @@ class WhatDoYouWantToDoViewSpec extends QuestionViewBehaviours[WhatDoYouWantToDo
 
     behave like pageWithBackLink(createView)
 
-    behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.AboutYouController.onSubmit(NormalMode).url)
+    behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.WhatDoYouWantToDoController.onSubmit(NormalMode).url)
 
     "when not given a user type" must {
 

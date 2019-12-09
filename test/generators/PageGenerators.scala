@@ -24,7 +24,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
 
 trait PageGenerators {
 
@@ -138,7 +138,4 @@ trait PageGenerators {
 
   implicit lazy val arbitraryContractStartedPage: Arbitrary[ContractStartedPage.type] =
     Arbitrary(ContractStartedPage)
-
-  implicit lazy val arbitraryAboutYouPage: Arbitrary[AboutYouPage.type] =
-    Arbitrary(AboutYouPage)
 }

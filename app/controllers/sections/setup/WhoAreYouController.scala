@@ -50,10 +50,7 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController with FeatureSwitching {
 
   private def renderedView(mode: Mode, form: Form[WhoAreYou])(implicit request: DataRequest[_]) = {
-    val showAgency = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage) match {
-      case Some(IR35) => true
-      case _ => false
-    }
+    val showAgency = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35)
     view(routes.WhoAreYouController.onSubmit(mode), fillForm(WhoAreYouPage, form), mode, showAgency)
   }
 

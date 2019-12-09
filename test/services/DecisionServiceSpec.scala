@@ -16,28 +16,25 @@
 
 package services
 
-import base.{GuiceAppSpecBase, SpecBase}
-import viewmodels.{AnswerSection, ResultMode}
-import config.SessionKeys
+import base.GuiceAppSpecBase
 import config.featureSwitch.FeatureSwitching
 import connectors.mocks.{MockAuditConnector, MockDataCacheConnector, MockDecisionConnector}
-import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
+import forms.DownloadPDFCopyFormProvider
 import handlers.mocks.MockErrorHandler
-import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
-import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
-import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
-import models.sections.financialRisk.HowWorkerIsPaid.Commission
-import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
-import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
-import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
-import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
-import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
-import models.sections.setup.WhichDescribesYouAnswer._
-import models.sections.setup.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
+import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
+import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.sections.setup.WorkerType.SoleTrader
 import org.scalatest.concurrent.ScalaFutures
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -46,9 +43,7 @@ import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPa
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import play.api.http.Status
-import play.api.libs.json.JsString
-import play.api.mvc.{AnyContent, Call}
+import play.api.mvc.AnyContent
 import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
 import play.twirl.api.Html
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
@@ -97,7 +92,6 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector
   )
 
   val userAnswers: UserAnswers = UserAnswers("id")
-    .set(WhichDescribesYouPage, WorkerPAYE)
     .set(ContractStartedPage, true)
     .set(WorkerTypePage, SoleTrader)
     .set(OfficeHolderPage, false)

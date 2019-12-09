@@ -16,7 +16,6 @@
 
 package generators
 
-import models._
 import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
 import models.sections.financialRisk.{CannotClaimAsExpense, HowWorkerIsPaid, PutRightAtOwnCost}
 import models.sections.partAndParcel.IdentifyToStakeholders
@@ -31,7 +30,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
@@ -329,14 +328,6 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
     Arbitrary {
       for {
         page  <- arbitrary[ContractStartedPage.type]
-        value <- arbitrary[Boolean].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
-  implicit lazy val arbitraryAboutYouUserAnswersEntry: Arbitrary[(AboutYouPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[AboutYouPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }

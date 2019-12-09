@@ -40,13 +40,6 @@ class RoutesSpec extends SpecBase {
       setupRoutes.AgencyAdvisoryController.onSubmit().url mustBe fullPath("/agency-not-responsible")
     }
 
-    "Have the correct routes for the About You page" in {
-      setupRoutes.AboutYouController.onPageLoad(NormalMode).url mustBe fullPath("/reason-for-using-tool")
-      setupRoutes.AboutYouController.onPageLoad(CheckMode).url mustBe fullPath("/reason-for-using-tool/change")
-      setupRoutes.AboutYouController.onSubmit(NormalMode).url mustBe fullPath("/reason-for-using-tool")
-      setupRoutes.AboutYouController.onSubmit(CheckMode).url mustBe fullPath("/reason-for-using-tool/change")
-    }
-
     "Have the correct routes for the Contract Started page" in {
       setupRoutes.ContractStartedController.onPageLoad(NormalMode).url mustBe fullPath("/work-started")
       setupRoutes.ContractStartedController.onPageLoad(CheckMode).url mustBe fullPath("/work-started/change")

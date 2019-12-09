@@ -17,7 +17,7 @@
 package models
 
 import models.UserType._
-import models.sections.setup.{AboutYouAnswer, WhichDescribesYouAnswer}
+import models.sections.setup.WhoAreYou
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -27,24 +27,16 @@ class UserTypeSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChe
 
   "UserType" must {
 
-    "be able to be constructed from the AboutYouAnswer value" in {
-      UserType(AboutYouAnswer.Worker) mustBe Worker
-      UserType(AboutYouAnswer.Agency) mustBe Agency
-      UserType(AboutYouAnswer.Client) mustBe Hirer
-    }
-
-    "be able to be constructed from a WhichDescribesYouBest value" in {
-      UserType(WhichDescribesYouAnswer.WorkerPAYE) mustBe Worker
-      UserType(WhichDescribesYouAnswer.WorkerIR35) mustBe Worker
-      UserType(WhichDescribesYouAnswer.ClientIR35) mustBe Hirer
-      UserType(WhichDescribesYouAnswer.ClientPAYE) mustBe Hirer
-      UserType(WhichDescribesYouAnswer.Agency) mustBe Agency
+    "be able to be constructed from the WhoAreYou value" in {
+      UserType(WhoAreYou.Worker) mustBe Worker
+      UserType(WhoAreYou.Agency) mustBe Agency
+      UserType(WhoAreYou.Client) mustBe Hirer
     }
 
     "deserialise valid values" in {
-      JsString(AboutYouAnswer.Worker.toString).validate[UserType].asOpt.value mustEqual Worker
-      JsString(AboutYouAnswer.Client.toString).validate[UserType].asOpt.value mustEqual Hirer
-      JsString(AboutYouAnswer.Agency.toString).validate[UserType].asOpt.value mustEqual Agency
+      JsString(WhoAreYou.Worker.toString).validate[UserType].asOpt.value mustEqual Worker
+      JsString(WhoAreYou.Client.toString).validate[UserType].asOpt.value mustEqual Hirer
+      JsString(WhoAreYou.Agency.toString).validate[UserType].asOpt.value mustEqual Agency
     }
 
     "fail to deserialise invalid values" in {
@@ -55,9 +47,9 @@ class UserTypeSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChe
     }
 
     "serialise" in {
-      Json.toJson(Worker) mustEqual JsString(AboutYouAnswer.Worker.toString)
-      Json.toJson(Hirer) mustEqual JsString(AboutYouAnswer.Client.toString)
-      Json.toJson(Agency) mustEqual JsString(AboutYouAnswer.Agency.toString)
+      Json.toJson(Worker) mustEqual JsString(WhoAreYou.Worker.toString)
+      Json.toJson(Hirer) mustEqual JsString(WhoAreYou.Client.toString)
+      Json.toJson(Agency) mustEqual JsString(WhoAreYou.Agency.toString)
     }
   }
 }
