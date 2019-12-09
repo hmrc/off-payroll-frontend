@@ -37,9 +37,8 @@ import controllers.sections.businessOnOwnAccount.{routes => businessOnOwnAccount
 import handlers.ErrorHandler
 import models.CheckMode
 import pages._
-import pages.sections.exit.OfficeHolderPage
 import pages.sections.businessOnOwnAccount._
-import pages.sections.personalService.ArrangedSubstitutePage
+import pages.sections.exit.OfficeHolderPage
 import play.api.test.Helpers._
 import views.html.BusinessOnOwnAccountSectionChangeWarningView
 

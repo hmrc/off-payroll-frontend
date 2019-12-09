@@ -19,7 +19,6 @@ package controllers.sections.setup
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.WhatDoYouWantToFindOutFormProvider
-
 import models._
 import models.requests.DataRequest
 import models.sections.setup.WhatDoYouWantToFindOut

@@ -17,8 +17,7 @@
 package filters
 
 import java.util.regex.Pattern
-import java.util.regex.Pattern._
-import java.util.regex.Pattern.compile
+import java.util.regex.Pattern.{compile, _}
 
 import scala.annotation.tailrec
 

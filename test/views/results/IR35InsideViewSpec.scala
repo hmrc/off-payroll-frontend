@@ -39,7 +39,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
   "The IR35InsideView page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "is Checking a Determination" should {
 
@@ -58,7 +58,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       "if the Worker is Known" should {
 
@@ -80,7 +80,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
   "The IR35InsideView PrintPreview page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "is Checking a Determination" should {
 
@@ -99,7 +99,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       "if the Worker is Known" should {
 
@@ -121,7 +121,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
   "The IR35InsideView PDF/Print page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "is Checking a Determination" should {
 
@@ -140,7 +140,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       "if the Worker is Known" should {
 

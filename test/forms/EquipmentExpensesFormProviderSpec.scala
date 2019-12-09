@@ -17,7 +17,6 @@
 package forms
 
 import base.GuiceAppSpecBase
-
 import forms.behaviours.BooleanFieldBehaviours
 import forms.sections.financialRisk.EquipmentExpensesFormProvider
 import play.api.data.FormError

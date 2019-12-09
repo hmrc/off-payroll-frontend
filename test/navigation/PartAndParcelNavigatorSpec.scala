@@ -17,8 +17,6 @@
 package navigation
 
 import base.GuiceAppSpecBase
-
-import controllers.routes
 import controllers.sections.businessOnOwnAccount.{routes => booa}
 import controllers.sections.partParcel.{routes => partAndParcelRoutes}
 import models._

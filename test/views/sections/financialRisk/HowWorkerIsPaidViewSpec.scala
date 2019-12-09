@@ -17,7 +17,6 @@
 package views.sections.financialRisk
 
 import assets.messages.{HowWorkerIsPaidMessages, SubHeadingMessages}
-
 import forms.sections.financialRisk.HowWorkerIsPaidFormProvider
 import models.NormalMode
 import models.sections.financialRisk.HowWorkerIsPaid

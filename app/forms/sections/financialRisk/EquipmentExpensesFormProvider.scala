@@ -17,15 +17,16 @@
 package forms.sections.financialRisk
 
 import config.FrontendAppConfig
-import forms.mappings.{Mappings, ErrorHandling}
+import forms.mappings.Mappings
 import javax.inject.Inject
 import models.requests.DataRequest
 import play.api.data.Form
+import views.ViewUtils.tailorMsg
 
-class EquipmentExpensesFormProvider @Inject() extends Mappings with ErrorHandling {
+class EquipmentExpensesFormProvider @Inject() extends Mappings {
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsg("equipmentExpenses.error.required"))
+      "value" -> boolean(tailorMsg("equipmentExpenses.error.required"))
     )
 }

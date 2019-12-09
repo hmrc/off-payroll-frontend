@@ -17,7 +17,6 @@
 package navigation
 
 import base.GuiceAppSpecBase
-
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => finacialRiskRoutes}
 import models._

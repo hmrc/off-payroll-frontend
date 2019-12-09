@@ -1,8 +1,6 @@
 package controllers.financialRisk
 
-import models.Section.financialRisk
 import helpers.IntegrationSpecBase
-import models.NormalMode
 
 class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 

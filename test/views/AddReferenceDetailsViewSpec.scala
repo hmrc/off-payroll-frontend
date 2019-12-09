@@ -16,8 +16,7 @@
 
 package views
 
-import assets.messages.{AddReferenceDetailsMessages}
-
+import assets.messages.AddReferenceDetailsMessages
 import forms.AddReferenceDetailsFormProvider
 import play.api.data.Form
 import play.api.mvc.Request

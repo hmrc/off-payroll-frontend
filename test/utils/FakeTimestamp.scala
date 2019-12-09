@@ -17,7 +17,6 @@
 package utils
 
 import models.Timestamp
-import play.api.i18n.Messages
 
 object FakeTimestamp extends Timestamp {
 

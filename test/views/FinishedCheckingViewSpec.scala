@@ -17,11 +17,10 @@
 package views
 
 import assets.messages.FinishedCheckingMessages
-
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request
-import views.behaviours.{ViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.ViewBehaviours
 import views.html.FinishedCheckingView
 
 class FinishedCheckingViewSpec extends ViewBehaviours {

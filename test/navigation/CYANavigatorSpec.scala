@@ -17,7 +17,6 @@
 package navigation
 
 import base.GuiceAppSpecBase
-
 import controllers.routes
 import models._
 import pages._

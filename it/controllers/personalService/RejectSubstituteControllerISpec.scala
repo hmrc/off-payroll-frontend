@@ -1,7 +1,6 @@
 package controllers.personalService
 
 import helpers.IntegrationSpecBase
-import models.{CheckMode, NormalMode}
 
 class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 

@@ -1,7 +1,6 @@
 package controllers.businessOnOwnAccount
 
 import helpers.IntegrationSpecBase
-import models.{CheckMode, NormalMode}
 
 class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 

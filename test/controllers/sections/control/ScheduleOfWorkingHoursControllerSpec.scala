@@ -21,10 +21,9 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.control.ScheduleOfWorkingHoursFormProvider
-
+import models.NormalMode
 import models.requests.DataRequest
 import models.sections.control.ScheduleOfWorkingHours
-import models.NormalMode
 import navigation.mocks.FakeNavigators.FakeControlNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form

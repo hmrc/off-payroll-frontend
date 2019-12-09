@@ -18,7 +18,6 @@ package views.results
 
 import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results._
-
 import models.{AdditionalPdfDetails, PDFResultDetails, Section}
 import org.jsoup.nodes.Document
 import play.api.i18n.Messages

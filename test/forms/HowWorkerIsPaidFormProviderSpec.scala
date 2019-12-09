@@ -17,7 +17,6 @@
 package forms
 
 import base.GuiceAppSpecBase
-
 import forms.behaviours.OptionFieldBehaviours
 import forms.sections.financialRisk.HowWorkerIsPaidFormProvider
 import models.sections.financialRisk.HowWorkerIsPaid

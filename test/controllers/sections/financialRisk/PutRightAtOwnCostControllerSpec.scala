@@ -20,7 +20,6 @@ package controllers.sections.financialRisk
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.financialRisk.PutRightAtOwnCostFormProvider
-
 import models._
 import models.requests.DataRequest
 import models.sections.financialRisk.PutRightAtOwnCost

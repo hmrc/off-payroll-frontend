@@ -17,13 +17,10 @@
 package views.sections.financialRisk
 
 import assets.messages.{OtherExpensesMessages, SubHeadingMessages}
-import config.SessionKeys
 import controllers.sections.financialRisk.routes
 import forms.sections.financialRisk.OtherExpensesFormProvider
 import models.NormalMode
-import models.UserType.{Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.financialRisk.OtherExpensesView

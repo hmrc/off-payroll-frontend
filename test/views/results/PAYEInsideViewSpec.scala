@@ -36,7 +36,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   "The PAYEInsideView page" should {
 
-    "The UserType is a Worker" should {
+    "The WhoAreYou is a Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
@@ -44,7 +44,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = false)
     }
 
-    "The UserType is a Hirer" should {
+    "The WhoAreYou is a Hirer" should {
 
       "when the Worker is Known" should {
 
@@ -66,7 +66,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   "The PAYEInsideView PDF/Print page" should {
 
-    "The UserType is a Worker" should {
+    "The WhoAreYou is a Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
@@ -74,7 +74,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
-    "The UserType is a Hirer" should {
+    "The WhoAreYou is a Hirer" should {
 
       "when the Worker is Known" should {
 
@@ -96,7 +96,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   "The PAYEInsideView PrintPreview page" should {
 
-    "The UserType is a Worker" should {
+    "The WhoAreYou is a Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPrintPreviewResultDetails))
 
@@ -104,7 +104,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
-    "The UserType is a Hirer" should {
+    "The WhoAreYou is a Hirer" should {
 
       "when the Worker is Known" should {
 

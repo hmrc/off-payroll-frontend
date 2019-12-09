@@ -17,13 +17,9 @@
 package views.sections.personalService
 
 import assets.messages.{ArrangedSubstituteMessages, SubHeadingMessages}
-import config.SessionKeys
-
 import forms.sections.personalService.ArrangedSubstituteFormProvider
-import models.UserType.{Agency, Hirer, Worker}
 import models.NormalMode
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.personalService.ArrangedSubstituteView

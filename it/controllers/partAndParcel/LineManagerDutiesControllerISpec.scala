@@ -1,8 +1,6 @@
 package controllers.partAndParcel
 
 import helpers.IntegrationSpecBase
-import models.NormalMode
-import models.Section.partAndParcel
 
 class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 

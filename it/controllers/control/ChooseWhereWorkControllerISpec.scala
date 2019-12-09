@@ -1,7 +1,6 @@
 package controllers.control
 
 import helpers.IntegrationSpecBase
-import models.{CheckMode, NormalMode, Section}
 
 class ChooseWhereWorkControllerISpec extends IntegrationSpecBase {
 

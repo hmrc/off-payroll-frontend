@@ -17,7 +17,6 @@
 package views.sections.businessOnOwnAccount
 
 import assets.messages.RightsOfWorkMessages
-
 import forms.sections.businessOnOwnAccount.RightsOfWorkFormProvider
 import models.NormalMode
 import play.api.data.Form

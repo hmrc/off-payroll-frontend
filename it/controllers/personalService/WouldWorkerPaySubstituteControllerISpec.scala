@@ -1,8 +1,6 @@
 package controllers.personalService
 
-import models.Section.personalService
 import helpers.IntegrationSpecBase
-import models.{CheckMode, NormalMode}
 
 class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 

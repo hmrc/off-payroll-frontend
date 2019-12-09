@@ -17,7 +17,6 @@
 package views.sections.personalService
 
 import assets.messages.{SubHeadingMessages, WouldPaySubstituteMessages}
-
 import controllers.sections.personalService.routes
 import forms.sections.personalService.WouldWorkerPaySubstituteFormProvider
 import models.NormalMode

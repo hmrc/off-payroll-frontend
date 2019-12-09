@@ -18,7 +18,6 @@ package views
 
 import assets.messages.AddDetailsMessages
 import controllers.routes
-
 import forms.AdditionalPdfDetailsFormProvider
 import models.{AdditionalPdfDetails, NormalMode}
 import play.api.data.Form

@@ -17,7 +17,6 @@
 package forms
 
 import base.GuiceAppSpecBase
-
 import forms.behaviours.BooleanFieldBehaviours
 import forms.sections.businessOnOwnAccount.MultipleContractsFormProvider
 import play.api.data.FormError

@@ -36,7 +36,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   "The OfficeHolderPAYEView page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
@@ -44,7 +44,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = false)
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
 
@@ -55,7 +55,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   "The OfficeHolderPAYEView PDF/Print page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
@@ -63,7 +63,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
 
@@ -74,7 +74,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   "The OfficeHolderPAYEView PrintPreview page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPrintPreviewResultDetails))
 
@@ -82,7 +82,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPrintPreviewResultDetails))
 

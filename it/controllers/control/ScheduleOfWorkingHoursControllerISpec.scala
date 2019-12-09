@@ -1,7 +1,6 @@
 package controllers.control
 
 import helpers.IntegrationSpecBase
-import models.{NormalMode, Section}
 
 class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase {
 

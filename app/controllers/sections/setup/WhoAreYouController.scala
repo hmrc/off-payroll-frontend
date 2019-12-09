@@ -23,17 +23,17 @@ import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.setup.WhoAreYouFormProvider
 import javax.inject.Inject
+import models.Mode
 import models.requests.DataRequest
 import models.sections.setup.WhatDoYouWantToFindOut.IR35
 import models.sections.setup.WhoAreYou
-import models.{Mode, UserType}
 import navigation.SetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form
 import play.api.mvc._
 import services.CompareAnswerService
-import utils.SessionUtils._
 import views.html.sections.setup.WhoAreYouView
+import utils.SessionUtils._
 
 import scala.concurrent.Future
 
@@ -62,7 +62,7 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
     whoAreYouFormProvider().bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(renderedView(mode, formWithErrors))),
       value => {
-        redirect(mode, value, WhoAreYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
+        redirect(mode, value, WhoAreYouPage).map(result => result.addingToSession(SessionKeys.userType -> value))
       }
     )
   }

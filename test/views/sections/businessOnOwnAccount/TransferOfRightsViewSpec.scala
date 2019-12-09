@@ -49,7 +49,7 @@ class TransferOfRightsViewSpec extends YesNoViewBehaviours {
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.TransferOfRightsController.onSubmit(NormalMode).url)
 
-    "UserType is Worker" must {
+    "WhoAreYou is Worker" must {
 
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
@@ -71,7 +71,7 @@ class TransferOfRightsViewSpec extends YesNoViewBehaviours {
       }
     }
 
-    "UserType is Hirer" must {
+    "WhoAreYou is Hirer" must {
 
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 

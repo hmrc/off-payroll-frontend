@@ -19,8 +19,6 @@ package models
 import java.time.format.DateTimeFormatter
 import java.time.{ZoneOffset, ZonedDateTime}
 
-import play.api.i18n.Messages
-
 class Timestamp {
 
   def timestamp(time: Option[String] = None): String =

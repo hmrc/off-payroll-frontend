@@ -17,13 +17,10 @@
 package views.sections.setup
 
 import assets.messages.WorkerUsingIntermediaryMessages
-import config.SessionKeys
 import config.featureSwitch.FeatureSwitching
 import forms.sections.setup.WorkerUsingIntermediaryFormProvider
 import models.NormalMode
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.setup.WorkerUsingIntermediaryView
@@ -32,7 +29,7 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "workerUsingIntermediary"
+  val messageKeyPrefix: String = "workerUsingIntermediary"
 
   val form = new WorkerUsingIntermediaryFormProvider()()(fakeDataRequest, frontendAppConfig)
 

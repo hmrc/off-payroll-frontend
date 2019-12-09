@@ -16,12 +16,11 @@
 
 package navigation
 
-import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.routes._
 import controllers.sections.partParcel.{routes => partParcelRoutes}
+import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}

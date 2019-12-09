@@ -17,7 +17,6 @@
 package views.sections.control
 
 import assets.messages.{MoveWorkerMessages, SubHeadingMessages}
-
 import forms.sections.control.MoveWorkerFormProvider
 import models.NormalMode
 import models.sections.control.MoveWorker

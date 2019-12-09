@@ -17,7 +17,6 @@
 package navigation
 
 import base.GuiceAppSpecBase
-
 import controllers.routes
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import models._
@@ -42,7 +41,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
       }
 
       "redirect to the WorkerKnown page if user is Hirer" in {
-        navigator.startPage(emptyUserAnswers.set(WhoAreYouPage, WhoAreYou.Client)) mustBe booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
+        navigator.startPage(emptyUserAnswers.set(WhoAreYouPage, WhoAreYou.Hirer)) mustBe booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
       }
     }
 

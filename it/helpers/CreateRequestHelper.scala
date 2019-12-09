@@ -1,17 +1,16 @@
 package helpers
 
 import config.SessionKeys
-import models.UserType.Worker
 import org.scalatestplus.play.ServerProvider
 import play.api.Application
 import play.api.http.HeaderNames
-import play.api.libs.json.{JsString, Json}
+import play.api.libs.json.Json
 import play.api.libs.ws.{DefaultWSCookie, WSClient, WSCookie, WSRequest, WSResponse}
 import play.api.mvc.Cookie
-import utils.SessionUtils
 
 import scala.concurrent.Future
 import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
+import models.sections.setup.WhoAreYou.Worker
 
 trait CreateRequestHelper extends ServerProvider {
   

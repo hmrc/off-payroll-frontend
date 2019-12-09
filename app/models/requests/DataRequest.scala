@@ -17,12 +17,13 @@
 package models.requests
 
 import config.SessionKeys
+import models.UserAnswers
+import models.sections.setup.WhoAreYou
 import play.api.mvc.{Request, WrappedRequest}
-import models.{UserAnswers, UserType}
 import utils.SessionUtils._
 
 abstract class BaseDataRequest[A] (request: Request[A]) extends WrappedRequest[A](request) {
-  val userType: Option[UserType] = request.session.getModel[UserType](SessionKeys.userType)
+  val userType: Option[WhoAreYou] = request.session.getModel[WhoAreYou](SessionKeys.userType)
 }
 
 case class OptionalDataRequest[A] (request: Request[A],

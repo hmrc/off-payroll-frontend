@@ -22,7 +22,7 @@ import models.{Section, _}
 import navigation.Navigator
 import pages.{BusinessOnOwnAccountSectionChangeWarningPage, PersonalServiceSectionChangeWarningPage, QuestionPage}
 import play.api.libs.json.{Reads, Writes}
-import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
+import play.api.mvc.{AnyContent, Result}
 import services.CompareAnswerService
 
 import scala.concurrent.Future

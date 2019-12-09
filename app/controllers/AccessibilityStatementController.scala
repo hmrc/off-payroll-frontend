@@ -18,8 +18,8 @@ package controllers
 
 import config.FrontendAppConfig
 import javax.inject.Inject
-import views.html.AccessibilityStatementView
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import views.html.AccessibilityStatementView
 
 class AccessibilityStatementController @Inject()(override val controllerComponents: MessagesControllerComponents,
                                                  view: AccessibilityStatementView,

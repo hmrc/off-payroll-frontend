@@ -16,11 +16,10 @@
 
 package navigation
 
-import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.routes._
+import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import play.api.mvc.Call

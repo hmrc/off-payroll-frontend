@@ -21,10 +21,9 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.control.MoveWorkerFormProvider
-
+import models.NormalMode
 import models.requests.DataRequest
 import models.sections.control.MoveWorker
-import models.NormalMode
 import navigation.mocks.FakeNavigators.FakeControlNavigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form

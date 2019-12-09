@@ -17,10 +17,8 @@
 package views
 
 import assets.messages.ResetAnswersMessages
-
 import controllers.routes
 import forms.ResetAnswersWarningFormProvider
-import models.NormalMode
 import play.api.data.Form
 import views.behaviours.{ViewBehaviours, YesNoViewBehaviours}
 import views.html.ResetAnswersWarningView

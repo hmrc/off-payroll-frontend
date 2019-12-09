@@ -1,7 +1,6 @@
 package controllers.businessOnOwnAccount
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import models.{CheckMode, NormalMode}
 import play.api.http.Status
 
 class ExtendContractControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{

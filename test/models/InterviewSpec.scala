@@ -31,6 +31,7 @@ import models.sections.financialRisk.HowWorkerIsPaid.Commission
 import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
 import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
 import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.setup.WhoAreYou
 import models.sections.setup.WhoAreYou.Worker
 import models.sections.setup.WorkerType.{LimitedCompany, SoleTrader}
 import pages.sections.businessOnOwnAccount._
@@ -51,7 +52,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           provideServices = Some(SoleTrader),
           officeHolder = Some(false),
@@ -79,7 +80,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           provideServices = Some(LimitedCompany),
           officeHolder = Some(false),
@@ -108,7 +109,7 @@ class InterviewSpec extends GuiceAppSpecBase {
       "use the normal flow is both are provided" in {
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           provideServices = Some(LimitedCompany),
           isUsingIntermediary = Some(true),
           hasContractStarted = Some(true),
@@ -138,7 +139,7 @@ class InterviewSpec extends GuiceAppSpecBase {
       "default to IR35 when no values are supplied" in {
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           officeHolder = Some(false),
           workerSentActualSubstitute = Some(YesClientAgreed),
@@ -168,7 +169,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           isUsingIntermediary = Some(false),
           officeHolder = Some(false),
@@ -196,7 +197,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           isUsingIntermediary = Some(true),
           officeHolder = Some(false),
@@ -229,7 +230,7 @@ class InterviewSpec extends GuiceAppSpecBase {
       "provide services is populated" in {
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           provideServices = Some(SoleTrader),
           officeHolder = Some(false),
@@ -259,7 +260,7 @@ class InterviewSpec extends GuiceAppSpecBase {
       "isUsingIntermediary is populated" in {
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           isUsingIntermediary = Some(true),
           officeHolder = Some(false),
@@ -289,7 +290,7 @@ class InterviewSpec extends GuiceAppSpecBase {
       "isUsingIntermediary is false" in {
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           isUsingIntermediary = Some(false),
           officeHolder = Some(false),
@@ -319,7 +320,7 @@ class InterviewSpec extends GuiceAppSpecBase {
       "use the optimised is both are supplied" in {
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           provideServices = Some(SoleTrader),
           isUsingIntermediary = Some(true),
@@ -350,7 +351,7 @@ class InterviewSpec extends GuiceAppSpecBase {
       "none is supplied" in {
         Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           officeHolder = Some(false),
           workerSentActualSubstitute = Some(YesClientAgreed),
@@ -411,7 +412,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
           val expected = Interview(
             correlationId = "id",
-            endUserRole = Some(UserType.Worker),
+            endUserRole = Some(WhoAreYou.Worker),
             hasContractStarted = Some(true),
             provideServices = Some(SoleTrader),
             officeHolder = Some(false),
@@ -473,7 +474,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
           val expected = Interview(
             correlationId = "id",
-            endUserRole = Some(UserType.Worker),
+            endUserRole = Some(WhoAreYou.Worker),
             hasContractStarted = Some(true),
             provideServices = Some(SoleTrader),
             officeHolder = Some(false),
@@ -520,7 +521,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   exclusiveContract = Some(UnableToProvideServices)
                 )
 
@@ -541,7 +542,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   exclusiveContract = Some(AbleToProvideServicesWithPermission)
                 )
 
@@ -562,7 +563,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   exclusiveContract = Some(AbleToProvideServices)
                 )
 
@@ -585,7 +586,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   transferRights = Some(NoRightsArise)
                 )
 
@@ -606,7 +607,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   transferRights = Some(RightsTransferredToClient)
                 )
 
@@ -628,7 +629,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   transferRights = Some(RetainOwnershipRights)
                 )
 
@@ -650,7 +651,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   transferRights = Some(AbleToTransferRights)
                 )
 
@@ -673,7 +674,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   multipleEngagements = Some(ProvidedServicesToOtherEngagers)
                 )
 
@@ -693,7 +694,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   multipleEngagements = Some(OnlyContractForPeriod)
                 )
 
@@ -716,7 +717,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   significantWorkingTime = Some(ConsumesSignificantAmount)
                 )
 
@@ -736,7 +737,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val expected = Interview(
                   correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
+                  endUserRole = Some(WhoAreYou.Worker),
                   significantWorkingTime = Some(NoSignificantAmount)
                 )
 
@@ -761,7 +762,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
               val expected = Interview(
                 correlationId = "id",
-                endUserRole = Some(UserType.Worker),
+                endUserRole = Some(WhoAreYou.Worker),
                 seriesOfContracts = Some(ContractIsPartOfASeries)
               )
 
@@ -783,7 +784,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
               val expected = Interview(
                 correlationId = "id",
-                endUserRole = Some(UserType.Worker),
+                endUserRole = Some(WhoAreYou.Worker),
                 seriesOfContracts = Some(ContractIsPartOfASeries)
               )
 
@@ -806,7 +807,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
               val expected = Interview(
                 correlationId = "id",
-                endUserRole = Some(UserType.Worker),
+                endUserRole = Some(WhoAreYou.Worker),
                 seriesOfContracts = Some(StandAloneContract)
               )
 
@@ -829,7 +830,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
               val expected = Interview(
                 correlationId = "id",
-                endUserRole = Some(UserType.Worker),
+                endUserRole = Some(WhoAreYou.Worker),
                 seriesOfContracts = Some(ContractCouldBeExtended)
               )
 
@@ -850,7 +851,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
               val expected = Interview(
                 correlationId = "id",
-                endUserRole = Some(UserType.Worker),
+                endUserRole = Some(WhoAreYou.Worker),
                 seriesOfContracts = Some(ContractIsPartOfASeries)
               )
 
@@ -872,7 +873,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
               val expected = Interview(
                 correlationId = "id",
-                endUserRole = Some(UserType.Worker),
+                endUserRole = Some(WhoAreYou.Worker),
                 seriesOfContracts = Some(StandAloneContract)
               )
 
@@ -894,7 +895,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
               val expected = Interview(
                 correlationId = "id",
-                endUserRole = Some(UserType.Worker),
+                endUserRole = Some(WhoAreYou.Worker),
                 seriesOfContracts = Some(ContractCouldBeExtended)
               )
 
@@ -928,7 +929,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
         val model = Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           provideServices = Some(SoleTrader),
           officeHolder = Some(false),
@@ -1012,7 +1013,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
         val model = Interview(
           correlationId = "id",
-          endUserRole = Some(UserType.Worker),
+          endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
           provideServices = Some(SoleTrader),
           officeHolder = Some(false),

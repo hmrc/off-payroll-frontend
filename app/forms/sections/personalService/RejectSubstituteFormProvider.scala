@@ -17,15 +17,16 @@
 package forms.sections.personalService
 
 import config.FrontendAppConfig
-import forms.mappings.{Mappings, ErrorHandling}
+import forms.mappings.Mappings
 import javax.inject.Inject
 import models.requests.DataRequest
 import play.api.data.Form
+import views.ViewUtils.tailorMsg
 
-class RejectSubstituteFormProvider @Inject() extends Mappings with ErrorHandling {
+class RejectSubstituteFormProvider @Inject() extends Mappings {
 
   def apply()(implicit request: DataRequest[_], appConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsg("rejectSubstitute.error.required"))
+      "value" -> boolean(tailorMsg("rejectSubstitute.error.required"))
     )
 }

@@ -27,7 +27,7 @@ import navigation.CYANavigator
 import pages.AddReferenceDetailsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 import views.html.AddReferenceDetailsView
 
 import scala.concurrent.Future

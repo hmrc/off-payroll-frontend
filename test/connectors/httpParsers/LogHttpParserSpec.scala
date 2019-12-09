@@ -17,10 +17,8 @@
 package connectors.httpParsers
 
 import base.SpecBase
-import models.ResultEnum.SELF_EMPLOYED
-import models.WeightedAnswerEnum._
 import models._
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 import uk.gov.hmrc.http.HttpResponse
 
 class LogHttpParserSpec extends SpecBase {

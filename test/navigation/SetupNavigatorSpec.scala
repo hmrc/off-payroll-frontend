@@ -17,7 +17,6 @@
 package navigation
 
 import base.GuiceAppSpecBase
-
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
 import models._
@@ -80,7 +79,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
 
               lazy val userAnswers = UserAnswers("id")
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
-                .set(WhoAreYouPage, WhoAreYou.Client)
+                .set(WhoAreYouPage, WhoAreYou.Hirer)
 
 
               nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)

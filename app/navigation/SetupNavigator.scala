@@ -16,13 +16,12 @@
 
 package navigation
 
-import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.routes._
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
+import javax.inject.{Inject, Singleton}
 import models._
 import models.sections.setup.{WhatDoYouWantToDo, WhatDoYouWantToFindOut, WhoAreYou}
 import pages._
@@ -41,7 +40,7 @@ class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Na
     AboutYourResultPage -> (_ => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)),
     WhatDoYouWantToFindOutPage -> (_ => setupRoutes.WhoAreYouController.onPageLoad(NormalMode)),
     WhoAreYouPage -> (answers => (answers.getAnswer(WhatDoYouWantToFindOutPage), answers.getAnswer(WhoAreYouPage)) match {
-      case (Some(WhatDoYouWantToFindOut.PAYE),_) | (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Client)) => setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
+      case (Some(WhatDoYouWantToFindOut.PAYE),_) | (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Hirer)) => setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
       case (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Worker)) => setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
       case (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Agency)) => setupRoutes.AgencyAdvisoryController.onPageLoad()
       case (None,_) => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)

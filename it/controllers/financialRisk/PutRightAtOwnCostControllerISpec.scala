@@ -1,8 +1,6 @@
 package controllers.financialRisk
 
 import helpers.IntegrationSpecBase
-import models.NormalMode
-import models.Section.financialRisk
 
 class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 

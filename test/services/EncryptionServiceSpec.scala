@@ -16,7 +16,7 @@
 
 package services
 
-import base.{GuiceAppSpecBase, SpecBase}
+import base.GuiceAppSpecBase
 import models.AdditionalPdfDetails
 import org.scalamock.scalatest.MockFactory
 

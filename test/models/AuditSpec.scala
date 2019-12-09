@@ -189,7 +189,7 @@ class AuditSpec extends GuiceAppSpecBase {
         val userAnswers = UserAnswers("id")
           // Setup
           .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
-          .set(WhoAreYouPage, WhoAreYou.Client)
+          .set(WhoAreYouPage, WhoAreYou.Hirer)
           .set(ContractStartedPage, true)
           // Exit
           .set(OfficeHolderPage, true)
@@ -215,7 +215,7 @@ class AuditSpec extends GuiceAppSpecBase {
             "setup" -> Json.obj(
               // Setup
               WhatDoYouWantToFindOutPage -> WhatDoYouWantToFindOut.PAYE,
-              WhoAreYouPage -> WhoAreYou.Client,
+              WhoAreYouPage -> WhoAreYou.Hirer,
               ContractStartedPage -> true
             ),
             "exit" -> Json.obj(

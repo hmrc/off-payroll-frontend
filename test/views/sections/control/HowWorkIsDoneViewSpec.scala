@@ -17,7 +17,6 @@
 package views.sections.control
 
 import assets.messages.{HowWorkIsDoneMessages, SubHeadingMessages}
-
 import forms.sections.control.HowWorkIsDoneFormProvider
 import models.NormalMode
 import models.sections.control.HowWorkIsDone

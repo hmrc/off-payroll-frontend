@@ -19,8 +19,8 @@ package base
 import config.SessionKeys
 import config.featureSwitch.FeatureSwitching
 import models.UserAnswers
-import models.UserType.{Agency, Hirer, Worker}
 import models.requests.DataRequest
+import models.sections.setup.WhoAreYou.{Agency, Hirer, Worker}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.play.PlaySpec
 import play.api.i18n.{Lang, Messages}

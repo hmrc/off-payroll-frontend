@@ -1,7 +1,6 @@
 package controllers.partAndParcel
 
 import helpers.IntegrationSpecBase
-import models.Section.partAndParcel
 
 class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 

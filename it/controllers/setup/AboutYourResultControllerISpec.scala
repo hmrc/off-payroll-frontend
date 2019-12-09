@@ -1,7 +1,6 @@
 package controllers.setup
 
 import helpers.IntegrationSpecBase
-import models.NormalMode
 
 class AboutYourResultControllerISpec extends IntegrationSpecBase {
 

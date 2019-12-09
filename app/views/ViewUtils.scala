@@ -18,8 +18,9 @@ package views
 
 import config.featureSwitch.{FeatureSwitching, WelshLanguage}
 import config.{FrontendAppConfig, SessionKeys}
-import models.UserType._
-import models.{ResultType, UserType}
+import models.ResultType
+import models.sections.setup.WhoAreYou
+import models.sections.setup.WhoAreYou._
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Request
@@ -36,15 +37,11 @@ object ViewUtils extends FeatureSwitching {
   def titleNoForm(title: String, section: Option[String] = None)(implicit messages: Messages): String =
     s"${messages(title)} - ${section.fold("")(messages(_) + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
 
-  def tailorMsg(msgKey: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
-
-    val userType = request.session.getModel[UserType](SessionKeys.userType).fold(""){
-      case Agency => s"${Worker.toString}."
-      case user => s"${user.toString}."
+  def tailorMsg(msgKey: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String =
+    request.session.getModel[WhoAreYou](SessionKeys.userType).fold(msgKey) {
+      case Hirer => s"hirer.$msgKey"
+      case _ => s"worker.$msgKey"
     }
-
-    userType + msgKey
-  }
 
   def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
 

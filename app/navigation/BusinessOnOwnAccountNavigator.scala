@@ -22,7 +22,7 @@ import controllers.routes._
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
-import models.sections.setup.WhoAreYou.Client
+import models.sections.setup.WhoAreYou.Hirer
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.setup.{ContractStartedPage, WhoAreYouPage}
@@ -33,7 +33,7 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
 
   def startPage(userAnswers: UserAnswers): Call =
     (userAnswers.getAnswer(WhoAreYouPage), userAnswers.getAnswer(ContractStartedPage).getOrElse(false)) match {
-      case (Some(Client), false) => booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
+      case (Some(Hirer), false) => booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
       case _ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
     }
 

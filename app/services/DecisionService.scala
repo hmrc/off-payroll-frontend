@@ -26,6 +26,7 @@ import models._
 import models.requests.DataRequest
 import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
 import models.sections.setup.WhatDoYouWantToFindOut.IR35
+import models.sections.setup.WhoAreYou.Agency
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup._
@@ -141,7 +142,7 @@ class DecisionService @Inject()(decisionConnector: DecisionConnector,
 
   private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.userType) match {
-      case (_, Some(UserType.Agency)) => insideAgent(result.form)
+      case (_, Some(Agency)) => insideAgent(result.form)
       case (true, _) => insideIR35(result.form, result.isMakingDetermination, result.workerKnown)
       case _ => insidePAYE(result.form, result.workerKnown)
     }

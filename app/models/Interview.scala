@@ -25,8 +25,8 @@ import models.sections.financialRisk.{HowWorkerIsPaid, PutRightAtOwnCost}
 import models.sections.partAndParcel.IdentifyToStakeholders
 import models.sections.partAndParcel.IdentifyToStakeholders.WouldNotHappen
 import models.sections.personalService.ArrangedSubstitute
-import models.sections.setup.WorkerType
 import models.sections.setup.WorkerType.{LimitedCompany, SoleTrader}
+import models.sections.setup.{WhoAreYou, WorkerType}
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -39,7 +39,7 @@ import play.api.libs.json._
 import utils.JsonObjectSugar
 
 case class Interview(correlationId: String,
-                     endUserRole: Option[UserType] = None,
+                     endUserRole: Option[WhoAreYou] = None,
                      hasContractStarted: Option[Boolean] = None,
                      provideServices: Option[WorkerType] = None,
                      isUsingIntermediary : Option[Boolean] = None,

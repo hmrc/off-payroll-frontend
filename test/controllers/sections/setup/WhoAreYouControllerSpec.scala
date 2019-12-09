@@ -19,10 +19,10 @@ package controllers.sections.setup
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.WhoAreYouFormProvider
-import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
-import models.sections.setup.WhoAreYou.{Worker, _}
 import models._
 import models.requests.DataRequest
+import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.sections.setup.WhoAreYou.{Worker, _}
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form

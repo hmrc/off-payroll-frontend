@@ -20,15 +20,15 @@ import akka.util.ByteString
 import config.SessionKeys
 import config.featureSwitch.PrintPDF
 import connectors.httpParsers.PDFGeneratorHttpParser
-import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
+import connectors.httpParsers.PDFGeneratorHttpParser.SuccessfulPDF
 import controllers.actions._
 import forms.AdditionalPdfDetailsFormProvider
 import models._
 import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakeCYANavigator
-import pages.{CustomisePDFPage, ResultPage, Timestamp}
+import pages.{CustomisePDFPage, Timestamp}
 import play.api.data.Form
-import play.api.libs.json.{JsString, Json}
+import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.http.cache.client.CacheMap

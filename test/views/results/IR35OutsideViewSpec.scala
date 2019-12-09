@@ -42,7 +42,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
   "The IR35OutsideView page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "If making determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true))
@@ -94,7 +94,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" when {
+    "If the WhoAreYou is Hirer" when {
 
       "every reason is given" should {
 
@@ -146,7 +146,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
   "The IR35OutsideView PDF/Print page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "If making a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true, pdfDetails = testPdfResultDetails))
@@ -163,7 +163,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
 
       hirerPageChecks(ResultPDF)
@@ -173,7 +173,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
   "The IR35OutsideView PrintPreview page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "If making a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true, pdfDetails = testPrintPreviewResultDetails))
@@ -190,7 +190,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMake = false, pdfDetails = testPrintPreviewResultDetails))
 
       hirerPageChecks(ResultPrintPreview)
@@ -200,7 +200,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
   def workerPageChecks(resultMode: ResultMode, isMake: Boolean)(implicit document: Document) = {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       resultMode match {
         case Result =>

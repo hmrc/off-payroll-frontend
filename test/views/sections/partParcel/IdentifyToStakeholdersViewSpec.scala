@@ -17,7 +17,6 @@
 package views.sections.partParcel
 
 import assets.messages.{IdentifyToStakeholdersMessages, SubHeadingMessages}
-
 import forms.sections.partAndParcel.IdentifyToStakeholdersFormProvider
 import models.NormalMode
 import models.sections.partAndParcel.IdentifyToStakeholders

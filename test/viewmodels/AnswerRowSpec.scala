@@ -16,7 +16,7 @@
 
 package viewmodels
 
-import base.{GuiceAppSpecBase, SpecBase}
+import base.GuiceAppSpecBase
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks._

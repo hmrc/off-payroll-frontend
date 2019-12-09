@@ -20,8 +20,8 @@ package controllers.sections.personalService
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.personalService.DidPaySubstituteFormProvider
-import models.requests.DataRequest
 import models.NormalMode
+import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
 import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form

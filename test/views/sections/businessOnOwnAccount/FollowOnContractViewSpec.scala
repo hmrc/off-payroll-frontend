@@ -49,7 +49,7 @@ class FollowOnContractViewSpec extends YesNoViewBehaviours {
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.FollowOnContractController.onSubmit(NormalMode).url)
 
-    "the UserType is Worker" must {
+    "the WhoAreYou is Worker" must {
 
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
@@ -71,7 +71,7 @@ class FollowOnContractViewSpec extends YesNoViewBehaviours {
       }
     }
 
-    "the UserType is Hirer" must {
+    "the WhoAreYou is Hirer" must {
 
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 

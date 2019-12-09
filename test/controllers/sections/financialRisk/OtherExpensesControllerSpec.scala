@@ -21,8 +21,8 @@ import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
 import forms.sections.financialRisk.OtherExpensesFormProvider
-import models.requests.DataRequest
 import models.NormalMode
+import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator
 import pages.sections.financialRisk.OtherExpensesPage
 import play.api.data.Form

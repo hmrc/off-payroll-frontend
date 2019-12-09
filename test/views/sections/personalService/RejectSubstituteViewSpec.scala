@@ -17,14 +17,10 @@
 package views.sections.personalService
 
 import assets.messages.{RejectSubstituteMessages, SubHeadingMessages}
-import config.SessionKeys
-
 import controllers.sections.personalService.routes
 import forms.sections.personalService.RejectSubstituteFormProvider
 import models.NormalMode
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.personalService.RejectSubstituteView

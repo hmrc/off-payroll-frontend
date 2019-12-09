@@ -17,7 +17,7 @@
 package services
 
 import akka.util.ByteString
-import base.{GuiceAppSpecBase, SpecBase}
+import base.GuiceAppSpecBase
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import connectors.mocks.MockPDFGeneratorConnector
 import play.twirl.api.Html

@@ -16,13 +16,12 @@
 
 package navigation
 
-import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.routes._
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
+import javax.inject.{Inject, Singleton}
 import models._
 import models.sections.personalService.ArrangedSubstitute.{YesClientAgreed, YesClientNotAgreed}
 import pages._
