@@ -13,7 +13,7 @@ class OwnershipRightsControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Are there any ownership rights relating to this contract?")
+        titleOf(result) should include ("Are there any ownership rights relating to this contract?")
       }
     }
 
@@ -32,18 +32,18 @@ class OwnershipRightsControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Are there any ownership rights relating to this contract?")
+        titleOf(result) should include ("Are there any ownership rights relating to this contract?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/ownership-rights", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you had a previous contract with this client?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -56,7 +56,7 @@ class OwnershipRightsControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are there any ownership rights relating to this contract?")
+        titleOf(result) should include ("Are there any ownership rights relating to this contract?")
       }
     }
 
@@ -75,17 +75,18 @@ class OwnershipRightsControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Are there any ownership rights relating to this contract?")
+        titleOf(result) should include ("Are there any ownership rights relating to this contract?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/ownership-rights/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/ownership-rights/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/previous-contract/change")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

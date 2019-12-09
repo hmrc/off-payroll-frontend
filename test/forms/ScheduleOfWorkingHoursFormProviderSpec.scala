@@ -17,7 +17,6 @@
 package forms
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
 import forms.sections.control.ScheduleOfWorkingHoursFormProvider
 import models.sections.control.ScheduleOfWorkingHours
@@ -39,41 +38,29 @@ class ScheduleOfWorkingHoursFormProviderSpec extends OptionFieldBehaviours with 
       invalidError = FormError(fieldName, "error.invalid")
     )
 
-    "for the sub optimised flow" should {
-
-      disable(OptimisedFlow)
-      val form = new ScheduleOfWorkingHoursFormProvider()()(fakeDataRequest, frontendAppConfig)
-
-      behave like mandatoryField(
-        form ,
-        fieldName,
-        requiredError = FormError(fieldName, requiredKey)
-      )
-    }
-
-    "for the optimised flow" should {
+    "for the normal flow" should {
 
       "if the user type is 'Worker'" must {
 
-        enable(OptimisedFlow)
+
         val form = new ScheduleOfWorkingHoursFormProvider()()(workerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
         )
       }
 
       "if the user type is 'Hirer'" must {
 
-        enable(OptimisedFlow)
+
         val form = new ScheduleOfWorkingHoursFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
         )
       }
     }

@@ -13,7 +13,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does the contract state the rights to this work belong to your client?")
+        titleOf(result) should include ("Does the contract state the rights to this work belong to your client?")
       }
     }
 
@@ -32,18 +32,18 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does the contract state the rights to this work belong to your client?")
+        titleOf(result) should include ("Does the contract state the rights to this work belong to your client?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Buy the Rights page" in {
 
       lazy val res = postSessionRequest("/client-owns-rights", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -56,7 +56,7 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does the contract state the rights to this work belong to your client?")
+        titleOf(result) should include ("Does the contract state the rights to this work belong to your client?")
       }
     }
 
@@ -75,17 +75,18 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does the contract state the rights to this work belong to your client?")
+        titleOf(result) should include ("Does the contract state the rights to this work belong to your client?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto Buy the Rights page" in {
 
-      lazy val res = postSessionRequest("/client-owns-rights/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/client-owns-rights/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/client-buys-rights/change")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

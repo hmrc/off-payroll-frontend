@@ -11,8 +11,8 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/management-responsibilities")
 
       whenReady(res) { result =>
-         result.status shouldBe OK
-        result.body should include ("Will you have any management responsibilities for your client?")
+        result.status shouldBe OK
+        titleOf(result) should include("Will you have any management responsibilities for your client?")
       }
     }
 
@@ -31,18 +31,17 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have any management responsibilities for your client?")
-
+        titleOf(result) should include("Will you have any management responsibilities for your client?")
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/management-responsibilities", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +54,7 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you have any management responsibilities for your client?")
+        titleOf(result) should include("Will you have any management responsibilities for your client?")
       }
     }
 
@@ -74,18 +73,17 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have any management responsibilities for your client?")
-
+        titleOf(result) should include("Will you have any management responsibilities for your client?")
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 303 on Successful post and redirect to the check your answers page with part and parcel" in {
 
       lazy val res = postSessionRequest("/management-responsibilities/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

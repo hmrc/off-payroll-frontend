@@ -5,11 +5,11 @@ echo "Applying migration WorkerType"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /workerType               controllers.sections.setup.WorkerTypeController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /workerType               controllers.sections.setup.WorkerTypeController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /workerType               controllers.sections.setup.WorkerUsingIntermediaryController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /workerType               controllers.sections.setup.WorkerUsingIntermediaryController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeWorkerType                  controllers.sections.setup.WorkerTypeController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeWorkerType                  controllers.sections.setup.WorkerTypeController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeWorkerType                  controllers.sections.setup.WorkerUsingIntermediaryController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeWorkerType                  controllers.sections.setup.WorkerUsingIntermediaryController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en
@@ -62,7 +62,7 @@ awk '/class/ {\
      print;\
      print "";\
      print "  def workerType: Option[AnswerRow] = userAnswers.get(WorkerTypePage) map {";\
-     print "    x => AnswerRow(\"workerType.checkYourAnswersLabel\", s\"workerType.$x\", true, routes.WorkerTypeController.onPageLoad(CheckMode).url)";\
+     print "    x => AnswerRow(\"workerType.checkYourAnswersLabel\", s\"workerType.$x\", true, routes.WorkerUsingIntermediaryController.onPageLoad(CheckMode).url)";\
      print "  }";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 

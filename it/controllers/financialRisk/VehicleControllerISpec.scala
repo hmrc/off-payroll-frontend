@@ -12,7 +12,7 @@ class VehicleControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will you have to fund any vehicle costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any vehicle costs before your client pays you?")
       }
     }
 
@@ -31,18 +31,18 @@ class VehicleControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have to fund any vehicle costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any vehicle costs before your client pays you?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/vehicle-costs", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you have to buy materials before your client pays you?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class VehicleControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you have to fund any vehicle costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any vehicle costs before your client pays you?")
       }
     }
 
@@ -74,17 +74,18 @@ class VehicleControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have to fund any vehicle costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any vehicle costs before your client pays you?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and redirect to check your answers with financial risk" in {
 
       lazy val res = postSessionRequest("/vehicle-costs/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

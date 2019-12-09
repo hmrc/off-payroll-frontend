@@ -20,7 +20,7 @@ import config.SessionKeys
 import controllers.actions._
 import models._
 import play.api.libs.json.Json
-import play.api.test.Helpers.{contentAsString, _}
+import play.api.test.Helpers._
 import play.twirl.api.Html
 import utils.FakeTimestamp
 import views.html.FinishedCheckingView
@@ -33,7 +33,7 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
     identify = FakeIdentifierAction,
     dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
-    optimisedDecisionService = mockOptimisedDecisionService,
+    decisionService = mockDecisionService,
     checkYourAnswersService = mockCheckYourAnswersService,
     finishedCheckingView = view,
     encryptionService = mockEncryptionService,

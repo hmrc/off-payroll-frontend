@@ -17,15 +17,16 @@
 package forms.sections.setup
 
 import config.FrontendAppConfig
-import forms.mappings.{Mappings, OptimisedErrorHandling}
+import forms.mappings.Mappings
 import javax.inject.Inject
 import models.requests.DataRequest
 import play.api.data.Form
+import views.ViewUtils.tailorMsg
 
-class WorkerUsingIntermediaryFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
+class WorkerUsingIntermediaryFormProvider @Inject() extends Mappings {
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsg("workerUsingIntermediary.error.required"))
+      "value" -> boolean(tailorMsg("workerUsingIntermediary.error.required"))
     )
 }

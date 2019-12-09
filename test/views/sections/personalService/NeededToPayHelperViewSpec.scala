@@ -17,36 +17,27 @@
 package views.sections.personalService
 
 import assets.messages.{NeededToPayHelperMessages, SubHeadingMessages}
-import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
 import forms.sections.personalService.NeededToPayHelperFormProvider
 import models.NormalMode
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.personalService.NeededToPayHelperView
 
 class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
 
-  override def beforeEach = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.neededToPayHelper"
+  val messageKeyPrefix = "worker.neededToPayHelper"
 
   val form = new NeededToPayHelperFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[NeededToPayHelperView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -63,11 +54,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(NeededToPayHelperMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Worker.heading
       }
 
       "have the correct radio option messages" in {
@@ -81,11 +72,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(NeededToPayHelperMessages.Hirer.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Hirer.heading
       }
 
       "have the correct radio option messages" in {
@@ -99,11 +90,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(NeededToPayHelperMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Worker.heading
       }
 
       "have the correct radio option messages" in {

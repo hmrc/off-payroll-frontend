@@ -11,7 +11,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/sent-substitute")
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you ever sent a substitute to do this work?")
+        titleOf(result) should include ("Have you ever sent a substitute to do this work?")
       }
     }
 
@@ -30,18 +30,18 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you ever sent a substitute to do this work?")
+        titleOf(result) should include ("Have you ever sent a substitute to do this work?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/sent-substitute",arrangeSubValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Does your client have the right to reject a substitute?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -53,7 +53,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/sent-substitute/change")
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you ever sent a substitute to do this work?")
+        titleOf(result) should include ("Have you ever sent a substitute to do this work?")
       }
     }
 
@@ -72,18 +72,18 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you ever sent a substitute to do this work?")
+        titleOf(result) should include ("Have you ever sent a substitute to do this work?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/sent-substitute/change",arrangeSubValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Does your client have the right to reject a substitute?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

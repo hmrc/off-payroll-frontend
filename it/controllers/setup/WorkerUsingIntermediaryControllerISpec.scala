@@ -2,7 +2,7 @@ package controllers.setup
 
 import helpers.IntegrationSpecBase
 
-class WorkerTypeControllerISpec extends IntegrationSpecBase {
+class WorkerUsingIntermediaryControllerISpec extends IntegrationSpecBase {
 
   s"Post or Get to /workers-intermediary" should {
 
@@ -12,7 +12,7 @@ class WorkerTypeControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
       }
     }
 
@@ -31,7 +31,7 @@ class WorkerTypeControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
 
       }
     }
@@ -45,7 +45,7 @@ class WorkerTypeControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
       }
     }
 
@@ -64,7 +64,7 @@ class WorkerTypeControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
 
       }
     }

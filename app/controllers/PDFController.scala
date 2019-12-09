@@ -16,12 +16,12 @@
 
 package controllers
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow, PrintPDF}
+import config.featureSwitch.{FeatureSwitching, PrintPDF}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import connectors.httpParsers.PDFGeneratorHttpParser.SuccessfulPDF
 import controllers.actions._
-import forms.CustomisePDFFormProvider
+import forms.AdditionalPdfDetailsFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models._
@@ -31,101 +31,69 @@ import pages.{CustomisePDFPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc._
 import play.core.utils.AsciiSet
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import services._
 import utils.SessionUtils._
-import utils.{SourceUtil, UserAnswersUtils}
+import utils.SourceUtil
 import viewmodels.ResultPDF
 import views.html.{AddDetailsView, CustomisePDFView}
 
 import scala.concurrent.Future
 
-class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
-                              navigator: CYANavigator,
+class PDFController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                              override val navigator: CYANavigator,
                               identify: IdentifierAction,
                               getData: DataRetrievalAction,
                               requireData: DataRequiredAction,
-                              formProvider: CustomisePDFFormProvider,
-                              controllerComponents: MessagesControllerComponents,
+                              formProvider: AdditionalPdfDetailsFormProvider,
+                              override val controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
-                              addDetailsView: AddDetailsView,
+                              view: AddDetailsView,
                               decisionService: DecisionService,
-                              optimisedDecisionService: OptimisedDecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
                               time: Timestamp,
-                              compareAnswerService: CompareAnswerService,
+                              override val compareAnswerService: CompareAnswerService,
                               checkYourAnswersService: CheckYourAnswersService,
                               encryption: EncryptionService,
                               source: SourceUtil,
-                              implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
-
-  with FeatureSwitching with UserAnswersUtils {
+                              implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController with FeatureSwitching {
 
   def form: Form[AdditionalPdfDetails] = formProvider()
 
-  private def view(form: Form[AdditionalPdfDetails], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if (isEnabled(OptimisedFlow)) addDetailsView(form, mode) else customisePdfView(appConfig, form, mode)
-
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val decryptedForm = request.userAnswers.get(CustomisePDFPage).fold(AdditionalPdfDetails())(x => encryption.decryptDetails(x.answer))
+    val decryptedForm = request.userAnswers.get(CustomisePDFPage).fold(AdditionalPdfDetails())(answer => encryption.decryptDetails(answer))
 
     Ok(view(form.fill(decryptedForm), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    form.bindFromRequest().fold(
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+      additionalData => {
 
-    if (isEnabled(OptimisedFlow)) {
+        val encryptedDetails = encryption.encryptDetails(additionalData)
 
-      form.bindFromRequest().fold(
-        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-        additionalData => {
-
-          val encryptedDetails = encryption.encryptDetails(additionalData)
-
-          redirect[AdditionalPdfDetails](NormalMode, encryptedDetails, CustomisePDFPage)
-        }
-      )
-
-    } else {
-      form.bindFromRequest().fold(
-        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-        additionalData => {
-          val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
-          printResult(additionalData, timestamp)
-        }
-      )
-    }
+        redirect[AdditionalPdfDetails](NormalMode, encryptedDetails, CustomisePDFPage)
+      }
+    )
   }
-
   def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     val decisionResponse = request.session.getModel[DecisionResponse](SessionKeys.decisionResponse)
-    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryption.decryptDetails(answer.answer)).getOrElse(AdditionalPdfDetails())
-    val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
+    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryption.decryptDetails(answer)).getOrElse(AdditionalPdfDetails())
+    val timestamp = time.timestamp(request.userAnswers.get(Timestamp))
 
     decisionResponse match {
-      case Some(decision) => optimisedPrintResult(decision, pdfDetails, timestamp)
+      case Some(decision) => printResult(decision, pdfDetails, timestamp)
       case _ => Future.successful(Redirect(controllers.routes.StartAgainController.somethingWentWrong()))
     }
-
   }
-
-  private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
-    val html = decisionService.determineResultView(
-      answers,
-      printMode = true,
-      additionalPdfDetails = Some(additionalPdfDetails),
-      timestamp = Some(timestamp)
-    )
-    generatePdf(html, additionalPdfDetails.reference)
-  }
-
-  private def optimisedPrintResult(decision: DecisionResponse, additionalPdfDetails: AdditionalPdfDetails, timestamp: String)
-                                  (implicit request: DataRequest[_]): Future[Result] = {
-    optimisedDecisionService.determineResultView(
+  private def printResult(decision: DecisionResponse, additionalPdfDetails: AdditionalPdfDetails, timestamp: String)
+                         (implicit request: DataRequest[_]): Future[Result] = {
+    decisionService.determineResultView(
       decision,
       None,
       checkYourAnswersService.sections,
@@ -140,12 +108,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   private def generatePdf(view: Html, reference: Option[String])(implicit request: DataRequest[_]): Future[Result] = {
 
-    val css = if(isEnabled(OptimisedFlow)) {
-      source.fromURL(controllers.routes.Assets.versioned("stylesheets/optimised_print_pdf.css").absoluteURL).mkString
-    } else {
-      source.fromURL(controllers.routes.Assets.versioned("stylesheets/print_pdf.css").absoluteURL).mkString
-    }
-
+    val css = source.fromURL(controllers.routes.Assets.versioned("stylesheets/print_pdf.css").absoluteURL).mkString
     val printHtml = Html(view.toString
       .replace("<head>", s"<head><style>$css</style>")
     )
@@ -160,14 +123,11 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
           } catch {
             case _: Throwable => None
           }
-
           val default = "result"
           val validFileName = if (ascii.isDefined && ascii.get.mkString.nonEmpty) fileName.getOrElse(default) else default
-
           Ok(result.pdf.toArray)
             .as("application/pdf")
             .withHeaders("Content-Disposition" -> s"attachment; filename=$validFileName.pdf")
-
         case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
       }
     } else {

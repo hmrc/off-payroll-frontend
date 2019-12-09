@@ -15,7 +15,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include("Will you be an ‘Office Holder’?")
+        titleOf(result) should include("Will you be an ‘Office Holder’?")
       }
     }
 
@@ -34,12 +34,12 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you be an ‘Office Holder’?")
+        titleOf(result) should include ("Will you be an ‘Office Holder’?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       val response = Json.toJson(DecisionResponse(
         "1.6.0",
@@ -56,8 +56,8 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/office-holder", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you already started working for this client?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -70,7 +70,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you be an ‘Office Holder’?")
+        titleOf(result) should include ("Will you be an ‘Office Holder’?")
       }
     }
 
@@ -89,12 +89,12 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you be an ‘Office Holder’?")
+        titleOf(result) should include ("Will you be an ‘Office Holder’?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post as answers not complete" in {
 
       val response = Json.toJson(DecisionResponse(
         "1.6.0",
@@ -111,7 +111,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/office-holder/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+      result.status shouldBe SEE_OTHER
       }
     }
   }

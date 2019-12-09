@@ -37,7 +37,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
   "The IR35UndeterminedView page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
@@ -45,7 +45,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = false)
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       "If the worker is Known" should {
 
@@ -67,7 +67,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
   "The IR35UndeterminedView PDF/Print page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
@@ -75,7 +75,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       "If the Worker is Known" should {
 
@@ -98,7 +98,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
   "The IR35UndeterminedView PrintPreview page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPrintPreviewResultDetails))
 
@@ -106,7 +106,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
       letterPrintPreviewPageChecks
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       "If the Worker is Known" should {
 

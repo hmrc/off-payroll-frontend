@@ -37,9 +37,8 @@ import controllers.sections.businessOnOwnAccount.{routes => businessOnOwnAccount
 import handlers.ErrorHandler
 import models.CheckMode
 import pages._
-import pages.sections.exit.OfficeHolderPage
 import pages.sections.businessOnOwnAccount._
-import pages.sections.personalService.ArrangedSubstitutePage
+import pages.sections.exit.OfficeHolderPage
 import play.api.test.Helpers._
 import views.html.BusinessOnOwnAccountSectionChangeWarningView
 
@@ -55,7 +54,6 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
     view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
-    compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     errorHandler = app.injector.instanceOf[ErrorHandler]
   )
@@ -74,7 +72,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the ExtendContract page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(ExtendContractPage)(fakeRequest)
@@ -84,7 +82,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the FirstContract page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(FirstContractPage)(fakeRequest)
@@ -94,7 +92,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the FollowOnContract page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(FollowOnContractPage)(fakeRequest)
@@ -104,7 +102,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the MajorityOfWorkingTime page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(MajorityOfWorkingTimePage)(fakeRequest)
@@ -114,7 +112,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the MultipleContracts page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(MultipleContractsPage)(fakeRequest)
@@ -124,7 +122,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the OwnershipRights page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(OwnershipRightsPage)(fakeRequest)
@@ -134,7 +132,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the PermissionToWorkWithOthers page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(PermissionToWorkWithOthersPage)(fakeRequest)
@@ -144,7 +142,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the PreviousContract page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(PreviousContractPage)(fakeRequest)
@@ -154,7 +152,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the RightsOfWork page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(RightsOfWorkPage)(fakeRequest)
@@ -164,7 +162,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the SimilarWorkOtherClients page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(SimilarWorkOtherClientsPage)(fakeRequest)
@@ -174,7 +172,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the TransferOfRights page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(TransferOfRightsPage)(fakeRequest)
@@ -184,7 +182,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "redirect to the WorkerKnown page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(WorkerKnownPage)(fakeRequest)
@@ -194,7 +192,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
     "render an ISE if the page is invalid" in {
 
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(OfficeHolderPage)(fakeRequest)

@@ -17,15 +17,16 @@
 package forms.sections.exit
 
 import config.FrontendAppConfig
-import forms.mappings.{Mappings, OptimisedErrorHandling}
+import forms.mappings.Mappings
 import javax.inject.Inject
 import models.requests.DataRequest
 import play.api.data.Form
+import views.ViewUtils.tailorMsg
 
-class OfficeHolderFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
+class OfficeHolderFormProvider @Inject() extends Mappings {
 
   def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean(tailoredErrMsgOptimised("officeHolder.error.required"))
+      "value" -> boolean(tailorMsg("officeHolder.error.required"))
     )
 }

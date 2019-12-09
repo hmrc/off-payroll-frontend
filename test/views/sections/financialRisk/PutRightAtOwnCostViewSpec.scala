@@ -17,7 +17,6 @@
 package views.sections.financialRisk
 
 import assets.messages.{PutRightAtOwnCostsMessages, SubHeadingMessages}
-import config.featureSwitch.OptimisedFlow
 import forms.sections.financialRisk.PutRightAtOwnCostFormProvider
 import models.NormalMode
 import models.sections.financialRisk.PutRightAtOwnCost
@@ -28,22 +27,17 @@ import views.html.sections.financialRisk.PutRightAtOwnCostView
 
 class PutRightAtOwnCostViewSpec extends ViewBehaviours {
 
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.putRightAtOwnCost"
+  val messageKeyPrefix = "worker.putRightAtOwnCost"
 
   val form = new PutRightAtOwnCostFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -57,7 +51,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.WorkerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(PutRightAtOwnCostsMessages.WorkerOptimised.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {
@@ -78,7 +72,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.HirerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(PutRightAtOwnCostsMessages.HirerOptimised.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {
@@ -106,7 +100,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       }
     }
 
-    enable(OptimisedFlow)
+
     for(option <- PutRightAtOwnCost.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {

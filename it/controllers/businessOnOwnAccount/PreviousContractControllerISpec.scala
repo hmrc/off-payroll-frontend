@@ -13,7 +13,7 @@ class PreviousContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you had a previous contract with this client?")
+        titleOf(result) should include ("Have you had a previous contract with this client?")
       }
     }
 
@@ -32,7 +32,7 @@ class PreviousContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you had a previous contract with this client?")
+        titleOf(result) should include ("Have you had a previous contract with this client?")
 
       }
     }
@@ -42,8 +42,8 @@ class PreviousContractControllerISpec extends IntegrationSpecBase with CreateReq
       lazy val res = postSessionRequest("/previous-contract", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -56,7 +56,7 @@ class PreviousContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you had a previous contract with this client?")
+        titleOf(result) should include ("Have you had a previous contract with this client?")
       }
     }
 
@@ -75,17 +75,18 @@ class PreviousContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you had a previous contract with this client?")
+        titleOf(result) should include ("Have you had a previous contract with this client?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/previous-contract/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/previous-contract/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/first-contract-in-series/change")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

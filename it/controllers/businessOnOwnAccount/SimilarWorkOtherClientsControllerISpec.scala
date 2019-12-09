@@ -13,7 +13,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
+        titleOf(result) should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
       }
     }
 
@@ -32,17 +32,18 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
+        titleOf(result) should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto review answers" in {
 
-      lazy val res = postSessionRequest("/similar-work", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/similar-work", selectedNo)
 
       whenReady(res) { result =>
-          redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +56,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
+        titleOf(result) should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
       }
     }
 
@@ -74,17 +75,18 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
+        titleOf(result) should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
 
       }
     }
 
     "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/similar-work/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/similar-work/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers?sectionToExpand=businessOnOwnAccount")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

@@ -16,14 +16,14 @@
 
 package models
 
+import models.sections.setup.WhoAreYou
 import play.api.data.Form
-import play.api.mvc.Call
 import viewmodels.{AnswerSection, ResultMode}
 
 case class ResultsDetails(officeHolderAnswer: Boolean,
                           isMakingDetermination: Boolean,
                           usingIntermediary: Boolean,
-                          userType: Option[UserType],
+                          userType: Option[WhoAreYou],
                           personalServiceOption: Option[WeightedAnswerEnum.Value] = None,
                           controlOption: Option[WeightedAnswerEnum.Value] = None,
                           financialRiskOption: Option[WeightedAnswerEnum.Value] = None,
@@ -31,7 +31,7 @@ case class ResultsDetails(officeHolderAnswer: Boolean,
                           workerKnown: Boolean,
                           form: Form[Boolean]) {
 
-  def isAgent: Boolean = userType.contains(UserType.Agency)
+  def isAgent: Boolean = userType.contains(WhoAreYou.Agency)
 }
 
 case class PDFResultDetails(resultMode: ResultMode,

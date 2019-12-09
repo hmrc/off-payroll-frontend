@@ -27,7 +27,7 @@ import navigation.CYANavigator
 import pages.AddReferenceDetailsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.CompareAnswerService
 import views.html.AddReferenceDetailsView
 
 import scala.concurrent.Future
@@ -36,14 +36,13 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,
                                               formProvider: AddReferenceDetailsFormProvider,
-                                              controllerComponents: MessagesControllerComponents,
+                                              override val controllerComponents: MessagesControllerComponents,
                                               addReferenceDetails: AddReferenceDetailsView,
-                                              navigator: CYANavigator,
-                                              dataCacheConnector: DataCacheConnector,
-                                              compareAnswerService: CompareAnswerService,
-                                              decisionService: DecisionService,
+                                              override val navigator: CYANavigator,
+                                              override val dataCacheConnector: DataCacheConnector,
+                                              override val compareAnswerService: CompareAnswerService,
                                               implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+  extends BaseNavigationController with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -56,7 +55,7 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(addReferenceDetails(formWithErrors))),
       value => {
-        redirect[Boolean](NormalMode,value, AddReferenceDetailsPage, callDecisionService = false)
+        redirect[Boolean](NormalMode,value, AddReferenceDetailsPage)
       }
     )
   }

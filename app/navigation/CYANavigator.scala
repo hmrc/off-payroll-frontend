@@ -17,7 +17,7 @@
 package navigation
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import controllers.routes._
 import javax.inject.{Inject, Singleton}
 import models._
@@ -29,20 +29,15 @@ class CYANavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navi
 
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
     CheckYourAnswersPage -> (_ => ResultController.onPageLoad()),
-    ResultPage -> { answer =>
-      if(isEnabled(OptimisedFlow)) {
-        answer.get(ResultPage) match {
-          case Some(Answers(true, _)) => AddReferenceDetailsController.onPageLoad()
+    ResultPage -> { answer => answer.get(ResultPage) match {
+          case Some(true) => AddReferenceDetailsController.onPageLoad()
           case _ => PrintPreviewController.onPageLoad()
         }
-      } else {
-        PDFController.onPageLoad(NormalMode)
-      }
     },
     AddReferenceDetailsPage -> {
       answer =>
         answer.get(AddReferenceDetailsPage) match {
-          case Some(Answers(true, _)) => PDFController.onPageLoad(NormalMode)
+          case Some(true) => PDFController.onPageLoad(NormalMode)
           case _ => PrintPreviewController.onPageLoad()
         }
     },

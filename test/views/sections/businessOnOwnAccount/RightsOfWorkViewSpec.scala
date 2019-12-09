@@ -17,7 +17,6 @@
 package views.sections.businessOnOwnAccount
 
 import assets.messages.RightsOfWorkMessages
-import config.featureSwitch.OptimisedFlow
 import forms.sections.businessOnOwnAccount.RightsOfWorkFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -29,11 +28,6 @@ import views.html.sections.businessOnOwnAccount.RightsOfWorkView
 
 class RightsOfWorkViewSpec extends ViewBehaviours {
 
-  override def beforeEach = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "worker.rightsOfWork"
@@ -42,9 +36,9 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[RightsOfWorkView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

@@ -12,7 +12,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Would you have to pay your substitute?")
+        titleOf(result) should include ("Would you have to pay your substitute?")
       }
     }
 
@@ -31,18 +31,18 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Would you have to pay your substitute?")
+        titleOf(result) should include ("Would you have to pay your substitute?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/would-pay-substitute", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/would-pay-substitute/change")
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Would you have to pay your substitute?")
+        titleOf(result) should include ("Would you have to pay your substitute?")
       }
     }
 
@@ -74,17 +74,18 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Would you have to pay your substitute?")
+        titleOf(result) should include ("Would you have to pay your substitute?")
 
       }
     }
 
-    "Return a 409 on Successful post as check your answers is not complete" in {
+    "Return a 303 on Successful post as check your answers is not complete" in {
 
       lazy val res = postSessionRequest("/would-pay-substitute/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

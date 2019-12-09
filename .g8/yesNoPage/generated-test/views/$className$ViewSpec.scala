@@ -7,7 +7,7 @@ import controllers.routes
 import forms.$className$FormProvider
 import views.behaviours.YesNoViewBehaviours
 import models.NormalMode
-import models.UserType.{Hirer, Worker}
+import models.WhoAreYou.{Hirer, Worker}
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.html.$className$View
@@ -36,7 +36,7 @@ class $className$ViewSpec extends YesNoViewBehaviours {
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.$className$Controller.onSubmit(NormalMode).url)
 
-    "the UserType is Worker" must {
+    "the WhoAreYou is Worker" must {
 
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
@@ -54,7 +54,7 @@ class $className$ViewSpec extends YesNoViewBehaviours {
       }
     }
 
-    "the UserType is Hirer" must {
+    "the WhoAreYou is Hirer" must {
 
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 

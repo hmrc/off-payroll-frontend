@@ -16,833 +16,523 @@
 
 package services
 
-import base.{GuiceAppSpecBase, SpecBase}
-import config.SessionKeys
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
-import forms.DeclarationFormProvider
+import base.GuiceAppSpecBase
+import config.featureSwitch.FeatureSwitching
+import connectors.mocks.{MockAuditConnector, MockDataCacheConnector, MockDecisionConnector}
+import forms.DownloadPDFCopyFormProvider
 import handlers.mocks.MockErrorHandler
-import models.sections.setup.AboutYouAnswer.Worker
-import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed}
-import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
-import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
-import models.sections.financialRisk.HowWorkerIsPaid.Commission
-import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
-import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
-import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
-import models.ResultEnum._
-import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.WeightedAnswerEnum.{HIGH, LOW}
-import models.sections.setup.WhichDescribesYouAnswer.{ClientPAYE, WorkerPAYE}
-import models.sections.setup.WorkerType.{LimitedCompany, SoleTrader}
 import models._
 import models.requests.DataRequest
+import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
+import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.sections.setup.WorkerType.SoleTrader
+import org.scalatest.concurrent.ScalaFutures
+import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import play.api.mvc.Call
-import play.api.test.FakeRequest
-import play.api.test.Helpers.{contentAsString, redirectLocation, _}
+import play.api.data.Form
+import play.api.mvc.{AnyContent, AnyContentAsEmpty}
+import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
 import play.twirl.api.Html
-import uk.gov.hmrc.http.HeaderCarrier
-import utils.UserAnswersUtils
-import viewmodels.AnswerSection
-import views.html.subOptimised.results._
+import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
+import views.html.results.inside.{AgentInsideView, IR35InsideView, PAYEInsideView}
+import views.html.results.outside.{AgentOutsideView, IR35OutsideView, PAYEOutsideView}
+import views.html.results.undetermined.{AgentUndeterminedView, IR35UndeterminedView, PAYEUndeterminedView}
+import views.results.ResultViewFixture
 
-class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector with MockDataCacheConnector with MockErrorHandler with FeatureSwitching {
+class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector
+  with MockDataCacheConnector with MockErrorHandler with FeatureSwitching with ScalaFutures with ResultViewFixture with MockAuditConnector {
 
-  implicit val headerCarrier = new HeaderCarrier()
-  implicit val request = FakeRequest("", "")
+  val formProvider: DownloadPDFCopyFormProvider = new DownloadPDFCopyFormProvider()
+  val form: Form[Boolean] = formProvider()
 
-  val formProvider = new DeclarationFormProvider()
+  val OfficeHolderAgentView: OfficeHolderAgentView = injector.instanceOf[OfficeHolderAgentView]
+  val OfficeHolderIR35View: OfficeHolderIR35View = injector.instanceOf[OfficeHolderIR35View]
+  val OfficeHolderPAYEView: OfficeHolderPAYEView = injector.instanceOf[OfficeHolderPAYEView]
+  val AgentUndeterminedView: AgentUndeterminedView = injector.instanceOf[AgentUndeterminedView]
+  val IR35UndeterminedView: IR35UndeterminedView = injector.instanceOf[IR35UndeterminedView]
+  val PAYEUndeterminedView: PAYEUndeterminedView = injector.instanceOf[PAYEUndeterminedView]
+  val AgentInsideView: AgentInsideView = injector.instanceOf[AgentInsideView]
+  val IR35InsideView: IR35InsideView = injector.instanceOf[IR35InsideView]
+  val PAYEInsideView: PAYEInsideView = injector.instanceOf[PAYEInsideView]
+  val AgentOutsideView: AgentOutsideView = injector.instanceOf[AgentOutsideView]
+  val IR35OutsideView: IR35OutsideView = injector.instanceOf[IR35OutsideView]
+  val PAYEOutsideView: PAYEOutsideView = injector.instanceOf[PAYEOutsideView]
 
-  val service: DecisionService = new DecisionServiceImpl(mockDecisionConnector, mockDataCacheConnector, mockErrorHandler, formProvider,
-    injector.instanceOf[OfficeHolderInsideIR35View],
-    injector.instanceOf[OfficeHolderEmployedView],
-    injector.instanceOf[CurrentSubstitutionView],
-    injector.instanceOf[FutureSubstitutionView],
-    injector.instanceOf[SelfEmployedView],
-    injector.instanceOf[EmployedView],
-    injector.instanceOf[ControlView],
-    injector.instanceOf[FinancialRiskView],
-    injector.instanceOf[IndeterminateView],
-    injector.instanceOf[InsideIR35View],
+  val service: DecisionService = new DecisionService(
+    mockDecisionConnector,
+    mockErrorHandler,
+    formProvider,
+    OfficeHolderAgentView,
+    OfficeHolderIR35View,
+    OfficeHolderPAYEView,
+    AgentUndeterminedView,
+    IR35UndeterminedView,
+    PAYEUndeterminedView,
+    AgentInsideView,
+    IR35InsideView,
+    PAYEInsideView,
+    AgentOutsideView,
+    IR35OutsideView,
+    PAYEOutsideView,
+    mockAuditConnector,
     frontendAppConfig
   )
 
   val userAnswers: UserAnswers = UserAnswers("id")
-    .set(AboutYouPage,0, Worker)
-    .set(ContractStartedPage,1, true)
-    .set(WorkerTypePage,2, SoleTrader)
-    .set(OfficeHolderPage,3, false)
-    .set(ArrangedSubstitutePage,4, YesClientAgreed)
-    .set(DidPaySubstitutePage, 5,false)
-    .set(WouldWorkerPaySubstitutePage,6, true)
-    .set(RejectSubstitutePage,7, false)
-    .set(NeededToPayHelperPage,8, false)
-    .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-    .set(HowWorkIsDonePage, 10,WorkerFollowStrictEmployeeProcedures)
-    .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-    .set(ChooseWhereWorkPage,12,WorkerAgreeWithOthers)
-    .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-    .set(HowWorkerIsPaidPage,14,Commission)
-    .set(PutRightAtOwnCostPage,15,CannotBeCorrected)
-    .set(BenefitsPage,16,false)
-    .set(LineManagerDutiesPage,17, false)
-    .set(InteractWithStakeholdersPage,18, false)
-    .set(IdentifyToStakeholdersPage, 19,WorkAsIndependent)
-
-  val exitResponse = DecisionResponse("1.0.0-beta", "12345",
-    Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
-    OUTSIDE_IR35
-  )
-
-  val response = DecisionResponse("1.0.0-beta", "12345",
-    Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH), Some(LOW), Some(LOW), Some(LOW)),
-    NOT_MATCHED
-  )
-
-  val riskResponse = DecisionResponse("1.0.0-beta", "12345",
-    Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH), None, Some(LOW), Some(LOW)),
-    OUTSIDE_IR35
-  )
-
-  val controlResponse = DecisionResponse("1.0.0-beta", "12345",
-    Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH), Some(LOW), None, Some(LOW)),
-    OUTSIDE_IR35
-  )
-  
-  def onwardRoute = Call("GET", "/continue")
-
-  def exitRoute = Call("GET", "/result")
-
-  implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-  object Section extends UserAnswersUtils
-
-  "Calling the decide service" should {
-
-    "determine the view when outside and soletrader" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(ContractStartedPage,1, true)
-        .set(WorkerTypePage,2, SoleTrader)
-        .set(OfficeHolderPage, 3,false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage, 5,false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8,false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage, 10,WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage, 13,Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14,Commission)
-        .set(PutRightAtOwnCostPage,15,CannotBeCorrected)
-        .set(BenefitsPage,16,false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage, 19,WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("This engagement should be classed as self-employed for tax purposes")
-      result.toString() must include(messagesApi("result.selfEmployed.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-      result.toString() must include(messagesApi("officeHolder.exclamation"))
-      result.toString() must include(messagesApi("rejectSubstitute.exclamation"))
-    }
-
-    "determine the view when outside and financial risk" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(ContractStartedPage,1, true)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString,
-        SessionKeys.financialRiskResult -> WeightedAnswerEnum.OUTSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("The intermediaries legislation does not apply to this engagement")
-      result.toString() must include(messagesApi("result.financialRisk.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "determine the view when outside and control" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(ContractStartedPage,1, true)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString,
-        SessionKeys.controlResult -> WeightedAnswerEnum.OUTSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("The intermediaries legislation does not apply to this engagement")
-      result.toString() must include(messagesApi("result.control.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "determine the view when outside and current substitution" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(ContractStartedPage,1, true)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("The intermediaries legislation does not apply to this engagement")
-      result.toString() must include(messagesApi("result.currentSubstitution.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-    "determine the view when outside and future substitution due to not yet arranged" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(ContractStartedPage,1, true)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, No)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("The intermediaries legislation does not apply to this engagement")
-      result.toString() must include(messagesApi("result.futureSubstitution.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "determine the view when outside and future substitution" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(ContractStartedPage,1, false)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("The intermediaries legislation does not apply to this engagement")
-      result.toString() must include(messagesApi("result.futureSubstitution.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "route to the error page if cannot route to a result page based on the information provided" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
-
-      mockInternalServerError(Html("Error page"))
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() mustBe "Error page"
-
-    }
-
-    "determine the view when inside and route to employed view" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, SoleTrader)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("This engagement should be classed as employed for tax purposes")
-      result.toString() must include(messagesApi("result.employed.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "determine the view when inside and route to office holder inside view" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, true)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("The intermediaries legislation applies to this engagement")
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "determine the view when inside and route to office holder inside view when using the optimised view" in {
-
-      enable(OptimisedFlow)
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(WhichDescribesYouPage,0, ClientPAYE)
-        .set(WorkerUsingIntermediaryPage,2, true)
-        .set(OfficeHolderPage,3, true)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("The intermediaries legislation applies to this engagement")
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "determine the view when inside and route to inside view" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("The intermediaries legislation applies to this engagement")
-      result.toString() must include(messagesApi("result.insideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "determine the view when self employed and route to self employed view" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, SoleTrader)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.SELF_EMPLOYED.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("This engagement should be classed as self-employed for tax purposes")
-      result.toString() must include(messagesApi("result.selfEmployed.shouldNowDo.p1.beforeLink"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-
-    "determine the view when unknown and route to indeterminate view" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, SoleTrader)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.UNKNOWN.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("We are unable to determine the tax status of this engagement")
-      result.toString() must include(messagesApi("result.indeterminate.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-    "determine the view when employed and route to office holder view" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, true)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("This engagement should be classed as employed for tax purposes")
-      result.toString() must include(messagesApi("result.officeHolderEmployed.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-    "determine the view when employed and route to employed view" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() must include("This engagement should be classed as employed for tax purposes")
-      result.toString() must include(messagesApi("result.employed.whyResult.p1"))
-      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
-      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
-      result.toString() must include(messagesApi("result.workArrangements.summary"))
-      result.toString() must include(messagesApi("result.financialRisk.summary"))
-      result.toString() must include(messagesApi("result.partParcel.summary"))
-    }
-    "determine the view when employed and route to employed view with an error form" in {
-
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Seq()
-
-      import forms.mappings.Mappings
-      import play.api.data.Form
-
-      object errorForm extends Mappings {
-        val form: Form[Boolean] = Form("value" -> boolean("interactWithStakeholders.error.required")).withError("value", "Required")
+    .set(ContractStartedPage, true)
+    .set(WorkerTypePage, SoleTrader)
+    .set(OfficeHolderPage, false)
+    .set(ArrangedSubstitutePage, YesClientAgreed)
+    .set(DidPaySubstitutePage, false)
+    .set(WouldWorkerPaySubstitutePage, true)
+    .set(RejectSubstitutePage, false)
+    .set(NeededToPayHelperPage, false)
+    .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+    .set(HowWorkIsDonePage, WorkerFollowStrictEmployeeProcedures)
+    .set(ScheduleOfWorkingHoursPage, WorkerAgreeSchedule)
+    .set(ChooseWhereWorkPage,WorkerAgreeWithOthers)
+    .set(CannotClaimAsExpensePage, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+    .set(HowWorkerIsPaidPage,Commission)
+    .set(PutRightAtOwnCostPage,CannotBeCorrected)
+    .set(BenefitsPage,false)
+    .set(LineManagerDutiesPage, false)
+    .set(InteractWithStakeholdersPage, false)
+    .set(IdentifyToStakeholdersPage, WorkAsIndependent)
+
+  "decide" should {
+
+    "give a valid result" when {
+
+      "decision call is successful for decision service" in {
+
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
+
+        mockDecide(Interview(userAnswers))(Right(decisionResponse))
+        mockAuditEvent("cestDecisionResult", Audit(userAnswers, decisionResponse))
+
+        whenReady(service.decide) { res =>
+          res.right.get.result mustBe ResultEnum.INSIDE_IR35
+        }
       }
-
-      val result = service.determineResultView(answers, Some(errorForm.form), false, None)
-
-      result.toString() must include("This engagement should be classed as employed for tax purposes")
-      result.toString() must include(messagesApi("result.employed.whyResult.p1"))
     }
 
-    "determine the view when no answers or sessionkeys are populated" in {
 
-      val answers: Seq[AnswerSection] = Seq()
+    "return an error" when {
 
-      mockInternalServerError(Html("Error page"))
+      "an error is returned" in {
 
-      val result = service.determineResultView(answers, None, false, None)
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      result.toString() mustBe "Error page"
+        mockDecide(Interview(userAnswers))(Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API")))
+
+        whenReady(service.decide) { res =>
+          res.left.get mustBe an[ErrorResponse]
+        }
+      }
     }
   }
 
-  "Calling the decide service" should {
+  "determineResultView" when {
 
-    "return a continue decision from the decision service based on the interview" in {
+    "collate decisions is successful" when {
 
-      enable(OptimisedFlow)
+      "Result is Inside IR35" when {
 
-      mockDecide(Interview(userAnswers))(Right(response))
+        "Office Holder is true" when {
 
-      val result = service.decide(userAnswers, onwardRoute)
+          "user is Agent" should {
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+            "render the OfficeHolderAgentView" in {
 
-    }
-    "return a continue decision based on the interview when control is empty" in {
-      enable(OptimisedFlow)
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  PAYE)
+                .set(OfficeHolderPage,  true)
 
-      mockDecide(Interview(userAnswers))(Right(riskResponse))
+              val decisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
 
-      val result = service.decide(userAnswers, onwardRoute)
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = agencyFakeDataRequestWithAnswers(userAnswers)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/continue")
-    }
-    "return a continue decision based on the interview when risk is empty optimised" in {
-      enable(OptimisedFlow)
+              val expected: Html = OfficeHolderAgentView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-      mockDecide(Interview(userAnswers))(Right(controlResponse))
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
 
-      val result = service.decide(userAnswers, onwardRoute)
+              actual mustBe Right(expected)
+            }
+          }
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/continue")
+          "User is NOT Agent and IS using an Intermediary" should {
 
-    }
+            "render the OfficeHolderIR35View" in {
 
-    "return a continue decision based on the interview when risk is empty" in {
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(OfficeHolderPage,  true)
+                .set(WhatDoYouWantToDoPage, MakeNewDetermination)
 
-      mockDecide(Interview(userAnswers))(Right(controlResponse))
+              val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
 
-      val result = service.decide(userAnswers, onwardRoute)
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
+              val expected: Html = OfficeHolderIR35View(form, isMakingDetermination = true)
 
-    }
-    "return a decision based on the interview" in {
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
 
-      mockDecide(Interview(userAnswers))(Right(exitResponse))
+              actual mustBe Right(expected)
+            }
+          }
 
-      val result = service.decide(userAnswers, onwardRoute)
+          "User is NOT Agent and IS NOT using an Intermediary" should {
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
-    }
+            "render the OfficeHolderPAYEView" in {
 
-    "handle 400 errors" in {
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  PAYE)
+                .set(OfficeHolderPage,  true)
 
-      mockDecide(Interview(userAnswers))(Left(ErrorResponse(400, "Bad")))
-      mockInternalServerError(Html("Error page"))
+              val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
 
-      val result = service.decide(userAnswers, onwardRoute)
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
 
-      status(result) mustBe INTERNAL_SERVER_ERROR
-      contentAsString(result) mustBe "Error page"
-    }
+              val expected: Html = OfficeHolderPAYEView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-    "handle 500 errors" in {
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
 
-      
-      mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "Internal error")))
-      mockInternalServerError(Html("Error page"))
+              actual mustBe Right(expected)
+            }
+          }
+        }
 
-      val result = service.decide(userAnswers, onwardRoute)
+        "Office Holder is false" when {
 
-      status(result) mustBe INTERNAL_SERVER_ERROR
-      contentAsString(result) mustBe "Error page"
+          "user is Agent" should {
+
+            "render the AgentInsideView" in {
+
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  PAYE)
+                .set(OfficeHolderPage,  false)
+
+              val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
+
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = agencyFakeDataRequestWithAnswers(userAnswers)
+
+              val expected: Html = AgentInsideView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+              actual mustBe Right(expected)
+            }
+          }
+
+          "User is NOT Agent and IS using an Intermediary" should {
+
+            "if the Worker is Known" should {
+
+              "render the IR35InsideView" in {
+
+                val userAnswers: UserAnswers = UserAnswers("id")
+                  .set(WhatDoYouWantToFindOutPage,  IR35)
+                  .set(WorkerKnownPage,true)
+                  .set(OfficeHolderPage,  false)
+
+                val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
+
+                implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+                val expected: Html = IR35InsideView(form, isMake = false, workerKnown = true)
+
+                val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+                actual mustBe Right(expected)
+              }
+            }
+
+            "if the Worker is NOT Known" should {
+
+              "render the IR35InsideView" in {
+
+                val userAnswers: UserAnswers = UserAnswers("id")
+                  .set(WhatDoYouWantToFindOutPage,  IR35)
+                  .set(WorkerKnownPage,false)
+                  .set(OfficeHolderPage,  false)
+
+                val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
+
+                implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+                val expected: Html = IR35InsideView(form, isMake = false, workerKnown = false)
+
+                val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+                actual mustBe Right(expected)
+              }
+            }
+          }
+
+          "User is NOT Agent and IS NOT using an Intermediary" should {
+
+            "render the PAYEInsideView" in {
+
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  PAYE)
+                .set(OfficeHolderPage,  false)
+
+              val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)
+
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+              val expected: Html = PAYEInsideView(form, workerKnown = true)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+              actual mustBe Right(expected)
+            }
+          }
+        }
+      }
+
+      "Result is Undetermined" when {
+
+        "user is Agent" should {
+
+          "render the AgentUndeterminedView" in {
+
+            val userAnswers: UserAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToFindOutPage,  PAYE)
+
+            val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
+
+            implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = agencyFakeDataRequestWithAnswers(userAnswers)
+
+            val expected: Html = AgentUndeterminedView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+            val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+            actual mustBe Right(expected)
+          }
+        }
+
+        "User is NOT Agent and IS using an Intermediary" should {
+
+          "if the worker is Known" should {
+
+            "render the IR35UndeterminedView" in {
+
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(WorkerKnownPage,true)
+
+              val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
+
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+              val expected: Html = IR35UndeterminedView(form, workerKnown = true)
+
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+              actual mustBe Right(expected)
+            }
+          }
+
+          "if the worker is NOT Known" should {
+
+            "render the IR35UndeterminedView" in {
+
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(WorkerKnownPage,false)
+
+              val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
+
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+              val expected: Html = IR35UndeterminedView(form, workerKnown = false)
+
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+              actual mustBe Right(expected)
+            }
+          }
+        }
+
+        "User is NOT Agent and IS NOT using an Intermediary" should {
+
+          "render the OfficeHolderPAYEView" in {
+
+            val userAnswers: UserAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToFindOutPage,  PAYE)
+
+            val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
+
+            implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+            val expected: Html = PAYEUndeterminedView(form, workerKnown = true)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+            val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+            actual mustBe Right(expected)
+          }
+        }
+      }
+
+      "Result is Outside IR35 (all sections)" when {
+
+        "user is Agent" should {
+
+          "render the AgentOutsideView" in {
+
+            val userAnswers: UserAnswers = UserAnswers("id")
+
+            val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(
+              personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+            ), ResultEnum.OUTSIDE_IR35)
+
+            implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = agencyFakeDataRequestWithAnswers(userAnswers)
+
+            val expected: Html = AgentOutsideView(
+              form = form,
+              substituteToDoWork = true,
+              clientNotControlWork = true,
+              incurCostNoReclaim = true
+            )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+            val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+            actual mustBe Right(expected)
+          }
+        }
+
+        "User is NOT Agent and IS using an Intermediary" should {
+
+          "when the Worker is Known" should {
+
+            "render the IR35OutsideView" in {
+
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(WorkerKnownPage, true)
+
+              val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(
+                personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+              ), ResultEnum.OUTSIDE_IR35)
+
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+              val expected: Html = IR35OutsideView(
+                form = form,
+                isMake = false,
+                isSubstituteToDoWork = true,
+                isClientNotControlWork = true,
+                isIncurCostNoReclaim = true,
+                workerKnown = true
+              )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+              actual mustBe Right(expected)
+            }
+          }
+
+          "when the Worker is NOT Known" should {
+
+            "render the IR35OutsideView" in {
+
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage,  IR35)
+                .set(WorkerKnownPage, false)
+
+              val decisionResponse = DecisionResponse("", "", Score(
+                personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+              ), ResultEnum.OUTSIDE_IR35)
+
+              implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+              val expected: Html = IR35OutsideView(
+                form = form,
+                isMake = false,
+                isSubstituteToDoWork = true,
+                isClientNotControlWork = true,
+                isIncurCostNoReclaim = true,
+                workerKnown = false
+              )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+              val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+              actual mustBe Right(expected)
+            }
+          }
+        }
+
+        "User is NOT Agent and IS NOT using an Intermediary" should {
+
+          "render the PAYEOutsideView" in {
+
+            val userAnswers: UserAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToFindOutPage,  PAYE)
+
+            val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(
+              personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+            ), ResultEnum.OUTSIDE_IR35)
+
+            implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = workerFakeDataRequestWithAnswers(userAnswers)
+
+            val expected: Html = PAYEOutsideView(
+              form = form,
+              isSubstituteToDoWork = true,
+              isClientNotControlWork = true,
+              isIncurCostNoReclaim = true,
+              workerKnown = true
+            )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+            val actual: Either[Html, Html] = service.determineResultView(decisionResponse, Some(form))
+
+            actual mustBe Right(expected)
+          }
+        }
+      }
+
+      "Result is Not Matched" when {
+
+        "render the ErrorPage" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+          val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)
+
+          implicit val dataRequest: DataRequest[AnyContentAsEmpty.type] = agencyFakeDataRequestWithAnswers(userAnswers)
+
+          mockInternalServerError(Html("Err"))
+
+          service.determineResultView(decisionResponse, Some(form)) mustBe Left(Html("Err"))
+        }
+      }
     }
   }
 }

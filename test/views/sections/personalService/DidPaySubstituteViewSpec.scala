@@ -17,36 +17,27 @@
 package views.sections.personalService
 
 import assets.messages.{DidPaySubstituteMessages, SubHeadingMessages}
-import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
 import forms.sections.personalService.DidPaySubstituteFormProvider
 import models.NormalMode
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.personalService.DidPaySubstituteView
 
 class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
 
-  override def beforeEach = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.didPaySubstitute"
+  val messageKeyPrefix = "worker.didPaySubstitute"
 
   val form = new DidPaySubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[DidPaySubstituteView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -63,15 +54,15 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(DidPaySubstituteMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Worker.heading
       }
 
       "have the correct p1" in {
-        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Worker.p1
       }
 
       "have the correct radio option messages" in {
@@ -85,15 +76,15 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(DidPaySubstituteMessages.Hirer.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Hirer.heading
       }
 
       "have the correct p1" in {
-        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Optimised.Hirer.p1
+        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Hirer.p1
       }
 
       "have the correct radio option messages" in {
@@ -107,15 +98,15 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(DidPaySubstituteMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Worker.heading
       }
 
       "have the correct p1" in {
-        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Worker.p1
       }
 
       "have the correct radio option messages" in {

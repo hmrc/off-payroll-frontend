@@ -17,13 +17,10 @@
 package views.sections.financialRisk
 
 import assets.messages.{SubHeadingMessages, VehicleMessages}
-import config.SessionKeys
 import controllers.sections.financialRisk.routes
 import forms.sections.financialRisk.VehicleFormProvider
 import models.NormalMode
-import models.UserType.{Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.financialRisk.VehicleView
@@ -32,15 +29,15 @@ class VehicleViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "vehicle"
+  val messageKeyPrefix = "worker.vehicle"
 
   val form = new VehicleFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[VehicleView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -57,7 +54,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(VehicleMessages.Worker.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(VehicleMessages.Worker.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {
@@ -79,7 +76,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(VehicleMessages.Hirer.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(VehicleMessages.Hirer.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {

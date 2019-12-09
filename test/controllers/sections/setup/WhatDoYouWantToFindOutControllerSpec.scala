@@ -19,7 +19,6 @@ package controllers.sections.setup
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.WhatDoYouWantToFindOutFormProvider
-import models.Answers._
 import models._
 import models.requests.DataRequest
 import models.sections.setup.WhatDoYouWantToFindOut
@@ -49,14 +48,14 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
       checkYourAnswersService = mockCheckYourAnswersService,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
-      decisionService = mockDecisionService,
+
       navigator = FakeSetupNavigator,
       appConfig = frontendAppConfig
     )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(WhatDoYouWantToFindOutPage.toString -> Json.toJson(Answers(WhatDoYouWantToFindOut.values.head,0)))
+  val validData = Map(WhatDoYouWantToFindOutPage.toString -> Json.toJson(WhatDoYouWantToFindOut.values.head))
 
   "WhatDoYouWantToFindOut Controller" must {
 
@@ -77,7 +76,7 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhatDoYouWantToFindOut.options.head.value))
-      val answers = userAnswers.set(WhatDoYouWantToFindOutPage,0,WhatDoYouWantToFindOut.IR35)
+      val answers = userAnswers.set(WhatDoYouWantToFindOutPage,WhatDoYouWantToFindOut.IR35)
       mockConstructAnswers(DataRequest(postRequest,"id",answers),WhatDoYouWantToFindOut)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

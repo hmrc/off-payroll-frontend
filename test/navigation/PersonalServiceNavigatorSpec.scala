@@ -17,12 +17,11 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
-import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models._
+import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import pages._
 import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, WouldWorkerPaySubstitutePage}
 import pages.sections.setup.ContractStartedPage
@@ -40,7 +39,7 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
       "ArrangedSubstitute answer is YesClientAgreed to DidPaySubstitutePage " in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(ArrangedSubstitutePage, YesClientAgreed)
 
@@ -49,7 +48,7 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
       "ArrangedSubstitute answer is YesClientNotAgreed to NeededToPayHelperPage " in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(ArrangedSubstitutePage, YesClientNotAgreed)
 
@@ -69,7 +68,7 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
       "DidPaySubstitutePage answer is true and in NormalMode to MoveWorkerPage " in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(DidPaySubstitutePage, true)
 
@@ -78,7 +77,7 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
       "DidPaySubstitutePage answer is true and in CheckMode to CheckYourAnswersPage " in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(DidPaySubstitutePage, true)
 
@@ -87,7 +86,7 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
       "DidPaySubstitutePage answer is false to NeededToPayHelperPage " in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(DidPaySubstitutePage, false)
 
@@ -97,18 +96,9 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
     "go from the WouldWorkerPaySubstitutePage" when {
 
-      "ContractStartedPage answer is true and optimised flow is disabled to NeededToPayHelperPage " in {
+      "both ContractStartedPage and WouldWorkerPaySubstitutePage answers is false and normal flow is enabled to NeededToPayHelperPage " in {
 
-        disable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(ContractStartedPage, true)
 
-        nextPage(WouldWorkerPaySubstitutePage, userAnswers) mustBe personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
-      }
-
-      "both ContractStartedPage and WouldWorkerPaySubstitutePage answers is false and optimised flow is enabled to NeededToPayHelperPage " in {
-
-        enable(OptimisedFlow)
         lazy val userAnswers = UserAnswers("id")
           .set(ContractStartedPage, true)
           .set(WouldWorkerPaySubstitutePage, false)
@@ -118,7 +108,7 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
       "ContractStartedPage answer is false and in NormalMode to MoveWorkerPage " in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(ContractStartedPage, false)
 
@@ -127,7 +117,7 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
       "ContractStartedPage answer is false and in CheckMode to CheckYourAnswersPage " in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(ContractStartedPage, false)
 
@@ -138,12 +128,12 @@ class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
     "go from the NeededToPayHelperPage" when {
 
       "in NormalMode to MoveWorkerPage " in {
-        enable(OptimisedFlow)
+
         nextPage(NeededToPayHelperPage) mustBe controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
       }
 
       "in CheckMode to CheckYourAnswersPage " in {
-        enable(OptimisedFlow)
+
         nextPage(NeededToPayHelperPage, mode = CheckMode) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.personalService))
       }
     }

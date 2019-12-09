@@ -16,12 +16,12 @@
 
 import base.SpecBase
 import controllers.routes._
-import controllers.sections.setup.{routes => setupRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.control.{routes => controlRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.setup.{routes => setupRoutes}
 import models.{CheckMode, NormalMode, Section}
 
 class RoutesSpec extends SpecBase {
@@ -40,13 +40,6 @@ class RoutesSpec extends SpecBase {
       setupRoutes.AgencyAdvisoryController.onSubmit().url mustBe fullPath("/agency-not-responsible")
     }
 
-    "Have the correct routes for the About You page" in {
-      setupRoutes.AboutYouController.onPageLoad(NormalMode).url mustBe fullPath("/reason-for-using-tool")
-      setupRoutes.AboutYouController.onPageLoad(CheckMode).url mustBe fullPath("/reason-for-using-tool/change")
-      setupRoutes.AboutYouController.onSubmit(NormalMode).url mustBe fullPath("/reason-for-using-tool")
-      setupRoutes.AboutYouController.onSubmit(CheckMode).url mustBe fullPath("/reason-for-using-tool/change")
-    }
-
     "Have the correct routes for the Contract Started page" in {
       setupRoutes.ContractStartedController.onPageLoad(NormalMode).url mustBe fullPath("/work-started")
       setupRoutes.ContractStartedController.onPageLoad(CheckMode).url mustBe fullPath("/work-started/change")
@@ -55,10 +48,10 @@ class RoutesSpec extends SpecBase {
     }
 
     "Have the correct routes for the Worker Type page" in {
-      setupRoutes.WorkerTypeController.onPageLoad(NormalMode).url mustBe fullPath("/workers-intermediary")
-      setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url mustBe fullPath("/workers-intermediary/change")
-      setupRoutes.WorkerTypeController.onSubmit(NormalMode).url mustBe fullPath("/workers-intermediary")
-      setupRoutes.WorkerTypeController.onSubmit(CheckMode).url mustBe fullPath("/workers-intermediary/change")
+      setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode).url mustBe fullPath("/workers-intermediary")
+      setupRoutes.WorkerUsingIntermediaryController.onPageLoad(CheckMode).url mustBe fullPath("/workers-intermediary/change")
+      setupRoutes.WorkerUsingIntermediaryController.onSubmit(NormalMode).url mustBe fullPath("/workers-intermediary")
+      setupRoutes.WorkerUsingIntermediaryController.onSubmit(CheckMode).url mustBe fullPath("/workers-intermediary/change")
     }
 
     "Have the correct routes for the What Do You Want To Do page" in {
@@ -138,13 +131,6 @@ class RoutesSpec extends SpecBase {
       controlRoutes.ChooseWhereWorkController.onSubmit(CheckMode).url mustBe fullPath("/decide-where-work-is-done/change")
     }
 
-    "Have the correct routes for the Cannot Claim as Expense page" in {
-      financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(NormalMode).url mustBe fullPath("/worker-cannot-claim")
-      financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url mustBe fullPath("/worker-cannot-claim/change")
-      financialRiskRoutes.CannotClaimAsExpenseController.onSubmit(NormalMode).url mustBe fullPath("/worker-cannot-claim")
-      financialRiskRoutes.CannotClaimAsExpenseController.onSubmit(CheckMode).url mustBe fullPath("/worker-cannot-claim/change")
-    }
-
     "Have the correct routes for the How Worker is Paid page" in {
       financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode).url mustBe fullPath("/how-worker-is-paid")
       financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url mustBe fullPath("/how-worker-is-paid/change")
@@ -171,13 +157,6 @@ class RoutesSpec extends SpecBase {
       partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url mustBe fullPath("/management-responsibilities/change")
       partParcelRoutes.LineManagerDutiesController.onSubmit(NormalMode).url mustBe fullPath("/management-responsibilities")
       partParcelRoutes.LineManagerDutiesController.onSubmit(CheckMode).url mustBe fullPath("/management-responsibilities/change")
-    }
-
-    "Have the correct routes for the Interact With Stakeholders page" in {
-      partParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode).url mustBe fullPath("/external-interaction")
-      partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url mustBe fullPath("/external-interaction/change")
-      partParcelRoutes.InteractWithStakeholdersController.onSubmit(NormalMode).url mustBe fullPath("/external-interaction")
-      partParcelRoutes.InteractWithStakeholdersController.onSubmit(CheckMode).url mustBe fullPath("/external-interaction/change")
     }
 
     "Have the correct routes for the Identify to Stakeholders page" in {

@@ -17,7 +17,6 @@
 package pages
 
 import pages.behaviours.PageBehaviours
-import pages.sections.setup.AgencyAdvisoryPage
 
 class CheckYourAnswersPageSpec extends PageBehaviours {
 

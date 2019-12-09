@@ -25,25 +25,23 @@ import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.RightsOfWorkPage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.RightsOfWorkView
 
 import scala.concurrent.Future
 
-class RightsOfWorkController @Inject()(dataCacheConnector: DataCacheConnector,
-                                       navigator: BusinessOnOwnAccountNavigator,
+class RightsOfWorkController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                       override val navigator: BusinessOnOwnAccountNavigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: RightsOfWorkFormProvider,
-                                       controllerComponents: MessagesControllerComponents,
-                                       compareAnswerService: CompareAnswerService,
-                                       decisionService: DecisionService,
+                                       override val controllerComponents: MessagesControllerComponents,
+                                       override val compareAnswerService: CompareAnswerService,
                                        view: RightsOfWorkView,
-                                       implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                       implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(RightsOfWorkPage, formProvider()), mode))

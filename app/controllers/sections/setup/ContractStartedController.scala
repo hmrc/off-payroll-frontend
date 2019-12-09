@@ -17,7 +17,7 @@
 package controllers.sections.setup
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
@@ -29,8 +29,7 @@ import navigation.SetupNavigator
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import views.html.subOptimised.sections.setup.ContractStartedView
+import services.{CheckYourAnswersService, CompareAnswerService}
 
 import scala.concurrent.Future
 
@@ -38,32 +37,24 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ContractStartedFormProvider,
-                                          controllerComponents: MessagesControllerComponents,
-                                          view: ContractStartedView,
-                                          optimisedView: views.html.sections.setup.ContractStartedView,
+                                          override val controllerComponents: MessagesControllerComponents,
+                                          view: views.html.sections.setup.ContractStartedView,
                                           checkYourAnswersService: CheckYourAnswersService,
-                                          compareAnswerService: CompareAnswerService,
-                                          dataCacheConnector: DataCacheConnector,
-                                          decisionService: DecisionService,
-                                          navigator: SetupNavigator,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+                                          override val compareAnswerService: CompareAnswerService,
+                                          override val dataCacheConnector: DataCacheConnector,
+                                          override val navigator: SetupNavigator,
+                                          implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController with FeatureSwitching {
 
   def form(implicit request: DataRequest[_]): Form[Boolean] = formProvider()
 
   def renderView(mode: Mode, oForm: Option[Form[Boolean]] = None)(implicit request: DataRequest[_]) = {
     val formData = oForm.getOrElse(fillForm(ContractStartedPage, form))
-    if (isEnabled(OptimisedFlow)) optimisedView(formData, mode) else view(formData, mode)
+    view(formData, mode)
   }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(renderView(mode))
-
-    if(isEnabled(OptimisedFlow)) {
-      Ok(optimisedView(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
-    } else {
-      Ok(view(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
-    }
+    Ok(view(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

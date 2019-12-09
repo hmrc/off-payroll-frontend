@@ -25,25 +25,23 @@ import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.TransferOfRightsPage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.TransferOfRightsView
 
 import scala.concurrent.Future
 
-class TransferOfRightsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                           navigator: BusinessOnOwnAccountNavigator,
+class TransferOfRightsController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                           override val navigator: BusinessOnOwnAccountNavigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            formProvider: TransferOfRightsFormProvider,
-                                           controllerComponents: MessagesControllerComponents,
-                                           compareAnswerService: CompareAnswerService,
-                                           decisionService: DecisionService,
+                                           override val controllerComponents: MessagesControllerComponents,
+                                           override val compareAnswerService: CompareAnswerService,
                                            view: TransferOfRightsView,
-                                           implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                           implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(TransferOfRightsPage, formProvider()), mode))

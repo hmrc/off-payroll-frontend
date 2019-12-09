@@ -16,177 +16,141 @@
 
 package services
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import config.{FrontendAppConfig, SessionKeys}
-import connectors.{DataCacheConnector, DecisionConnector}
-import controllers.routes
-import forms.DeclarationFormProvider
+import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import connectors.DecisionConnector
+import forms.DownloadPDFCopyFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
-import models.Answers._
 import models._
 import models.requests.DataRequest
-import models.sections.personalService.ArrangedSubstitute.No
-import models.sections.setup.WorkerType.SoleTrader
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhatDoYouWantToFindOut.IR35
+import models.sections.setup.WhoAreYou.Agency
+import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.personalService.ArrangedSubstitutePage
-import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}
+import pages.sections.setup._
+import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.Messages
-import play.api.mvc.Results._
-import play.api.mvc.{Call, Request, Result}
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
-import viewmodels.AnswerSection
-import views.html.subOptimised.results._
+import uk.gov.hmrc.play.audit.http.connector.AuditConnector
+import viewmodels.{AnswerSection, Result, ResultMode}
+import views.html.results.inside._
+import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
+import views.html.results.outside._
+import views.html.results.undetermined._
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
-
-trait DecisionService {
-
-  def decide(userAnswers: UserAnswers, continueResult: Call)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result]
-
-  def determineResultView(answerSections: Seq[AnswerSection],
-                          formWithErrors: Option[Form[Boolean]] = None,
-                          printMode: Boolean = false,
-                          additionalPdfDetails: Option[AdditionalPdfDetails] = None,
-                          timestamp: Option[String] = None)(implicit request: DataRequest[_], messages: Messages): Html
-
-}
+import scala.concurrent.Future
 
 @Singleton
-class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
-                                    dataCacheConnector: DataCacheConnector,
-                                    errorHandler: ErrorHandler,
-                                    formProvider: DeclarationFormProvider,
-                                    officeHolderInsideIR35View: OfficeHolderInsideIR35View,
-                                    officeHolderEmployedView: OfficeHolderEmployedView,
-                                    currentSubstitutionView: CurrentSubstitutionView,
-                                    futureSubstitutionView: FutureSubstitutionView,
-                                    selfEmployedView: SelfEmployedView,
-                                    employedView: EmployedView,
-                                    controlView: ControlView,
-                                    financialRiskView: FinancialRiskView,
-                                    indeterminateView: IndeterminateView,
-                                    insideIR35View: InsideIR35View,
-                                    implicit val appConf: FrontendAppConfig) extends DecisionService with FeatureSwitching {
+class DecisionService @Inject()(decisionConnector: DecisionConnector,
+                                errorHandler: ErrorHandler,
+                                formProvider: DownloadPDFCopyFormProvider,
+                                val officeAgency: OfficeHolderAgentView,
+                                val officeIR35: OfficeHolderIR35View,
+                                val officePAYE: OfficeHolderPAYEView,
+                                val undeterminedAgency: AgentUndeterminedView,
+                                val undeterminedIR35: IR35UndeterminedView,
+                                val undeterminedPAYE: PAYEUndeterminedView,
+                                val insideAgent: AgentInsideView,
+                                val insideIR35: IR35InsideView,
+                                val insidePAYE: PAYEInsideView,
+                                val outsideAgent: AgentOutsideView,
+                                val outsideIR35: IR35OutsideView,
+                                val outsidePAYE: PAYEOutsideView,
+                                val auditConnector: AuditConnector,
+                                implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
 
-  lazy val version = appConf.decisionVersion
+  lazy val defaultForm: Form[Boolean] = formProvider()
 
-  val resultForm: Form[Boolean] = formProvider()
+  def decide(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] =
+    decisionConnector.decide(Interview(request.userAnswers)).map {
+      case decision@Right(response) =>
+        auditConnector.sendExplicitAudit("cestDecisionResult", Audit(request.userAnswers, response))
+        decision
+      case left@Left(_) => left
+    }
 
-  override def decide(userAnswers: UserAnswers, continueResult: Call)
-                     (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
-    val interview = Interview(userAnswers)
-     for {
-        decisionServiceResult <- decisionConnector.decide(interview)
-        redirect <- redirectResult(interview,continueResult,decisionServiceResult)
-      } yield redirect
-  }
+  def determineResultView(decision: DecisionResponse,
+                          formWithErrors: Option[Form[Boolean]] = None,
+                          answerSections: Seq[AnswerSection] = Seq(),
+                          resultMode: ResultMode = Result,
+                          additionalPdfDetails: Option[AdditionalPdfDetails] = None,
+                          timestamp: Option[String] = None,
+                          decisionVersion: Option[String] = None)
+                         (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Either[Html, Html] = {
 
-  private def redirectResult(interview: Interview,continueResult: Call,decisionResponse: Either[ErrorResponse,DecisionResponse])
-                            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= Future {
-    (isEnabled(OptimisedFlow), decisionResponse) match {
-      case (_,Right(result)) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result)
-      case (false, Right(result)) => finalResultRedirect(result, continueResult)
-      case (_, Right(_)) => Redirect(continueResult)
-      case (_, Left(_)) => InternalServerError(errorHandler.internalServerErrorTemplate)
+    val form = formWithErrors.getOrElse(defaultForm)
+
+    implicit val resultsDetails: ResultsDetails = ResultsDetails(
+      officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(ans => ans),
+      isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(ans => ans == MakeNewDetermination),
+      usingIntermediary = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35),
+      userType = request.userType,
+      personalServiceOption = decision.score.personalService,
+      controlOption = decision.score.control,
+      financialRiskOption = decision.score.financialRisk,
+      boOAOption = decision.score.businessOnOwnAccount,
+      request.userAnswers.getAnswer(WorkerKnownPage).fold(true)(x => x),
+      form = form
+    )
+
+    implicit val pdfResultDetails: PDFResultDetails = PDFResultDetails(
+      resultMode,
+      additionalPdfDetails,
+      timestamp,
+      answerSections
+    )
+
+    decision.result match {
+      case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
+      case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
+      case ResultEnum.UNKNOWN => Right(routeUndetermined)
+      case ResultEnum.NOT_MATCHED => Logger.error("[decisionService][determineResultView]: NOT MATCHED final decision")
+        Left(errorHandler.internalServerErrorTemplate)
     }
   }
 
-  private def earlyExitRedirect(decisionResponse: DecisionResponse)
-                               (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])  = decisionResponse match {
-    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED, _) => redirectResultsPage(ResultEnum.EMPLOYED)
-    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35, _) => redirectResultsPage(ResultEnum.INSIDE_IR35)
-    case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
-  }
-
-  private def finalResultRedirect(decisionResponse: DecisionResponse,continueResult: Call)
-                                 (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]) = {
-    decisionResponse match {
-      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED, _) => Redirect(continueResult)
-      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35, _) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
-      case DecisionResponse(_, _, _, result, _) => redirectResultsPage(result)
-      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+  private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
+    (result.usingIntermediary, result.isAgent) match {
+      case (_, true) => undeterminedAgency(result.form)
+      case (true, _) => undeterminedIR35(result.form, result.workerKnown)
+      case _ => undeterminedPAYE(result.form, result.workerKnown)
     }
   }
 
-  private def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
-                                  financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
+  private def routeOutside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
+    val isSubstituteToDoWork: Boolean = result.personalServiceOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
+    val isClientNotControlWork: Boolean = result.controlOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
+    val isIncurCostNoReclaim: Boolean = result.financialRiskOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
 
-    val result: (String, String) = SessionKeys.result -> resultValue.toString
-    val control = controlOption.map(control => SessionKeys.controlResult -> control.toString)
-    val financialRisk = financialRiskOption.map(financialRisk => SessionKeys.financialRiskResult -> financialRisk.toString)
-
-    val redirect = Redirect(routes.ResultController.onPageLoad())
-      .removingFromSession(SessionKeys.result, SessionKeys.financialRiskResult, SessionKeys.controlResult)
-      .addingToSession(result)
-    val controlRedirect = control.fold(redirect)(redirect.addingToSession(_))
-
-    financialRisk.fold(controlRedirect)(controlRedirect.addingToSession(_))
-  }
-
-  def isSoleTrader(implicit request: DataRequest[_], messages: Messages): Boolean = if(isEnabled(OptimisedFlow)) {
-    request.userAnswers.get(WorkerUsingIntermediaryPage).exists(answer => answer.answer.equals(false))
-  } else {
-    request.userAnswers.get(WorkerTypePage).exists(answer => answer.answer.equals(SoleTrader))
-  }
-
-  def isOfficeHolder(implicit request: DataRequest[_], messages: Messages): Boolean = request.userAnswers.get(OfficeHolderPage) match {
-    case Some(answer) => answer.answer
-    case _ => false
-  }
-
-  def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
-                          additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
-                         (implicit request: DataRequest[_], messages: Messages): Html = {
-
-    val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)
-    val controlSession = request.session.get(SessionKeys.controlResult)
-    val financialRiskSession = request.session.get(SessionKeys.financialRiskResult)
-    val control = controlSession.map(WeightedAnswerEnum.withName)
-    val financialRisk = financialRiskSession.map(WeightedAnswerEnum.withName)
-    val soleTrader = isSoleTrader
-
-    val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
-    val arrangedSubstitute = request.userAnswers.get(ArrangedSubstitutePage)
-    val officeHolderAnswer = isOfficeHolder
-
-    val action: Call = routes.ResultController.onSubmit()
-    val form = formWithErrors.getOrElse(resultForm)
-
-    def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, soleTrader) match {
-      case (_, true) => employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (true, _) => officeHolderInsideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, _) => insideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-    }
-    def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, soleTrader, control, financialRisk) match {
-      case (_, _, true, _, _) => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
-        financialRiskView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (Some(Answers(No,_)), Some(Answers(true,_)), _, _, _) =>
-        futureSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (Some(_), Some(Answers(true,_)), _, _, _) =>
-        currentSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, Some(Answers(false,_)), _, _, _) =>
-        futureSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case _ => errorHandler.internalServerErrorTemplate
-    }
-    result match {
-      case ResultEnum.OUTSIDE_IR35 => resultViewOutside
-      case ResultEnum.INSIDE_IR35 => resultViewInside
-      case ResultEnum.SELF_EMPLOYED => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case ResultEnum.UNKNOWN => indeterminateView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case ResultEnum.EMPLOYED =>
-        if (officeHolderAnswer) {
-          officeHolderEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-        } else {
-          employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-        }
-      case ResultEnum.NOT_MATCHED => errorHandler.internalServerErrorTemplate
+    (result.usingIntermediary, result.isAgent) match {
+      case (_, true) =>
+        outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)
+      case (true, _) =>
+        outsideIR35(result.form, result.isMakingDetermination, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, result.workerKnown)
+      case _ =>
+        outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, result.workerKnown)
     }
   }
+
+  private def routeInside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
+    if (result.officeHolderAnswer) routeInsideOfficeHolder else routeInsideIR35
+
+  private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
+    (result.usingIntermediary, result.userType) match {
+      case (_, Some(Agency)) => insideAgent(result.form)
+      case (true, _) => insideIR35(result.form, result.isMakingDetermination, result.workerKnown)
+      case _ => insidePAYE(result.form, result.workerKnown)
+    }
+
+  private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
+    (result.usingIntermediary, result.isAgent) match {
+      case (_, true) => officeAgency(result.form)
+      case (true, _) => officeIR35(result.form, result.isMakingDetermination)
+      case _ => officePAYE(result.form)
+    }
 }

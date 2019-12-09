@@ -12,7 +12,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will you have to fund any other costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any other costs before your client pays you?")
       }
     }
 
@@ -31,18 +31,18 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have to fund any other costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any other costs before your client pays you?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/other-costs", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("How will you be paid for this work?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you have to fund any other costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any other costs before your client pays you?")
       }
     }
 
@@ -74,17 +74,18 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have to fund any other costs before your client pays you?")
+        titleOf(result) should include ("Will you have to fund any other costs before your client pays you?")
 
       }
     }
 
-    "Return a 409 on Successful post as no other answers given" in {
+    "Return a 409 on Successful post and redirect to the check your answers page with financial risk" in {
 
       lazy val res = postSessionRequest("/other-costs/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

@@ -18,7 +18,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import results.sections.pdf
-@import models.UserType.Hirer
+@import models.sections.setup.WhoAreYou.Hirer
 @import models.requests.DataRequest
 @import results.sections.letter._
 @import viewmodels.{LetterAnswerSections, Result, ResultMode, ResultPDF, ResultPrintPreview}
@@ -31,9 +31,9 @@
 @defining(
 
     pdfResultDetails.resultMode match {
-        case Result => mainTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
+        case Result => mainTemplate(title(form, "result.title"), appConfig = appConfig)(_)
         case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
-        case ResultPDF => printTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
+        case ResultPDF => printTemplate(title(form, "result.title"), appConfig = appConfig)(_)
     }
 ){ template =>
 
@@ -47,7 +47,7 @@
                 }
 
                 @components.teal_result(
-                    Html(messages(tailorMsgOptimised("result.officeHolder.paye.heading"))),
+                    Html(messages(tailorMsg("result.officeHolder.paye.heading"))),
                     "result.inside"
                 )
 
@@ -59,27 +59,27 @@
             }
             case ResultPrintPreview => {
                 @print_and_save_result()
-                @letter_layout(tailorMsgOptimised("result.officeHolder.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.officeHolder.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
             case ResultPDF => {
-                @letter_layout(tailorMsgOptimised("result.officeHolder.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.officeHolder.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }
 }
 
 @whyResult = {
-    <p>@messages(tailorMsgOptimised("result.officeHolder.paye.whyResult.p1"))</p>
+    <p>@messages(tailorMsg("result.officeHolder.paye.whyResult.p1"))</p>
 }
 
 @doNext = {
     @if(request.userType.contains(Hirer)) {
-        <p>@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p1"))</p>
+        <p>@messages(tailorMsg("result.officeHolder.paye.doNext.p1"))</p>
         <p>
-            @messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p2.preLink"))
-            @components.new_window_link(tailorMsgOptimised("result.officeHolder.paye.doNext.p2.link"), appConfig.payeForEmployersUrl, Some("payeForEmployersLink")).
+            @messages(tailorMsg("result.officeHolder.paye.doNext.p2.preLink"))
+            @components.new_window_link(tailorMsg("result.officeHolder.paye.doNext.p2.link"), appConfig.payeForEmployersUrl, Some("payeForEmployersLink")).
         </p>
     } else {
-        <p>@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p1"))</p>
+        <p>@messages(tailorMsg("result.officeHolder.paye.doNext.p1"))</p>
     }
 }

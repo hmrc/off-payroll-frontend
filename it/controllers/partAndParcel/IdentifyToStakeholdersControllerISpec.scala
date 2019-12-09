@@ -12,7 +12,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        titleOf(result) should include ("How would you introduce yourself to your client’s consumers or suppliers?")
       }
     }
 
@@ -31,7 +31,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        titleOf(result) should include ("How would you introduce yourself to your client’s consumers or suppliers?")
 
       }
     }
@@ -45,7 +45,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        titleOf(result) should include ("How would you introduce yourself to your client’s consumers or suppliers?")
       }
     }
 
@@ -64,18 +64,18 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        titleOf(result) should include ("How would you introduce yourself to your client’s consumers or suppliers?")
 
       }
     }
 
-    "Return a 409 on Successful post and move onto the something went wrong page" in {
+    "Return a 303 on Successful post redirecting to the check your answers page with part and parcel section" in {
 
       lazy val res = postSessionRequest("/introduce-worker/change",introduceValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

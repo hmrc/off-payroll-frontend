@@ -29,7 +29,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 import scala.collection.immutable.ListMap
 
-class FeatureSwitchController @Inject()(controllerComponents: MessagesControllerComponents,
+class FeatureSwitchController @Inject()(override val controllerComponents: MessagesControllerComponents,
                                         view: feature_switch,
                                         implicit val appConfig: FrontendAppConfig)
 

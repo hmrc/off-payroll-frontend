@@ -12,8 +12,8 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
       lazy val res = getSessionRequest("/no-similar-work")
 
       whenReady(res) { result =>
-         result.status shouldBe OK
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        result.status shouldBe OK
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
       }
     }
 
@@ -32,18 +32,18 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto the Permission to Work with Others page" in {
 
       lazy val res = postSessionRequest("/no-similar-work", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Are you required to ask permission to work for other clients?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -56,7 +56,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
       }
     }
 
@@ -75,17 +75,18 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        titleOf(result) should include ("Does this contract stop you from doing similar work for other clients?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto the Permission to Work with Others page" in {
 
-      lazy val res = postSessionRequest("/no-similar-work/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/no-similar-work/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/need-permission/change")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

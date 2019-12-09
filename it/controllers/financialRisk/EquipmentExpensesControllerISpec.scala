@@ -12,7 +12,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will you have to buy equipment before your client pays you?")
+        titleOf(result) should include ("Will you have to buy equipment before your client pays you?")
       }
     }
 
@@ -31,7 +31,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have to buy equipment before your client pays you?")
+        titleOf(result) should include ("Will you have to buy equipment before your client pays you?")
 
       }
     }
@@ -41,8 +41,9 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
       lazy val res = postSessionRequest("/equipment-costs", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you have to fund any vehicle costs before your client pays you?")
+        result.status shouldBe SEE_OTHER
+
+
       }
     }
   }
@@ -55,7 +56,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you have to buy equipment before your client pays you?")
+        titleOf(result) should include ("Will you have to buy equipment before your client pays you?")
       }
     }
 
@@ -74,18 +75,18 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have to buy equipment before your client pays you?")
+        titleOf(result) should include ("Will you have to buy equipment before your client pays you?")
 
       }
     }
 
-    "Return a 409 on Successful post and move onto soemthing went wrong" in {
+    "Return a 303 on Successful post and redirect to the check your answers page with financial risk" in {
 
       lazy val res = postSessionRequest("/equipment-costs/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

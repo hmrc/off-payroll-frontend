@@ -53,7 +53,7 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
     WhatDoYouWantToFindOutPage -> (_ => List(WhoAreYouPage, WorkerUsingIntermediaryPage, WhatDoYouWantToDoPage)),
     WhoAreYouPage -> (answers => (answers.getAnswer(WhoAreYouPage),answers.getAnswer(WhatDoYouWantToFindOutPage)) match {
       case (Some(WhoAreYou.Agency),_) => List(WhatDoYouWantToDoPage, WorkerUsingIntermediaryPage)
-      case (Some(WhoAreYou.Client),_) => List(WhatDoYouWantToDoPage)
+      case (Some(WhoAreYou.Hirer),_) => List(WhatDoYouWantToDoPage)
       case (Some(WhoAreYou.Worker),Some(WhatDoYouWantToFindOut.PAYE)) => List(WhatDoYouWantToDoPage)
       case _ => List()
     }),

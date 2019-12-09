@@ -16,83 +16,51 @@
 
 package controllers
 
+import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.requests.DataRequest
-import models.{DecisionResponse, NormalMode, Timestamp, UserAnswers}
+import models.{NormalMode, Timestamp}
 import navigation.CYANavigator
 import pages.{ResultPage, Timestamp}
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, OptimisedDecisionService}
-import utils.UserAnswersUtils
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import utils.SessionUtils._
-
-import scala.concurrent.Future
 
 class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
                                  requireData: DataRequiredAction,
-                                 controllerComponents: MessagesControllerComponents,
-                                 decisionService: DecisionService,
+                                 override val controllerComponents: MessagesControllerComponents,
                                  formProvider: DeclarationFormProvider,
                                  formProviderPDF: DownloadPDFCopyFormProvider,
-                                 navigator: CYANavigator,
-                                 dataCacheConnector: DataCacheConnector,
+                                 override val navigator: CYANavigator,
+                                 override val dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
-                                 compareAnswerService: CompareAnswerService,
-                                 optimisedDecisionService: OptimisedDecisionService,
+                                 override val compareAnswerService: CompareAnswerService,
+                                 decisionService: DecisionService,
                                  checkYourAnswersService: CheckYourAnswersService,
                                  errorHandler: ErrorHandler,
-                                 implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching with UserAnswersUtils {
-
-  private val resultForm: Form[Boolean] = formProvider()
-  private val resultFormPDF: Form[Boolean] = formProviderPDF()
-  private def nextPage(userAnswers: Option[UserAnswers] = None)
-                      (implicit request: DataRequest[_]): Call = navigator.nextPage(ResultPage, NormalMode)(userAnswers.getOrElse(request.userAnswers))
+                                 implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    val timestamp = if(isEnabled(OptimisedFlow)) {
-      compareAnswerService.optimisedConstructAnswers(request,time.timestamp(),Timestamp)
-    } else {
-      compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)
-    }
+    val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)
 
     dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
-      if(isEnabled(OptimisedFlow)){
-        optimisedDecisionService.decide.map {
-          case Right(decision) =>
-            optimisedDecisionService.determineResultView(decision) match {
-              case Right(result) => Ok(result).addingToSession(SessionKeys.decisionResponse -> decision)
-              case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
-            }
-          case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
-        }
-      } else {
-        Future.successful(Ok(decisionService.determineResultView(answers)))
+      decisionService.decide.map {
+        case Right(decision) =>
+          decisionService.determineResultView(decision) match {
+            case Right(result) => Ok(result).addingToSession(SessionKeys.decisionResponse -> decision)
+            case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
+          }
+        case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
       }
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if(isEnabled(OptimisedFlow)) {
-      redirect[Boolean](NormalMode, true, ResultPage, callDecisionService = false)
-    } else {
-      Future.successful(resultForm.bindFromRequest().fold(
-        formWithErrors => {
-          BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
-        },
-        _ => {
-          Redirect(nextPage())
-        }
-      ))
-    }
+    redirect[Boolean](NormalMode, true, ResultPage)
   }
 }

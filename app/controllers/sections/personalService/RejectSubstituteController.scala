@@ -17,7 +17,7 @@
 package controllers.sections.personalService
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
@@ -26,12 +26,9 @@ import javax.inject.Inject
 import models.Mode
 import navigation.PersonalServiceNavigator
 import pages.sections.personalService.RejectSubstitutePage
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
-import play.twirl.api.HtmlFormat
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.personalService.RejectSubstituteView
-import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 import scala.concurrent.Future
 
@@ -39,20 +36,14 @@ class RejectSubstituteController @Inject()(identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            formProvider: RejectSubstituteFormProvider,
-                                           controllerComponents: MessagesControllerComponents,
-                                           optimisedView: RejectSubstituteView,
-                                           subOptimisedView: SubOptimisedRejectSubstituteView,
+                                           override val controllerComponents: MessagesControllerComponents,
+                                           view: RejectSubstituteView,
                                            checkYourAnswersService: CheckYourAnswersService,
-                                           compareAnswerService: CompareAnswerService,
-                                           dataCacheConnector: DataCacheConnector,
-                                           decisionService: DecisionService,
-                                           navigator: PersonalServiceNavigator,
-                                           implicit val appConfig: FrontendAppConfig
-                                          ) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
-
-  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+                                           override val compareAnswerService: CompareAnswerService,
+                                           override val dataCacheConnector: DataCacheConnector,
+                                           override val navigator: PersonalServiceNavigator,
+                                           implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(RejectSubstitutePage, formProvider()), mode))

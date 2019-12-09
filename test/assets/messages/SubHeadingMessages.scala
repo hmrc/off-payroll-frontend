@@ -18,21 +18,10 @@ package assets.messages
 
 object SubHeadingMessages extends BaseMessages {
 
-  object Optimised {
       val setup = ""
-      val exit = "Worker’s duties"
+      val officeHolder = "Worker’s duties"
       val personalService = "Substitutes and helpers"
       val control = "Working arrangements"
       val financialRisk = "Worker’s financial risk"
       val partAndParcel = "Worker’s involvement"
-  }
-
-  object SubOptimised {
-      val setup = "About the people involved"
-      val exit = "About the worker’s duties"
-      val personalService = "About substitutes and helpers"
-      val control = "About the work arrangements"
-      val financialRisk = "About the worker’s financial risk"
-      val partAndParcel = "About the worker’s integration into the organisation"
-  }
 }

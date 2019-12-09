@@ -11,8 +11,8 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/worker-move-task")
 
       whenReady(res) { result =>
-         result.status shouldBe OK
-        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        result.status shouldBe OK
+        titleOf(result) should include("Does your client have the right to move you from the task you originally agreed to do?")
       }
     }
 
@@ -31,18 +31,18 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        titleOf(result) should include("Does your client have the right to move you from the task you originally agreed to do?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-move-task",taskChangeValue)
+      lazy val res = postSessionRequest("/worker-move-task", taskChangeValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Does your client have the right to decide how the work is done? ")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        titleOf(result) should include ("Does your client have the right to move you from the task you originally agreed to do?")
       }
     }
 
@@ -74,18 +74,18 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
+        titleOf(result) should include ("Does your client have the right to move you from the task you originally agreed to do?")
 
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 303 on Successful post and move onto CheckYourAnswers Page" in {
 
       lazy val res = postSessionRequest("/worker-move-task/change",taskChangeValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

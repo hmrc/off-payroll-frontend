@@ -18,7 +18,6 @@ package views.results
 
 import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results._
-import config.featureSwitch.OptimisedFlow
 import models.{AdditionalPdfDetails, PDFResultDetails, Section}
 import org.jsoup.nodes.Document
 import play.api.i18n.Messages
@@ -31,7 +30,7 @@ trait ResultViewFixture extends ViewBehaviours {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object Selectors extends BaseCSSSelectors {

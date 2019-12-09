@@ -15,29 +15,29 @@
  *@
 
 @import models.requests.DataRequest
-@import models.UserType.Hirer
+@import models.sections.setup.WhoAreYou.Hirer
 
 @(form: Form[_], isMake: Boolean = true, isUndetermined: Boolean = false)(implicit messages: Messages, request: DataRequest[_])
 
 <div id="download">
   @if(isMake || request.userType.contains(Hirer)){
     @if(isUndetermined){
-      <p>@messages("optimised.result.download.p1.undetermined")</p>
+      <p>@messages("result.download.p1.undetermined")</p>
     } else {
-      <p>@messages("optimised.result.download.p1.determined")</p>
+      <p>@messages("result.download.p1.determined")</p>
     }
   }
 
- <button class="button form-group" id ="getCopy-button">@messages("optimised.result.download.getCopy")</button>
+ <button class="button form-group" id ="getCopy-button">@messages("result.download.getCopy")</button>
 
  <p>
-  @messages("optimised.result.download.p2.preExit")
+  @messages("result.download.p2.preExit")
   <a href="@routes.ExitSurveyController.redirectToExitSurvey"
-  aria-label='@messages("optimised.result.download.p2.exitLink.aria")'>@messages("optimised.result.download.p2.exitLink")</a>
-  @messages("optimised.result.download.p2.preStartAgain")
+  aria-label='@messages("result.download.p2.exitLink.aria")'>@messages("result.download.p2.exitLink")</a>
+  @messages("result.download.p2.preStartAgain")
   <a href="@routes.StartAgainController.redirectToDisclaimer().url"
-     aria-label='@messages("optimised.result.download.p2.startAgainLink.aria")'>@messages("optimised.result.download.p2.startAgainLink")</a>
-  <span aria-hidden="true">@messages("optimised.result.download.p2.postStartAgain")</span>
+     aria-label='@messages("result.download.p2.startAgainLink.aria")'>@messages("result.download.p2.startAgainLink")</a>
+  <span aria-hidden="true">@messages("result.download.p2.postStartAgain")</span>
  </p>
 
 </div>

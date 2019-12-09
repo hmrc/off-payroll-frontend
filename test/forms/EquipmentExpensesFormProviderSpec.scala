@@ -17,7 +17,6 @@
 package forms
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
 import forms.sections.financialRisk.EquipmentExpensesFormProvider
 import play.api.data.FormError
@@ -39,23 +38,11 @@ class EquipmentExpensesFormProviderSpec extends BooleanFieldBehaviours with Guic
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    "for the sub optimised flow" should {
-
-      disable(OptimisedFlow)
-      val form = new EquipmentExpensesFormProvider()()(fakeDataRequest, frontendAppConfig)
-
-      behave like mandatoryField(
-        form ,
-        fieldName,
-        requiredError = FormError(fieldName, requiredKey)
-      )
-    }
-
-    "for the optimised flow" should {
+    "for the normal flow" should {
 
       "if the user type is 'Worker'" must {
 
-        enable(OptimisedFlow)
+
         val form = new EquipmentExpensesFormProvider()()(workerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
@@ -67,7 +54,7 @@ class EquipmentExpensesFormProviderSpec extends BooleanFieldBehaviours with Guic
 
       "if the user type is 'Hirer'" must {
 
-        enable(OptimisedFlow)
+
         val form = new EquipmentExpensesFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(

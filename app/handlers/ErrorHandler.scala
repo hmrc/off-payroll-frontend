@@ -19,19 +19,18 @@ package handlers
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
-
 import play.api.Logger
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Results._
-import play.api.mvc.{Request, RequestHeader, Result, Results}
-import play.mvc.Http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_FOUND}
+import play.api.mvc.{Request, RequestHeader, Result}
+import play.mvc.Http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR}
 import play.twirl.api.Html
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 import views.html.errors.NotFoundView
 import views.html.templates.ErrorTemplate
 
-import scala.language.implicitConversions
 import scala.concurrent.Future
+import scala.language.implicitConversions
 
 @Singleton
 class ErrorHandler @Inject()(appConfig: FrontendAppConfig,

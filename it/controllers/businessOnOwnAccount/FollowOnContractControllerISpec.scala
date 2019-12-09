@@ -13,7 +13,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will this contract start immediately after the previous one ended?")
+        titleOf(result) should include ("Will this contract start immediately after the previous one ended?")
       }
     }
 
@@ -32,18 +32,18 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will this contract start immediately after the previous one ended?")
+        titleOf(result) should include ("Will this contract start immediately after the previous one ended?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto First in Series question" in {
 
       lazy val res = postSessionRequest("/contract-series", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -56,7 +56,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will this contract start immediately after the previous one ended?")
+        titleOf(result) should include ("Will this contract start immediately after the previous one ended?")
       }
     }
 
@@ -75,17 +75,18 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will this contract start immediately after the previous one ended?")
+        titleOf(result) should include ("Will this contract start immediately after the previous one ended?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto First in Series question" in {
 
-      lazy val res = postSessionRequest("/contract-series/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/contract-series/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/first-contract-in-series/change")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

@@ -56,7 +56,7 @@ object CannotClaimAsExpense {
       case JsString(WorkerUsedVehicle.toString) => JsSuccess(WorkerUsedVehicle)
       case JsString(WorkerHadOtherExpenses.toString) => JsSuccess(WorkerHadOtherExpenses)
       case JsString(ExpensesAreNotRelevantForRole.toString) => JsSuccess(ExpensesAreNotRelevantForRole)
-      case _                          => JsError("Unknown cannotClaimAsExpense")
+      case _ => JsError("Unknown cannotClaimAsExpense")
     }
   }
 }

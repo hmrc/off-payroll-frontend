@@ -19,7 +19,6 @@ package models
 import models.sections.partAndParcel.IdentifyToStakeholders
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.prop.PropertyChecks
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
@@ -30,7 +29,7 @@ class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with ScalaCh
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(IdentifyToStakeholders.values(true))
+      val gen = Gen.oneOf(IdentifyToStakeholders.values)
 
       forAll(gen) {
         identifyToStakeholders =>
@@ -41,7 +40,7 @@ class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with ScalaCh
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!IdentifyToStakeholders.values(true).map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!IdentifyToStakeholders.values.map(_.toString).contains(_))
 
       forAll(gen) {
         invalidValue =>
@@ -52,7 +51,7 @@ class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with ScalaCh
 
     "serialise" in {
 
-      val gen = Gen.oneOf(IdentifyToStakeholders.values(true))
+      val gen = Gen.oneOf(IdentifyToStakeholders.values)
 
       forAll(gen) {
         identifyToStakeholders =>

@@ -17,21 +17,19 @@
 package controllers.errors
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions.IdentifierAction
 import javax.inject.{Inject, Singleton}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.errors.SessionExpiredView
 
 @Singleton
 class SessionExpiredController @Inject()(val appConfig: FrontendAppConfig,
                                          identify: IdentifierAction,
-                                         controllerComponents: MessagesControllerComponents,
-                                         expiredView: SessionExpiredView,
-                                         dataCacheConnector: DataCacheConnector
-                                        ) extends FrontendController(controllerComponents) with I18nSupport {
+                                         override val controllerComponents: MessagesControllerComponents,
+                                         expiredView: SessionExpiredView
+                                        ) extends BaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
     Ok(expiredView(appConfig))

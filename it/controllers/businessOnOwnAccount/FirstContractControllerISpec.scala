@@ -13,7 +13,7 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
       }
     }
 
@@ -32,18 +32,18 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and redirect to the Contract Extended page" in {
 
       lazy val res = postSessionRequest("/first-contract-in-series", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Does the current contract allow for it to be extended?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -56,7 +56,7 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
       }
     }
 
@@ -75,17 +75,18 @@ class FirstContractControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Is the current contract the first in a series of contracts agreed with this client?")
+        titleOf(result) should include ("Is the current contract the first in a series of contracts agreed with this client?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and redirect to the Contract Extended page" in {
 
-      lazy val res = postSessionRequest("/first-contract-in-series/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/first-contract-in-series/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/extend-contract/change")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

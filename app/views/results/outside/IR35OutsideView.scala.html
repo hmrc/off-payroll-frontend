@@ -18,7 +18,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import models.requests.DataRequest
-@import models.UserType.{Worker, Hirer}
+@import models.sections.setup.WhoAreYou.{Worker, Hirer}
 @import models.ResultType.IR35
 @import results.sections.pdf
 @import results.sections._
@@ -34,9 +34,9 @@
 @defining(
 
     pdfResultDetails.resultMode match {
-        case Result => mainTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
+        case Result => mainTemplate(title(form, "result.title"), appConfig = appConfig)(_)
         case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
-        case ResultPDF => printTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
+        case ResultPDF => printTemplate(title(form, "result.title"), appConfig = appConfig)(_)
     }
 ){ template =>
 
@@ -49,7 +49,7 @@
                 }
 
                 @components.teal_result(
-                    Html(messages(tailorMsgOptimised("result.outside.ir35.heading"))),
+                    Html(messages(tailorMsg("result.outside.ir35.heading"))),
                     "result.outside"
                 )
 
@@ -61,10 +61,10 @@
             }
             case ResultPrintPreview => {
                 @print_and_save_result()
-                @letter_layout(tailorMsgOptimised("result.outside.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.outside.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
             case ResultPDF => {
-                @letter_layout(tailorMsgOptimised("result.outside.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.outside.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }
@@ -73,41 +73,41 @@
 @whyResult = {
 
     @if(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 0){
-        <p>@messages(tailorMsgOptimised("result.outside.ir35.whyResult.businessToBusiness"))</p>
+        <p>@messages(tailorMsg("result.outside.ir35.whyResult.businessToBusiness"))</p>
     } else if(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 1){
         <p>@messages(singleOutReason(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))</p>
-        <p>@messages(tailorMsgOptimised("result.outside.ir35.whyResult.p2"))</p>
+        <p>@messages(tailorMsg("result.outside.ir35.whyResult.p2"))</p>
     } else {
-        <p>@messages(tailorMsgOptimised("result.outside.ir35.whyResult.p1"))</p>
+        <p>@messages(tailorMsg("result.outside.ir35.whyResult.p1"))</p>
         @components.bulleted_list(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
-        <p>@messages(tailorMsgOptimised("result.outside.ir35.whyResult.p2"))</p>
+        <p>@messages(tailorMsg("result.outside.ir35.whyResult.p2"))</p>
     }
 }
 
 @doNext = {
 
     @if(request.userType.contains(Hirer)) {
-        <p>@messages(tailorMsgOptimised("result.outside.ir35.doNext.p1"))</p>
-        <p>@messages(tailorMsgOptimised("result.outside.ir35.doNext.p2"))</p>
+        <p>@messages(tailorMsg("result.outside.ir35.doNext.p1"))</p>
+        <p>@messages(tailorMsg("result.outside.ir35.doNext.p2"))</p>
         <p>
-            @messages(tailorMsgOptimised("result.outside.ir35.doNext.p3.text"))
-            @components.new_window_link(tailorMsgOptimised("result.outside.ir35.doNext.p3.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
+            @messages(tailorMsg("result.outside.ir35.doNext.p3.text"))
+            @components.new_window_link(tailorMsg("result.outside.ir35.doNext.p3.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
         </p>
         @if(!workerKnown) {
-            <p>@messages(tailorMsgOptimised("result.outside.ir35.doNext.workerNotKnown"))</p>
+            <p>@messages(tailorMsg("result.outside.ir35.doNext.workerNotKnown"))</p>
         }
     } else {
         @if(isMake) {
-            <p>@messages(tailorMsgOptimised("result.outside.ir35.make.doNext.p1"))</p>
+            <p>@messages(tailorMsg("result.outside.ir35.make.doNext.p1"))</p>
         } else {
-            <p>@messages(tailorMsgOptimised("result.outside.ir35.check.doNext.p1"))</p>
-            <p>@messages(tailorMsgOptimised("result.outside.ir35.check.doNext.p2"))</p>
+            <p>@messages(tailorMsg("result.outside.ir35.check.doNext.p1"))</p>
+            <p>@messages(tailorMsg("result.outside.ir35.check.doNext.p2"))</p>
 
             @contact_details()
 
             <p>
-                @messages(tailorMsgOptimised("result.outside.ir35.check.doNext.p3.text"))
-                @components.new_window_link(tailorMsgOptimised("result.outside.ir35.check.doNext.p3.link"), appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+                @messages(tailorMsg("result.outside.ir35.check.doNext.p3.text"))
+                @components.new_window_link(tailorMsg("result.outside.ir35.check.doNext.p3.link"), appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
             </p>
         }
     }

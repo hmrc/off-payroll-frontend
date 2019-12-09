@@ -12,7 +12,7 @@ class WhoAreYouControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Who are you?")
+        titleOf(result) should include ("Who are you?")
       }
     }
 
@@ -31,18 +31,17 @@ class WhoAreYouControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Who are you?")
+        titleOf(result) should include ("Who are you?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/who-are-you",whoAreYouValue)
+      lazy val res = postSessionRequest("/who-are-you", whoAreYouValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("What do you want to find out?")
+        result.status shouldBe SEE_OTHER
       }
     }
   }
@@ -55,7 +54,7 @@ class WhoAreYouControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Who are you?")
+        titleOf(result) should include ("Who are you?")
       }
     }
 
@@ -74,7 +73,7 @@ class WhoAreYouControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Who are you?")
+        titleOf(result) should include ("Who are you?")
 
       }
     }

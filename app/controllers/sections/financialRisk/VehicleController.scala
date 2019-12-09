@@ -25,25 +25,23 @@ import javax.inject.Inject
 import models.Mode
 import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.VehiclePage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.CompareAnswerService
 import views.html.sections.financialRisk.VehicleView
 
 import scala.concurrent.Future
 
-class VehicleController @Inject()(dataCacheConnector: DataCacheConnector,
-                                  navigator: FinancialRiskNavigator,
+class VehicleController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                  override val navigator: FinancialRiskNavigator,
                                   identify: IdentifierAction,
                                   getData: DataRetrievalAction,
                                   requireData: DataRequiredAction,
                                   formProvider: VehicleFormProvider,
-                                  controllerComponents: MessagesControllerComponents,
-                                  compareAnswerService: CompareAnswerService,
-                                  decisionService: DecisionService,
+                                  override val controllerComponents: MessagesControllerComponents,
+                                  override val compareAnswerService: CompareAnswerService,
                                   view: VehicleView,
-                                  implicit val appConfig: FrontendAppConfig
-                                 ) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                  implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(VehiclePage, formProvider()), mode))

@@ -23,17 +23,17 @@ import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.setup.WhoAreYouFormProvider
 import javax.inject.Inject
+import models.Mode
 import models.requests.DataRequest
 import models.sections.setup.WhatDoYouWantToFindOut.IR35
 import models.sections.setup.WhoAreYou
-import models.{Mode, UserType}
 import navigation.SetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form
 import play.api.mvc._
-import services.{CompareAnswerService, DecisionService}
-import utils.SessionUtils._
+import services.CompareAnswerService
 import views.html.sections.setup.WhoAreYouView
+import utils.SessionUtils._
 
 import scala.concurrent.Future
 
@@ -41,20 +41,16 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
                                     getData: DataRetrievalAction,
                                     requireData: DataRequiredAction,
                                     whoAreYouFormProvider: WhoAreYouFormProvider,
-                                    controllerComponents: MessagesControllerComponents,
+                                    override val controllerComponents: MessagesControllerComponents,
                                     view: WhoAreYouView,
-                                    compareAnswerService: CompareAnswerService,
-                                    dataCacheConnector: DataCacheConnector,
-                                    decisionService: DecisionService,
-                                    navigator: SetupNavigator,
-                                    implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
-  compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
+                                    override val compareAnswerService: CompareAnswerService,
+                                    override val dataCacheConnector: DataCacheConnector,
+                                    override val navigator: SetupNavigator,
+                                    implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController with FeatureSwitching {
 
   private def renderedView(mode: Mode, form: Form[WhoAreYou])(implicit request: DataRequest[_]) = {
-    val showAgency = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage) match {
-      case Some(IR35) => true
-      case _ => false
-    }
+    val showAgency = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35)
     view(routes.WhoAreYouController.onSubmit(mode), fillForm(WhoAreYouPage, form), mode, showAgency)
   }
 
@@ -66,8 +62,8 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
     whoAreYouFormProvider().bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(renderedView(mode, formWithErrors))),
       value => {
-        redirect(mode, value, WhoAreYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
+        redirect(mode, value, WhoAreYouPage).map(result => result.addingToSession(SessionKeys.userType -> value))
       }
-        )
+    )
   }
 }

@@ -17,7 +17,6 @@
 package views.sections.control
 
 import assets.messages.{HowWorkIsDoneMessages, SubHeadingMessages}
-import config.featureSwitch.OptimisedFlow
 import forms.sections.control.HowWorkIsDoneFormProvider
 import models.NormalMode
 import models.sections.control.HowWorkIsDone
@@ -28,22 +27,17 @@ import views.html.sections.control.HowWorkIsDoneView
 
 class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.howWorkIsDone"
+  val messageKeyPrefix = "worker.howWorkIsDone"
 
   val form = new HowWorkIsDoneFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[HowWorkIsDoneView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -57,7 +51,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {
@@ -85,7 +79,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.OptimisedHirer.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(HowWorkIsDoneMessages.OptimisedHirer.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {
@@ -113,7 +107,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
+        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, Some(SubHeadingMessages.control))
       }
 
       "have the correct heading" in {
@@ -141,19 +135,19 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- HowWorkIsDone.options(true)) {
+        for (option <- HowWorkIsDone.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- HowWorkIsDone.options(true)) {
+    for(option <- HowWorkIsDone.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- HowWorkIsDone.options(true).filterNot(o => o == option)) {
+          for(unselectedOption <- HowWorkIsDone.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

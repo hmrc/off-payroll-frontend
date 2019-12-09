@@ -29,24 +29,23 @@ import navigation.SetupNavigator
 import pages.sections.setup.WhatDoYouWantToFindOutPage
 import play.api.data.Form
 import play.api.mvc._
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.setup.WhatDoYouWantToFindOutView
 
 import scala.concurrent.Future
 
 class WhatDoYouWantToFindOutController @Inject()(identify: IdentifierAction,
-                                        getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
-                                        whatDoYouWantToFindOutFormProvider: WhatDoYouWantToFindOutFormProvider,
-                                        controllerComponents: MessagesControllerComponents,
-                                        whatDoYouWantToFindOutView: WhatDoYouWantToFindOutView,
-                                        checkYourAnswersService: CheckYourAnswersService,
-                                        compareAnswerService: CompareAnswerService,
-                                        dataCacheConnector: DataCacheConnector,
-                                        decisionService: DecisionService,
-                                        navigator: SetupNavigator,
-                                        implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
-  compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 whatDoYouWantToFindOutFormProvider: WhatDoYouWantToFindOutFormProvider,
+                                                 override val controllerComponents: MessagesControllerComponents,
+                                                 whatDoYouWantToFindOutView: WhatDoYouWantToFindOutView,
+                                                 checkYourAnswersService: CheckYourAnswersService,
+                                                 override val compareAnswerService: CompareAnswerService,
+                                                 override val dataCacheConnector: DataCacheConnector,
+                                                 override val navigator: SetupNavigator,
+                                                 implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController with FeatureSwitching {
 
   val form: Form[WhatDoYouWantToFindOut] = whatDoYouWantToFindOutFormProvider()
 

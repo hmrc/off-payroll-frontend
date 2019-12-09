@@ -17,7 +17,7 @@
 package models.sections.partAndParcel
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import models.{Enumerable, WithName}
 import play.api.libs.json._
 import viewmodels.{Radio, RadioOption}
@@ -31,26 +31,20 @@ object IdentifyToStakeholders extends FeatureSwitching {
   case object WorkAsBusiness extends WithName("workAsBusiness") with IdentifyToStakeholders
   case object WouldNotHappen extends WithName("wouldNotHappen") with IdentifyToStakeholders
 
-  def values(optimised: Boolean = false): Seq[IdentifyToStakeholders] =
-    if (optimised) {
-      Seq(WorkForEndClient, WorkAsIndependent, WorkAsBusiness, WouldNotHappen)
-    } else {
-      Seq(WorkForEndClient, WorkAsIndependent, WorkAsBusiness)
-    }
+  def values: Seq[IdentifyToStakeholders] = Seq(WorkForEndClient, WorkAsIndependent, WorkAsBusiness, WouldNotHappen)
 
-  def options(implicit appConfig: FrontendAppConfig): Seq[RadioOption] = values(isEnabled(OptimisedFlow)).map { value =>
+  def options(implicit appConfig: FrontendAppConfig): Seq[RadioOption] = values.map { value =>
     RadioOption(
       keyPrefix = "identifyToStakeholders",
       option = value.toString,
       optionType = Radio,
       dividerPrefix = false,
-      hasTailoredMsgs = true,
-      hasOptimisedMsgs = isEnabled(OptimisedFlow)
+      hasTailoredMsgs = true
     )
   }
 
   implicit val enumerable: Enumerable[IdentifyToStakeholders] =
-    Enumerable(values(true).map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v): _*)
 
   implicit object IdentifyToStakeholdersWrites extends Writes[IdentifyToStakeholders] {
     def writes(identifyToStakeholders: IdentifyToStakeholders) = Json.toJson(identifyToStakeholders.toString)
@@ -62,7 +56,7 @@ object IdentifyToStakeholders extends FeatureSwitching {
       case JsString(WorkAsIndependent.toString) => JsSuccess(WorkAsIndependent)
       case JsString(WorkAsBusiness.toString) => JsSuccess(WorkAsBusiness)
       case JsString(WouldNotHappen.toString) => JsSuccess(WouldNotHappen)
-      case _                          => JsError("Unknown identifyToStakeholders")
+      case _ => JsError("Unknown identifyToStakeholders")
     }
   }
 }

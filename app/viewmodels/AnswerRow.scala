@@ -17,7 +17,7 @@
 package viewmodels
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import play.api.i18n.Messages
 import play.api.mvc.Request
 import play.twirl.api.Html
@@ -34,11 +34,7 @@ case class SingleAnswerRow(label: String,
                            changeContextMsgKey: Option[String]) extends AnswerRow with FeatureSwitching {
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html =
-    if(isEnabled(OptimisedFlow)) {
       views.html.components.checkYourAnswers.cya_row(label, answer, answerIsMessageKey, panelIndent = false, changeUrl, changeContextMsgKey)
-    } else {
-      Html(if(answerIsMessageKey) messages(answer) else answer)
-    }
 }
 
 case class MultiAnswerRow(label: String,

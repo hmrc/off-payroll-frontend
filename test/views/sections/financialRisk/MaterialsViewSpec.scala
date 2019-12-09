@@ -17,14 +17,10 @@
 package views.sections.financialRisk
 
 import assets.messages.{MaterialsMessages, SubHeadingMessages}
-import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
 import controllers.sections.financialRisk.routes
 import forms.sections.financialRisk.MaterialsFormProvider
 import models.NormalMode
-import models.UserType.{Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.financialRisk.MaterialsView
@@ -33,20 +29,15 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   val messageKeyPrefix = "worker.materials"
 
   val form = new MaterialsFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[MaterialsView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -63,7 +54,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MaterialsMessages.Worker.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(MaterialsMessages.Worker.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {
@@ -86,7 +77,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MaterialsMessages.Hirer.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(MaterialsMessages.Hirer.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {

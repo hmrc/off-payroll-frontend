@@ -27,23 +27,21 @@ import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.OwnershipRightsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.CompareAnswerService
 import views.html.sections.businessOnOwnAccount.OwnershipRightsView
 
 import scala.concurrent.Future
 
-class OwnershipRightsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                          navigator: BusinessOnOwnAccountNavigator,
+class OwnershipRightsController @Inject()(override val dataCacheConnector: DataCacheConnector,
+                                          override val navigator: BusinessOnOwnAccountNavigator,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: OwnershipRightsFormProvider,
-                                          controllerComponents: MessagesControllerComponents,
-                                          compareAnswerService: CompareAnswerService,
-                                          decisionService: DecisionService,
+                                          override val controllerComponents: MessagesControllerComponents,
+                                          override val compareAnswerService: CompareAnswerService,
                                           view: OwnershipRightsView,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController {
 
   val form: Form[Boolean] = formProvider()
 

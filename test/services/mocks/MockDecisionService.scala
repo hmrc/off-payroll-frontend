@@ -16,24 +16,39 @@
 
 package services.mocks
 
-import models.UserAnswers
 import models.requests.DataRequest
+import models.{AdditionalPdfDetails, DecisionResponse, ErrorResponse}
 import org.scalamock.scalatest.MockFactory
-import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
+import play.api.data.Form
+import play.api.i18n.Messages
+import play.twirl.api.Html
 import services.DecisionService
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.{AnswerSection, ResultMode}
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 trait MockDecisionService extends MockFactory {
 
   val mockDecisionService = mock[DecisionService]
 
-  def mockDecide(userAnswers: UserAnswers)(call: Call): Unit = {
-    (mockDecisionService.decide(_: UserAnswers, _: Call)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
-      .expects(userAnswers, *, *, *, *)
-      .returns(Future.successful(Redirect(call)))
+  def mockDecide(response: Either[ErrorResponse, DecisionResponse]): Unit = {
+    (mockDecisionService.decide(_: DataRequest[_], _: HeaderCarrier))
+      .expects(*, *)
+      .returns(Future.successful(response))
+  }
 
+  def mockDetermineResultView(decisionResponse: DecisionResponse, form : Option[Form[Boolean]] = None)(response: Either[Html, Html]): Unit = {
+    (mockDecisionService.determineResultView(
+      _: DecisionResponse,
+      _: Option[Form[Boolean]],
+      _: Seq[AnswerSection],
+      _: ResultMode,
+      _: Option[AdditionalPdfDetails],
+      _: Option[String],
+      _: Option[String]
+    )( _: DataRequest[_],_: HeaderCarrier, _: Messages))
+      .expects(decisionResponse, form, *, *, *, *, *, *, *, *)
+      .returns(response)
   }
 }

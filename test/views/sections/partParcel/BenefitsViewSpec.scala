@@ -17,36 +17,27 @@
 package views.sections.partParcel
 
 import assets.messages.{BenefitsMessages, SubHeadingMessages}
-import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
 import controllers.sections.partParcel.routes
 import forms.sections.partAndParcel.BenefitsFormProvider
 import models.NormalMode
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.partParcel.BenefitsView
 
 class BenefitsViewSpec extends YesNoViewBehaviours {
 
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.benefits"
+  val messageKeyPrefix = "worker.benefits"
 
   val form = new BenefitsFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[BenefitsView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages,frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages,frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -63,15 +54,15 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(BenefitsMessages.Worker.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe BenefitsMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe BenefitsMessages.Worker.heading
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Worker.p1
       }
     }
 
@@ -80,15 +71,15 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(BenefitsMessages.Hirer.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe BenefitsMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe BenefitsMessages.Hirer.heading
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Hirer.p1
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Hirer.p1
       }
     }
 
@@ -97,15 +88,15 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
+        document.title mustBe title(BenefitsMessages.Worker.title, Some(SubHeadingMessages.partAndParcel))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe BenefitsMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe BenefitsMessages.Worker.heading
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Worker.p1
       }
     }
   }

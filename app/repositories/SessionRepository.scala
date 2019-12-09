@@ -18,23 +18,19 @@ package repositories
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Named, Singleton}
-
-import models.{DecisionResponse, ErrorResponse, ResultEnum}
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
-import play.mvc.Http
-import reactivemongo.bson.{BSONBoolean, BSONDocument, BSONDocumentReader, BSONObjectID}
+import reactivemongo.api.indexes.{Index, IndexType}
+import reactivemongo.bson.{BSONDocument, BSONObjectID}
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
 import uk.gov.hmrc.mongo.json.ReactiveMongoFormats
-import reactivemongo.api.indexes.{Index, IndexType}
-import reactivemongo.core.errors.GenericDatabaseException
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],

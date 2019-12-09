@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("howWorkIsDone.title"), Some(tailorMsgOptimised("howWorkIsDone.subheading"))),
+    title = title(form, tailorMsg("howWorkIsDone.title"), Some(tailorMsg("howWorkIsDone.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -38,9 +38,9 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("howWorkIsDone.heading"), Some(tailorMsgOptimised("howWorkIsDone.subheading")), asLegend = true),
+            legend = components.heading(tailorMsg("howWorkIsDone.heading"), Some(tailorMsg("howWorkIsDone.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
-            inputs = HowWorkIsDone.options(true),
+            inputs = HowWorkIsDone.options,
             otherContent = Some(otherContent)
         )
 
@@ -49,9 +49,9 @@
 }
 
 @otherContent = {
-    <p>@messages(tailorMsgOptimised("howWorkIsDone.p1"))</p>
-    <p>@messages(tailorMsgOptimised("howWorkIsDone.p2"))</p>
-    <p>@messages(tailorMsgOptimised("howWorkIsDone.p3.text"))
-       @components.new_window_link(tailorMsgOptimised("howWorkIsDone.p3.link"), appConfig.employmentStatusManualESM0527Url, Some("employmentStatusManualLink")).
+    <p>@messages(tailorMsg("howWorkIsDone.p1"))</p>
+    <p>@messages(tailorMsg("howWorkIsDone.p2"))</p>
+    <p>@messages(tailorMsg("howWorkIsDone.p3.text"))
+       @components.new_window_link(tailorMsg("howWorkIsDone.p3.link"), appConfig.employmentStatusManualESM0527Url, Some("employmentStatusManualLink")).
     </p>
 }

@@ -17,20 +17,17 @@
 package forms
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import forms.mappings.Constraints
 import models.AdditionalPdfDetails
 import play.api.data.Form
 import play.api.data.Forms._
 
-class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
+class AdditionalPdfDetailsFormProvider extends Constraints with FeatureSwitching{
 
-  import CustomisePDFFormProvider._
+  import AdditionalPdfDetailsFormProvider._
 
   def apply()(implicit appConfig: FrontendAppConfig): Form[AdditionalPdfDetails] =
-
-    if(isEnabled(OptimisedFlow)){
-
       Form(
         mapping(
           "completedBy" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "completedBy")),
@@ -47,21 +44,9 @@ class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
           ), x => x
         )
       )
-    } else {
-
-      Form(
-        mapping(
-          "completedBy" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.completedBy.error.length")),
-          "client" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.client.error.length")),
-          "job" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.job.error.length")),
-          "reference" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.reference.error.length")),
-          "fileName" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.fileName.error.length"))
-        )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply)
-      )
-    }
 }
 
-object CustomisePDFFormProvider {
+object AdditionalPdfDetailsFormProvider {
 
   val maxFieldLength = 100
   val maxFieldReferenceLength = 180

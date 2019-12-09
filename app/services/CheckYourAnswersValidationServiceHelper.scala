@@ -20,7 +20,7 @@ import models.UserAnswers
 import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
 import models.sections.setup.WhatDoYouWantToFindOut
-import models.sections.setup.WhoAreYou.{Client, Worker}
+import models.sections.setup.WhoAreYou.{Hirer, Worker}
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.personalService._
@@ -32,7 +32,7 @@ trait CheckYourAnswersValidationServiceHelper {
   // ==================================
   def intermediaryPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
     (userAnswers.getAnswer(WhoAreYouPage), userAnswers.getAnswer(WhatDoYouWantToDoPage)) match {
-      case (Some(Client), _) | (_, Some(MakeNewDetermination)) => Set(WorkerUsingIntermediaryPage)
+      case (Some(Hirer), _) | (_, Some(MakeNewDetermination)) => Set(WorkerUsingIntermediaryPage)
       case _ => Set()
     }
   }
@@ -90,7 +90,7 @@ trait CheckYourAnswersValidationServiceHelper {
   // ============================================
   def workerKnownPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
     (userAnswers.getAnswer(WhoAreYouPage), userAnswers.getAnswer(ContractStartedPage)) match {
-      case (Some(Client), Some(false)) => Set(WorkerKnownPage)
+      case (Some(Hirer), Some(false)) => Set(WorkerKnownPage)
       case _ => Set()
     }
   }

@@ -36,7 +36,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
   "The OfficeHolderIR35View page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "If the user is Making a Determination" should {
 
@@ -55,7 +55,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = true, testNoPdfResultDetails))
 
@@ -66,7 +66,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
   "The OfficeHolderIR35View PDF/Print page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "If the user is Making a Determination" should {
 
@@ -84,7 +84,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = false, testPdfResultDetails))
 
@@ -95,7 +95,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
   "The OfficeHolderIR35View PrintPreview page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "If the user is Making a Determination" should {
 
@@ -113,7 +113,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = false, testPrintPreviewResultDetails))
 

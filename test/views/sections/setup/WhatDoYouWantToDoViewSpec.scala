@@ -40,6 +40,8 @@ class WhatDoYouWantToDoViewSpec extends QuestionViewBehaviours[WhatDoYouWantToDo
 
   def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
+  def createViewWithUser = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
+
   def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
   "WhichDescribesYou view" must {
@@ -48,25 +50,48 @@ class WhatDoYouWantToDoViewSpec extends QuestionViewBehaviours[WhatDoYouWantToDo
 
     behave like pageWithBackLink(createView)
 
-    behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.AboutYouController.onSubmit(NormalMode).url)
+    behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.WhatDoYouWantToDoController.onSubmit(NormalMode).url)
 
-    lazy val document = asDocument(createView())
+    "when not given a user type" must {
 
+      lazy val document = asDocument(createView())
 
-    "have the correct title" in {
-      document.title mustBe title(WhatDoYouWantToDoMessages.title)
+      "have the correct title" in {
+        document.title mustBe title(WhatDoYouWantToDoMessages.title)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe WhatDoYouWantToDoMessages.heading
+      }
+
+      "have the correct first multi choice answer" in {
+        document.select(Selectors.multichoice(1)).text mustBe WhatDoYouWantToDoMessages.newDetermination
+      }
+
+      "have the correct second multi choice answer" in {
+        document.select(Selectors.multichoice(2)).text mustBe WhatDoYouWantToDoMessages.checkDetermination
+      }
     }
 
-    "have the correct heading" in {
-      document.select(Selectors.heading).text mustBe WhatDoYouWantToDoMessages.heading
-    }
+    "when given a user type" must {
 
-    "have the correct first multi choice answer" in {
-      document.select(Selectors.multichoice(1)).text mustBe WhatDoYouWantToDoMessages.newDetermination
-    }
+      lazy val document = asDocument(createViewWithUser())
 
-    "have the correct second multi choice answer" in {
-      document.select(Selectors.multichoice(2)).text mustBe WhatDoYouWantToDoMessages.checkDetermination
+      "have the correct title" in {
+        document.title mustBe title(WhatDoYouWantToDoMessages.title)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe WhatDoYouWantToDoMessages.heading
+      }
+
+      "have the correct first multi choice answer" in {
+        document.select(Selectors.multichoice(1)).text mustBe WhatDoYouWantToDoMessages.newDetermination
+      }
+
+      "have the correct second multi choice answer" in {
+        document.select(Selectors.multichoice(2)).text mustBe WhatDoYouWantToDoMessages.checkDetermination
+      }
     }
 
   }

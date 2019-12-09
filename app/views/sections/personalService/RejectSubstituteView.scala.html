@@ -25,7 +25,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("rejectSubstitute.title"), Some(tailorMsgOptimised("rejectSubstitute.subheading"))),
+    title = title(form, tailorMsg("rejectSubstitute.title"), Some(tailorMsg("rejectSubstitute.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -37,7 +37,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("rejectSubstitute.heading"), Some(tailorMsgOptimised("rejectSubstitute.subheading")), asLegend = true),
+            legend = components.heading(tailorMsg("rejectSubstitute.heading"), Some(tailorMsg("rejectSubstitute.subheading")), asLegend = true),
             otherContent = Some(content),
             labelClass = Some("visually-hidden")
         )
@@ -47,7 +47,7 @@
 }
 
 @content = {
-    <p>@messages(tailorMsg("optimised.rejectSubstitute.p1"))</p>
-    <p>@messages(tailorMsg("optimised.rejectSubstitute.p2"))</p>
+    <p>@messages(tailorMsg("rejectSubstitute.p1"))</p>
+    <p>@messages(tailorMsg("rejectSubstitute.p2"))</p>
 }
 

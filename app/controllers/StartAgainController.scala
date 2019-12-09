@@ -24,10 +24,10 @@ import services.CheckYourAnswersService
 import views.html.StartAgainView
 
 class StartAgainController @Inject()(identify: IdentifierAction,
-                                     controllerComponents: MessagesControllerComponents,
+                                     override val controllerComponents: MessagesControllerComponents,
                                      view: StartAgainView,
                                      checkYourAnswersService: CheckYourAnswersService,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController {
 
   def redirectToGovUk: Action[AnyContent] = identify { implicit request =>
     Redirect(appConfig.govUkStartPageUrl).withNewSession

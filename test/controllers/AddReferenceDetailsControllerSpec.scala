@@ -18,7 +18,6 @@ package controllers
 
 import controllers.actions._
 import forms.AddReferenceDetailsFormProvider
-import models.Answers
 import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakeCYANavigator
 import pages.AddReferenceDetailsPage
@@ -45,13 +44,13 @@ class AddReferenceDetailsControllerSpec extends ControllerSpecBase {
     navigator = FakeCYANavigator,
     dataCacheConnector = mockDataCacheConnector,
     compareAnswerService = mockCompareAnswerService,
-    decisionService = mockDecisionService,
+
     appConfig = frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(AddReferenceDetailsPage.toString -> Json.toJson(Answers(true,0)))
+  val validData = Map(AddReferenceDetailsPage.toString -> Json.toJson(true))
 
   "AddReferenceDetails Controller" must {
 
@@ -74,7 +73,7 @@ class AddReferenceDetailsControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val answers = userAnswers.set(AddReferenceDetailsPage,0,true)
+      val answers = userAnswers.set(AddReferenceDetailsPage,true)
       mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

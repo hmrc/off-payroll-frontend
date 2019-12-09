@@ -23,7 +23,7 @@
 
 @(booleanSwitches: Map[BooleanFeatureSwitch, Boolean], customValueSwitches: Map[CustomValueFeatureSwitch, Set[String]], action: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@template(title = "Feature switch", appConfig, js = Some("feature-switch.js")) {
+@template(title = "Feature switch", appConfig) {
     <form method="@action.method" action="@action.url">
         @CSRF.formField
         <fieldset>

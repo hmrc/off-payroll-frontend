@@ -16,10 +16,11 @@
 
 package views
 
+import config.featureSwitch.{FeatureSwitching, WelshLanguage}
 import config.{FrontendAppConfig, SessionKeys}
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow, WelshLanguage}
-import models.{ResultType, UserType}
-import models.UserType._
+import models.ResultType
+import models.sections.setup.WhoAreYou
+import models.sections.setup.WhoAreYou._
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Request
@@ -36,20 +37,11 @@ object ViewUtils extends FeatureSwitching {
   def titleNoForm(title: String, section: Option[String] = None)(implicit messages: Messages): String =
     s"${messages(title)} - ${section.fold("")(messages(_) + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
 
-  def tailorMsg(msgKey: String, optimisedContent: Boolean = false)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
-
-    val userType = (isEnabled(OptimisedFlow), request.session.getModel[UserType](SessionKeys.userType)) match {
-      case (true, Some(Agency)) | (true, None) => s"${Worker.toString}."
-      case (false, Some(Agency)) | (_, None) => ""
-      case (_, Some(user)) => s"${user.toString}."
+  def tailorMsg(msgKey: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String =
+    request.session.getModel[WhoAreYou](SessionKeys.userType).fold(msgKey) {
+      case Hirer => s"hirer.$msgKey"
+      case _ => s"worker.$msgKey"
     }
-    val optimised = if (optimisedContent) "optimised." else ""
-
-    userType + optimised + msgKey
-  }
-
-  def tailorMsgOptimised(msgKey: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String =
-    tailorMsg(msgKey, optimisedContent = true)
 
   def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
 
@@ -61,9 +53,9 @@ object ViewUtils extends FeatureSwitching {
 
     val messageBase = {
       outType match {
-        case ResultType.Agent => "agent.optimised.result.outside.whyResult"
-        case ResultType.IR35 => tailorMsgOptimised(s"result.outside.ir35.whyResult")
-        case ResultType.PAYE => tailorMsgOptimised(s"result.outside.paye.whyResult")
+        case ResultType.Agent => "agent.result.outside.whyResult"
+        case ResultType.IR35 => tailorMsg(s"result.outside.ir35.whyResult")
+        case ResultType.PAYE => tailorMsg(s"result.outside.paye.whyResult")
       }
     }
 
@@ -80,9 +72,9 @@ object ViewUtils extends FeatureSwitching {
                       isIncurCostNoReclaim: Boolean)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages): String = {
       val messageBase = {
         outType match {
-          case ResultType.Agent => "agent.optimised.result.outside.whyResult"
-          case ResultType.IR35 => tailorMsgOptimised(s"result.outside.ir35.whyResult")
-          case ResultType.PAYE => tailorMsgOptimised(s"result.outside.paye.whyResult")
+          case ResultType.Agent => "agent.result.outside.whyResult"
+          case ResultType.IR35 => tailorMsg(s"result.outside.ir35.whyResult")
+          case ResultType.PAYE => tailorMsg(s"result.outside.paye.whyResult")
         }
       }
 

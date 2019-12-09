@@ -35,8 +35,7 @@ class IndexControllerSpec extends ControllerSpecBase {
         controllerComponents = messagesControllerComponents,
         checkYourAnswersService = mockCheckYourAnswersService,
         compareAnswerService = mockCompareAnswerService,
-        dataCacheConnector = mockDataCacheConnector,
-        decisionService = mockDecisionService
+        dataCacheConnector = mockDataCacheConnector
       )
 
       lazy val result = TestIndexController.onPageLoad()(fakeRequest)
@@ -62,8 +61,7 @@ class IndexControllerSpec extends ControllerSpecBase {
         controllerComponents = messagesControllerComponents,
         checkYourAnswersService = mockCheckYourAnswersService,
         compareAnswerService = mockCompareAnswerService,
-        dataCacheConnector = mockDataCacheConnector,
-        decisionService = mockDecisionService
+        dataCacheConnector = mockDataCacheConnector
       )
 
       lazy val result = TestIndexController.onPageLoad()(fakeRequest)

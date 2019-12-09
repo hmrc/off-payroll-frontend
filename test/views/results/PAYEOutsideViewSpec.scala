@@ -41,7 +41,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
   "The PAYEOutsideView page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       "display all reasons when all reasons are given" should {
 
@@ -82,7 +82,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       "display all reasons when all reasons are given" should {
 
@@ -132,7 +132,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
   "The PAYEOutsideView PDF/Print page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
@@ -140,7 +140,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
 
@@ -151,7 +151,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
   "The PAYEOutsideView PrintPreview page" should {
 
-    "If the UserType is Worker" should {
+    "If the WhoAreYou is Worker" should {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPrintPreviewResultDetails))
 
@@ -159,7 +159,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
-    "If the UserType is Hirer" should {
+    "If the WhoAreYou is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPrintPreviewResultDetails))
 

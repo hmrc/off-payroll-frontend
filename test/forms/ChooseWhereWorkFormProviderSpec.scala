@@ -17,7 +17,6 @@
 package forms
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
 import forms.sections.control.ChooseWhereWorkFormProvider
 import models.sections.control.ChooseWhereWork
@@ -36,45 +35,33 @@ class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours with GuiceAp
     behave like optionsField[ChooseWhereWork](
       form,
       fieldName,
-      validValues  = ChooseWhereWork.values(),
+      validValues  = ChooseWhereWork.values,
       invalidError = FormError(fieldName, "error.invalid")
     )
 
-    "for the sub optimised flow" should {
-
-      disable(OptimisedFlow)
-      val form = new ChooseWhereWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
-
-      behave like mandatoryField(
-        form ,
-        fieldName,
-        requiredError = FormError(fieldName, requiredKey)
-      )
-    }
-
-    "for the optimised flow" should {
+    "for the normal flow" should {
 
       "if the user type is 'Worker'" must {
 
-        enable(OptimisedFlow)
+
         val form = new ChooseWhereWorkFormProvider()()(workerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
         )
       }
 
       "if the user type is 'Hirer'" must {
 
-        enable(OptimisedFlow)
+
         val form = new ChooseWhereWorkFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
         )
       }
     }

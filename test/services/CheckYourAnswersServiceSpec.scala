@@ -16,28 +16,28 @@
 
 package services
 
-import base.{GuiceAppSpecBase, SpecBase}
-import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
-import models.sections.financialRisk.CannotClaimAsExpense.WorkerProvidedMaterials
-import models.sections.control.ChooseWhereWork.WorkerChooses
-import models.sections.control.HowWorkIsDone.NoWorkerInputAllowed
-import models.sections.financialRisk.HowWorkerIsPaid.HourlyDailyOrWeekly
-import models.sections.partAndParcel.IdentifyToStakeholders.WorkForEndClient
-import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
-import models.sections.financialRisk.PutRightAtOwnCost.OutsideOfHoursNoCosts
-import models.sections.control.ScheduleOfWorkingHours.ScheduleDecidedForWorker
-import models.sections.setup.WhichDescribesYouAnswer.WorkerPAYE
+import base.GuiceAppSpecBase
 import models._
 import models.requests.DataRequest
+import models.sections.control.ChooseWhereWork.WorkerChooses
+import models.sections.control.HowWorkIsDone.NoWorkerInputAllowed
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.control.ScheduleOfWorkingHours.ScheduleDecidedForWorker
+import models.sections.financialRisk.HowWorkerIsPaid.HourlyDailyOrWeekly
+import models.sections.financialRisk.PutRightAtOwnCost.OutsideOfHoursNoCosts
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkForEndClient
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhatDoYouWantToFindOut.IR35
+import models.sections.setup.WhoAreYou.Worker
 import pages.sections.businessOnOwnAccount._
-import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import utils.{CheckYourAnswersHelper, ResultPageHelper}
+import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 
 class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
@@ -50,7 +50,9 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
 
       lazy val userAnswers: UserAnswers = UserAnswers("id")
         //Setup Section
-        .set(WhichDescribesYouPage, WorkerPAYE)
+        .set(WhatDoYouWantToFindOutPage, IR35)
+        .set(WhoAreYouPage, Worker)
+        .set(WhatDoYouWantToDoPage, MakeNewDetermination)
         .set(WorkerUsingIntermediaryPage, true)
         .set(ContractStartedPage, true)
         //Exit Section
@@ -190,8 +192,6 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
       lazy val userAnswers: UserAnswers = UserAnswers("id")
 
       lazy val request = DataRequest(fakeRequest, "id", userAnswers)
-
-      object CheckYourAnswersHelper extends ResultPageHelper(userAnswers)
 
       "Return no AnswerSections" in {
 

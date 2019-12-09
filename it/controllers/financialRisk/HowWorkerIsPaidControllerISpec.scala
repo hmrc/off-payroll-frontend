@@ -12,7 +12,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("How will you be paid for this work?")
+        titleOf(result) should include ("How will you be paid for this work?")
       }
     }
 
@@ -31,18 +31,18 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("How will you be paid for this work?")
+        titleOf(result) should include ("How will you be paid for this work?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/how-worker-is-paid",workerCompValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("How will you be paid for this work?")
+        titleOf(result) should include ("How will you be paid for this work?")
       }
     }
 
@@ -74,18 +74,18 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("How will you be paid for this work?")
+        titleOf(result) should include ("How will you be paid for this work?")
 
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 303 on Successful post and redirect to the Check your answers page with Financial risk" in {
 
       lazy val res = postSessionRequest("/how-worker-is-paid/change",workerCompValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

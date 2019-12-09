@@ -16,8 +16,7 @@
 
 package utils
 
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import java.time.{LocalDateTime, ZoneOffset}
 
 class DateTimeUtil {
 

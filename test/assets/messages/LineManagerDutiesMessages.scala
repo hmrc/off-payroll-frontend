@@ -18,7 +18,6 @@ package assets.messages
 
 object LineManagerDutiesMessages extends BaseMessages {
 
-  object Optimised {
     object Worker {
       val error = "Select yes if you will have any management responsibilities for your client"
       val heading = "Will you have any management responsibilities for your client?"
@@ -33,31 +32,3 @@ object LineManagerDutiesMessages extends BaseMessages {
       val p1 = "This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals."
     }
   }
-
-  object Worker {
-    val heading = "Are you responsible for any of these duties for the end client?"
-    val title = heading
-    val b1 = "Hiring workers"
-    val b2 = "Dismissing workers"
-    val b3 = "Delivering appraisals"
-    val b4 = "Deciding how much to pay someone"
-  }
-
-  object Hirer {
-    val heading = "Is the worker responsible for any of these duties for your organisation?"
-    val title = heading
-    val b1 = "Hiring workers"
-    val b2 = "Dismissing workers"
-    val b3 = "Delivering appraisals"
-    val b4 = "Deciding how much to pay someone"
-  }
-
-  object NonTailored {
-    val heading = "Is the worker responsible for any of these duties for the end client?"
-    val title = heading
-    val b1 = "Hiring workers"
-    val b2 = "Dismissing workers"
-    val b3 = "Delivering appraisals"
-    val b4 = "Deciding how much to pay someone"
-  }
-}

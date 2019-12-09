@@ -17,7 +17,6 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
 import controllers.sections.financialRisk.{routes => finacialRiskRoutes}
 import controllers.sections.partParcel.{routes => partAndParcelRoutes}
 import models._
@@ -34,37 +33,37 @@ class FinancialRiskNavigatorSpec extends GuiceAppSpecBase {
   "FinancialRiskNavigator" when {
 
     "go from the CannotClaimAsExpensePage to the HowWorkerIsPaidPage" in {
-      enable(OptimisedFlow)
+
       nextPage(CannotClaimAsExpensePage) mustBe finacialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)
     }
 
     "go from the EquipmentExpensesPage to the VehiclePage" in {
-      enable(OptimisedFlow)
+
       nextPage(EquipmentExpensesPage) mustBe finacialRiskRoutes.VehicleController.onPageLoad(NormalMode)
     }
 
     "go from the VehiclePage to the MaterialsPage" in {
-      enable(OptimisedFlow)
+
       nextPage(VehiclePage) mustBe finacialRiskRoutes.MaterialsController.onPageLoad(NormalMode)
     }
 
     "go from the MaterialsPage to the OtherExpensesPage" in {
-      enable(OptimisedFlow)
+
       nextPage(MaterialsPage) mustBe finacialRiskRoutes.OtherExpensesController.onPageLoad(NormalMode)
     }
 
     "go from the OtherExpensesPage to the HowWorkerIsPaidPage" in {
-      enable(OptimisedFlow)
+
       nextPage(OtherExpensesPage) mustBe finacialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)
     }
 
     "go from the HowWorkerIsPaidPage to the PutRightAtOwnCostPage" in {
-      enable(OptimisedFlow)
+
       nextPage(HowWorkerIsPaidPage) mustBe finacialRiskRoutes.PutRightAtOwnCostController.onPageLoad(NormalMode)
     }
 
     "go from the PutRightAtOwnCostPage to the EquipmentExpensesPage" in {
-      enable(OptimisedFlow)
+
       nextPage(PutRightAtOwnCostPage) mustBe partAndParcelRoutes.BenefitsController.onPageLoad(NormalMode)
     }
   }

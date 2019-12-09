@@ -17,13 +17,10 @@
 package views.sections.financialRisk
 
 import assets.messages.{OtherExpensesMessages, SubHeadingMessages}
-import config.SessionKeys
 import controllers.sections.financialRisk.routes
 import forms.sections.financialRisk.OtherExpensesFormProvider
 import models.NormalMode
-import models.UserType.{Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.financialRisk.OtherExpensesView
@@ -32,15 +29,15 @@ class OtherExpensesViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "otherExpenses"
+  val messageKeyPrefix = "worker.otherExpenses"
 
   val form = new OtherExpensesFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[OtherExpensesView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -52,15 +49,12 @@ class OtherExpensesViewSpec extends YesNoViewBehaviours {
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.OtherExpensesController.onSubmit(NormalMode).url)
 
-    lazy val request = workerFakeRequest
-    lazy val document = asDocument(createViewWithRequest(request))
-
     "If the user type is of Worker" should {
 
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OtherExpensesMessages.Worker.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(OtherExpensesMessages.Worker.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {
@@ -82,7 +76,7 @@ class OtherExpensesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OtherExpensesMessages.Hirer.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(OtherExpensesMessages.Hirer.title, Some(SubHeadingMessages.financialRisk))
       }
 
       "have the correct heading" in {

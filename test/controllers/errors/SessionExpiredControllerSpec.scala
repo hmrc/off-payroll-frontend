@@ -32,8 +32,7 @@ class SessionExpiredControllerSpec extends ControllerSpecBase {
     frontendAppConfig,
     identify,
     messagesControllerComponents,
-    expiredView,
-    dataCacheConnector)
+    expiredView)
 
   "SessionExpiredController.onPageLoad" must {
 

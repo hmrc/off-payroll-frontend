@@ -16,7 +16,7 @@
 
 package forms.behaviours
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import forms.FormSpec
 import generators.Generators
 import org.scalacheck.Gen

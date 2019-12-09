@@ -17,7 +17,7 @@
 package views.sections.setup
 
 import assets.messages.WhatDoYouWantToFindOutMessages
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import forms.sections.setup.WhatDoYouWantToFindOutFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -35,9 +35,9 @@ class WhatDoYouWantToFindOutViewSpec extends ViewBehaviours with FeatureSwitchin
 
   val view = injector.instanceOf[WhatDoYouWantToFindOutView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -49,7 +49,7 @@ class WhatDoYouWantToFindOutViewSpec extends ViewBehaviours with FeatureSwitchin
 
     "If the user type is of Worker" should {
 
-      lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
+      lazy val document = asDocument(createView())
 
       "have the correct title" in {
         document.title mustBe title(WhatDoYouWantToFindOutMessages.title, Some(WhatDoYouWantToFindOutMessages.subheading))

@@ -12,7 +12,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
       }
     }
 
@@ -31,18 +31,18 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/put-work-right",putWorkRightValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will your client provide you with paid-for corporate benefits?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -56,7 +56,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
       }
     }
 
@@ -75,18 +75,18 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        titleOf(result) should include ("If the client was not happy with your work, would you have to put it right?")
 
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 409 on Successful post and redirect to the check your answers page with financial risk" in {
 
       lazy val res = postSessionRequest("/put-work-right/change",putWorkRightValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

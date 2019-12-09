@@ -17,7 +17,7 @@
 package models.sections.personalService
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import models.{Enumerable, WithName}
 import play.api.libs.json._
 import viewmodels.{Radio, RadioOption}
@@ -41,7 +41,6 @@ object ArrangedSubstitute extends FeatureSwitching {
         value.toString,
         Radio,
         hasTailoredMsgs = true,
-        hasOptimisedMsgs = isEnabled(OptimisedFlow),
         dividerPrefix = false
       )
   }
@@ -58,7 +57,7 @@ object ArrangedSubstitute extends FeatureSwitching {
       case JsString(YesClientAgreed.toString) => JsSuccess(YesClientAgreed)
       case JsString(YesClientNotAgreed.toString) => JsSuccess(YesClientNotAgreed)
       case JsString(No.toString) => JsSuccess(No)
-      case _                          => JsError("Unknown arrangedSubstitute")
+      case _ => JsError("Unknown arrangedSubstitute")
     }
   }
 }

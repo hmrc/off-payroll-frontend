@@ -16,32 +16,30 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.actions._
 import controllers.sections.businessOnOwnAccount.{routes => businessOnOwnAccountRoutes}
 import handlers.ErrorHandler
+import javax.inject.Inject
 import models.CheckMode
-import pages.sections.businessOnOwnAccount._
 import pages._
+import pages.sections.businessOnOwnAccount._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService}
-import views.html.{BusinessOnOwnAccountSectionChangeWarningView, PersonalServiceSectionChangeWarningView}
+import services.CheckYourAnswersService
+import views.html.BusinessOnOwnAccountSectionChangeWarningView
 
 class BusinessOnOwnAccountSectionChangeWarningController @Inject()(identify: IdentifierAction,
                                                                    getData: DataRetrievalAction,
                                                                    requireData: DataRequiredAction,
-                                                                   controllerComponents: MessagesControllerComponents,
+                                                                   override val controllerComponents: MessagesControllerComponents,
                                                                    view: BusinessOnOwnAccountSectionChangeWarningView,
                                                                    checkYourAnswersService: CheckYourAnswersService,
-                                                                   compareAnswerService: CompareAnswerService,
                                                                    dataCacheConnector: DataCacheConnector,
                                                                    errorHandler: ErrorHandler,
                                                                    implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents) with FeatureSwitching {
+  extends BaseController with FeatureSwitching {
 
   def onPageLoad(page: String): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(routes.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(page)))
@@ -49,7 +47,7 @@ class BusinessOnOwnAccountSectionChangeWarningController @Inject()(identify: Ide
 
   def onSubmit(page: String): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val userAnswers = request.userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
+    val userAnswers = request.userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, true)
 
     dataCacheConnector.save(userAnswers.cacheMap).map { _ =>
       Page(page) match {

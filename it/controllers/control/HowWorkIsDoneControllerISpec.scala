@@ -11,10 +11,11 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/decide-how-work-is-done")
 
       whenReady(res) { result =>
-         result.status shouldBe OK
-        result.body should include ("Does your client have the right to decide how the work is done?")
+        result.status shouldBe OK
+        titleOf(result) should include("Does your client have the right to decide how the work is done?")
       }
     }
+
 
     "Return a 404 on a post to unused method" in {
 
@@ -31,20 +32,21 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the right to decide how the work is done?")
+        titleOf(result) should include("Does your client have the right to decide how the work is done?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/decide-how-work-is-done",howWorkDoneValue)
+      lazy val res = postSessionRequest("/decide-how-work-is-done", howWorkDoneValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Does your client have the right to decide your working hours?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
+
   }
 
   s"Post or Get to /decide-how-work-is-done/change" should {
@@ -55,7 +57,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to decide how the work is done?")
+        titleOf(result) should include("Does your client have the right to decide how the work is done?")
       }
     }
 
@@ -74,18 +76,18 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the right to decide how the work is done?")
+        titleOf(result) should include("Does your client have the right to decide how the work is done?")
 
       }
     }
 
-    "Return a 409 on Successful post and move onto something went wrong" in {
+    "Return a 303 on Successful post and move onto CheckYourAnswers Page" in {
 
-      lazy val res = postSessionRequest("/decide-how-work-is-done/change",howWorkDoneValue)
+      lazy val res = postSessionRequest("/decide-how-work-is-done/change", howWorkDoneValue)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

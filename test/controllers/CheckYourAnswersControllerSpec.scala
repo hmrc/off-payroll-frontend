@@ -42,7 +42,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService,
+
     errorHandler = errorHandler,
     checkYourAnswersValidationService = mockCheckYourAnswersValidationService
   )

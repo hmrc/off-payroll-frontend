@@ -16,8 +16,7 @@
 
 package connectors
 
-import base.{GuiceAppSpecBase, SpecBase}
-import connectors.httpParsers.PDFGeneratorHttpParser
+import base.GuiceAppSpecBase
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import connectors.mocks.MockWsClient
 import models.PdfRequest

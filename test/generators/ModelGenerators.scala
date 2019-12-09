@@ -22,7 +22,7 @@ import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, Sche
 import models.sections.financialRisk.{CannotClaimAsExpense, HowWorkerIsPaid, PutRightAtOwnCost}
 import models.sections.partAndParcel.IdentifyToStakeholders
 import models.sections.personalService.ArrangedSubstitute
-import models.sections.setup.{AboutYouAnswer, WhatDoYouWantToFindOut, WorkerType}
+import models.sections.setup.{WhatDoYouWantToFindOut, WorkerType}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 import viewmodels.SingleAnswerRow
@@ -32,11 +32,6 @@ trait ModelGenerators {
   implicit lazy val whatDoYouWantToFindOut: Arbitrary[WhatDoYouWantToFindOut] =
     Arbitrary {
       Gen.oneOf(WhatDoYouWantToFindOut.values)
-    }
-
-  implicit lazy val arbitraryAboutYou: Arbitrary[AboutYouAnswer] =
-    Arbitrary {
-      Gen.oneOf(AboutYouAnswer.values)
     }
 
   implicit lazy val arbitrarySingleAnswerRowModel: Arbitrary[SingleAnswerRow] =
@@ -62,12 +57,12 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryMoveWorker: Arbitrary[MoveWorker] =
     Arbitrary {
-      Gen.oneOf(MoveWorker.values())
+      Gen.oneOf(MoveWorker.values)
     }
 
   implicit lazy val arbitraryHowWorkIsDone: Arbitrary[HowWorkIsDone] =
     Arbitrary {
-      Gen.oneOf(HowWorkIsDone.values())
+      Gen.oneOf(HowWorkIsDone.values)
     }
 
   implicit lazy val arbitraryScheduleOfWorkingHours: Arbitrary[ScheduleOfWorkingHours] =
@@ -77,7 +72,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryChooseWhereWork: Arbitrary[ChooseWhereWork] =
     Arbitrary {
-      Gen.oneOf(ChooseWhereWork.values())
+      Gen.oneOf(ChooseWhereWork.values)
     }
 
   implicit lazy val arbitraryHowWorkerIsPaid: Arbitrary[HowWorkerIsPaid] =
@@ -92,7 +87,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryIdentifyToStakeholders: Arbitrary[IdentifyToStakeholders] =
     Arbitrary {
-      Gen.oneOf(IdentifyToStakeholders.values())
+      Gen.oneOf(IdentifyToStakeholders.values)
     }
 
   implicit lazy val arbitraryArrangedSubstitute: Arbitrary[ArrangedSubstitute] =

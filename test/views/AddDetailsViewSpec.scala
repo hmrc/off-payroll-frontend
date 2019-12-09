@@ -18,8 +18,7 @@ package views
 
 import assets.messages.AddDetailsMessages
 import controllers.routes
-import config.featureSwitch.OptimisedFlow
-import forms.CustomisePDFFormProvider
+import forms.AdditionalPdfDetailsFormProvider
 import models.{AdditionalPdfDetails, NormalMode}
 import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
@@ -29,7 +28,7 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object Selectors extends BaseCSSSelectors{
@@ -38,15 +37,15 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
 
   val messageKeyPrefix = "addDetails"
 
-  val form = new CustomisePDFFormProvider()()
+  val form = new AdditionalPdfDetailsFormProvider()()
 
   val view = injector.instanceOf[AddDetailsView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages,frontendAppConfig)
 
   def createHirerView = () => view(form, NormalMode)(hirerFakeRequest, messages,frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[AdditionalPdfDetails]) => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
+  def createViewUsingForm = (form: Form[AdditionalPdfDetails]) => view(form, NormalMode)(workerFakeRequest, messages,frontendAppConfig)
 
   "AddDetails view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)

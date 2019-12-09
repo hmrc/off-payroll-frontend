@@ -19,10 +19,10 @@ package controllers.sections.setup
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.WhoAreYouFormProvider
-import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
-import models.sections.setup.WhoAreYou.{Worker, _}
 import models._
 import models.requests.DataRequest
+import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.sections.setup.WhoAreYou.{Worker, _}
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form
@@ -48,7 +48,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       view = view,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
-      decisionService = mockDecisionService,
+
       navigator = FakeSetupNavigator,
       appConfig = frontendAppConfig
     )
@@ -61,7 +61,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       showAgency
     )(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(WhoAreYouPage.toString -> Json.toJson(Answers(Worker,0)))
+  val validData = Map(WhoAreYouPage.toString -> Json.toJson(Worker))
 
   "WhoAreYou Controller" must {
 
@@ -107,7 +107,6 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", Worker.toString))
       val answers = userAnswers.set(WhoAreYouPage, Worker)
       mockConstructAnswers(DataRequest(postRequest,"id",answers), Worker)(answers)
-
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

@@ -16,12 +16,11 @@
 
 package controllers.sections.control
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.control.ChooseWhereWorkFormProvider
-import models.Answers._
 import models._
 import models.requests.DataRequest
 import models.sections.control.ChooseWhereWork
@@ -33,15 +32,13 @@ import play.api.libs.json._
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.control.ChooseWhereWorkView
-import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 
 class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
 
   val formProvider = new ChooseWhereWorkFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
-  val optimisedView = injector.instanceOf[ChooseWhereWorkView]
-  val subOptimisedView = injector.instanceOf[SubOptimisedChooseWhereWorkView]
+  val view = injector.instanceOf[ChooseWhereWorkView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
     FakeIdentifierAction,
@@ -49,81 +46,48 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView,
+    view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService,
+
     navigator = FakeControlNavigator
   )
 
-  def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-  def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(ChooseWhereWork.values().head,0)))
+  val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(WorkerChooses))
 
   "ChooseWhereWork Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "return OK and the correct view for a GET for optimised view" in {
+
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
-    "return OK and the correct view for a GET for optimised view" in {
-      enable(OptimisedFlow)
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustBe OK
-      contentAsString(result) mustBe optimisedViewAsString()
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
-
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
-
-      contentAsString(result) mustBe viewAsString(form.fill(ChooseWhereWork.values().head))
-    }
-
     "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
-      enable(OptimisedFlow)
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe optimisedViewAsString(form.fill(ChooseWhereWork.values().head))
-    }
-
-    "redirect to the next page when valid data is submitted" in {
-      val answers = userAnswers.set(ChooseWhereWorkPage,0, WorkerChooses)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(answers)(onwardRoute)
-
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
-
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),ChooseWhereWork)(answers)
-
-      val result = controller().onSubmit(NormalMode)(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      contentAsString(result) mustBe viewAsString(form.fill(WorkerChooses))
     }
 
     "redirect to the next page when valid data is submitted for optimised view" in {
-      enable(OptimisedFlow)
+
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerChooses.toString))
 
-      val answers = userAnswers.set(ChooseWhereWorkPage,0, WorkerChooses)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ChooseWhereWork)(answers)
+      val answers = userAnswers.set(ChooseWhereWorkPage,WorkerChooses)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),ChooseWhereWork)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -133,17 +97,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
     "return a Bad Request and errors when invalid data is submitted for optimised view" in {
 
-      enable(OptimisedFlow)
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
-
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe optimisedViewAsString(boundForm)
-    }
-
-    "return a Bad Request and errors when invalid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
@@ -161,7 +115,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerChooses.toString))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER

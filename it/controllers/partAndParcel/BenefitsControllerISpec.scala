@@ -11,8 +11,8 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/corporate-benefits")
 
       whenReady(res) { result =>
-         result.status shouldBe OK
-        result.body should include ("Will your client provide you with paid-for corporate benefits?")
+        result.status shouldBe OK
+        titleOf(result) should include ("Will your client provide you with paid-for corporate benefits?")
       }
     }
 
@@ -31,18 +31,17 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will your client provide you with paid-for corporate benefits?")
-
+        titleOf(result) should include ("Will your client provide you with paid-for corporate benefits?")
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/corporate-benefits", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you have any management responsibilities for your client?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +54,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will your client provide you with paid-for corporate benefits?")
+        titleOf(result) should include ("Will your client provide you with paid-for corporate benefits?")
       }
     }
 
@@ -74,17 +73,17 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will your client provide you with paid-for corporate benefits?")
-
+        titleOf(result) should include ("Will your client provide you with paid-for corporate benefits?")
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and redirect to the check your answers page with part and parcel" in {
 
       lazy val res = postSessionRequest("/corporate-benefits/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

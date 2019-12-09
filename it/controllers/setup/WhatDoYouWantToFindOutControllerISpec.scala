@@ -12,7 +12,7 @@ class WhatDoYouWantToFindOutControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("What do you want to find out?")
+        titleOf(result) should include ("What do you want to find out?")
       }
     }
 
@@ -31,18 +31,18 @@ class WhatDoYouWantToFindOutControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("What do you want to find out?")
+        titleOf(result) should include ("What do you want to find out?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and redirect to the Who Are You page" in {
 
       lazy val res = postSessionRequest("/what-do-you-want-to-find-out",whatDoYouWantToFindOutValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Who are you?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class WhatDoYouWantToFindOutControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("What do you want to find out?")
+        titleOf(result) should include ("What do you want to find out?")
       }
     }
 
@@ -74,7 +74,7 @@ class WhatDoYouWantToFindOutControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("What do you want to find out?")
+        titleOf(result) should include ("What do you want to find out?")
 
       }
     }

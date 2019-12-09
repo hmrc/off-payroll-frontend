@@ -12,7 +12,7 @@ class IntermediaryControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Off-payroll working rules might apply to this work")
+        titleOf(result) should include ("Off-payroll working rules might apply to this work")
       }
     }
 

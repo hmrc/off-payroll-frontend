@@ -16,7 +16,7 @@
 
 package views.behaviours
 
-import play.api.data.{Form, FormError}
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
 
 trait IntViewBehaviours extends QuestionViewBehaviours[Int] {

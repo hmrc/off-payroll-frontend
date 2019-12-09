@@ -29,7 +29,7 @@ import navigation.SetupNavigator
 import pages.sections.setup.WhatDoYouWantToDoPage
 import play.api.data.Form
 import play.api.mvc._
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.setup.WhatDoYouWantToDoView
 
 import scala.concurrent.Future
@@ -38,15 +38,14 @@ class WhatDoYouWantToDoController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             WhatDoYouWantToDoFormProvider: WhatDoYouWantToDoFormProvider,
-                                            controllerComponents: MessagesControllerComponents,
+                                            override val controllerComponents: MessagesControllerComponents,
                                             whatDoYouWantToDoView: WhatDoYouWantToDoView,
                                             checkYourAnswersService: CheckYourAnswersService,
-                                            compareAnswerService: CompareAnswerService,
-                                            dataCacheConnector: DataCacheConnector,
-                                            decisionService: DecisionService,
-                                            navigator: SetupNavigator,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
-  compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
+                                            override val compareAnswerService: CompareAnswerService,
+                                            override val dataCacheConnector: DataCacheConnector,
+                                            override val navigator: SetupNavigator,
+                                            implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController with FeatureSwitching {
 
   val form: Form[WhatDoYouWantToDo] = WhatDoYouWantToDoFormProvider()
 

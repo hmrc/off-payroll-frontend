@@ -16,10 +16,10 @@
 
 package views
 
-import assets.messages.{BusinessOnOwnAccountSectionChangeWarningMessages, PersonalServiceSectionChangeWarningMessages}
+import assets.messages.BusinessOnOwnAccountSectionChangeWarningMessages
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
-import views.html.{BusinessOnOwnAccountSectionChangeWarningView, PersonalServiceSectionChangeWarningView}
+import views.html.BusinessOnOwnAccountSectionChangeWarningView
 
 class BusinessOnOwnAccountSectionChangeWarningSpec extends ViewBehaviours {
 

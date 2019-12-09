@@ -17,7 +17,6 @@
 package forms
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
 import forms.sections.partAndParcel.BenefitsFormProvider
 import play.api.data.FormError
@@ -39,41 +38,29 @@ class BenefitsFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecB
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    "for the sub optimised flow" should {
-
-      disable(OptimisedFlow)
-      val form = new BenefitsFormProvider()()(fakeDataRequest, frontendAppConfig)
-
-      behave like mandatoryField(
-        form ,
-        fieldName,
-        requiredError = FormError(fieldName, requiredKey)
-      )
-    }
-
-    "for the optimised flow" should {
+    "for the normal flow" should {
 
       "if the user type is 'Worker'" must {
 
-        enable(OptimisedFlow)
+
         val form = new BenefitsFormProvider()()(workerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
         )
       }
 
       "if the user type is 'Hirer'" must {
 
-        enable(OptimisedFlow)
+
         val form = new BenefitsFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
         )
       }
     }

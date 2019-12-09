@@ -30,7 +30,7 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = WorkerTypeController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = WorkerUsingIntermediaryController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.back_link()(mode)
 

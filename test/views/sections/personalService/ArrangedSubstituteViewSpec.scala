@@ -17,35 +17,26 @@
 package views.sections.personalService
 
 import assets.messages.{ArrangedSubstituteMessages, SubHeadingMessages}
-import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
 import forms.sections.personalService.ArrangedSubstituteFormProvider
-import models.UserType.{Agency, Hirer, Worker}
 import models.NormalMode
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.personalService.ArrangedSubstituteView
 
 class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
-  override def beforeEach = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.arrangedSubstitute"
+  val messageKeyPrefix = "worker.arrangedSubstitute"
 
   val form = new ArrangedSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ArrangedSubstituteView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -59,21 +50,21 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(ArrangedSubstituteMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Worker.heading
       }
 
       "have the correct content" in {
-        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Worker.p1
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientAgreed
-        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientNotAgreed
-        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.no
+        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Worker.yesClientAgreed
+        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Worker.yesClientNotAgreed
+        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Worker.no
       }
     }
 
@@ -82,21 +73,21 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(ArrangedSubstituteMessages.Hirer.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.heading
+        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Hirer.heading
       }
 
       "have the correct content" in {
-        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.p1
+        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Hirer.p1
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.yesClientAgreed
-        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.yesClientNotAgreed
-        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.no
+        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Hirer.yesClientAgreed
+        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Hirer.yesClientNotAgreed
+        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Hirer.no
       }
     }
 
@@ -105,21 +96,21 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
+        document.title mustBe title(ArrangedSubstituteMessages.Worker.title, Some(SubHeadingMessages.personalService))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Worker.heading
+        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Worker.heading
       }
 
       "have the correct content" in {
-        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.p1
+        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Worker.p1
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientAgreed
-        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientNotAgreed
-        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.no
+        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Worker.yesClientAgreed
+        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Worker.yesClientNotAgreed
+        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Worker.no
       }
     }
   }

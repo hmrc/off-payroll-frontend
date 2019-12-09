@@ -12,7 +12,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee")
+        titleOf(result) should include ("Does the contract give your client the option to buy the rights for a separate fee")
       }
     }
 
@@ -31,18 +31,18 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee")
+        titleOf(result) should include ("Does the contract give your client the option to buy the rights for a separate fee")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Previous Contract page" in {
 
       lazy val res = postSessionRequest("/client-buys-rights", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you had a previous contract with this client?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -54,7 +54,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/client-buys-rights/change")
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee")
+        titleOf(result) should include ("Does the contract give your client the option to buy the rights for a separate fee")
       }
 
     }
@@ -74,20 +74,19 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee")
+        titleOf(result) should include ("Does the contract give your client the option to buy the rights for a separate fee")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Previous Contract page" in {
 
       lazy val res = postSessionRequest("/client-buys-rights/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you had a previous contract with this client?")
-      }
+        result.status shouldBe SEE_OTHER
 
+      }
     }
   }
 }

@@ -38,7 +38,6 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
     view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
-    compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     errorHandler = app.injector.instanceOf[ErrorHandler]
   )
@@ -57,7 +56,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
 
     "redirect to the ArrangedSubstitute page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(ArrangedSubstitutePage)(fakeRequest)
@@ -67,7 +66,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
 
     "redirect to the RejectSubstitute page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(RejectSubstitutePage)(fakeRequest)
@@ -77,7 +76,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
 
     "redirect to the DidPaySubstitute page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(DidPaySubstitutePage)(fakeRequest)
@@ -87,7 +86,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
 
     "redirect to the NeededToPayHelper page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(NeededToPayHelperPage)(fakeRequest)
@@ -97,7 +96,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
 
     "redirect to the WouldWorkerPaySubstitute page if that was the selected page to change" in {
 
-      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(WouldWorkerPaySubstitutePage)(fakeRequest)
@@ -107,7 +106,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
 
     "render an ISE if the page is invalid" in {
 
-      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, 0, true)
+      val answers = userAnswers.set(PersonalServiceSectionChangeWarningPage, true)
       mockSave(answers.cacheMap)(answers.cacheMap)
 
       val result = controller().onSubmit(OfficeHolderPage)(fakeRequest)

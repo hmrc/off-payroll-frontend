@@ -27,7 +27,7 @@ import models.sections.financialRisk.PutRightAtOwnCost.AsPartOfUsualRateInWorkin
 import models.sections.partAndParcel.IdentifyToStakeholders.WorkForEndClient
 import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
-import models.sections.setup.WhoAreYou.{Client, Worker}
+import models.sections.setup.WhoAreYou.{Hirer, Worker}
 import models.sections.setup.{WhatDoYouWantToFindOut, WhoAreYou}
 import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -66,7 +66,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
-              .set(WhoAreYouPage, Client)
+              .set(WhoAreYouPage, Hirer)
               .set(ContractStartedPage, true)
 
             lazy val result = CheckYourAnswersService.isValid(userAnswers)

@@ -43,8 +43,8 @@ class ErrorMessagesSpec extends GuiceAppSpecBase {
       }
 
       "have the correct error messages for the ContractStartedPage" in {
-        Messages("worker.optimised.contractStarted.error.required") mustBe ContractStartedOptimisedMessages.Worker.error
-        Messages("hirer.optimised.contractStarted.error.required") mustBe ContractStartedOptimisedMessages.Hirer.error
+        Messages("worker.contractStarted.error.required") mustBe ContractStartedOptimisedMessages.Worker.error
+        Messages("hirer.contractStarted.error.required") mustBe ContractStartedOptimisedMessages.Hirer.error
       }
     }
 
@@ -52,8 +52,8 @@ class ErrorMessagesSpec extends GuiceAppSpecBase {
     "for the Early Exit Section" should {
 
       "have the correct error messages for the OfficeHolderPage" in {
-        Messages("worker.optimised.officeHolder.error.required") mustBe OfficeHolderMessages.Optimised.Worker.error
-        Messages("hirer.optimised.officeHolder.error.required") mustBe OfficeHolderMessages.Optimised.Hirer.error
+        Messages("worker.officeHolder.error.required") mustBe OfficeHolderMessages.Worker.error
+        Messages("hirer.officeHolder.error.required") mustBe OfficeHolderMessages.Hirer.error
       }
     }
 
@@ -61,28 +61,28 @@ class ErrorMessagesSpec extends GuiceAppSpecBase {
     "for the Personal Service Section" should {
 
       "have the correct error messages for the ArrangedSubstitutePage" in {
-        Messages("worker.optimised.arrangedSubstitute.error.required") mustBe ArrangedSubstituteMessages.Optimised.Worker.error
-        Messages("hirer.optimised.arrangedSubstitute.error.required") mustBe ArrangedSubstituteMessages.Optimised.Hirer.error
+        Messages("worker.arrangedSubstitute.error.required") mustBe ArrangedSubstituteMessages.Worker.error
+        Messages("hirer.arrangedSubstitute.error.required") mustBe ArrangedSubstituteMessages.Hirer.error
       }
 
       "have the correct error messages for the RejectSubstitutePage" in {
-        Messages("worker.optimised.rejectSubstitute.error.required") mustBe RejectSubstituteMessages.Optimised.Worker.error
-        Messages("hirer.optimised.rejectSubstitute.error.required") mustBe RejectSubstituteMessages.Optimised.Hirer.error
+        Messages("worker.rejectSubstitute.error.required") mustBe RejectSubstituteMessages.Worker.error
+        Messages("hirer.rejectSubstitute.error.required") mustBe RejectSubstituteMessages.Hirer.error
       }
 
       "have the correct error messages for the DidPaySubstitutePage" in {
-        Messages("worker.optimised.didPaySubstitute.error.required") mustBe DidPaySubstituteMessages.Optimised.Worker.error
-        Messages("hirer.optimised.didPaySubstitute.error.required") mustBe DidPaySubstituteMessages.Optimised.Hirer.error
+        Messages("worker.didPaySubstitute.error.required") mustBe DidPaySubstituteMessages.Worker.error
+        Messages("hirer.didPaySubstitute.error.required") mustBe DidPaySubstituteMessages.Hirer.error
       }
 
       "have the correct error messages for the WouldWorkerPaySubstitutePage" in {
-        Messages("worker.optimised.wouldWorkerPaySubstitute.error.required") mustBe WouldPaySubstituteMessages.Optimised.Worker.error
-        Messages("hirer.optimised.wouldWorkerPaySubstitute.error.required") mustBe WouldPaySubstituteMessages.Optimised.Hirer.error
+        Messages("worker.wouldWorkerPaySubstitute.error.required") mustBe WouldPaySubstituteMessages.Worker.error
+        Messages("hirer.wouldWorkerPaySubstitute.error.required") mustBe WouldPaySubstituteMessages.Hirer.error
       }
 
       "have the correct error messages for the NeededToPayHelperPage" in {
-        Messages("worker.optimised.neededToPayHelper.error.required") mustBe NeededToPayHelperMessages.Optimised.Worker.error
-        Messages("hirer.optimised.neededToPayHelper.error.required") mustBe NeededToPayHelperMessages.Optimised.Hirer.error
+        Messages("worker.neededToPayHelper.error.required") mustBe NeededToPayHelperMessages.Worker.error
+        Messages("hirer.neededToPayHelper.error.required") mustBe NeededToPayHelperMessages.Hirer.error
       }
     }
 
@@ -90,23 +90,23 @@ class ErrorMessagesSpec extends GuiceAppSpecBase {
     "for the Control Section" should {
 
       "have the correct error messages for the MoveWorkerPage" in {
-        Messages("worker.optimised.moveWorker.error.required") mustBe MoveWorkerMessages.OptimisedWorker.error
-        Messages("hirer.optimised.moveWorker.error.required") mustBe MoveWorkerMessages.OptimisedHirer.error
+        Messages("worker.moveWorker.error.required") mustBe MoveWorkerMessages.OptimisedWorker.error
+        Messages("hirer.moveWorker.error.required") mustBe MoveWorkerMessages.OptimisedHirer.error
       }
 
       "have the correct error messages for the HowWorkIsDonePage" in {
-        Messages("worker.optimised.howWorkIsDone.error.required") mustBe HowWorkIsDoneMessages.OptimisedWorker.error
-        Messages("hirer.optimised.howWorkIsDone.error.required") mustBe HowWorkIsDoneMessages.OptimisedHirer.error
+        Messages("worker.howWorkIsDone.error.required") mustBe HowWorkIsDoneMessages.OptimisedWorker.error
+        Messages("hirer.howWorkIsDone.error.required") mustBe HowWorkIsDoneMessages.OptimisedHirer.error
       }
 
       "have the correct error messages for the ScheduleOfWorkingHoursPage" in {
-        Messages("worker.optimised.scheduleOfWorkingHours.error.required") mustBe ScheduleOfWorkingHoursMessages.OptimisedWorker.error
-        Messages("hirer.optimised.scheduleOfWorkingHours.error.required") mustBe ScheduleOfWorkingHoursMessages.OptimisedHirer.error
+        Messages("worker.scheduleOfWorkingHours.error.required") mustBe ScheduleOfWorkingHoursMessages.OptimisedWorker.error
+        Messages("hirer.scheduleOfWorkingHours.error.required") mustBe ScheduleOfWorkingHoursMessages.OptimisedHirer.error
       }
 
       "have the correct error messages for the ChooseWhereWorkPage" in {
-        Messages("worker.optimised.chooseWhereWork.error.required") mustBe ChooseWhereWorkMessages.OptimisedWorker.error
-        Messages("hirer.optimised.chooseWhereWork.error.required") mustBe ChooseWhereWorkMessages.OptimisedHirer.error
+        Messages("worker.chooseWhereWork.error.required") mustBe ChooseWhereWorkMessages.OptimisedWorker.error
+        Messages("hirer.chooseWhereWork.error.required") mustBe ChooseWhereWorkMessages.OptimisedHirer.error
       }
     }
 
@@ -134,13 +134,13 @@ class ErrorMessagesSpec extends GuiceAppSpecBase {
       }
 
       "have the correct error messages for the HowWorkerIsPaidPage" in {
-        Messages("worker.optimised.howWorkerIsPaid.error.required") mustBe HowWorkerIsPaidMessages.WorkerOptimised.error
-        Messages("hirer.optimised.howWorkerIsPaid.error.required") mustBe HowWorkerIsPaidMessages.HirerOptimised.error
+        Messages("worker.howWorkerIsPaid.error.required") mustBe HowWorkerIsPaidMessages.WorkerOptimised.error
+        Messages("hirer.howWorkerIsPaid.error.required") mustBe HowWorkerIsPaidMessages.HirerOptimised.error
       }
 
       "have the correct error messages for the PutRightAtOwnCostsPage" in {
-        Messages("worker.optimised.putRightAtOwnCost.error.required") mustBe PutRightAtOwnCostsMessages.WorkerOptimised.error
-        Messages("hirer.optimised.putRightAtOwnCost.error.required") mustBe PutRightAtOwnCostsMessages.HirerOptimised.error
+        Messages("worker.putRightAtOwnCost.error.required") mustBe PutRightAtOwnCostsMessages.WorkerOptimised.error
+        Messages("hirer.putRightAtOwnCost.error.required") mustBe PutRightAtOwnCostsMessages.HirerOptimised.error
       }
     }
 
@@ -148,18 +148,18 @@ class ErrorMessagesSpec extends GuiceAppSpecBase {
     "for the Part and Parcel Section" should {
 
       "have the correct error messages for the BenefitsPage" in {
-        Messages("worker.optimised.benefits.error.required") mustBe BenefitsMessages.Optimised.Worker.error
-        Messages("hirer.optimised.benefits.error.required") mustBe BenefitsMessages.Optimised.Hirer.error
+        Messages("worker.benefits.error.required") mustBe BenefitsMessages.Worker.error
+        Messages("hirer.benefits.error.required") mustBe BenefitsMessages.Hirer.error
       }
 
       "have the correct error messages for the LineManagerDutiesPage" in {
-        Messages("worker.optimised.lineManagerDuties.error.required") mustBe LineManagerDutiesMessages.Optimised.Worker.error
-        Messages("hirer.optimised.lineManagerDuties.error.required") mustBe LineManagerDutiesMessages.Optimised.Hirer.error
+        Messages("worker.lineManagerDuties.error.required") mustBe LineManagerDutiesMessages.Worker.error
+        Messages("hirer.lineManagerDuties.error.required") mustBe LineManagerDutiesMessages.Hirer.error
       }
 
       "have the correct error messages for the IdentifyToStakeholdersPage" in {
-        Messages("worker.optimised.identifyToStakeholders.error.required") mustBe IdentifyToStakeholdersMessages.Optimised.Worker.error
-        Messages("hirer.optimised.identifyToStakeholders.error.required") mustBe IdentifyToStakeholdersMessages.Optimised.Hirer.error
+        Messages("worker.identifyToStakeholders.error.required") mustBe IdentifyToStakeholdersMessages.Worker.error
+        Messages("hirer.identifyToStakeholders.error.required") mustBe IdentifyToStakeholdersMessages.Hirer.error
       }
     }
 

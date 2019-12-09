@@ -17,7 +17,6 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import models._
 import pages._
@@ -33,17 +32,17 @@ class CYANavigatorSpec extends GuiceAppSpecBase {
 
     "go from the CheckYourAnswersPage to the ResultPage" in {
 
-      enable(OptimisedFlow)
+
       nextPage(CheckYourAnswersPage) mustBe routes.ResultController.onPageLoad()
     }
 
     "go from the ResultPage" when {
 
-      "optimised flow is enabled" when {
+      "normal flow is enabled" when {
 
         "and the ResultPage has the answer true, go to the AddReferenceDetailsPage" in {
 
-          enable(OptimisedFlow)
+
           lazy val userAnswers = UserAnswers("id")
             .set(ResultPage, true)
 
@@ -52,18 +51,12 @@ class CYANavigatorSpec extends GuiceAppSpecBase {
 
         "and the ResultPage does NOT have the answer true, go to the AddReferenceDetailsPage" in {
 
-          enable(OptimisedFlow)
+
           lazy val userAnswers = UserAnswers("id")
             .set(ResultPage, false)
 
           nextPage(ResultPage, userAnswers) mustBe routes.PrintPreviewController.onPageLoad()
         }
-      }
-
-      "optimised flow is disabled go to the PDFPage" in {
-
-        disable(OptimisedFlow)
-        nextPage(ResultPage) mustBe routes.PDFController.onPageLoad(NormalMode)
       }
     }
 
@@ -71,7 +64,7 @@ class CYANavigatorSpec extends GuiceAppSpecBase {
 
       "AddReferenceDetailsPage answer is true go to the PDFPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(AddReferenceDetailsPage, true)
 
@@ -80,7 +73,7 @@ class CYANavigatorSpec extends GuiceAppSpecBase {
 
       "AddReferenceDetailsPage answer is false go to the FinishedCheckingPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(AddReferenceDetailsPage, false)
 
@@ -90,7 +83,7 @@ class CYANavigatorSpec extends GuiceAppSpecBase {
 
     "go from the CustomisePDFPage to the FinishedCheckingPage" in {
 
-      enable(OptimisedFlow)
+
       nextPage(CustomisePDFPage) mustBe routes.PrintPreviewController.onPageLoad()
     }
   }

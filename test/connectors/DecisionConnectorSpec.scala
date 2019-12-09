@@ -18,21 +18,20 @@ package connectors
 
 import _root_.utils.MockDateTimeUtil
 import base.{GuiceAppSpecBase, MockServicesConfig}
-import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockHttp
-import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.ResultEnum.{SELF_EMPLOYED, UNKNOWN}
+import models.WeightedAnswerEnum.{HIGH, LOW}
+import models._
 import models.sections.control.ChooseWhereWork.WorkerChooses
 import models.sections.control.HowWorkIsDone.WorkerAgreeWithOthers
-import models.sections.financialRisk.HowWorkerIsPaid.HourlyDailyOrWeekly
-import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
 import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
-import models.sections.financialRisk.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
-import models.ResultEnum.{SELF_EMPLOYED, UNKNOWN}
 import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.UserType.Worker
-import models.WeightedAnswerEnum.{HIGH, LOW}
+import models.sections.financialRisk.HowWorkerIsPaid.HourlyDailyOrWeekly
+import models.sections.financialRisk.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.setup.WhoAreYou.Worker
 import models.sections.setup.WorkerType.SoleTrader
-import models._
 import play.mvc.Http.Status
 
 import scala.concurrent.Future
@@ -42,7 +41,7 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object FakeTimestamp extends Timestamp {
@@ -82,21 +81,6 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
     Some(false),
     Some(WorkAsIndependent)
   )
-
-  private val decisionResponseString =
-    s"""
-       |{
-       |  "version": "1.0.0-beta",
-       |  "correlationID": "12345",
-       |  "score": {
-       |    "personalService": "${WeightedAnswerEnum.HIGH}",
-       |    "control": "${WeightedAnswerEnum.LOW}",
-       |    "financialRisk": "${WeightedAnswerEnum.LOW}",
-       |    "partAndParcel": "${WeightedAnswerEnum.LOW}"
-       |  },
-       |  "result": "${ResultEnum.UNKNOWN}"
-       |}
-    """.stripMargin
 
   val fullDecisionResponseString: String =
     s"""

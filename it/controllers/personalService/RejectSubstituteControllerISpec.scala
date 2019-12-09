@@ -12,7 +12,7 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does your client have the right to reject a substitute?")
+        titleOf(result) should include ("Does your client have the right to reject a substitute?")
       }
     }
 
@@ -31,18 +31,18 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the right to reject a substitute?")
+        titleOf(result) should include ("Does your client have the right to reject a substitute?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/right-to-reject-substitute", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Would you have to pay your substitute?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does your client have the right to reject a substitute?")
+        titleOf(result) should include ("Does your client have the right to reject a substitute?")
       }
     }
 
@@ -74,18 +74,18 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the right to reject a substitute?")
+        titleOf(result) should include ("Does your client have the right to reject a substitute?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/right-to-reject-substitute/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Would you have to pay your substitute?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

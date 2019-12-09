@@ -13,7 +13,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will this work take up the majority of your available working time?")
+        titleOf(result) should include ("Will this work take up the majority of your available working time?")
       }
     }
 
@@ -32,18 +32,18 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will this work take up the majority of your available working time?")
+        titleOf(result) should include ("Will this work take up the majority of your available working time?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto Similar Work page" in {
 
       lazy val res = postSessionRequest("/majority-of-working-time", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -56,7 +56,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will this work take up the majority of your available working time?")
+        titleOf(result) should include ("Will this work take up the majority of your available working time?")
       }
     }
 
@@ -75,17 +75,18 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will this work take up the majority of your available working time?")
+        titleOf(result) should include ("Will this work take up the majority of your available working time?")
 
       }
     }
 
-    "Return a 409 on Successful post as answers not complete" in {
+    "Return a 303 on Successful post and move onto Similar Work page" in {
 
-      lazy val res = postSessionRequest("/majority-of-working-time/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/majority-of-working-time/change", selectedNo)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/similar-work/change")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

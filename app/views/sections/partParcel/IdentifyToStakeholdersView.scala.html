@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("identifyToStakeholders.title"), Some(tailorMsgOptimised("identifyToStakeholders.subheading"))),
+    title = title(form, tailorMsg("identifyToStakeholders.title"), Some(tailorMsg("identifyToStakeholders.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -38,7 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("identifyToStakeholders.heading"), Some(tailorMsgOptimised("identifyToStakeholders.subheading")), asLegend = true),
+            legend = components.heading(tailorMsg("identifyToStakeholders.heading"), Some(tailorMsg("identifyToStakeholders.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = IdentifyToStakeholders.options
         )

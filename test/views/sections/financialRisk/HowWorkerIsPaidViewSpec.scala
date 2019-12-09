@@ -17,7 +17,6 @@
 package views.sections.financialRisk
 
 import assets.messages.{HowWorkerIsPaidMessages, SubHeadingMessages}
-import config.featureSwitch.OptimisedFlow
 import forms.sections.financialRisk.HowWorkerIsPaidFormProvider
 import models.NormalMode
 import models.sections.financialRisk.HowWorkerIsPaid
@@ -28,22 +27,17 @@ import views.html.sections.financialRisk.HowWorkerIsPaidView
 
 class HowWorkerIsPaidViewSpec extends ViewBehaviours {
 
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "worker.optimised.howWorkerIsPaid"
+  val messageKeyPrefix = "worker.howWorkerIsPaid"
 
   val form = new HowWorkerIsPaidFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[HowWorkerIsPaidView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
@@ -57,7 +51,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.WorkerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(HowWorkerIsPaidMessages.WorkerOptimised.title, Some(SubHeadingMessages.financialRisk))
 
       }
 
@@ -79,7 +73,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.HirerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
+        document.title mustBe title(HowWorkerIsPaidMessages.HirerOptimised.title, Some(SubHeadingMessages.financialRisk))
 
       }
 
@@ -107,7 +101,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       }
     }
 
-    enable(OptimisedFlow)
+
     for(option <- HowWorkerIsPaid.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {

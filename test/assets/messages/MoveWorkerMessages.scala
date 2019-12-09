@@ -18,24 +18,6 @@ package assets.messages
 
 object MoveWorkerMessages extends BaseMessages {
 
-  object Worker {
-    val heading = "Can the end client move you to a different task than you originally agreed to do?"
-    val title = heading
-    val hint = "This includes moving project or location, or changing to another task at the same location."
-    val yesWithAgreement = "Yes - but only with my agreement"
-    val yesWithoutAgreement = "Yes - without my agreement (if I do not want to change, the end client might end the engagement)"
-    val no = "No - that would need to be arranged under a new contract or formal agreement"
-  }
-
-  object Hirer {
-    val heading = "Can you move the worker to a different task than they originally agreed to do?"
-    val title = heading
-    val hint = "This includes moving project or location, or changing to another task at the same location."
-    val yesWithAgreement = "Yes - but only with the worker’s agreement"
-    val yesWithoutAgreement = "Yes - without the worker’s agreement (if the worker does not want to change, you might end the engagement)"
-    val no = "No - that would need to be arranged under a new contract or formal agreement"
-  }
-
   object OptimisedWorker {
     val error = "Select yes if your client has the right to move you from the task you originally agreed to do"
     val heading = "Does your client have the right to move you from the task you originally agreed to do?"

@@ -12,7 +12,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Did you pay your substitute?")
+        titleOf(result) should include ("Did you pay your substitute?")
       }
     }
 
@@ -31,18 +31,18 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Did you pay your substitute?")
+        titleOf(result) should include ("Did you pay your substitute?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/paid-substitute", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you paid another person to do a significant amount of this work?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Did you pay your substitute?")
+        titleOf(result) should include ("Did you pay your substitute?")
       }
     }
 
@@ -74,18 +74,18 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Did you pay your substitute?")
+        titleOf(result) should include ("Did you pay your substitute?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and move onto next page" in {
 
       lazy val res = postSessionRequest("/paid-substitute/change", selectedNo)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you paid another person to do a significant amount of this work?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }

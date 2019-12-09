@@ -31,11 +31,11 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
     val understandingOffPayroll = "#understanding-off-payroll"
   }
 
-  val messageKeyPrefix = "noIntermediaryResult"
+  val messageKeyPrefix = "worker.noIntermediaryResult"
 
   val view = injector.instanceOf[NoIntermediaryView]
 
-  def createView = () => view(controllers.routes.StartAgainController.redirectToDisclaimer())(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(controllers.routes.StartAgainController.redirectToDisclaimer())(workerFakeRequest, messages, frontendAppConfig)
   def createViewWithRequest =
     (req: Request[_]) => view(controllers.routes.StartAgainController.redirectToDisclaimer())(req, messages, frontendAppConfig)
 

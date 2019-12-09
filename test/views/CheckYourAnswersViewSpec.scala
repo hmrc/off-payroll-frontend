@@ -17,11 +17,10 @@
 package views
 
 import assets.messages.CheckYourAnswersMessages
-import config.featureSwitch.OptimisedFlow
 import models.Section
 import models.Section.SectionEnum
 import play.twirl.api.Html
-import viewmodels.{AnswerRow, AnswerSection, Section}
+import viewmodels.{AnswerRow, AnswerSection}
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
 
@@ -29,7 +28,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object Selectors extends BaseCSSSelectors {

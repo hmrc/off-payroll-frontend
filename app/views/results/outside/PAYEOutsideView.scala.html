@@ -18,7 +18,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import models.requests.DataRequest
-@import models.UserType.{Worker, Hirer}
+@import models.sections.setup.WhoAreYou.{Worker, Hirer}
 @import models.ResultType.PAYE
 @import results.sections.pdf
 @import models.requests.DataRequest
@@ -33,9 +33,9 @@
 @defining(
 
     pdfResultDetails.resultMode match {
-        case Result => mainTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
+        case Result => mainTemplate(title(form, "result.title"), appConfig = appConfig)(_)
         case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
-        case ResultPDF => printTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
+        case ResultPDF => printTemplate(title(form, "result.title"), appConfig = appConfig)(_)
     }
 
 ){ template =>
@@ -48,7 +48,7 @@
                     @pdf.additional_details(details, pdfResultDetails.timestamp)
                 }
                 @components.teal_result(
-                    Html(messages(tailorMsgOptimised("result.outside.paye.heading"))),
+                    Html(messages(tailorMsg("result.outside.paye.heading"))),
                     "result.outside"
                 )
                 @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
@@ -59,10 +59,10 @@
             }
             case ResultPrintPreview => {
                 @print_and_save_result()
-                @letter_layout(tailorMsgOptimised("result.outside.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.outside.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
             case ResultPDF => {
-                @letter_layout(tailorMsgOptimised("result.outside.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.outside.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }
@@ -71,20 +71,20 @@
 @whyResult = {
 
     @if(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 0){
-        <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.businessToBusiness"))</p>
+        <p>@messages(tailorMsg("result.outside.paye.whyResult.businessToBusiness"))</p>
     } else if(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 1){
         <p>@messages(singleOutReason(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))</p>
-        <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>
+        <p>@messages(tailorMsg("result.outside.paye.whyResult.p2"))</p>
     } else {
-        <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p1"))</p>
+        <p>@messages(tailorMsg("result.outside.paye.whyResult.p1"))</p>
         @components.bulleted_list(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
-        <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>
+        <p>@messages(tailorMsg("result.outside.paye.whyResult.p2"))</p>
     }
 }
 
 @doNext = {
-    <p>@messages(tailorMsgOptimised("result.outside.paye.doNext.p1"))</p>
+    <p>@messages(tailorMsg("result.outside.paye.doNext.p1"))</p>
     @if(request.userType.contains(Hirer) && !workerKnown) {
-        <p>@messages(tailorMsgOptimised("result.outside.paye.doNext.workerNotKnown"))</p>
+        <p>@messages(tailorMsg("result.outside.paye.doNext.workerNotKnown"))</p>
     }
 }

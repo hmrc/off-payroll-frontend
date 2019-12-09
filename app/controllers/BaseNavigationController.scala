@@ -16,35 +16,30 @@
 
 package controllers
 
-import config.FrontendAppConfig
-import config.featureSwitch.OptimisedFlow
 import connectors.DataCacheConnector
-import javax.inject.Inject
-import models.{Section, _}
 import models.requests.DataRequest
+import models.{Section, _}
 import navigation.Navigator
-import pages.sections.exit.OfficeHolderPage
 import pages.{BusinessOnOwnAccountSectionChangeWarningPage, PersonalServiceSectionChangeWarningPage, QuestionPage}
 import play.api.libs.json.{Reads, Writes}
-import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
-import services.{CompareAnswerService, DecisionService}
+import play.api.mvc.{AnyContent, Result}
+import services.CompareAnswerService
 
 import scala.concurrent.Future
 
-abstract class BaseNavigationController @Inject()(mcc: MessagesControllerComponents, compareAnswerService: CompareAnswerService,
-                                                  dataCacheConnector: DataCacheConnector, navigator: Navigator, decisionService: DecisionService)
-                                                 (implicit frontendAppConfig: FrontendAppConfig) extends BaseController(mcc) {
+trait BaseNavigationController extends BaseController {
+
+  val compareAnswerService: CompareAnswerService
+  val dataCacheConnector: DataCacheConnector
+  val navigator: Navigator
 
   def redirect[T](mode: Mode,
                   value: T,
-                  page: QuestionPage[T],
-                  callDecisionService: Boolean = false)(implicit request: DataRequest[AnyContent],
-                                                        reads: Reads[T],
-                                                        writes: Writes[T],
-                                                        aWrites: Writes[Answers[T]],
-                                                        aReads: Reads[Answers[T]]): Future[Result] = {
+                  page: QuestionPage[T])(implicit request: DataRequest[AnyContent],
+                                         reads: Reads[T],
+                                         writes: Writes[T]): Future[Result] = {
 
-    val currentAnswer = request.userAnswers.get(page).map(_.answer)
+    val currentAnswer = request.userAnswers.get(page)
 
     // If this is the first redirect since the Personal Service warning page was displayed
     // And, it is in CheckMode. And, the Answer has not changed.
@@ -57,24 +52,13 @@ abstract class BaseNavigationController @Inject()(mcc: MessagesControllerCompone
     //Remove the Personal Service warning page viewed flag from the request
     val req = DataRequest(request.request, request.internalId ,request.userAnswers.remove(PersonalServiceSectionChangeWarningPage).remove(BusinessOnOwnAccountSectionChangeWarningPage))
 
-    val answers =
-      if (isEnabled(OptimisedFlow)) {
-        compareAnswerService.optimisedConstructAnswers(req, value, page)
-      } else {
-        compareAnswerService.constructAnswers(req, value, page)
-      }
+    val answers = compareAnswerService.constructAnswers(req, value, page)
 
     dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
       (answerUnchanged, personalWarning, boOAWarning) match {
         case (true, true, _) => Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.personalService))))
         case (true, _, true) => Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.businessOnOwnAccount))))
-        case _ => {
-          val call = navigator.nextPage(page, mode)(answers)
-          (callDecisionService, isEnabled(OptimisedFlow)) match {
-            case (true, false) => decisionService.decide(answers, call)(hc, ec, req)
-            case _ => Future.successful(Redirect(call))
-          }
-        }
+        case _ => Future.successful(Redirect(navigator.nextPage(page, mode)(answers)))
       }
     }
   }

@@ -12,7 +12,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("What do you want to do?")
+        titleOf(result) should include ("What do you want to do?")
       }
     }
 
@@ -31,18 +31,18 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("What do you want to do?")
+        titleOf(result) should include ("What do you want to do?")
 
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 303 on Successful post and redirect to the Worker using intermediary page" in {
 
       lazy val res = postSessionRequest("/what-do-you-want-to-do",whatDoYouWantToDoValue)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.status shouldBe SEE_OTHER
+
       }
     }
   }
@@ -55,7 +55,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("What do you want to do?")
+        titleOf(result) should include ("What do you want to do?")
       }
     }
 
@@ -74,7 +74,7 @@ class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("What do you want to do?")
+        titleOf(result) should include ("What do you want to do?")
 
       }
     }
