@@ -111,7 +111,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   private def generatePdf(view: Html, reference: Option[String])(implicit request: DataRequest[_]): Future[Result] = {
 
-    val css = source.fromURL(controllers.routes.Assets.versioned("stylesheets/optimised_print_pdf.css").absoluteURL).mkString
+    val css = source.fromURL(controllers.routes.Assets.versioned("stylesheets/print_pdf.css").absoluteURL).mkString
     val printHtml = Html(view.toString
       .replace("<head>", s"<head><style>$css</style>")
     )
