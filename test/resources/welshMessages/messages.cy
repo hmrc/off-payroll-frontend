@@ -1264,10 +1264,9 @@ accessibilityStatement.usingService.bullet3 = mynd o ddechrau’r gwasanaeth i�
 accessibilityStatement.usingService.bullet4 = mynd o ddechrau’r gwasanaeth i’r diwedd gan ddefnyddio meddalwedd adnabod lleferydd
 accessibilityStatement.usingService.bullet5 = gwrando ar y gwasanaeth drwy ddefnyddio darllenydd sgrin (gan gynnwys y fersiynau diweddaraf o JAWS, NVDA a VoiceOver)
 accessibilityStatement.usingService.p3 = Rydym hefyd wedi sicrhau bod y testun a ddefnyddir yn y gwasanaeth mor syml â phosibl i’w ddeall.
-
-#TODO
+accessibilityStatement.usingService.p4.preLink = Mae gan
 accessibilityStatement.usingService.p4.link = AbilityNet
-accessibilityStatement.usingService.p4.postLink = has advice on making your device easier to use if you have a disability.
+accessibilityStatement.usingService.p4.postLink = gyngor ar wneud eich dyfais yn haws i’w defnyddio os oes gennych anabledd.
 
 accessibilityStatement.howAccessible.h2 = Pa mor hygyrch yw’r gwasanaeth hwn
 accessibilityStatement.howAccessible.p1.preLink = Mae’r gwasanaeth hwn yn cydymffurfio’n llawn â
