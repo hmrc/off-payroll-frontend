@@ -1268,6 +1268,7 @@ accessibilityStatement.usingService.bullet3 = get from the start of the service 
 accessibilityStatement.usingService.bullet4 = get from the start of the service to the end using speech recognition software
 accessibilityStatement.usingService.bullet5 = listen to the service using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
 accessibilityStatement.usingService.p3 = We have also made the text in the service as simple as possible to understand.
+accessibilityStatement.usingService.p4.preLink =
 accessibilityStatement.usingService.p4.link = AbilityNet
 accessibilityStatement.usingService.p4.postLink = has advice on making your device easier to use if you have a disability.
 
