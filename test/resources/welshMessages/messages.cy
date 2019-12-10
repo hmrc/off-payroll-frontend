@@ -1243,61 +1243,62 @@ hirer.majorityOfWorkingTime.changeLinkContext = os bydd y gwaith hwn yn cymryd y
 worker.similarWorkOtherClients.changeLinkContext = os ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
 hirer.similarWorkOtherClients.changeLinkContext = os yw’r gweithiwr wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
 
-## TODO: Need Welsh Translation
 ## Accessibility Statement
 ## =======================
-accessibilityStatement.heading = Accessibility statement for Check Employment Status for Tax
-accessibilityStatement.title = Accessibility statement for Check Employment Status for Tax
+accessibilityStatement.heading = Datganiad hygyrchedd ar gyfer Gwirio Statws Cyflogaeth ar gyfer Treth
+accessibilityStatement.title = Datganiad hygyrchedd ar gyfer Gwirio Statws Cyflogaeth ar gyfer Treth
 
-accessibilityStatement.p1 = This accessibility statement explains how accessible this service is, what to do if you have difficulty using it, and how to report accessibility problems with the service.
-accessibilityStatement.p2.preLink = This service is part of the wider GOV.UK website. There is a separate
-accessibilityStatement.p2.link = accessibility statement
-accessibilityStatement.p2.postLink = for the main GOV.UK website.
-accessibilityStatement.p3.preLink = This page only contains information about the Check Employment Status for Tax service, available at
+accessibilityStatement.p1 = Mae’r datganiad hygyrchedd hwn yn esbonio pa mor hygyrch yw’r gwasanaeth hwn, beth i’w wneud os ydych yn cael anhawster wrth ei ddefnyddio, a sut i roi gwybod am broblemau hygyrchedd gyda’r gwasanaeth.
+accessibilityStatement.p2.preLink = Mae’r gwasanaeth hwn yn rhan o wefan ehangach GOV.UK. Mae
+accessibilityStatement.p2.link = datganiad hygyrchedd
+accessibilityStatement.p2.postLink = ar wahân ar gyfer prif wefan GOV.UK.
+accessibilityStatement.p3.preLink = Mae’r dudalen hon yn cynnwys gwybodaeth am y gwasanaeth Gwirio Statws Cyflogaeth ar gyfer Treth yn unig – gweler
 accessibilityStatement.p3.link = https://www.gov.uk/guidance/check-employment-status-for-tax
 
-accessibilityStatement.usingService.h2 = Using this service
-accessibilityStatement.usingService.p1 = The Check Employment Status for Tax service allows users to check their employment status for tax purposes.
-accessibilityStatement.usingService.p2 = This service is run by HM Revenue and Customs (HMRC). We want as many people as possible to be able to use this service. This means you should be able to:
-accessibilityStatement.usingService.bullet1 = change colours, contrast levels and fonts
-accessibilityStatement.usingService.bullet2 = zoom in up to 300% without the text spilling off the screen
-accessibilityStatement.usingService.bullet3 = get from the start of the service to the end using just a keyboard
-accessibilityStatement.usingService.bullet4 = get from the start of the service to the end using speech recognition software
-accessibilityStatement.usingService.bullet5 = listen to the service using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
-accessibilityStatement.usingService.p3 = We have also made the text in the service as simple as possible to understand.
+accessibilityStatement.usingService.h2 = Defnyddio’r gwasanaeth hwn
+accessibilityStatement.usingService.p1 = Mae’r gwasanaeth Gwirio Statws Cyflogaeth ar gyfer Treth yn caniatáu i ddefnyddwyr wirio eu statws cyflogaeth at ddibenion treth.
+accessibilityStatement.usingService.p2 = Mae’r gwasanaeth hwn yn cael ei redeg gan Gyllid a Thollau EM (CThEM). Rydym am i gymaint o bobl â phosibl allu defnyddio’r gwasanaeth hwn. Mae hyn yn golygu y dylech allu:
+accessibilityStatement.usingService.bullet1 = newid lliwiau, lefelau cyferbyniad a ffontiau
+accessibilityStatement.usingService.bullet2 = chwyddo’r sgrin hyd at 300% heb i’r testun ddisgyn oddi ar y sgrin
+accessibilityStatement.usingService.bullet3 = mynd o ddechrau’r gwasanaeth i’r diwedd gan ddefnyddio bysellfwrdd yn unig
+accessibilityStatement.usingService.bullet4 = mynd o ddechrau’r gwasanaeth i’r diwedd gan ddefnyddio meddalwedd adnabod lleferydd
+accessibilityStatement.usingService.bullet5 = gwrando ar y gwasanaeth drwy ddefnyddio darllenydd sgrin (gan gynnwys y fersiynau diweddaraf o JAWS, NVDA a VoiceOver)
+accessibilityStatement.usingService.p3 = Rydym hefyd wedi sicrhau bod y testun a ddefnyddir yn y gwasanaeth mor syml â phosibl i’w ddeall.
+
+#TODO
 accessibilityStatement.usingService.p4.link = AbilityNet
 accessibilityStatement.usingService.p4.postLink = has advice on making your device easier to use if you have a disability.
 
-accessibilityStatement.howAccessible.h2 = How accessible this service is
-accessibilityStatement.howAccessible.p1.preLink = This service is fully compliant with the
-accessibilityStatement.howAccessible.p1.link = Web Content Accessibility Guidelines version 2.1 AA standard
-accessibilityStatement.howAccessible.p2 = There are no known accessibility issues within this service.
+accessibilityStatement.howAccessible.h2 = Pa mor hygyrch yw’r gwasanaeth hwn
+accessibilityStatement.howAccessible.p1.preLink = Mae’r gwasanaeth hwn yn cydymffurfio’n llawn â
+accessibilityStatement.howAccessible.p1.link = safon ‘AA’ Canllawiau Hygyrchedd Cynnwys y We, fersiwn 2.1.
+accessibilityStatement.howAccessible.p2 = Nid oes unrhyw broblemau hygyrchedd hysbys yn y gwasanaeth hwn.
 
-accessibilityStatement.reportProblems.h2 = Reporting accessibility problems with this service
-accessibilityStatement.reportProblems.p1.preLink = We are always looking to improve the accessibility of this service. If you find any problems that are not listed on this page or think we are not meeting accessibility requirements, report the
-accessibilityStatement.reportProblems.p1.link = accessibility problem
+accessibilityStatement.reportProblems.h2 = Rhoi gwybod am broblemau hygyrchedd gyda’r gwasanaeth hwn
+accessibilityStatement.reportProblems.p1.preLink = Rydym bob amser yn ceisio gwella hygyrchedd y gwasanaeth hwn. Os byddwch yn dod o hyd i unrhyw broblem nad yw wedi’i rhestru ar y dudalen hon, neu os ydych o’r farn nad ydym yn bodloni gofynion hygyrchedd, rhowch wybod am y
+accessibilityStatement.reportProblems.p1.link = broblem hygyrchedd
 
-accessibilityStatement.notHappy.h2 = What to do if you are not happy with how we respond to your complaint
-accessibilityStatement.notHappy.p1.preLink1 = The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you are not happy with how we respond to your complaint,
-accessibilityStatement.notHappy.p1.link1 = contact the Equality Advisory and Support Service
-accessibilityStatement.notHappy.p1.preLink2 = (EASS), or the
+accessibilityStatement.notHappy.h2 = Beth i’w wneud os nad ydych yn hapus â sut rydym yn ateb eich cwyn
+accessibilityStatement.notHappy.p1.preLink1 = Mae’r Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) yn gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych yn hapus â sut rydym yn ateb eich cwyn,
+accessibilityStatement.notHappy.p1.link1 = cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb
+accessibilityStatement.notHappy.p1.preLink2 = (EASS), neu’r
 accessibilityStatement.notHappy.p1.link2 = Equality Commission for Northern Ireland
-accessibilityStatement.notHappy.p1.postLink2 = (ECNI) if you live in Northern Ireland.
+accessibilityStatement.notHappy.p1.postLink2 = (ECNI) os ydych yn byw yng Ngogledd Iwerddon.
 
-accessibilityStatement.contactUs.h2 = Contacting us by phone or getting a visit from us in person
-accessibilityStatement.contactUs.p1 = We provide a text relay service if you are deaf, hearing impaired or have a speech impediment.
-accessibilityStatement.contactUs.p2 = We can provide a British Sign Language (BSL) interpreter, or you can arrange a visit from an HMRC advisor to help you complete the service.
-accessibilityStatement.contactUs.p3.preLink = Find out how to
-accessibilityStatement.contactUs.p3.link = contact us
+accessibilityStatement.contactUs.h2 = Cysylltu â ni dros y ffôn neu gael ymweliad personol gennym
+accessibilityStatement.contactUs.p1 = Rydym yn cynnig gwasanaeth text relay os ydych yn fyddar, â nam ar eich clyw neu os oes gennych nam ar eich lleferydd.
+accessibilityStatement.contactUs.p2 = Gallwn ddarparu dehonglydd Iaith Arwyddion Prydain (BSL), neu gallwch drefnu ymweliad gan ymgynghorydd CThEM i’ch helpu i gwblhau’r gwasanaeth.
+accessibilityStatement.contactUs.p3.preLink = Gwybodaeth am sut i
+accessibilityStatement.contactUs.p3.link = gysylltu â ni
 
-accessibilityStatement.technicalReference.h2 = Technical information about this service’s accessibility
-accessibilityStatement.technicalReference.p1 = HMRC is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
-accessibilityStatement.technicalReference.p2.preLink = This service is fully compliant with the
-accessibilityStatement.technicalReference.p2.link = Web Content Accessibility Guidelines version 2.1 AA standard
+accessibilityStatement.technicalReference.h2 = Gwybodaeth dechnegol am hygyrchedd y gwasanaeth hwn
+accessibilityStatement.technicalReference.p1 = Mae CThEM wedi ymrwymo i wneud y gwasanaeth hwn yn hygyrch, yn unol â Rheoliadau Hygyrchedd Cyrff Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018.
+accessibilityStatement.technicalReference.p2.preLink = Mae’r gwasanaeth hwn yn cydymffurfio’n llawn â
+accessibilityStatement.technicalReference.p2.link = safon ‘AA’ Canllawiau Hygyrchedd Cynnwys y We, fersiwn 2.1
 
-accessibilityStatement.howTested.h2 = How we tested this service
-accessibilityStatement.howTested.p1 = The service was last tested on {0} and was checked for compliance with WCAG 2.1 AA.
-accessibilityStatement.howTested.p2.preLink = The service was built using parts that were tested by the
-accessibilityStatement.howTested.p2.link = Digital Accessibility Centre
-accessibilityStatement.howTested.p2.postLink = The full service was tested by HMRC and included disabled users.
-accessibilityStatement.howTested.p3 = This page was prepared on 25 November 2019. It was last updated on {0}.
+accessibilityStatement.howTested.h2 = Sut gwnaethom brofi’r gwasanaeth hwn
+accessibilityStatement.howTested.p1 = Cafodd y gwasanaeth ei brofi ddiwethaf ar {0} a gwiriwyd ei fod yn cydymffurfio â safon ‘AA’ Canllawiau Hygyrchedd Cynnwys y We, fersiwn 2.1.
+accessibilityStatement.howTested.p2.preLink = Adeiladwyd y gwasanaeth gan ddefnyddio rhannau a brofwyd gan y
+accessibilityStatement.howTested.p2.link = Ganolfan Hygyrchedd Digidol
+accessibilityStatement.howTested.p2.postLink = Profwyd y gwasanaeth llawn gan CThEM, ac roedd y gwaith o brofi’r gwasanaeth yn cynnwys defnyddwyr anabl.
+accessibilityStatement.howTested.p3 = Paratowyd y dudalen hon ar 25 Tachwedd 2019. Cafodd ei diweddaru ddiwethaf ar {0}.
