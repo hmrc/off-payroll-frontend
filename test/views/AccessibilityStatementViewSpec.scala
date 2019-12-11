@@ -198,7 +198,9 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
       }
 
       "have the correct p1" in {
-        document.select(HowTestedSelectors.p(1)).text must include(AccessibilityStatementMessages.HowTested.p1(frontendAppConfig.lastDacTestDate))
+        document.select(HowTestedSelectors.p(1)).text must include(AccessibilityStatementMessages.HowTested.p1(
+          s"${frontendAppConfig.lastDacTestDay} ${frontendAppConfig.lastDacTestMonth} ${frontendAppConfig.lastDacTestYear}"
+        ))
       }
 
       "have the correct p2" in {
@@ -208,7 +210,9 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
       }
 
       "have the correct p3" in {
-        document.select(HowTestedSelectors.p(3)).text must include(AccessibilityStatementMessages.HowTested.p3(frontendAppConfig.accessibilityStatementLastUpdatedDate))
+        document.select(HowTestedSelectors.p(3)).text must include(AccessibilityStatementMessages.HowTested.p3(
+          s"${frontendAppConfig.accessibilityStatementLastUpdatedDay} ${frontendAppConfig.accessibilityStatementLastUpdatedMonth} ${frontendAppConfig.accessibilityStatementLastUpdatedYear}"
+        ))
       }
     }
   }

@@ -1296,8 +1296,8 @@ accessibilityStatement.technicalReference.p2.preLink = Mae’r gwasanaeth hwn yn
 accessibilityStatement.technicalReference.p2.link = safon ‘AA’ Canllawiau Hygyrchedd Cynnwys y We, fersiwn 2.1
 
 accessibilityStatement.howTested.h2 = Sut gwnaethom brofi’r gwasanaeth hwn
-accessibilityStatement.howTested.p1 = Cafodd y gwasanaeth ei brofi ddiwethaf ar {0} a gwiriwyd ei fod yn cydymffurfio â safon ‘AA’ Canllawiau Hygyrchedd Cynnwys y We, fersiwn 2.1.
+accessibilityStatement.howTested.p1 = Cafodd y gwasanaeth ei brofi ddiwethaf ar {0} {1} {2} a gwiriwyd ei fod yn cydymffurfio â safon ‘AA’ Canllawiau Hygyrchedd Cynnwys y We, fersiwn 2.1.
 accessibilityStatement.howTested.p2.preLink = Adeiladwyd y gwasanaeth gan ddefnyddio rhannau a brofwyd gan y
 accessibilityStatement.howTested.p2.link = Ganolfan Hygyrchedd Digidol
 accessibilityStatement.howTested.p2.postLink = Profwyd y gwasanaeth llawn gan CThEM, ac roedd y gwaith o brofi’r gwasanaeth yn cynnwys defnyddwyr anabl.
-accessibilityStatement.howTested.p3 = Paratowyd y dudalen hon ar 25 Tachwedd 2019. Cafodd ei diweddaru ddiwethaf ar {0}.
+accessibilityStatement.howTested.p3 = Paratowyd y dudalen hon ar 25 Tachwedd 2019. Cafodd ei diweddaru ddiwethaf ar {0} {1} {2}.

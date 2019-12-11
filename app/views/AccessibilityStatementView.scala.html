@@ -140,7 +140,12 @@
 
         <h2>@messages("accessibilityStatement.howTested.h2")</h2>
 
-        <p>@messages("accessibilityStatement.howTested.p1", appConfig.lastDacTestDate)</p>
+        <p>
+            @messages("accessibilityStatement.howTested.p1",
+            appConfig.lastDacTestDay,
+            messages("date." + appConfig.lastDacTestMonth),
+            appConfig.lastDacTestYear)
+        </p>
 
         <p>
             @messages("accessibilityStatement.howTested.p2.preLink")
@@ -148,7 +153,12 @@
             @messages("accessibilityStatement.howTested.p2.postLink")
         </p>
 
-        <p>@messages("accessibilityStatement.howTested.p3", appConfig.accessibilityStatementLastUpdatedDate)</p>
+        <p>
+            @messages("accessibilityStatement.howTested.p3",
+            appConfig.accessibilityStatementLastUpdatedDay,
+            messages("date." + appConfig.accessibilityStatementLastUpdatedMonth),
+            appConfig.accessibilityStatementLastUpdatedYear)
+        </p>
 
     </div>
 }
