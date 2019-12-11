@@ -27,7 +27,6 @@ import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
 import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
 import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
 import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
 import models.sections.financialRisk.HowWorkerIsPaid.Commission
 import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
 import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
@@ -39,8 +38,8 @@ import org.scalatest.concurrent.ScalaFutures
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.financialRisk._
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.data.Form
@@ -105,12 +104,14 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector
     .set(HowWorkIsDonePage, WorkerFollowStrictEmployeeProcedures)
     .set(ScheduleOfWorkingHoursPage, WorkerAgreeSchedule)
     .set(ChooseWhereWorkPage,WorkerAgreeWithOthers)
-    .set(CannotClaimAsExpensePage, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+    .set(VehiclePage, true)
+    .set(EquipmentExpensesPage, false)
+    .set(MaterialsPage, false)
+    .set(OtherExpensesPage, true)
     .set(HowWorkerIsPaidPage,Commission)
     .set(PutRightAtOwnCostPage,CannotBeCorrected)
     .set(BenefitsPage,false)
     .set(LineManagerDutiesPage, false)
-    .set(InteractWithStakeholdersPage, false)
     .set(IdentifyToStakeholdersPage, WorkAsIndependent)
 
   "decide" should {

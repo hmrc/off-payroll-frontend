@@ -35,24 +35,24 @@ class PersonalServiceNavigator @Inject()(implicit appConfig: FrontendAppConfig) 
 
   private def routeMap(implicit mode: Mode): Map[Page, UserAnswers => Call] = Map(
     ArrangedSubstitutePage -> (answers =>
-      answers.getAnswer(ArrangedSubstitutePage) match {
+      answers.get(ArrangedSubstitutePage) match {
         case Some(YesClientAgreed) => personalServiceRoutes.DidPaySubstituteController.onPageLoad(mode)
         case Some(YesClientNotAgreed) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
         case _ => personalServiceRoutes.RejectSubstituteController.onPageLoad(mode)
       }),
     DidPaySubstitutePage -> (answers =>
-      answers.getAnswer(DidPaySubstitutePage) match {
+      answers.get(DidPaySubstitutePage) match {
         case Some(true) => routeToNextSection
         case _ => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
       }),
     RejectSubstitutePage -> (answers =>
-      (answers.getAnswer(ContractStartedPage), answers.getAnswer(RejectSubstitutePage)) match {
+      (answers.get(ContractStartedPage), answers.get(RejectSubstitutePage)) match {
         case (Some(true), Some(true)) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
         case (_, Some(false)) => personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(mode)
         case _ => routeToNextSection
       }),
     WouldWorkerPaySubstitutePage -> (answers =>
-      (answers.getAnswer(ContractStartedPage), answers.getAnswer(WouldWorkerPaySubstitutePage)) match {
+      (answers.get(ContractStartedPage), answers.get(WouldWorkerPaySubstitutePage)) match {
         case (Some(true), x) if x.contains(false) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
         case _ => routeToNextSection
       }),

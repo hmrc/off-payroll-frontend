@@ -57,7 +57,6 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
     "12345",
     Some(Worker),
     Some(false),
-    Some(SoleTrader),
     None,
     Some(false),
     Some(YesClientAgreed),

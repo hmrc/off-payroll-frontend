@@ -27,7 +27,7 @@ import play.api.data.Form
 class WhoAreYouFormProvider @Inject() extends Mappings {
 
   def apply()(implicit request: DataRequest[_]): Form[WhoAreYou] = {
-    val journey = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).getOrElse(IR35)
+    val journey = request.userAnswers.get(WhatDoYouWantToFindOutPage).getOrElse(IR35)
     Form(
       "value" -> enumerable[WhoAreYou](s"whoAreYou.$journey.error.required", "error.invalid")
     )

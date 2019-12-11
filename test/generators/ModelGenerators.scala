@@ -19,10 +19,10 @@ package generators
 import models._
 import models.sections.businessOnOwnAccount.{ExclusiveContract, MultipleEngagements, SeriesOfContracts, TransferRights}
 import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
-import models.sections.financialRisk.{CannotClaimAsExpense, HowWorkerIsPaid, PutRightAtOwnCost}
+import models.sections.financialRisk.{HowWorkerIsPaid, PutRightAtOwnCost}
 import models.sections.partAndParcel.IdentifyToStakeholders
 import models.sections.personalService.ArrangedSubstitute
-import models.sections.setup.{WhatDoYouWantToFindOut, WorkerType}
+import models.sections.setup.WhatDoYouWantToFindOut
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 import viewmodels.SingleAnswerRow
@@ -93,16 +93,6 @@ trait ModelGenerators {
   implicit lazy val arbitraryArrangedSubstitute: Arbitrary[ArrangedSubstitute] =
     Arbitrary {
       Gen.oneOf(ArrangedSubstitute.values)
-    }
-
-  implicit lazy val arbitraryCannotClaimAsExpense: Arbitrary[CannotClaimAsExpense] =
-    Arbitrary {
-      Gen.oneOf(CannotClaimAsExpense.values)
-    }
-
-  implicit lazy val arbitraryWorkerType: Arbitrary[WorkerType] =
-    Arbitrary {
-      Gen.oneOf(WorkerType.values)
     }
 
   implicit lazy val arbitraryExclusiveContract: Arbitrary[ExclusiveContract] =

@@ -26,7 +26,7 @@ import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
 
@@ -37,27 +37,31 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
     pagesToRemove.getOrElse(currentPage,_ => List.empty)
   }
 
-  private val personalService: List[QuestionPage[_]] = List(ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage)
+  private val personalService: List[QuestionPage[_]] = List(
+    ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage
+  )
   private val businessOnOwnAccount: List[QuestionPage[_]] = List(
     WorkerKnownPage, MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
     PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, SimilarWorkOtherClientsPage
   )
   private val control: List[QuestionPage[_]] = List(ChooseWhereWorkPage,MoveWorkerPage,ScheduleOfWorkingHoursPage,HowWorkIsDonePage)
-  private val financialRisk: List[QuestionPage[_]] = List(EquipmentExpensesPage,HowWorkerIsPaidPage,MaterialsPage,OtherExpensesPage,PutRightAtOwnCostPage,VehiclePage,CannotClaimAsExpensePage)
-  private val partAndParcel: List[QuestionPage[_]] = List(BenefitsPage,IdentifyToStakeholdersPage,LineManagerDutiesPage,InteractWithStakeholdersPage)
+  private val financialRisk: List[QuestionPage[_]] = List(
+    EquipmentExpensesPage,HowWorkerIsPaidPage,MaterialsPage,OtherExpensesPage,PutRightAtOwnCostPage,VehiclePage
+  )
+  private val partAndParcel: List[QuestionPage[_]] = List(BenefitsPage,IdentifyToStakeholdersPage,LineManagerDutiesPage)
 
   private val pagesToRemove: Map[QuestionPage[_], UserAnswers => List[QuestionPage[_]]] = Map(
 
     //Setup Section
 
     WhatDoYouWantToFindOutPage -> (_ => List(WhoAreYouPage, WorkerUsingIntermediaryPage, WhatDoYouWantToDoPage)),
-    WhoAreYouPage -> (answers => (answers.getAnswer(WhoAreYouPage),answers.getAnswer(WhatDoYouWantToFindOutPage)) match {
+    WhoAreYouPage -> (answers => (answers.get(WhoAreYouPage),answers.get(WhatDoYouWantToFindOutPage)) match {
       case (Some(WhoAreYou.Agency),_) => List(WhatDoYouWantToDoPage, WorkerUsingIntermediaryPage)
       case (Some(WhoAreYou.Hirer),_) => List(WhatDoYouWantToDoPage)
       case (Some(WhoAreYou.Worker),Some(WhatDoYouWantToFindOut.PAYE)) => List(WhatDoYouWantToDoPage)
       case _ => List()
     }),
-    WhatDoYouWantToDoPage -> (answers => answers.getAnswer(WhatDoYouWantToDoPage) match {
+    WhatDoYouWantToDoPage -> (answers => answers.get(WhatDoYouWantToDoPage) match {
       case Some(WhatDoYouWantToDo.CheckDetermination) => List(WorkerUsingIntermediaryPage)
       case _ => List()
     }),
@@ -65,7 +69,7 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
 
     //Personal Service Section
     ArrangedSubstitutePage -> (answers => {
-      answers.getAnswer(ArrangedSubstitutePage) match {
+      answers.get(ArrangedSubstitutePage) match {
         case Some(No) => List(DidPaySubstitutePage, NeededToPayHelperPage)
         case Some(YesClientAgreed) => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage)
         case Some(YesClientNotAgreed) => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage)
@@ -73,63 +77,63 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
       }
     }),
     DidPaySubstitutePage -> (answers => {
-      answers.getAnswer(DidPaySubstitutePage) match {
+      answers.get(DidPaySubstitutePage) match {
         case Some(true) => List(NeededToPayHelperPage)
         case _ => List.empty
       }
     }),
     RejectSubstitutePage -> (answers => {
-      answers.getAnswer(RejectSubstitutePage) match {
+      answers.get(RejectSubstitutePage) match {
         case Some(true) => List(WouldWorkerPaySubstitutePage)
         case _ => List(NeededToPayHelperPage)
       }
     }),
     WouldWorkerPaySubstitutePage -> (answers => {
-      answers.getAnswer(WouldWorkerPaySubstitutePage) match {
+      answers.get(WouldWorkerPaySubstitutePage) match {
         case Some(true) => List(NeededToPayHelperPage)
         case _ => List.empty
       }
     }),
     OfficeHolderPage -> (_ => personalService ++ control ++ financialRisk ++ partAndParcel ++ businessOnOwnAccount),
     AddReferenceDetailsPage -> (answers =>
-      answers.getAnswer(AddReferenceDetailsPage) match {
+      answers.get(AddReferenceDetailsPage) match {
         case Some(false) => List(CustomisePDFPage)
         case _ => List.empty
       }),
 
     //BoOA Section
     WorkerKnownPage -> (
-      answers => if(answers.getAnswer(WorkerKnownPage).contains(true)) List.empty else List(
+      answers => if(answers.get(WorkerKnownPage).contains(true)) List.empty else List(
         MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
         PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, SimilarWorkOtherClientsPage
       )),
     MultipleContractsPage -> (
-      answers => answers.getAnswer(MultipleContractsPage) match {
+      answers => answers.get(MultipleContractsPage) match {
         case Some(true) => List(PermissionToWorkWithOthersPage)
         case _ => List.empty
       }),
     OwnershipRightsPage -> (
-      answers => answers.getAnswer(OwnershipRightsPage) match {
+      answers => answers.get(OwnershipRightsPage) match {
         case Some(false) => List(RightsOfWorkPage, TransferOfRightsPage)
         case _ => List.empty
       }),
     RightsOfWorkPage -> (
-      answers => answers.getAnswer(RightsOfWorkPage) match {
+      answers => answers.get(RightsOfWorkPage) match {
         case Some(true) => List(TransferOfRightsPage)
         case _ => List.empty
       }),
     PreviousContractPage -> (
-      answers => answers.getAnswer(PreviousContractPage) match {
+      answers => answers.get(PreviousContractPage) match {
         case Some(false) => List(FollowOnContractPage)
         case _ => List.empty
       }),
     FollowOnContractPage -> (
-      answers => answers.getAnswer(FollowOnContractPage) match {
+      answers => answers.get(FollowOnContractPage) match {
         case Some(true) => List(ExtendContractPage)
         case _ => List.empty
       }),
     FirstContractPage -> (
-      answers => answers.getAnswer(FirstContractPage) match {
+      answers => answers.get(FirstContractPage) match {
         case Some(true) => List(ExtendContractPage)
         case _ => List.empty
       })

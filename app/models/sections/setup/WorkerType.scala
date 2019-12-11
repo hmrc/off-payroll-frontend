@@ -25,21 +25,9 @@ sealed trait WorkerType
 object WorkerType {
 
   case object LimitedCompany extends WithName("limitedCompany") with WorkerType
-  case object Partnership extends WithName("partnership") with WorkerType
-  case object ThroughIndividual extends WithName("throughIndividual") with WorkerType
   case object SoleTrader extends WithName("soleTrader") with WorkerType
 
-  val values: Seq[WorkerType] = Seq(
-    LimitedCompany, Partnership, ThroughIndividual, SoleTrader
-  )
-
-  val options: Seq[RadioOption] = values.map {
-    value =>
-      RadioOption("workerType", value.toString, Radio)
-  }
-
-  implicit val enumerable: Enumerable[WorkerType] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+  val values: Seq[WorkerType] = Seq(LimitedCompany, SoleTrader)
 
   implicit object WorkerTypeWrites extends Writes[WorkerType] {
     def writes(workerType: WorkerType) = Json.toJson(workerType.toString)
@@ -48,8 +36,6 @@ object WorkerType {
   implicit object WorkerTypeReads extends Reads[WorkerType] {
     override def reads(json: JsValue): JsResult[WorkerType] = json match {
       case JsString(LimitedCompany.toString) => JsSuccess(LimitedCompany)
-      case JsString(Partnership.toString) => JsSuccess(Partnership)
-      case JsString(ThroughIndividual.toString) => JsSuccess(ThroughIndividual)
       case JsString(SoleTrader.toString) => JsSuccess(SoleTrader)
       case _                          => JsError("Unknown workerType")
     }

@@ -23,9 +23,9 @@ import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage}
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.cache.client.CacheMap
 
@@ -62,12 +62,9 @@ trait CacheMapGenerator {
     arbitrary[(PutRightAtOwnCostPage.type, JsValue)] ::
     arbitrary[(BenefitsPage.type, JsValue)] ::
     arbitrary[(LineManagerDutiesPage.type, JsValue)] ::
-    arbitrary[(InteractWithStakeholdersPage.type, JsValue)] ::
     arbitrary[(IdentifyToStakeholdersPage.type, JsValue)] ::
     arbitrary[(ArrangedSubstitutePage.type, JsValue)] ::
-    arbitrary[(CannotClaimAsExpensePage.type, JsValue)] ::
     arbitrary[(OfficeHolderPage.type, JsValue)] ::
-    arbitrary[(WorkerTypePage.type, JsValue)] ::
     arbitrary[(ContractStartedPage.type, JsValue)] ::
     arbitrary[(WhatDoYouWantToFindOutPage.type, JsValue)] ::
   Nil

@@ -22,7 +22,7 @@ import controllers.sections.partParcel.{routes => partAndParcelRoutes}
 import models._
 import navigation.mocks.FakeNavigators.FakeBusinessOnOwnAccountNavigator
 import pages._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 
 class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
 
@@ -37,25 +37,9 @@ class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
       nextPage(BenefitsPage) mustBe partAndParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode)
     }
 
-    "go from the LineManagerDutiesPage" when {
+    "go from the LineManagerDutiesPage to the IdentifyToStakeholdersPage" in {
 
-      "the OptimisedFlow is enabled should go to the IdentifyToStakeholdersPage" in {
-
-        nextPage(LineManagerDutiesPage) mustBe partAndParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
-      }
-    }
-
-    "go from the InteractWithStakeholdersPage" when {
-
-      "if InteractWithStakeholders is true go to the IdentifyToStakeholdersPage" in {
-        nextPage(InteractWithStakeholdersPage, emptyUserAnswers.set(InteractWithStakeholdersPage, true)) mustBe
-          partAndParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
-      }
-
-      "if InteractWithStakeholders is false AND OptimisedFlow is enabled go to the MultipleContractsPage" in {
-
-        nextPage(InteractWithStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
-      }
+      nextPage(LineManagerDutiesPage) mustBe partAndParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
     }
 
     "go from the IdentifyToStakeholdersPage" when {

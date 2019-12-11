@@ -40,7 +40,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WhoAreYouPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WhoAreYouPage}
 import play.api.libs.json.{Json, Writes}
 
 class InterviewSpec extends GuiceAppSpecBase {
@@ -48,95 +48,8 @@ class InterviewSpec extends GuiceAppSpecBase {
   "Interview" must {
 
     "find the route" when {
-      "provideServices is supplied" in {
 
-        Interview(
-          correlationId = "id",
-          endUserRole = Some(WhoAreYou.Worker),
-          hasContractStarted = Some(true),
-          provideServices = Some(SoleTrader),
-          officeHolder = Some(false),
-          workerSentActualSubstitute = Some(YesClientAgreed),
-          workerPayActualSubstitute = Some(false),
-          possibleSubstituteRejection = Some(false),
-          possibleSubstituteWorkerPay = Some(true),
-          wouldWorkerPayHelper = Some(false),
-          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
-          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
-          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
-          workerDecideWhere = Some(WorkerAgreeWithOthers),
-          workerProvidedMaterials = Some(false),
-          workerProvidedEquipment = Some(false),
-          workerUsedVehicle = Some(true),
-          workerHadOtherExpenses = Some(true),
-          expensesAreNotRelevantForRole = Some(false),
-          workerMainIncome = Some(Commission),
-          paidForSubstandardWork = Some(CannotBeCorrected),
-          workerReceivesBenefits = Some(false),
-          workerAsLineManager = Some(false),
-          contactWithEngagerCustomer = Some(false),
-          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).route mustBe "ESI"
-
-        Interview(
-          correlationId = "id",
-          endUserRole = Some(WhoAreYou.Worker),
-          hasContractStarted = Some(true),
-          provideServices = Some(LimitedCompany),
-          officeHolder = Some(false),
-          workerSentActualSubstitute = Some(YesClientAgreed),
-          workerPayActualSubstitute = Some(false),
-          possibleSubstituteRejection = Some(false),
-          possibleSubstituteWorkerPay = Some(true),
-          wouldWorkerPayHelper = Some(false),
-          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
-          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
-          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
-          workerDecideWhere = Some(WorkerAgreeWithOthers),
-          workerProvidedMaterials = Some(false),
-          workerProvidedEquipment = Some(false),
-          workerUsedVehicle = Some(true),
-          workerHadOtherExpenses = Some(true),
-          expensesAreNotRelevantForRole = Some(false),
-          workerMainIncome = Some(Commission),
-          paidForSubstandardWork = Some(CannotBeCorrected),
-          workerReceivesBenefits = Some(false),
-          workerAsLineManager = Some(false),
-          contactWithEngagerCustomer = Some(false),
-          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).route mustBe "IR35"
-      }
-      "use the normal flow is both are provided" in {
-        Interview(
-          correlationId = "id",
-          endUserRole = Some(WhoAreYou.Worker),
-          provideServices = Some(LimitedCompany),
-          isUsingIntermediary = Some(true),
-          hasContractStarted = Some(true),
-          officeHolder = Some(false),
-          workerSentActualSubstitute = Some(YesClientAgreed),
-          workerPayActualSubstitute = Some(false),
-          possibleSubstituteRejection = Some(false),
-          possibleSubstituteWorkerPay = Some(true),
-          wouldWorkerPayHelper = Some(false),
-          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
-          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
-          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
-          workerDecideWhere = Some(WorkerAgreeWithOthers),
-          workerProvidedMaterials = Some(false),
-          workerProvidedEquipment = Some(false),
-          workerUsedVehicle = Some(true),
-          workerHadOtherExpenses = Some(true),
-          expensesAreNotRelevantForRole = Some(false),
-          workerMainIncome = Some(Commission),
-          paidForSubstandardWork = Some(CannotBeCorrected),
-          workerReceivesBenefits = Some(false),
-          workerAsLineManager = Some(false),
-          contactWithEngagerCustomer = Some(false),
-          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).route mustBe "IR35"
-      }
-      "default to IR35 when no values are supplied" in {
+      "default to IR35 when no value supplied for isUsingIntermediary" in {
         Interview(
           correlationId = "id",
           endUserRole = Some(WhoAreYou.Worker),
@@ -227,37 +140,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
     "calculate provide services" when {
 
-      "provide services is populated" in {
-        Interview(
-          correlationId = "id",
-          endUserRole = Some(WhoAreYou.Worker),
-          hasContractStarted = Some(true),
-          provideServices = Some(SoleTrader),
-          officeHolder = Some(false),
-          workerSentActualSubstitute = Some(YesClientAgreed),
-          workerPayActualSubstitute = Some(false),
-          possibleSubstituteRejection = Some(false),
-          possibleSubstituteWorkerPay = Some(true),
-          wouldWorkerPayHelper = Some(false),
-          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
-          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
-          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
-          workerDecideWhere = Some(WorkerAgreeWithOthers),
-          workerProvidedMaterials = Some(false),
-          workerProvidedEquipment = Some(false),
-          workerUsedVehicle = Some(true),
-          workerHadOtherExpenses = Some(true),
-          expensesAreNotRelevantForRole = Some(false),
-          workerMainIncome = Some(Commission),
-          paidForSubstandardWork = Some(CannotBeCorrected),
-          workerReceivesBenefits = Some(false),
-          workerAsLineManager = Some(false),
-          contactWithEngagerCustomer = Some(false),
-          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).calculateProvideServices mustBe Some(SoleTrader)
-      }
-
-      "isUsingIntermediary is populated" in {
+      "isUsingIntermediary is true" in {
         Interview(
           correlationId = "id",
           endUserRole = Some(WhoAreYou.Worker),
@@ -317,37 +200,6 @@ class InterviewSpec extends GuiceAppSpecBase {
         ).calculateProvideServices mustBe Some(SoleTrader)
       }
 
-      "use the optimised is both are supplied" in {
-        Interview(
-          correlationId = "id",
-          endUserRole = Some(WhoAreYou.Worker),
-          hasContractStarted = Some(true),
-          provideServices = Some(SoleTrader),
-          isUsingIntermediary = Some(true),
-          officeHolder = Some(false),
-          workerSentActualSubstitute = Some(YesClientAgreed),
-          workerPayActualSubstitute = Some(false),
-          possibleSubstituteRejection = Some(false),
-          possibleSubstituteWorkerPay = Some(true),
-          wouldWorkerPayHelper = Some(false),
-          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
-          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
-          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
-          workerDecideWhere = Some(WorkerAgreeWithOthers),
-          workerProvidedMaterials = Some(false),
-          workerProvidedEquipment = Some(false),
-          workerUsedVehicle = Some(true),
-          workerHadOtherExpenses = Some(true),
-          expensesAreNotRelevantForRole = Some(false),
-          workerMainIncome = Some(Commission),
-          paidForSubstandardWork = Some(CannotBeCorrected),
-          workerReceivesBenefits = Some(false),
-          workerAsLineManager = Some(false),
-          contactWithEngagerCustomer = Some(false),
-          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).calculateProvideServices mustBe Some(LimitedCompany)
-      }
-
       "none is supplied" in {
         Interview(
           correlationId = "id",
@@ -389,7 +241,6 @@ class InterviewSpec extends GuiceAppSpecBase {
           val userAnswers = UserAnswers("id")
             .set(WhoAreYouPage, Worker)
             .set(ContractStartedPage, true)
-            .set(WorkerTypePage, SoleTrader)
             .set(OfficeHolderPage, false)
             .set(ArrangedSubstitutePage, YesClientAgreed)
             .set(DidPaySubstitutePage, false)
@@ -414,7 +265,6 @@ class InterviewSpec extends GuiceAppSpecBase {
             correlationId = "id",
             endUserRole = Some(WhoAreYou.Worker),
             hasContractStarted = Some(true),
-            provideServices = Some(SoleTrader),
             officeHolder = Some(false),
             workerSentActualSubstitute = Some(YesClientAgreed),
             workerPayActualSubstitute = Some(false),
@@ -451,7 +301,6 @@ class InterviewSpec extends GuiceAppSpecBase {
           val userAnswers = UserAnswers("id")
             .set(WhoAreYouPage, Worker)
             .set(ContractStartedPage, true)
-            .set(WorkerTypePage, SoleTrader)
             .set(OfficeHolderPage, false)
             .set(ArrangedSubstitutePage, YesClientAgreed)
             .set(DidPaySubstitutePage, false)
@@ -476,7 +325,6 @@ class InterviewSpec extends GuiceAppSpecBase {
             correlationId = "id",
             endUserRole = Some(WhoAreYou.Worker),
             hasContractStarted = Some(true),
-            provideServices = Some(SoleTrader),
             officeHolder = Some(false),
             workerSentActualSubstitute = Some(YesClientAgreed),
             workerPayActualSubstitute = Some(false),
@@ -931,7 +779,7 @@ class InterviewSpec extends GuiceAppSpecBase {
           correlationId = "id",
           endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
-          provideServices = Some(SoleTrader),
+          isUsingIntermediary = Some(false),
           officeHolder = Some(false),
           workerSentActualSubstitute = Some(YesClientAgreed),
           workerPayActualSubstitute = Some(false),
@@ -1015,7 +863,7 @@ class InterviewSpec extends GuiceAppSpecBase {
           correlationId = "id",
           endUserRole = Some(WhoAreYou.Worker),
           hasContractStarted = Some(true),
-          provideServices = Some(SoleTrader),
+          isUsingIntermediary = Some(false),
           officeHolder = Some(false),
           workerSentActualSubstitute = Some(YesClientAgreed),
           workerPayActualSubstitute = Some(false),

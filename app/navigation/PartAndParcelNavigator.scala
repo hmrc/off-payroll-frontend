@@ -23,7 +23,7 @@ import controllers.sections.partParcel.{routes => partParcelRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import play.api.mvc.Call
 
 @Singleton
@@ -33,11 +33,6 @@ class PartAndParcelNavigator @Inject()(businessOnOwnAccountNavigator: BusinessOn
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
     BenefitsPage -> (_ => partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode)),
     LineManagerDutiesPage -> (_ => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)),
-    InteractWithStakeholdersPage -> { answer =>
-      answer.getAnswer(InteractWithStakeholdersPage) match {
-        case Some(true) => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
-        case _ => nextSection(answer)
-      }},
     IdentifyToStakeholdersPage -> (answers => nextSection(answers))
   )
 

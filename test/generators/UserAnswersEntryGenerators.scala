@@ -17,10 +17,9 @@
 package generators
 
 import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
-import models.sections.financialRisk.{CannotClaimAsExpense, HowWorkerIsPaid, PutRightAtOwnCost}
+import models.sections.financialRisk.{HowWorkerIsPaid, PutRightAtOwnCost}
 import models.sections.partAndParcel.IdentifyToStakeholders
 import models.sections.personalService.ArrangedSubstitute
-import models.sections.setup.WorkerType
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import pages._
@@ -28,9 +27,9 @@ import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage}
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
@@ -276,14 +275,6 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryInteractWithStakeholdersUserAnswersEntry: Arbitrary[(InteractWithStakeholdersPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[InteractWithStakeholdersPage.type]
-        value <- arbitrary[Boolean].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
   implicit lazy val arbitraryIdentifyToStakeholdersUserAnswersEntry: Arbitrary[(IdentifyToStakeholdersPage.type, JsValue)] =
     Arbitrary {
       for {
@@ -300,27 +291,11 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryCannotClaimAsExpenseUserAnswersEntry: Arbitrary[(CannotClaimAsExpensePage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[CannotClaimAsExpensePage.type]
-        value <- arbitrary[CannotClaimAsExpense].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
   implicit lazy val arbitraryOfficeHolderUserAnswersEntry: Arbitrary[(OfficeHolderPage.type, JsValue)] =
     Arbitrary {
       for {
         page  <- arbitrary[OfficeHolderPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
-  implicit lazy val arbitraryWorkerTypeUserAnswersEntry: Arbitrary[(WorkerTypePage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[WorkerTypePage.type]
-        value <- arbitrary[WorkerType].map(Json.toJson(_))
       } yield (page, value)
     }
 

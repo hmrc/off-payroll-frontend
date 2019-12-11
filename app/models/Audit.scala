@@ -100,7 +100,7 @@ object Audit extends JsonObjectSugar {
   }
 
   private def answerFor[A](page: QuestionPage[A])(implicit auditModel: Audit, reads: Reads[A], writes: Writes[A]): (String, Json.JsValueWrapper) =
-    page.toString -> Json.toJson(auditModel.userAnswers.getAnswer(page))
+    page.toString -> Json.toJson(auditModel.userAnswers.get(page))
 
 }
 

@@ -32,7 +32,7 @@ import play.api.mvc.Call
 class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
   def startPage(userAnswers: UserAnswers): Call =
-    (userAnswers.getAnswer(WhoAreYouPage), userAnswers.getAnswer(ContractStartedPage).getOrElse(false)) match {
+    (userAnswers.get(WhoAreYouPage), userAnswers.get(ContractStartedPage).getOrElse(false)) match {
       case (Some(Hirer), false) => booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
       case _ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
     }
@@ -41,14 +41,14 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
   private def routeMap(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
 
     WorkerKnownPage -> (answer =>
-      answer.getAnswer(WorkerKnownPage) match {
+      answer.get(WorkerKnownPage) match {
         case Some(false) => routeToCheckYourAnswers
         case Some(true) => booaRoutes.MultipleContractsController.onPageLoad(mode)
         case None => booaRoutes.WorkerKnownController.onPageLoad(mode)
       }
     ),
     MultipleContractsPage -> (answer =>
-      answer.getAnswer(MultipleContractsPage) match {
+      answer.get(MultipleContractsPage) match {
         case Some(false) => booaRoutes.PermissionToWorkWithOthersController.onPageLoad(mode)
         case _ => booaRoutes.OwnershipRightsController.onPageLoad(mode)
       }
@@ -57,14 +57,14 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
     PermissionToWorkWithOthersPage -> (_ => booaRoutes.OwnershipRightsController.onPageLoad(mode)),
 
     OwnershipRightsPage -> (answer =>
-      answer.getAnswer(OwnershipRightsPage) match {
+      answer.get(OwnershipRightsPage) match {
         case Some(true) => booaRoutes.RightsOfWorkController.onPageLoad(mode)
         case _ => booaRoutes.PreviousContractController.onPageLoad(mode)
       }
     ),
 
     RightsOfWorkPage -> (answer =>
-      answer.getAnswer(RightsOfWorkPage) match {
+      answer.get(RightsOfWorkPage) match {
         case Some(false) => booaRoutes.TransferOfRightsController.onPageLoad(mode)
         case _ => booaRoutes.PreviousContractController.onPageLoad(mode)
       }
@@ -73,21 +73,21 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
     TransferOfRightsPage -> (_ => booaRoutes.PreviousContractController.onPageLoad(mode)),
 
     PreviousContractPage -> (answer =>
-      answer.getAnswer(PreviousContractPage) match {
+      answer.get(PreviousContractPage) match {
         case Some(true) => booaRoutes.FollowOnContractController.onPageLoad(mode)
         case _ => booaRoutes.FirstContractController.onPageLoad(mode)
       }
     ),
 
     FollowOnContractPage -> (answer =>
-      answer.getAnswer(FollowOnContractPage) match {
+      answer.get(FollowOnContractPage) match {
         case Some(false) => booaRoutes.FirstContractController.onPageLoad(mode)
         case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(mode)
       }
     ),
 
     FirstContractPage -> (answer =>
-      answer.getAnswer(FirstContractPage) match {
+      answer.get(FirstContractPage) match {
         case Some(false) => booaRoutes.ExtendContractController.onPageLoad(mode)
         case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(mode)
       }

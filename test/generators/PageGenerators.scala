@@ -22,9 +22,9 @@ import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage}
 
 trait PageGenerators {
 
@@ -118,23 +118,14 @@ trait PageGenerators {
   implicit lazy val arbitraryLineManagerDutiesPage: Arbitrary[LineManagerDutiesPage.type] =
     Arbitrary(LineManagerDutiesPage)
 
-  implicit lazy val arbitraryInteractWithStakeholdersPage: Arbitrary[InteractWithStakeholdersPage.type] =
-    Arbitrary(InteractWithStakeholdersPage)
-
   implicit lazy val arbitraryIdentifyToStakeholdersPage: Arbitrary[IdentifyToStakeholdersPage.type] =
     Arbitrary(IdentifyToStakeholdersPage)
 
   implicit lazy val arbitraryArrangedSubstitutePage: Arbitrary[ArrangedSubstitutePage.type] =
     Arbitrary(ArrangedSubstitutePage)
 
-  implicit lazy val arbitraryCannotClaimAsExpensePage: Arbitrary[CannotClaimAsExpensePage.type] =
-    Arbitrary(CannotClaimAsExpensePage)
-
   implicit lazy val arbitraryOfficeHolderPage: Arbitrary[OfficeHolderPage.type] =
     Arbitrary(OfficeHolderPage)
-
-  implicit lazy val arbitraryWorkerTypePage: Arbitrary[WorkerTypePage.type] =
-    Arbitrary(WorkerTypePage)
 
   implicit lazy val arbitraryContractStartedPage: Arbitrary[ContractStartedPage.type] =
     Arbitrary(ContractStartedPage)
