@@ -36,7 +36,7 @@ import play.api.libs.json.{Json, Writes}
 
 import scala.language.implicitConversions
 
-class AuditSpec extends GuiceAppSpecBase {
+class AuditResultSpec extends GuiceAppSpecBase {
 
   implicit def toJsonTuple[A](x: (QuestionPage[A], A))(implicit writes: Writes[A]): (String, JsValueWrapper) = x._1.toString -> Json.toJson(x._2)
 
@@ -108,7 +108,7 @@ class AuditSpec extends GuiceAppSpecBase {
           resultWithoutBooa = Some(ResultEnum.UNKNOWN)
         )
 
-        val actual = Json.toJson(Audit(userAnswers, decisionResponse))
+        val actual = Json.toJson(AuditResult(userAnswers, decisionResponse))
 
         val expected = Json.obj(
           "decisionServiceVersion" -> "2.2",
@@ -206,7 +206,7 @@ class AuditSpec extends GuiceAppSpecBase {
           resultWithoutBooa = Some(ResultEnum.INSIDE_IR35)
         )
 
-        val actual = Json.toJson(Audit(userAnswers, decisionResponse))
+        val actual = Json.toJson(AuditResult(userAnswers, decisionResponse))
 
         val expected = Json.obj(
           "decisionServiceVersion" -> "2.2",

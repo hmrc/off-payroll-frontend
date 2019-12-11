@@ -23,13 +23,13 @@ import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.setup.ContractStartedFormProvider
 import javax.inject.Inject
-import models.Mode
-import models.requests.DataRequest
+import models.{AuditJourneyStart, Mode}
 import navigation.SetupNavigator
 import pages.sections.setup.ContractStartedPage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
+import uk.gov.hmrc.play.audit.http.connector.AuditConnector
+import views.html.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
 
@@ -38,29 +38,25 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ContractStartedFormProvider,
                                           override val controllerComponents: MessagesControllerComponents,
-                                          view: views.html.sections.setup.ContractStartedView,
+                                          view: ContractStartedView,
                                           checkYourAnswersService: CheckYourAnswersService,
                                           override val compareAnswerService: CompareAnswerService,
                                           override val dataCacheConnector: DataCacheConnector,
                                           override val navigator: SetupNavigator,
-                                          implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController with FeatureSwitching {
-
-  def form(implicit request: DataRequest[_]): Form[Boolean] = formProvider()
-
-  def renderView(mode: Mode, oForm: Option[Form[Boolean]] = None)(implicit request: DataRequest[_]) = {
-    val formData = oForm.getOrElse(fillForm(ContractStartedPage, form))
-    view(formData, mode)
-  }
+                                          val auditConnector: AuditConnector,
+                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel)), mode))
+    Ok(view(fillForm(ContractStartedPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(renderView(mode, Some(formWithErrors)))),
-      value => redirect(mode,value,ContractStartedPage)
+    formProvider().bindFromRequest().fold(
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+      value => {
+        auditConnector.sendExplicitAudit("cestJourneyStart", AuditJourneyStart(request.userAnswers))
+        redirect(mode, value, ContractStartedPage)
+      }
     )
   }
 }

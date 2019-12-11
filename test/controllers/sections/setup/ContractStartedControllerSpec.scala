@@ -17,10 +17,11 @@
 package controllers.sections.setup
 
 
+import connectors.mocks.MockAuditConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.ContractStartedFormProvider
-import models.NormalMode
+import models.{AuditJourneyStart, AuditResult, NormalMode}
 import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.ContractStartedPage
@@ -29,7 +30,7 @@ import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-class ContractStartedControllerSpec extends ControllerSpecBase {
+class ContractStartedControllerSpec extends ControllerSpecBase with MockAuditConnector {
 
   val formProvider = new ContractStartedFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
@@ -37,7 +38,6 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[views.html.sections.setup.ContractStartedView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
-    appConfig = frontendAppConfig,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
@@ -47,8 +47,9 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-
-    navigator = FakeSetupNavigator
+    navigator = FakeSetupNavigator,
+    auditConnector = mockAuditConnector,
+    appConfig = frontendAppConfig
   )
 
   def viewAsStringOptimised(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -76,12 +77,14 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val answers = userAnswers.set(ContractStartedPage,true)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockAuditEvent("cestJourneyStart", AuditJourneyStart(userAnswers))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
