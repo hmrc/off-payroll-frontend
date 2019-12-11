@@ -28,12 +28,12 @@ import play.api.Logger
 import play.api.libs.json.{Json, Reads, Writes}
 import utils.JsonObjectSugar
 
-case class Audit(userAnswers: UserAnswers,
-                 decisionResponse: DecisionResponse)
+case class AuditResult(userAnswers: UserAnswers,
+                       decisionResponse: DecisionResponse)
 
-object Audit extends JsonObjectSugar {
+object AuditResult extends JsonObjectSugar {
 
-  implicit val writes: Writes[Audit] = Writes { implicit model =>
+  implicit val writes: Writes[AuditResult] = Writes { implicit model =>
     val json = jsonObjNoNulls(
       "correlationId" -> model.decisionResponse.correlationID,
       "decisionServiceVersion" -> model.decisionResponse.version,
@@ -99,7 +99,7 @@ object Audit extends JsonObjectSugar {
     json
   }
 
-  private def answerFor[A](page: QuestionPage[A])(implicit auditModel: Audit, reads: Reads[A], writes: Writes[A]): (String, Json.JsValueWrapper) =
+  private def answerFor[A](page: QuestionPage[A])(implicit auditModel: AuditResult, reads: Reads[A], writes: Writes[A]): (String, Json.JsValueWrapper) =
     page.toString -> Json.toJson(auditModel.userAnswers.get(page))
 
 }

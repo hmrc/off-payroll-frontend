@@ -125,7 +125,7 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector
         val decisionResponse: DecisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
 
         mockDecide(Interview(userAnswers))(Right(decisionResponse))
-        mockAuditEvent("cestDecisionResult", Audit(userAnswers, decisionResponse))
+        mockAuditEvent("cestDecisionResult", AuditResult(userAnswers, decisionResponse))
 
         whenReady(service.decide) { res =>
           res.right.get.result mustBe ResultEnum.INSIDE_IR35

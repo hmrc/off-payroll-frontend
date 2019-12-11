@@ -69,7 +69,7 @@ class DecisionService @Inject()(decisionConnector: DecisionConnector,
   def decide(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] =
     decisionConnector.decide(Interview(request.userAnswers)).map {
       case decision@Right(response) =>
-        auditConnector.sendExplicitAudit("cestDecisionResult", Audit(request.userAnswers, response))
+        auditConnector.sendExplicitAudit("cestDecisionResult", AuditResult(request.userAnswers, response))
         decision
       case left@Left(_) => left
     }
