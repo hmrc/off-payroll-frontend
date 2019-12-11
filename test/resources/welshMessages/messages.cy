@@ -68,7 +68,7 @@ site.telephone = Ffôn:
 site.telephone.number = 0300 200 1900
 site.email = E-bost:
 site.opensInNewWindow = (yn agor mewn ffenestr newydd)
-site.opensInNewWindowOrTab = (opens in a new window or tab)
+site.opensInNewWindowOrTab = (yn agor ffenestr neu dab newydd)
 
 ## TODO: Need Welsh
 site.letter.h1 = Cadwch gopi o’ch penderfyniad
