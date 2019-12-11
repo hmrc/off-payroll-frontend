@@ -38,7 +38,8 @@ case class AccordionSection(section: SectionEnum,
 }
 
 object Accordion {
-  def apply(sections: Seq[AnswerSection], sectionToExpand: Option[SectionEnum])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Accordion = new Accordion(
+  def apply(sections: Seq[AnswerSection], sectionToExpand: Option[SectionEnum])
+           (implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Accordion = new Accordion(
     sections = sections.map(section => AccordionSection(
       section.section,
       section.headingKey,

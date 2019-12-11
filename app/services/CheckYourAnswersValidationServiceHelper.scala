@@ -31,14 +31,14 @@ trait CheckYourAnswersValidationServiceHelper {
   // Setup Section Mandatory Page Logic
   // ==================================
   def intermediaryPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    (userAnswers.getAnswer(WhoAreYouPage), userAnswers.getAnswer(WhatDoYouWantToDoPage)) match {
+    (userAnswers.get(WhoAreYouPage), userAnswers.get(WhatDoYouWantToDoPage)) match {
       case (Some(Hirer), _) | (_, Some(MakeNewDetermination)) => Set(WorkerUsingIntermediaryPage)
       case _ => Set()
     }
   }
 
   def whatDoYouWantToDoPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    (userAnswers.getAnswer(WhatDoYouWantToFindOutPage), userAnswers.getAnswer(WhoAreYouPage)) match {
+    (userAnswers.get(WhatDoYouWantToFindOutPage), userAnswers.get(WhoAreYouPage)) match {
       case (Some(WhatDoYouWantToFindOut.IR35), Some(Worker)) => Set(WhatDoYouWantToDoPage)
       case _ => Set()
     }
@@ -47,7 +47,7 @@ trait CheckYourAnswersValidationServiceHelper {
   // Personal Service Section Mandatory Page Logic
   // =============================================
   def arrangedRejectedPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    userAnswers.getAnswer(ContractStartedPage) match {
+    userAnswers.get(ContractStartedPage) match {
       case Some(true) => Set(ArrangedSubstitutePage)
       case Some(false) => Set(RejectSubstitutePage)
       case _ => Set()
@@ -55,7 +55,7 @@ trait CheckYourAnswersValidationServiceHelper {
   }
 
   def didPayRejectedNeededPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    userAnswers.getAnswer(ArrangedSubstitutePage) match {
+    userAnswers.get(ArrangedSubstitutePage) match {
       case Some(YesClientAgreed) => Set(DidPaySubstitutePage)
       case Some(No) => Set(RejectSubstitutePage)
       case Some(YesClientNotAgreed) => Set(NeededToPayHelperPage)
@@ -64,14 +64,14 @@ trait CheckYourAnswersValidationServiceHelper {
   }
 
   def contractNeededPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    (userAnswers.getAnswer(WouldWorkerPaySubstitutePage), userAnswers.getAnswer(ContractStartedPage)) match {
+    (userAnswers.get(WouldWorkerPaySubstitutePage), userAnswers.get(ContractStartedPage)) match {
       case (Some(false), Some(true)) => Set(NeededToPayHelperPage)
       case _ => Set()
     }
   }
 
   def contractNeededWouldPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    (userAnswers.getAnswer(RejectSubstitutePage), userAnswers.getAnswer(ContractStartedPage)) match {
+    (userAnswers.get(RejectSubstitutePage), userAnswers.get(ContractStartedPage)) match {
       case (Some(true), Some(true)) => Set(NeededToPayHelperPage)
       case (Some(false), _) => Set(WouldWorkerPaySubstitutePage)
       case _ => Set()
@@ -79,7 +79,7 @@ trait CheckYourAnswersValidationServiceHelper {
   }
 
   def neededPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    userAnswers.getAnswer(DidPaySubstitutePage) match {
+    userAnswers.get(DidPaySubstitutePage) match {
       case Some(false) => Set(NeededToPayHelperPage)
       case _ => Set()
     }
@@ -89,49 +89,49 @@ trait CheckYourAnswersValidationServiceHelper {
   // Business On Own Account Mandatory Page logic
   // ============================================
   def workerKnownPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    (userAnswers.getAnswer(WhoAreYouPage), userAnswers.getAnswer(ContractStartedPage)) match {
+    (userAnswers.get(WhoAreYouPage), userAnswers.get(ContractStartedPage)) match {
       case (Some(Hirer), Some(false)) => Set(WorkerKnownPage)
       case _ => Set()
     }
   }
 
   def permissionToWorkWithOtherClientsPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    userAnswers.getAnswer(MultipleContractsPage) match {
+    userAnswers.get(MultipleContractsPage) match {
       case Some(false) => Set(PermissionToWorkWithOthersPage)
       case _ => Set()
     }
   }
 
   def rightsOfWorkPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    userAnswers.getAnswer(OwnershipRightsPage) match {
+    userAnswers.get(OwnershipRightsPage) match {
       case Some(true) => Set(RightsOfWorkPage)
       case _ => Set()
     }
   }
 
   def transferRightsPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    userAnswers.getAnswer(RightsOfWorkPage) match {
+    userAnswers.get(RightsOfWorkPage) match {
       case Some(false) => Set(TransferOfRightsPage)
       case _ => Set()
     }
   }
 
   def followOnContractPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    userAnswers.getAnswer(PreviousContractPage) match {
+    userAnswers.get(PreviousContractPage) match {
       case Some(true) => Set(FollowOnContractPage)
       case _ => Set()
     }
   }
 
   def firstContractPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    (userAnswers.getAnswer(PreviousContractPage), userAnswers.getAnswer(FollowOnContractPage)) match {
+    (userAnswers.get(PreviousContractPage), userAnswers.get(FollowOnContractPage)) match {
       case (Some(false), _) | (_, Some(false)) => Set(FirstContractPage)
       case _ => Set()
     }
   }
 
   def extendContractPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    userAnswers.getAnswer(FirstContractPage) match {
+    userAnswers.get(FirstContractPage) match {
       case Some(false) => Set(ExtendContractPage)
       case _ => Set()
     }

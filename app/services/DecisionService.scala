@@ -88,13 +88,13 @@ class DecisionService @Inject()(decisionConnector: DecisionConnector,
     implicit val resultsDetails: ResultsDetails = ResultsDetails(
       officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(ans => ans),
       isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(ans => ans == MakeNewDetermination),
-      usingIntermediary = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35),
+      usingIntermediary = request.userAnswers.get(WhatDoYouWantToFindOutPage).contains(IR35),
       userType = request.userType,
       personalServiceOption = decision.score.personalService,
       controlOption = decision.score.control,
       financialRiskOption = decision.score.financialRisk,
       boOAOption = decision.score.businessOnOwnAccount,
-      request.userAnswers.getAnswer(WorkerKnownPage).fold(true)(x => x),
+      request.userAnswers.get(WorkerKnownPage).fold(true)(x => x),
       form = form
     )
 

@@ -31,7 +31,6 @@ import play.api.mvc.Call
 class FinancialRiskNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
-    CannotClaimAsExpensePage -> (_ => financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)),
     EquipmentExpensesPage -> (_ => financialRiskRoutes.VehicleController.onPageLoad(NormalMode)),
     VehiclePage -> (_ => financialRiskRoutes.MaterialsController.onPageLoad(NormalMode)),
     MaterialsPage -> (_ => financialRiskRoutes.OtherExpensesController.onPageLoad(NormalMode)),

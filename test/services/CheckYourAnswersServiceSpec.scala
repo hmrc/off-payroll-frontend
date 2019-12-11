@@ -34,7 +34,7 @@ import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
 import utils.CheckYourAnswersHelper
@@ -78,7 +78,6 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
         //Part and Parcel section
         .set(BenefitsPage, false)
         .set(LineManagerDutiesPage, false)
-        .set(InteractWithStakeholdersPage, true)
         .set(IdentifyToStakeholdersPage, WorkForEndClient)
         //Business On Own Account Section
         .set(WorkerKnownPage,true)

@@ -34,14 +34,13 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{VehiclePage, _}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}
+import pages.sections.setup.{ContractStartedPage, WorkerUsingIntermediaryPage}
 import play.api.libs.json._
 import utils.JsonObjectSugar
 
 case class Interview(correlationId: String,
                      endUserRole: Option[WhoAreYou] = None,
                      hasContractStarted: Option[Boolean] = None,
-                     provideServices: Option[WorkerType] = None,
                      isUsingIntermediary : Option[Boolean] = None,
                      officeHolder: Option[Boolean] = None,
                      workerSentActualSubstitute: Option[ArrangedSubstitute] = None,
@@ -72,26 +71,11 @@ case class Interview(correlationId: String,
                      seriesOfContracts: Option[SeriesOfContracts] = None
                     )(implicit val appConfig: FrontendAppConfig){
 
-  def calculateProvideServices: Option[WorkerType] = {
-
-    (isUsingIntermediary, provideServices) match {
-
-      case (Some(usingIntermediary), _) => if(usingIntermediary){
-        Some(LimitedCompany)
-      } else {
-        Some(SoleTrader)
-      }
-      case (None, Some(providedServices)) => Some(providedServices)
-      case _ => None
-    }
-  }
+  def calculateProvideServices: Option[WorkerType] =
+    isUsingIntermediary.map(ans => if(ans) LimitedCompany else SoleTrader)
 
   def route: String =
-    (isUsingIntermediary, provideServices) match {
-      case (Some(usingIntermediary), _) => if (usingIntermediary) "IR35" else "ESI"
-      case (_, Some(providedServices)) => if (providedServices == SoleTrader) "ESI" else "IR35"
-      case _ => "IR35"
-    }
+    isUsingIntermediary.fold("IR35")(ans => if(ans) "IR35" else "ESI")
 }
 
 
@@ -180,7 +164,6 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
 
     Interview(correlationId = userAnswers.cacheMap.id, endUserRole = request.userType,
       hasContractStarted = getAnswer[Boolean](ContractStartedPage),
-      provideServices = getAnswer[WorkerType](WorkerTypePage),
       isUsingIntermediary = getAnswer[Boolean](WorkerUsingIntermediaryPage),
       officeHolder = getAnswer[Boolean](OfficeHolderPage),
       workerSentActualSubstitute = getAnswer[ArrangedSubstitute](ArrangedSubstitutePage),
@@ -213,8 +196,8 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
 
 
   private def exclusiveContract()(implicit userAnswers: UserAnswers) = {
-    val multipleContract = userAnswers.getAnswer(MultipleContractsPage)
-    val permissionToWorkWithOthers = userAnswers.getAnswer(PermissionToWorkWithOthersPage)
+    val multipleContract = userAnswers.get(MultipleContractsPage)
+    val permissionToWorkWithOthers = userAnswers.get(PermissionToWorkWithOthersPage)
 
     val exclusiveContract: Option[ExclusiveContract] = (multipleContract, permissionToWorkWithOthers) match {
       case (Some(true), _) => Some(ExclusiveContract.UnableToProvideServices)
@@ -226,9 +209,9 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
   }
 
   private def transferRights()(implicit userAnswers: UserAnswers) = {
-    val ownershipRights = userAnswers.getAnswer(OwnershipRightsPage)
-    val rightsOfWork = userAnswers.getAnswer(RightsOfWorkPage)
-    val transferOfRights = userAnswers.getAnswer(TransferOfRightsPage)
+    val ownershipRights = userAnswers.get(OwnershipRightsPage)
+    val rightsOfWork = userAnswers.get(RightsOfWorkPage)
+    val transferOfRights = userAnswers.get(TransferOfRightsPage)
 
     (ownershipRights, rightsOfWork, transferOfRights) match {
       case (Some(false), _, _) => Some(TransferRights.NoRightsArise)
@@ -240,24 +223,23 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
   }
 
   private def multipleEngagements()(implicit userAnswers: UserAnswers) =
-    userAnswers.getAnswer(SimilarWorkOtherClientsPage) match {
+    userAnswers.get(SimilarWorkOtherClientsPage) match {
       case Some(true) => Some(MultipleEngagements.ProvidedServicesToOtherEngagers)
       case Some(false) => Some(MultipleEngagements.OnlyContractForPeriod)
       case _ => None
     }
 
   private def significantWorkingTime()(implicit userAnswers: UserAnswers) =
-    userAnswers.getAnswer(MajorityOfWorkingTimePage) match {
+    userAnswers.get(MajorityOfWorkingTimePage) match {
       case Some(true) => Some(SignificantWorkingTime.ConsumesSignificantAmount)
       case Some(false) => Some(SignificantWorkingTime.NoSignificantAmount)
       case _ => None
     }
 
   private def seriesOfContracts()(implicit userAnswers: UserAnswers) = {
-    val previousContractPage = userAnswers.getAnswer(PreviousContractPage)
-    val followOnContract = userAnswers.getAnswer(FollowOnContractPage)
-    val firstContract = userAnswers.getAnswer(FirstContractPage)
-    val extendContract = userAnswers.getAnswer(ExtendContractPage)
+    val followOnContract = userAnswers.get(FollowOnContractPage)
+    val firstContract = userAnswers.get(FirstContractPage)
+    val extendContract = userAnswers.get(ExtendContractPage)
 
     (followOnContract, firstContract, extendContract) match {
       case (Some(true), _, _) => Some(SeriesOfContracts.ContractIsPartOfASeries)

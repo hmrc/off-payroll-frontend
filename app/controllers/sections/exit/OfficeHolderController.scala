@@ -54,7 +54,7 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val currentAnswer = request.userAnswers.getAnswer(OfficeHolderPage)
+        val currentAnswer = request.userAnswers.get(OfficeHolderPage)
         val overrideMode = if(mode == CheckMode && !value && currentAnswer.contains(true)) NormalMode else mode
         redirect[Boolean](overrideMode, value, OfficeHolderPage)
       }

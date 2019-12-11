@@ -89,7 +89,7 @@ class CheckYourAnswersValidationService @Inject()(implicit val appConfig: Fronte
 
   private def mandatoryBusinessOnOwnAccountPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
     workerKnownPage ++
-      (if (userAnswers.getAnswer(WorkerKnownPage).fold(true)(x => x)) {
+      (if (userAnswers.get(WorkerKnownPage).fold(true)(x => x)) {
         permissionToWorkWithOtherClientsPage ++
           transferRightsPage ++
           rightsOfWorkPage ++

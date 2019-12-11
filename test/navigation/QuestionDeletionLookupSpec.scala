@@ -24,7 +24,7 @@ import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
 
@@ -45,9 +45,9 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
           //Control
           ChooseWhereWorkPage, MoveWorkerPage, ScheduleOfWorkingHoursPage, HowWorkIsDonePage,
           //Financial Risk
-          EquipmentExpensesPage, HowWorkerIsPaidPage, MaterialsPage, OtherExpensesPage, PutRightAtOwnCostPage, VehiclePage, CannotClaimAsExpensePage,
+          EquipmentExpensesPage, HowWorkerIsPaidPage, MaterialsPage, OtherExpensesPage, PutRightAtOwnCostPage, VehiclePage,
           //Part Parcel
-          BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage, InteractWithStakeholdersPage,
+          BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage,
           //Business On Own Account
           WorkerKnownPage, MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
           PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, SimilarWorkOtherClientsPage

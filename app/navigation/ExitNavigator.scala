@@ -33,7 +33,7 @@ class ExitNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Nav
 
   def officeHolderRouteMap(mode: Mode): Map[Page, UserAnswers => Call] = {
     Map(OfficeHolderPage -> (answers =>
-      if(answers.getAnswer(OfficeHolderPage).contains(true)) {
+      if(answers.get(OfficeHolderPage).contains(true)) {
         ResultController.onPageLoad()
       } else {
         mode match {

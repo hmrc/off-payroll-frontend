@@ -32,11 +32,6 @@ class FinancialRiskNavigatorSpec extends GuiceAppSpecBase {
 
   "FinancialRiskNavigator" when {
 
-    "go from the CannotClaimAsExpensePage to the HowWorkerIsPaidPage" in {
-
-      nextPage(CannotClaimAsExpensePage) mustBe finacialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)
-    }
-
     "go from the EquipmentExpensesPage to the VehiclePage" in {
 
       nextPage(EquipmentExpensesPage) mustBe finacialRiskRoutes.VehicleController.onPageLoad(NormalMode)
