@@ -1,0 +1,1064 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 345505792 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2757), pid=6111, tid=0x00007fbb46224700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_222-b10) (build 1.8.0_222-8u222-b10-1ubuntu1~18.04.1-b10)
+# Java VM: OpenJDK 64-Bit Server VM (25.222-b10 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fbb7c08b800):  VMThread [stack: 0x00007fbb46125000,0x00007fbb46225000] [id=6124]
+
+Stack: [0x00007fbb46125000,0x00007fbb46225000],  sp=0x00007fbb46223430,  free space=1017k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xab8992]
+V  [libjvm.so+0x4dbfd7]
+V  [libjvm.so+0x8f33a0]
+V  [libjvm.so+0x8ea46e]
+V  [libjvm.so+0x96e106]
+V  [libjvm.so+0x95cdaa]
+V  [libjvm.so+0x95cf78]
+V  [libjvm.so+0x95db80]
+V  [libjvm.so+0x963f1c]
+V  [libjvm.so+0x96422e]
+V  [libjvm.so+0x457273]
+V  [libjvm.so+0xab9b11]
+V  [libjvm.so+0xabf1d6]
+V  [libjvm.so+0xabd4d5]
+V  [libjvm.so+0xabddad]
+V  [libjvm.so+0xabe1b8]
+V  [libjvm.so+0x8f0732]
+
+VM_Operation (0x00007fba9fffa9d0): CollectForMetadataAllocation, mode: safepoint, requested by thread 0x00007fbb7c825800
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007fba40016800 JavaThread "Sys-akka.actor.default-dispatcher-5" [_thread_blocked, id=6142, stack(0x00007fba17fff000,0x00007fba28000000)]
+  0x00007fba40002800 JavaThread "Sys-akka.actor.default-dispatcher-4" [_thread_blocked, id=6141, stack(0x00007fba2ffff000,0x00007fba40000000)]
+  0x00007fba884f7800 JavaThread "Sys-akka.actor.default-dispatcher-3" [_thread_blocked, id=6140, stack(0x00007fba47fff000,0x00007fba58000000)]
+  0x00007fba884d8000 JavaThread "Sys-akka.actor.default-dispatcher-2" [_thread_blocked, id=6139, stack(0x00007fba5ffff000,0x00007fba70000000)]
+  0x00007fba88455800 JavaThread "Sys-scheduler-1" [_thread_blocked, id=6138, stack(0x00007fba77fff000,0x00007fba88000000)]
+  0x00007fbb7c825800 JavaThread "pool-1-thread-1" [_thread_blocked, id=6137, stack(0x00007fba8ffff000,0x00007fbaa0000000)]
+  0x00007fbb7d144000 JavaThread "Timer-0" [_thread_blocked, id=6136, stack(0x00007fbaa7ffe000,0x00007fbab7fff000)]
+  0x00007fbb7d13e800 JavaThread "ScalaTest-dispatcher" [_thread_blocked, id=6135, stack(0x00007fbab7fff000,0x00007fbac8000000)]
+  0x00007fbb7c0e6000 JavaThread "Service Thread" daemon [_thread_blocked, id=6132, stack(0x00007fbad7fff000,0x00007fbae8000000)]
+  0x00007fbb7c0d3000 JavaThread "C1 CompilerThread3" daemon [_thread_blocked, id=6131, stack(0x00007fbb45352000,0x00007fbb45452000)]
+  0x00007fbb7c0d0800 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=6130, stack(0x00007fbb45453000,0x00007fbb45553000)]
+  0x00007fbb7c0cf000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=6129, stack(0x00007fbb45554000,0x00007fbb45654000)]
+  0x00007fbb7c0cc000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=6128, stack(0x00007fbb45655000,0x00007fbb45755000)]
+  0x00007fbb7c0ca800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=6127, stack(0x00007fbafffff000,0x00007fbb10000000)]
+  0x00007fbb7c097800 JavaThread "Finalizer" daemon [_thread_blocked, id=6126, stack(0x00007fbb17fff000,0x00007fbb28000000)]
+  0x00007fbb7c095000 JavaThread "Reference Handler" daemon [_thread_blocked, id=6125, stack(0x00007fbb2ffff000,0x00007fbb40000000)]
+  0x00007fbb7c015800 JavaThread "main" [_thread_blocked, id=6115, stack(0x00007fbb84600000,0x00007fbb84700000)]
+
+Other Threads:
+=>0x00007fbb7c08b800 VMThread [stack: 0x00007fbb46125000,0x00007fbb46225000] [id=6124]
+  0x00007fbb7c0e8800 WatcherThread [stack: 0x00007fbb45251000,0x00007fbb45351000] [id=6133]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007fbb7c011970] ExpandHeap_lock - owner thread: 0x00007fbb7c08b800
+[0x00007fbb7c011ff0] Threads_lock - owner thread: 0x00007fbb7c08b800
+[0x00007fbb7c0124f0] Heap_lock - owner thread: 0x00007fbb7c825800
+
+heap address: 0x0000000080000000, size: 2048 MB, Compressed Oops mode: 32-bit
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x0000000100000000
+
+Heap:
+ PSYoungGen      total 369664K, used 0K [0x00000000d5580000, 0x00000000f0480000, 0x0000000100000000)
+  eden space 326144K, 0% used [0x00000000d5580000,0x00000000d5580000,0x00000000e9400000)
+  from space 43520K, 0% used [0x00000000ebe80000,0x00000000ebe80000,0x00000000ee900000)
+  to   space 43520K, 0% used [0x00000000e9400000,0x00000000e9400000,0x00000000ebe80000)
+ ParOldGen       total 797696K, used 17225K [0x0000000080000000, 0x00000000b0b00000, 0x00000000d5580000)
+  object space 797696K, 2% used [0x0000000080000000,0x00000000810d2588,0x00000000b0b00000)
+ Metaspace       used 58631K, capacity 58854K, committed 59096K, reserved 1101824K
+  class space    used 7572K, capacity 7663K, committed 7680K, reserved 1048576K
+
+Card table byte_map: [0x00007fbb8079d000,0x00007fbb80b9e000] byte_map_base: 0x00007fbb8039d000
+
+Marking Bits: (ParMarkBitMap*) 0x00007fbb8389d360
+ Begin Bits: [0x00007fbb54000000, 0x00007fbb56000000)
+ End Bits:   [0x00007fbb56000000, 0x00007fbb58000000)
+
+Polling page: 0x00007fbb8471e000
+
+CodeCache: size=245760Kb used=11201Kb max_used=11216Kb free=234558Kb
+ bounds [0x00007fbb6d000000, 0x00007fbb6db00000, 0x00007fbb7c000000]
+ total_blobs=4163 nmethods=3683 adapters=393
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 4.464 Thread 0x00007fbb7c0d0800 nmethod 3665 0x00007fbb6daf3ed0 code [0x00007fbb6daf41c0, 0x00007fbb6daf64b0]
+Event: 4.468 Thread 0x00007fbb7c0d3000 3683       1       java.lang.StackTraceElement::getClassName (5 bytes)
+Event: 4.469 Thread 0x00007fbb7c0d3000 nmethod 3683 0x00007fbb6dad1750 code [0x00007fbb6dad18a0, 0x00007fbb6dad19b0]
+Event: 4.471 Thread 0x00007fbb7c0d3000 3684       3       java.lang.Package::<init> (56 bytes)
+Event: 4.471 Thread 0x00007fbb7c0d3000 nmethod 3684 0x00007fbb6dad5650 code [0x00007fbb6dad57c0, 0x00007fbb6dad5a30]
+Event: 4.491 Thread 0x00007fbb7c0d0800 3685       4       java.net.URLClassLoader$1::run (5 bytes)
+Event: 4.491 Thread 0x00007fbb7c0cf000 nmethod 3676 0x00007fbb6daf9c10 code [0x00007fbb6daf9f00, 0x00007fbb6dafbe40]
+Event: 4.491 Thread 0x00007fbb7c0cf000 3686   !   4       java.net.URLClassLoader$1::run (63 bytes)
+Event: 4.513 Thread 0x00007fbb7c0d3000 3688   !   3       java.lang.ClassLoader::definePackage (77 bytes)
+Event: 4.514 Thread 0x00007fbb7c0d3000 nmethod 3688 0x00007fbb6dacd890 code [0x00007fbb6dacda60, 0x00007fbb6dace328]
+
+GC Heap History (10 events):
+Event: 1.712 GC heap after
+Heap after GC invocations=2 (full 1):
+ PSYoungGen      total 305664K, used 0K [0x00000000d5580000, 0x00000000eaa80000, 0x0000000100000000)
+  eden space 262144K, 0% used [0x00000000d5580000,0x00000000d5580000,0x00000000e5580000)
+  from space 43520K, 0% used [0x00000000e5580000,0x00000000e5580000,0x00000000e8000000)
+  to   space 43520K, 0% used [0x00000000e8000000,0x00000000e8000000,0x00000000eaa80000)
+ ParOldGen       total 699392K, used 18834K [0x0000000080000000, 0x00000000aab00000, 0x00000000d5580000)
+  object space 699392K, 2% used [0x0000000080000000,0x0000000081264bc0,0x00000000aab00000)
+ Metaspace       used 20857K, capacity 21018K, committed 21296K, reserved 1067008K
+  class space    used 3095K, capacity 3177K, committed 3200K, reserved 1048576K
+}
+Event: 2.344 GC heap before
+{Heap before GC invocations=3 (full 1):
+ PSYoungGen      total 305664K, used 51954K [0x00000000d5580000, 0x00000000eaa80000, 0x0000000100000000)
+  eden space 262144K, 19% used [0x00000000d5580000,0x00000000d883ca68,0x00000000e5580000)
+  from space 43520K, 0% used [0x00000000e5580000,0x00000000e5580000,0x00000000e8000000)
+  to   space 43520K, 0% used [0x00000000e8000000,0x00000000e8000000,0x00000000eaa80000)
+ ParOldGen       total 699392K, used 18834K [0x0000000080000000, 0x00000000aab00000, 0x00000000d5580000)
+  object space 699392K, 2% used [0x0000000080000000,0x0000000081264bc0,0x00000000aab00000)
+ Metaspace       used 35067K, capacity 35226K, committed 35456K, reserved 1079296K
+  class space    used 4560K, capacity 4649K, committed 4736K, reserved 1048576K
+Event: 2.348 GC heap after
+Heap after GC invocations=3 (full 1):
+ PSYoungGen      total 305664K, used 872K [0x00000000d5580000, 0x00000000eee80000, 0x0000000100000000)
+  eden space 262144K, 0% used [0x00000000d5580000,0x00000000d5580000,0x00000000e5580000)
+  from space 43520K, 2% used [0x00000000e8000000,0x00000000e80da078,0x00000000eaa80000)
+  to   space 43520K, 0% used [0x00000000e5580000,0x00000000e5580000,0x00000000e8000000)
+ ParOldGen       total 699392K, used 18842K [0x0000000080000000, 0x00000000aab00000, 0x00000000d5580000)
+  object space 699392K, 2% used [0x0000000080000000,0x0000000081266bc0,0x00000000aab00000)
+ Metaspace       used 35067K, capacity 35226K, committed 35456K, reserved 1079296K
+  class space    used 4560K, capacity 4649K, committed 4736K, reserved 1048576K
+}
+Event: 2.348 GC heap before
+{Heap before GC invocations=4 (full 2):
+ PSYoungGen      total 305664K, used 872K [0x00000000d5580000, 0x00000000eee80000, 0x0000000100000000)
+  eden space 262144K, 0% used [0x00000000d5580000,0x00000000d5580000,0x00000000e5580000)
+  from space 43520K, 2% used [0x00000000e8000000,0x00000000e80da078,0x00000000eaa80000)
+  to   space 43520K, 0% used [0x00000000e5580000,0x00000000e5580000,0x00000000e8000000)
+ ParOldGen       total 699392K, used 18842K [0x0000000080000000, 0x00000000aab00000, 0x00000000d5580000)
+  object space 699392K, 2% used [0x0000000080000000,0x0000000081266bc0,0x00000000aab00000)
+ Metaspace       used 35067K, capacity 35226K, committed 35456K, reserved 1079296K
+  class space    used 4560K, capacity 4649K, committed 4736K, reserved 1048576K
+Event: 2.363 GC heap after
+Heap after GC invocations=4 (full 2):
+ PSYoungGen      total 305664K, used 0K [0x00000000d5580000, 0x00000000eee80000, 0x0000000100000000)
+  eden space 262144K, 0% used [0x00000000d5580000,0x00000000d5580000,0x00000000e5580000)
+  from space 43520K, 0% used [0x00000000e8000000,0x00000000e8000000,0x00000000eaa80000)
+  to   space 43520K, 0% used [0x00000000e5580000,0x00000000e5580000,0x00000000e8000000)
+ ParOldGen       total 797696K, used 7676K [0x0000000080000000, 0x00000000b0b00000, 0x00000000d5580000)
+  object space 797696K, 0% used [0x0000000080000000,0x000000008077f320,0x00000000b0b00000)
+ Metaspace       used 35067K, capacity 35226K, committed 35456K, reserved 1079296K
+  class space    used 4560K, capacity 4649K, committed 4736K, reserved 1048576K
+}
+Event: 4.149 GC heap before
+{Heap before GC invocations=5 (full 2):
+ PSYoungGen      total 305664K, used 262144K [0x00000000d5580000, 0x00000000eee80000, 0x0000000100000000)
+  eden space 262144K, 100% used [0x00000000d5580000,0x00000000e5580000,0x00000000e5580000)
+  from space 43520K, 0% used [0x00000000e8000000,0x00000000e8000000,0x00000000eaa80000)
+  to   space 43520K, 0% used [0x00000000e5580000,0x00000000e5580000,0x00000000e8000000)
+ ParOldGen       total 797696K, used 7676K [0x0000000080000000, 0x00000000b0b00000, 0x00000000d5580000)
+  object space 797696K, 0% used [0x0000000080000000,0x000000008077f320,0x00000000b0b00000)
+ Metaspace       used 55012K, capacity 55270K, committed 55552K, reserved 1097728K
+  class space    used 7009K, capacity 7087K, committed 7168K, reserved 1048576K
+Event: 4.162 GC heap after
+Heap after GC invocations=5 (full 2):
+ PSYoungGen      total 305664K, used 17160K [0x00000000d5580000, 0x00000000ee900000, 0x0000000100000000)
+  eden space 262144K, 0% used [0x00000000d5580000,0x00000000d5580000,0x00000000e5580000)
+  from space 43520K, 39% used [0x00000000e5580000,0x00000000e6642118,0x00000000e8000000)
+  to   space 43520K, 0% used [0x00000000ebe80000,0x00000000ebe80000,0x00000000ee900000)
+ ParOldGen       total 797696K, used 7684K [0x0000000080000000, 0x00000000b0b00000, 0x00000000d5580000)
+  object space 797696K, 0% used [0x0000000080000000,0x0000000080781320,0x00000000b0b00000)
+ Metaspace       used 55012K, capacity 55270K, committed 55552K, reserved 1097728K
+  class space    used 7009K, capacity 7087K, committed 7168K, reserved 1048576K
+}
+Event: 4.535 GC heap before
+{Heap before GC invocations=6 (full 2):
+ PSYoungGen      total 305664K, used 64245K [0x00000000d5580000, 0x00000000ee900000, 0x0000000100000000)
+  eden space 262144K, 17% used [0x00000000d5580000,0x00000000d837b5f0,0x00000000e5580000)
+  from space 43520K, 39% used [0x00000000e5580000,0x00000000e6642118,0x00000000e8000000)
+  to   space 43520K, 0% used [0x00000000ebe80000,0x00000000ebe80000,0x00000000ee900000)
+ ParOldGen       total 797696K, used 7684K [0x0000000080000000, 0x00000000b0b00000, 0x00000000d5580000)
+  object space 797696K, 0% used [0x0000000080000000,0x0000000080781320,0x00000000b0b00000)
+ Metaspace       used 58631K, capacity 58854K, committed 59096K, reserved 1101824K
+  class space    used 7572K, capacity 7663K, committed 7680K, reserved 1048576K
+Event: 4.544 GC heap after
+Heap after GC invocations=6 (full 2):
+ PSYoungGen      total 369664K, used 10577K [0x00000000d5580000, 0x00000000f0480000, 0x0000000100000000)
+  eden space 326144K, 0% used [0x00000000d5580000,0x00000000d5580000,0x00000000e9400000)
+  from space 43520K, 24% used [0x00000000ebe80000,0x00000000ec8d4548,0x00000000ee900000)
+  to   space 43520K, 0% used [0x00000000e9400000,0x00000000e9400000,0x00000000ebe80000)
+ ParOldGen       total 797696K, used 7756K [0x0000000080000000, 0x00000000b0b00000, 0x00000000d5580000)
+  object space 797696K, 0% used [0x0000000080000000,0x0000000080793330,0x00000000b0b00000)
+ Metaspace       used 58631K, capacity 58854K, committed 59096K, reserved 1101824K
+  class space    used 7572K, capacity 7663K, committed 7680K, reserved 1048576K
+}
+Event: 4.544 GC heap before
+{Heap before GC invocations=7 (full 3):
+ PSYoungGen      total 369664K, used 10577K [0x00000000d5580000, 0x00000000f0480000, 0x0000000100000000)
+  eden space 326144K, 0% used [0x00000000d5580000,0x00000000d5580000,0x00000000e9400000)
+  from space 43520K, 24% used [0x00000000ebe80000,0x00000000ec8d4548,0x00000000ee900000)
+  to   space 43520K, 0% used [0x00000000e9400000,0x00000000e9400000,0x00000000ebe80000)
+ ParOldGen       total 797696K, used 7756K [0x0000000080000000, 0x00000000b0b00000, 0x00000000d5580000)
+  object space 797696K, 0% used [0x0000000080000000,0x0000000080793330,0x00000000b0b00000)
+ Metaspace       used 58631K, capacity 58854K, committed 59096K, reserved 1101824K
+  class space    used 7572K, capacity 7663K, committed 7680K, reserved 1048576K
+
+Deoptimization events (10 events):
+Event: 3.834 Thread 0x00007fbb7c825800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fbb6d6331a0 method=java.lang.CharacterDataLatin1.isWhitespace(I)Z @ 14
+Event: 4.035 Thread 0x00007fbb7c825800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007fbb6d936b00 method=java.util.Collections$UnmodifiableCollection.contains(Ljava/lang/Object;)Z @ 5
+Event: 4.035 Thread 0x00007fbb7c825800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007fbb6d936b00 method=java.util.Collections$UnmodifiableCollection.contains(Ljava/lang/Object;)Z @ 5
+Event: 4.035 Thread 0x00007fbb7c825800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007fbb6d936b00 method=java.util.Collections$UnmodifiableCollection.contains(Ljava/lang/Object;)Z @ 5
+Event: 4.035 Thread 0x00007fbb7c825800 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007fbb6d936b00 method=java.util.Collections$UnmodifiableCollection.contains(Ljava/lang/Object;)Z @ 5
+Event: 4.202 Thread 0x00007fbb7c825800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fbb6d9609e4 method=java.lang.String.regionMatches(ZILjava/lang/String;II)Z @ 123
+Event: 4.336 Thread 0x00007fbb7c825800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fbb6da76c04 method=java.util.ArrayList.remove(I)Ljava/lang/Object; @ 31
+Event: 4.357 Thread 0x00007fbb7c825800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fbb6d6fe284 method=java.io.File.getName()Ljava/lang/String; @ 16
+Event: 4.445 Thread 0x00007fbb7c825800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007fbb6d5eae1c method=scala.collection.TraversableLike$class.builder$2(Lscala/collection/TraversableLike;Lscala/collection/generic/CanBuildFrom;)Lscala/collection/mutable/Builder; @ 2
+Event: 4.456 Thread 0x00007fbb7c825800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007fbb6d5eae1c method=scala.collection.TraversableLike$class.builder$2(Lscala/collection/TraversableLike;Lscala/collection/generic/CanBuildFrom;)Lscala/collection/mutable/Builder; @ 2
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 3.024 Thread 0x00007fbb7d13e800 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000d891a728) thrown at [/build/openjdk-8-OqY7zN/openjdk-8-8u222-b10/src/hotspot/src/share/vm/prims/jni.cpp, line 1615]
+Event: 3.035 Thread 0x00007fbb7d13e800 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000d894cb00) thrown at [/build/openjdk-8-OqY7zN/openjdk-8-8u222-b10/src/hotspot/src/share/vm/prims/jni.cpp, line 1615]
+Event: 3.037 Thread 0x00007fbb7c825800 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000da7c86a8) thrown at [/build/openjdk-8-OqY7zN/openjdk-8-8u222-b10/src/hotspot/src/share/vm/prims/jni.cpp, line 1615]
+Event: 3.038 Thread 0x00007fbb7c825800 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000da7d18f0) thrown at [/build/openjdk-8-OqY7zN/openjdk-8-8u222-b10/src/hotspot/src/share/vm/prims/jni.cpp, line 1615]
+Event: 3.039 Thread 0x00007fbb7c825800 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000da7da858) thrown at [/build/openjdk-8-OqY7zN/openjdk-8-8u222-b10/src/hotspot/src/share/vm/prims/jni.cpp, line 1615]
+Event: 3.039 Thread 0x00007fbb7c825800 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000da7e2590) thrown at [/build/openjdk-8-OqY7zN/openjdk-8-8u222-b10/src/hotspot/src/share/vm/prims/jni.cpp, line 1615]
+Event: 3.358 Thread 0x00007fbb7c825800 Implicit null exception at 0x00007fbb6d21f935 to 0x00007fbb6d21fce5
+Event: 3.358 Thread 0x00007fbb7c825800 Implicit null exception at 0x00007fbb6d21f036 to 0x00007fbb6d21f3e9
+Event: 3.690 Thread 0x00007fbb7c825800 Exception <a 'java/lang/NoSuchMethodError': org.slf4j.impl.StaticMDCBinder.getSingleton()Lorg/slf4j/impl/StaticMDCBinder;> (0x00000000df1cb468) thrown at [/build/openjdk-8-OqY7zN/openjdk-8-8u222-b10/src/hotspot/src/share/vm/interpreter/linkResolver.cpp, l
+Event: 4.207 Thread 0x00007fbb7c825800 Exception <a 'java/io/FileNotFoundException'> (0x00000000d5a6f210) thrown at [/build/openjdk-8-OqY7zN/openjdk-8-8u222-b10/src/hotspot/src/share/vm/prims/jni.cpp, line 710]
+
+Events (10 events):
+Event: 4.532 loading class play/api/mvc/BodyParserUtils done
+Event: 4.532 loading class play/api/mvc/DefaultPlayBodyParsers
+Event: 4.532 loading class play/api/mvc/DefaultPlayBodyParsers done
+Event: 4.533 loading class play/api/mvc/BodyParsers$Default
+Event: 4.533 loading class play/api/mvc/BodyParsers$Default done
+Event: 4.534 loading class play/api/mvc/BodyParser
+Event: 4.534 loading class play/api/mvc/BodyParser done
+Event: 4.535 loading class play/api/mvc/DefaultActionBuilder
+Event: 4.535 loading class play/api/mvc/DefaultActionBuilder done
+Event: 4.535 Executing VM operation: CollectForMetadataAllocation
+
+
+Dynamic libraries:
+80000000-b0b00000 rw-p 00000000 00:00 0 
+c5480000-d5580000 ---p 00000000 00:00 0 
+d5580000-f0480000 rw-p 00000000 00:00 0 
+f0480000-100000000 ---p 00000000 00:00 0 
+100000000-100780000 rw-p 00000000 00:00 0 
+100780000-140000000 ---p 00000000 00:00 0 
+55fe78352000-55fe78353000 r-xp 00000000 fd:01 22418603                   /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+55fe78552000-55fe78553000 r--p 00000000 fd:01 22418603                   /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+55fe78553000-55fe78554000 rw-p 00001000 fd:01 22418603                   /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+55fe7a4a9000-55fe7a4ca000 rw-p 00000000 00:00 0                          [heap]
+7fba10000000-7fba10021000 rw-p 00000000 00:00 0 
+7fba10021000-7fba14000000 ---p 00000000 00:00 0 
+7fba17fff000-7fba18002000 ---p 00000000 00:00 0 
+7fba18002000-7fba28000000 rw-p 00000000 00:00 0 
+7fba28000000-7fba28021000 rw-p 00000000 00:00 0 
+7fba28021000-7fba2c000000 ---p 00000000 00:00 0 
+7fba2ffff000-7fba30002000 ---p 00000000 00:00 0 
+7fba30002000-7fba40000000 rw-p 00000000 00:00 0 
+7fba40000000-7fba40021000 rw-p 00000000 00:00 0 
+7fba40021000-7fba44000000 ---p 00000000 00:00 0 
+7fba47fff000-7fba48002000 ---p 00000000 00:00 0 
+7fba48002000-7fba58000000 rw-p 00000000 00:00 0 
+7fba58000000-7fba58021000 rw-p 00000000 00:00 0 
+7fba58021000-7fba5c000000 ---p 00000000 00:00 0 
+7fba5ffff000-7fba60002000 ---p 00000000 00:00 0 
+7fba60002000-7fba70000000 rw-p 00000000 00:00 0 
+7fba70000000-7fba70021000 rw-p 00000000 00:00 0 
+7fba70021000-7fba74000000 ---p 00000000 00:00 0 
+7fba77fff000-7fba78002000 ---p 00000000 00:00 0 
+7fba78002000-7fba88000000 rw-p 00000000 00:00 0 
+7fba88000000-7fba88e5a000 rw-p 00000000 00:00 0 
+7fba88e5a000-7fba8c000000 ---p 00000000 00:00 0 
+7fba8ffff000-7fba90002000 ---p 00000000 00:00 0 
+7fba90002000-7fbaa0000000 rw-p 00000000 00:00 0 
+7fbaa0000000-7fbaa0021000 rw-p 00000000 00:00 0 
+7fbaa0021000-7fbaa4000000 ---p 00000000 00:00 0 
+7fbaa7ffe000-7fbaa8001000 ---p 00000000 00:00 0 
+7fbaa8001000-7fbab7fff000 rw-p 00000000 00:00 0 
+7fbab7fff000-7fbab8002000 ---p 00000000 00:00 0 
+7fbab8002000-7fbac8000000 rw-p 00000000 00:00 0 
+7fbac8000000-7fbac8021000 rw-p 00000000 00:00 0 
+7fbac8021000-7fbacc000000 ---p 00000000 00:00 0 
+7fbacc000000-7fbacc042000 rw-p 00000000 00:00 0 
+7fbacc042000-7fbad0000000 ---p 00000000 00:00 0 
+7fbad0000000-7fbad0021000 rw-p 00000000 00:00 0 
+7fbad0021000-7fbad4000000 ---p 00000000 00:00 0 
+7fbad7fff000-7fbad8002000 ---p 00000000 00:00 0 
+7fbad8002000-7fbae8000000 rw-p 00000000 00:00 0 
+7fbae8000000-7fbae87cd000 rw-p 00000000 00:00 0 
+7fbae87cd000-7fbaec000000 ---p 00000000 00:00 0 
+7fbaec000000-7fbaec3e8000 rw-p 00000000 00:00 0 
+7fbaec3e8000-7fbaf0000000 ---p 00000000 00:00 0 
+7fbaf0000000-7fbaf0811000 rw-p 00000000 00:00 0 
+7fbaf0811000-7fbaf4000000 ---p 00000000 00:00 0 
+7fbaf4000000-7fbaf57a8000 rw-p 00000000 00:00 0 
+7fbaf57a8000-7fbaf8000000 ---p 00000000 00:00 0 
+7fbaf8000000-7fbaf8021000 rw-p 00000000 00:00 0 
+7fbaf8021000-7fbafc000000 ---p 00000000 00:00 0 
+7fbafffff000-7fbb00002000 ---p 00000000 00:00 0 
+7fbb00002000-7fbb10000000 rw-p 00000000 00:00 0 
+7fbb10000000-7fbb10021000 rw-p 00000000 00:00 0 
+7fbb10021000-7fbb14000000 ---p 00000000 00:00 0 
+7fbb167ff000-7fbb16835000 rw-p 00000000 00:00 0 
+7fbb16835000-7fbb169ff000 ---p 00000000 00:00 0 
+7fbb169ff000-7fbb16bff000 rw-p 00000000 00:00 0 
+7fbb16bff000-7fbb16dff000 rw-p 00000000 00:00 0 
+7fbb16dff000-7fbb16fff000 rw-p 00000000 00:00 0 
+7fbb16fff000-7fbb171ff000 rw-p 00000000 00:00 0 
+7fbb171ff000-7fbb173ff000 rw-p 00000000 00:00 0 
+7fbb173ff000-7fbb175ff000 rw-p 00000000 00:00 0 
+7fbb175ff000-7fbb177ff000 rw-p 00000000 00:00 0 
+7fbb177ff000-7fbb179ff000 rw-p 00000000 00:00 0 
+7fbb179ff000-7fbb17bff000 rw-p 00000000 00:00 0 
+7fbb17bff000-7fbb17dff000 rw-p 00000000 00:00 0 
+7fbb17dff000-7fbb17fff000 rw-p 00000000 00:00 0 
+7fbb17fff000-7fbb18002000 ---p 00000000 00:00 0 
+7fbb18002000-7fbb28000000 rw-p 00000000 00:00 0 
+7fbb28000000-7fbb28021000 rw-p 00000000 00:00 0 
+7fbb28021000-7fbb2c000000 ---p 00000000 00:00 0 
+7fbb2c1fe000-7fbb2c3fe000 rw-p 00000000 00:00 0 
+7fbb2c3fe000-7fbb2c5fe000 rw-p 00000000 00:00 0 
+7fbb2c5fe000-7fbb2c7fe000 rw-p 00000000 00:00 0 
+7fbb2c7fe000-7fbb2c9fe000 rw-p 00000000 00:00 0 
+7fbb2c9fe000-7fbb2cbfe000 rw-p 00000000 00:00 0 
+7fbb2cbfe000-7fbb2cdfe000 rw-p 00000000 00:00 0 
+7fbb2cdfe000-7fbb2cffe000 rw-p 00000000 00:00 0 
+7fbb2cffe000-7fbb2ffff000 rw-p 00000000 00:00 0 
+7fbb2ffff000-7fbb30002000 ---p 00000000 00:00 0 
+7fbb30002000-7fbb40000000 rw-p 00000000 00:00 0 
+7fbb40000000-7fbb40021000 rw-p 00000000 00:00 0 
+7fbb40021000-7fbb44000000 ---p 00000000 00:00 0 
+7fbb441cd000-7fbb441ce000 r--p 00000000 fd:01 24120961                   /usr/share/locale-langpack/en_GB/LC_MESSAGES/libc.mo
+7fbb441ce000-7fbb441d0000 r--s 00016000 fd:01 22418688                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar
+7fbb441d0000-7fbb441d2000 r--s 00002000 fd:01 15731272                   /home/johnny/.sbt/boot/scala-2.10.7/org.scala-sbt/sbt/0.13.17/test-interface-1.0.jar
+7fbb441d2000-7fbb443d2000 rw-p 00000000 00:00 0 
+7fbb443d2000-7fbb445d2000 rw-p 00000000 00:00 0 
+7fbb445d2000-7fbb447d2000 rw-p 00000000 00:00 0 
+7fbb447d2000-7fbb447d7000 r--s 000a3000 fd:01 22418690                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar
+7fbb447d7000-7fbb447ed000 r-xp 00000000 fd:01 22418641                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnet.so
+7fbb447ed000-7fbb449ec000 ---p 00016000 fd:01 22418641                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnet.so
+7fbb449ec000-7fbb449ed000 r--p 00015000 fd:01 22418641                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnet.so
+7fbb449ed000-7fbb449ee000 rw-p 00016000 fd:01 22418641                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnet.so
+7fbb449ee000-7fbb449ef000 r--s 00005000 fd:01 15731233                   /home/johnny/.sbt/boot/scala-2.10.7/org.scala-sbt/sbt/0.13.17/test-agent-0.13.17.jar
+7fbb449ef000-7fbb44aa6000 r--s 00b3d000 fd:01 21758973                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.github.tomakehurst/wiremock-standalone/wiremock-standalone-2.24.1.jar
+7fbb44aa6000-7fbb44aa7000 r--s 00002000 fd:01 20449001                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.github.jknack/handlebars-helpers/handlebars-helpers-4.1.2.jar
+7fbb44aa7000-7fbb44ab8000 r--s 000d2000 fd:01 20578417                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.github.jknack/handlebars/handlebars-4.1.2.jar
+7fbb44ab8000-7fbb44aba000 r--s 00006000 fd:01 20448832                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.flipkart.zjsonpatch/zjsonpatch/zjsonpatch-0.4.4.jar
+7fbb44aba000-7fbb44ac2000 r--s 00072000 fd:01 20448985                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.apache.commons/commons-lang3/commons-lang3-3.7.jar
+7fbb44ac2000-7fbb44ac5000 r--s 00011000 fd:01 20578431                   /home/johnny/cest/cest-frontend/lib_managed/jars/net.sf.jopt-simple/jopt-simple/jopt-simple-5.0.3.jar
+7fbb44ac5000-7fbb44ac7000 r--s 0001a000 fd:01 20448789                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.ow2.asm/asm/asm-7.0.jar
+7fbb44ac7000-7fbb44ac9000 r--s 00006000 fd:01 20448792                   /home/johnny/cest/cest-frontend/lib_managed/bundles/net.minidev/accessors-smart/accessors-smart-1.2.jar
+7fbb44ac9000-7fbb44acc000 r--s 0001b000 fd:01 20578428                   /home/johnny/cest/cest-frontend/lib_managed/bundles/net.minidev/json-smart/json-smart-2.3.jar
+7fbb44acc000-7fbb44ad2000 r--s 00031000 fd:01 20449134                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.jayway.jsonpath/json-path/json-path-2.4.0.jar
+7fbb44ad2000-7fbb44ad4000 r--s 00001000 fd:01 20448716                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.xmlunit/xmlunit-placeholders/xmlunit-placeholders-2.6.2.jar
+7fbb44ad4000-7fbb44ad8000 r--s 0001c000 fd:01 20449019                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.xmlunit/xmlunit-legacy/xmlunit-legacy-2.6.2.jar
+7fbb44ad8000-7fbb44adc000 r--s 00025000 fd:01 20448705                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.xmlunit/xmlunit-core/xmlunit-core-2.6.2.jar
+7fbb44adc000-7fbb44ae3000 r--s 00049000 fd:01 20448714                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.apache.httpcomponents/httpcore/httpcore-4.4.10.jar
+7fbb44ae3000-7fbb44af0000 r--s 000af000 fd:01 20578394                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.apache.httpcomponents/httpclient/httpclient-4.5.6.jar
+7fbb44af0000-7fbb44b03000 r--s 00137000 fd:01 20448681                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.fasterxml.jackson.core/jackson-databind/jackson-databind-2.9.9.1.jar
+7fbb44b03000-7fbb44b06000 r--s 0000e000 fd:01 20449052                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.fasterxml.jackson.core/jackson-annotations/jackson-annotations-2.9.9.jar
+7fbb44b06000-7fbb44b0a000 r--s 0004c000 fd:01 20449017                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.fasterxml.jackson.core/jackson-core/jackson-core-2.9.9.jar
+7fbb44b0a000-7fbb44b0b000 r--s 00000000 fd:01 20449095                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.codehaus.mojo/animal-sniffer-annotations/animal-sniffer-annotations-1.17.jar
+7fbb44b0b000-7fbb44b0d000 r--s 00002000 fd:01 20450346                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.google.errorprone/error_prone_annotations/error_prone_annotations-2.2.0.jar
+7fbb44b0d000-7fbb44b17000 r--s 00026000 fd:01 20448907                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.checkerframework/checker-qual/checker-qual-2.5.2.jar
+7fbb44b17000-7fbb44b18000 r--s 00000000 fd:01 20448970                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.google.guava/listenablefuture/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+7fbb44b18000-7fbb44b1a000 r--s 00000000 fd:01 20448723                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.google.guava/failureaccess/failureaccess-1.0.1.jar
+7fbb44b1a000-7fbb44b4c000 r--s 0026d000 fd:01 20450349                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.google.guava/guava/guava-27.0.1-jre.jar
+7fbb44b4c000-7fbb44b4e000 r--s 0000e000 fd:01 20578399                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-xml/jetty-xml-9.4.19.v20190610.jar
+7fbb44b4e000-7fbb44b51000 r--s 0001f000 fd:01 20578454                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-webapp/jetty-webapp-9.4.19.v20190610.jar
+7fbb44b51000-7fbb44b53000 r--s 00005000 fd:01 20448876                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-continuation/jetty-continuation-9.4.19.v20190610.jar
+7fbb44b53000-7fbb44b55000 r--s 00017000 fd:01 20578343                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-servlets/jetty-servlets-9.4.19.v20190610.jar
+7fbb44b55000-7fbb44b58000 r--s 0001a000 fd:01 20448864                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-security/jetty-security-9.4.19.v20190610.jar
+7fbb44b58000-7fbb44b5a000 r--s 0001c000 fd:01 20578440                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-servlet/jetty-servlet-9.4.19.v20190610.jar
+7fbb44b5a000-7fbb44b5e000 r--s 00023000 fd:01 20578338                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-io/jetty-io-9.4.19.v20190610.jar
+7fbb44b5e000-7fbb44b67000 r--s 00078000 fd:01 20449115                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-util/jetty-util-9.4.19.v20190610.jar
+7fbb44b67000-7fbb44b6a000 r--s 00030000 fd:01 20578464                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-http/jetty-http-9.4.19.v20190610.jar
+7fbb44b6a000-7fbb44b73000 r--s 00096000 fd:01 21758982                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-server/jetty-server-9.4.19.v20190610.jar
+7fbb44b73000-7fbb44b85000 r--s 002d9000 fd:01 20448928                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.github.tomakehurst/wiremock-jre8/wiremock-jre8-2.24.1.jar
+7fbb44b85000-7fbb44b91000 r--s 000cd000 fd:01 20578309                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.scalamock/scalamock-core_2.11/scalamock-core_2.11-3.6.0.jar
+7fbb44b91000-7fbb44b93000 r--s 00006000 fd:01 20844073                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.scalamock/scalamock-scalatest-support_2.11/scalamock-scalatest-support_2.11-3.6.0.jar
+7fbb44b93000-7fbb44bb6000 r--s 001ad000 fd:01 20578462                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.scalacheck/scalacheck_2.11/scalacheck_2.11-1.14.1.jar
+7fbb44bb6000-7fbb44bd4000 r--s 00110000 fd:01 20448957                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.mockito/mockito-all/mockito-all-1.10.19.jar
+7fbb44bd4000-7fbb44bda000 r--s 0005b000 fd:01 20448803                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.jsoup/jsoup/jsoup-1.12.1.jar
+7fbb44bda000-7fbb44bdb000 r--s 00002000 fd:01 20449162                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.codeborne/phantomjsdriver/phantomjsdriver-1.4.3.jar
+7fbb44bdb000-7fbb44bde000 r--s 00015000 fd:01 20448995                   /home/johnny/cest/cest-frontend/lib_managed/jars/javax.servlet/javax.servlet-api/javax.servlet-api-3.1.0.jar
+7fbb44bde000-7fbb44bdf000 r--s 00001000 fd:01 20448914                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-safari-driver/selenium-safari-driver-3.5.3.jar
+7fbb44bdf000-7fbb44be0000 r--s 00001000 fd:01 20448932                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-opera-driver/selenium-opera-driver-3.5.3.jar
+7fbb44be0000-7fbb44be1000 r--s 00003000 fd:01 20578390                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-ie-driver/selenium-ie-driver-3.5.3.jar
+7fbb44be1000-7fbb44be2000 r--s 00001000 fd:01 21758986                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-edge-driver/selenium-edge-driver-3.5.3.jar
+7fbb44be2000-7fbb44be3000 r--s 00002000 fd:01 20449101                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-chrome-driver/selenium-chrome-driver-3.5.3.jar
+7fbb44be3000-7fbb44be4000 r--s 00000000 fd:01 20448688                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-java/selenium-java-3.5.3.jar
+7fbb44be4000-7fbb44be8000 r--s 00034000 fd:01 20578381                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.scalatestplus.play/scalatestplus-play_2.11/scalatestplus-play_2.11-3.1.2.jar
+7fbb44be8000-7fbb44be9000 r--s 00005000 fd:01 20448718                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/reactivemongo-test_2.11/reactivemongo-test_2.11-4.15.0-play-26.jar
+7fbb44be9000-7fbb44bf3000 r--s 0009c000 fd:01 20448865                   /home/johnny/cest/cest-frontend/lib_managed/bundles/org.scala-lang.modules/scala-xml_2.11/scala-xml_2.11-1.2.0.jar
+7fbb44bf3000-7fbb44bfd000 r--s 000b0000 fd:01 21758980                   /home/johnny/cest/cest-frontend/lib_managed/bundles/org.scalactic/scalactic_2.11/scalactic_2.11-3.0.8.jar
+7fbb44bfd000-7fbb44cb7000 r--s 00a04000 fd:01 20448895                   /home/johnny/cest/cest-frontend/lib_managed/bundles/org.scalatest/scalatest_2.11/scalatest_2.11-3.0.8.jar
+7fbb44cb7000-7fbb44cc5000 r--s 000e5000 fd:01 20448794                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.akka/akka-parsing_2.11/akka-parsing_2.11-10.0.15.jar
+7fbb44cc5000-7fbb44d08000 r--s 00377000 fd:01 20449318                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.akka/akka-http-core_2.11/akka-http-core_2.11-10.0.15.jar
+7fbb44d08000-7fbb44d0f000 r--s 00045000 fd:01 20450345                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-server_2.11/play-server_2.11-2.6.21.jar
+7fbb44d0f000-7fbb44d13000 r--s 00023000 fd:01 20448768                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-akka-http-server_2.11/play-akka-http-server_2.11-2.6.21.jar
+7fbb44d13000-7fbb44d15000 r--s 0000c000 fd:01 20578407                   /home/johnny/cest/cest-frontend/lib_managed/jars/javax.activation/javax.activation-api/javax.activation-api-1.2.0.jar
+7fbb44d15000-7fbb44d19000 r--s 0001c000 fd:01 20450329                   /home/johnny/cest/cest-frontend/lib_managed/jars/javax.xml.bind/jaxb-api/jaxb-api-2.3.1.jar
+7fbb44d19000-7fbb44d1b000 r--s 00004000 fd:01 20448859                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.akka/akka-slf4j_2.11/akka-slf4j_2.11-2.5.19.jar
+7fbb44d1b000-7fbb44d23000 r--s 0005a000 fd:01 20448814                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.typesafe/ssl-config-core_2.11/ssl-config-core_2.11-0.3.6.jar
+7fbb44d23000-7fbb44d2a000 r--s 00070000 fd:01 20448886                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.akka/akka-protobuf_2.11/akka-protobuf_2.11-2.5.19.jar
+7fbb44d2a000-7fbb44d62000 r--s 00391000 fd:01 20449108                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.akka/akka-actor_2.11/akka-actor_2.11-2.5.19.jar
+7fbb44d62000-7fbb44dba000 r--s 004b3000 fd:01 20449246                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.akka/akka-stream_2.11/akka-stream_2.11-2.5.19.jar
+7fbb44dba000-7fbb44dbe000 r--s 00020000 fd:01 20450334                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-streams_2.11/play-streams_2.11-2.6.21.jar
+7fbb44dbe000-7fbb44dbf000 r--s 00004000 fd:01 20448743                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-netty-utils/play-netty-utils-2.6.21.jar
+7fbb44dbf000-7fbb44dc0000 r--s 00001000 fd:01 20448943                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-exceptions/play-exceptions-2.6.21.jar
+7fbb44dc0000-7fbb44dc1000 r--s 00000000 fd:01 20449067                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/build-link/build-link-2.6.21.jar
+7fbb44dc1000-7fbb44e18000 r--s 003e2000 fd:01 20448697                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play_2.11/play_2.11-2.6.21.jar
+7fbb44e18000-7fbb44e1b000 r--s 00019000 fd:01 20448766                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-guice_2.11/play-guice_2.11-2.6.21.jar
+7fbb44e1b000-7fbb44e1e000 r--s 00026000 fd:01 20578320                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-test_2.11/play-test_2.11-2.6.21.jar
+7fbb44e1e000-7fbb44e1f000 r--s 0000a000 fd:01 20578557                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.ow2.asm/asm-util/asm-util-5.0.3.jar
+7fbb44e1f000-7fbb44e20000 r--s 00004000 fd:01 20449089                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.ow2.asm/asm-analysis/asm-analysis-5.0.3.jar
+7fbb44e20000-7fbb44e22000 r--s 00006000 fd:01 20448965                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.ow2.asm/asm-tree/asm-tree-5.0.3.jar
+7fbb44e22000-7fbb44e27000 r--s 00029000 fd:01 20578313                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.parboiled/parboiled-core/parboiled-core-1.1.7.jar
+7fbb44e27000-7fbb44e29000 r--s 00010000 fd:01 20449059                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.parboiled/parboiled-java/parboiled-java-1.1.7.jar
+7fbb44e29000-7fbb44e2c000 r--s 00011000 fd:01 20448849                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.pegdown/pegdown/pegdown-1.6.0.jar
+7fbb44e2c000-7fbb44e2f000 r--s 0001c000 fd:01 20578452                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/hmrctest_2.11/hmrctest_2.11-3.9.0-play-26.jar
+7fbb44e2f000-7fbb44e31000 r--s 000c2000 fd:01 20578388                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-firefox-driver/selenium-firefox-driver-3.5.3.jar
+7fbb44e31000-7fbb44e34000 r--s 00008000 fd:01 20578386                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty.websocket/websocket-api/websocket-api-9.4.5.v20170502.jar
+7fbb44e34000-7fbb44e39000 r--s 0002c000 fd:01 20578376                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty.websocket/websocket-common/websocket-common-9.4.5.v20170502.jar
+7fbb44e39000-7fbb44e3f000 r--s 0003c000 fd:01 20449038                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty/jetty-client/jetty-client-9.4.5.v20170502.jar
+7fbb44e3f000-7fbb44e40000 r--s 00007000 fd:01 20448857                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.eclipse.jetty.websocket/websocket-client/websocket-client-9.4.5.v20170502.jar
+7fbb44e40000-7fbb44e41000 r--s 00003000 fd:01 20449070                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.w3c.css/sac/sac-1.3.jar
+7fbb44e41000-7fbb44e45000 r--s 0005a000 fd:01 20449078                   /home/johnny/cest/cest-frontend/lib_managed/jars/net.sourceforge.cssparser/cssparser/cssparser-0.9.23.jar
+7fbb44e45000-7fbb44e48000 r--s 0001d000 fd:01 20448978                   /home/johnny/cest/cest-frontend/lib_managed/jars/net.sourceforge.htmlunit/neko-htmlunit/neko-htmlunit-2.27.jar
+7fbb44e48000-7fbb44e56000 r--s 0011b000 fd:01 20578426                   /home/johnny/cest/cest-frontend/lib_managed/jars/net.sourceforge.htmlunit/htmlunit-core-js/htmlunit-core-js-2.27.jar
+7fbb44e56000-7fbb44e58000 r--s 00009000 fd:01 20578362                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.apache.httpcomponents/httpmime/httpmime-4.5.3.jar
+7fbb44e58000-7fbb44e5c000 r--s 00040000 fd:01 20578355                   /home/johnny/cest/cest-frontend/lib_managed/jars/xalan/serializer/serializer-2.7.2.jar
+7fbb44e5c000-7fbb44e81000 r--s 002de000 fd:01 20448852                   /home/johnny/cest/cest-frontend/lib_managed/jars/xalan/xalan/xalan-2.7.2.jar
+7fbb44e81000-7fbb44ea8000 r--s 001c3000 fd:01 20449009                   /home/johnny/cest/cest-frontend/lib_managed/jars/net.sourceforge.htmlunit/htmlunit/htmlunit-2.27.jar
+7fbb44ea8000-7fbb44eaa000 r--s 00010000 fd:01 20578436                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/htmlunit-driver/htmlunit-driver-2.27.jar
+7fbb44eaa000-7fbb44eae000 r--s 0002f000 fd:01 20450333                   /home/johnny/cest/cest-frontend/lib_managed/jars/commons-io/commons-io/commons-io-2.5.jar
+7fbb44eae000-7fbb44eaf000 r--s 00007000 fd:01 20448838                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.atteo.classindex/classindex/classindex-3.4.jar
+7fbb44eaf000-7fbb44ec0000 r--s 00155000 fd:01 20449104                   /home/johnny/cest/cest-frontend/lib_managed/jars/net.java.dev.jna/jna-platform/jna-platform-4.1.0.jar
+7fbb44ec0000-7fbb44ec4000 r--s 000dc000 fd:01 20449048                   /home/johnny/cest/cest-frontend/lib_managed/jars/net.java.dev.jna/jna/jna-4.1.0.jar
+7fbb44ec4000-7fbb44ec9000 r--s 00034000 fd:01 20578446                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.google.code.gson/gson/gson-2.8.0.jar
+7fbb44ec9000-7fbb44ecb000 r--s 0000e000 fd:01 20449007                   /home/johnny/cest/cest-frontend/lib_managed/jars/commons-logging/commons-logging/commons-logging-1.2.jar
+7fbb44ecb000-7fbb44ecd000 r--s 0000c000 fd:01 20449035                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.apache.commons/commons-exec/commons-exec-1.3.jar
+7fbb44ecd000-7fbb44ed4000 r--s 0004f000 fd:01 20578410                   /home/johnny/cest/cest-frontend/lib_managed/jars/cglib/cglib-nodep/cglib-nodep-3.2.4.jar
+7fbb44ed4000-7fbb44eda000 r--s 00049000 fd:01 20578572                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-remote-driver/selenium-remote-driver-3.5.3.jar
+7fbb44eda000-7fbb44ede000 r--s 00018000 fd:01 20449179                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-api/selenium-api-3.5.3.jar
+7fbb44ede000-7fbb44ee3000 r--s 00020000 fd:01 20448920                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.seleniumhq.selenium/selenium-support/selenium-support-3.5.3.jar
+7fbb44ee3000-7fbb44eed000 r--s 00052000 fd:01 20578402                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.fluentlenium/fluentlenium-core/fluentlenium-core-3.3.0.jar
+7fbb44eed000-7fbb44eef000 r--s 00003000 fd:01 20448809                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.google.code.findbugs/jsr305/jsr305-3.0.2.jar
+7fbb44eef000-7fbb44ef1000 r--s 00002000 fd:01 20449022                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.scala-sbt/test-interface/test-interface-1.0.jar
+7fbb44ef1000-7fbb44ef3000 r--s 00006000 fd:01 20578367                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.novocode/junit-interface/junit-interface-0.11.jar
+7fbb44ef3000-7fbb44ef5000 r--s 00009000 fd:01 20448729                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.hamcrest/hamcrest-core/hamcrest-core-1.3.jar
+7fbb44ef5000-7fbb44efd000 r--s 00045000 fd:01 20448732                   /home/johnny/cest/cest-frontend/lib_managed/jars/junit/junit/junit-4.12.jar
+7fbb44efd000-7fbb44eff000 r--s 00006000 fd:01 20578459                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-json-joda_2.11/play-json-joda_2.11-2.6.0.jar
+7fbb44eff000-7fbb44f00000 r--s 00002000 fd:01 20448761                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/play-whitelist-filter_2.11/play-whitelist-filter_2.11-3.1.0-play-26.jar
+7fbb44f00000-7fbb44f01000 r--s 00007000 fd:01 20448798                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/time_2.11/time_2.11-3.6.0.jar
+7fbb44f01000-7fbb44f06000 r--s 0002a000 fd:01 20448991                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/play-auditing_2.11/play-auditing_2.11-4.2.0-play-26.jar
+7fbb44f06000-7fbb44f0b000 r--s 00024000 fd:01 20578333                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.iheart/ficus_2.11/ficus_2.11-1.4.3.jar
+7fbb44f0b000-7fbb44f13000 r--s 0005d000 fd:01 20578325                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/auth-client_2.11/auth-client_2.11-2.27.0-play-26.jar
+7fbb44f13000-7fbb44f17000 r--s 0001e000 fd:01 20448780                   /home/johnny/cest/cest-frontend/lib_managed/bundles/io.dropwizard.metrics/metrics-core/metrics-core-3.2.5.jar
+7fbb44f17000-7fbb44f19000 r--s 00004000 fd:01 20448796                   /home/johnny/cest/cest-frontend/lib_managed/bundles/io.dropwizard.metrics/metrics-graphite/metrics-graphite-3.2.5.jar
+7fbb44f19000-7fbb44f1b000 r--s 00000000 fd:01 20449027                   /home/johnny/cest/cest-frontend/lib_managed/bundles/io.dropwizard.metrics/metrics-logback/metrics-logback-3.2.4.jar
+7fbb44f1b000-7fbb44f1d000 r--s 00008000 fd:01 20448916                   /home/johnny/cest/cest-frontend/lib_managed/bundles/io.dropwizard.metrics/metrics-jvm/metrics-jvm-3.2.4.jar
+7fbb44f1d000-7fbb44f1e000 r--s 00003000 fd:01 20448953                   /home/johnny/cest/cest-frontend/lib_managed/bundles/io.dropwizard.metrics/metrics-json/metrics-json-3.2.4.jar
+7fbb44f1e000-7fbb44f1f000 r--s 00005000 fd:01 20578374                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.kenshoo/metrics-play_2.11/metrics-play_2.11-2.6.6_0.6.2.jar
+7fbb44f1f000-7fbb44f2a000 r--s 00076000 fd:01 20578473                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/bootstrap-play-26_2.11/bootstrap-play-26_2.11-1.0.0.jar
+7fbb44f2a000-7fbb44f2d000 r--s 0000f000 fd:01 20449015                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/play-conditional-form-mapping_2.11/play-conditional-form-mapping_2.11-1.1.0-play-26.jar
+7fbb44f2d000-7fbb44f30000 r--s 00016000 fd:01 20449065                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/jackson-datatype-jsr310-2.9.8.jar
+7fbb44f30000-7fbb44f32000 r--s 00007000 fd:01 20448738                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.fasterxml.jackson.datatype/jackson-datatype-jdk8/jackson-datatype-jdk8-2.9.8.jar
+7fbb44f32000-7fbb44f33000 r--s 00001000 fd:01 20448720                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/http-core_2.11/http-core_2.11-2.2.0.jar
+7fbb44f33000-7fbb44f3b000 r--s 00052000 fd:01 20448963                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/http-verbs_2.11/http-verbs_2.11-10.0.0-play-26.jar
+7fbb44f3b000-7fbb44f44000 r--s 0005c000 fd:01 20449239                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-functional_2.11/play-functional_2.11-2.6.13.jar
+7fbb44f44000-7fbb44f64000 r--s 00142000 fd:01 20449237                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-json_2.11/play-json_2.11-2.6.13.jar
+7fbb44f64000-7fbb44fbc000 r--s 003a7000 fd:01 20578360                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.bouncycastle/bcprov-jdk15on/bcprov-jdk15on-1.60.jar
+7fbb44fbc000-7fbb44fbe000 r--s 00006000 fd:01 20448967                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/secure_2.11/secure_2.11-7.9.0.jar
+7fbb44fbe000-7fbb44fc0000 r--s 00013000 fd:01 20448987                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/crypto_2.11/crypto_2.11-5.4.0.jar
+7fbb44fc0000-7fbb44fc1000 r--s 00003000 fd:01 20448888                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/json-encryption_2.11/json-encryption_2.11-4.4.0-play-26.jar
+7fbb44fc1000-7fbb44fc3000 r--s 0000e000 fd:01 20448989                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/http-caching-client_2.11/http-caching-client_2.11-9.0.0-play-26.jar
+7fbb44fc3000-7fbb44fce000 r--s 00071000 fd:01 20449040                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/play-ui_2.11/play-ui_2.11-8.3.0-play-26.jar
+7fbb44fce000-7fbb44fd7000 r--s 0002d000 fd:01 20448820                   /home/johnny/cest/cest-frontend/lib_managed/jars/xml-apis/xml-apis/xml-apis-1.4.01.jar
+7fbb44fd7000-7fbb44ff0000 r--s 0013a000 fd:01 20578530                   /home/johnny/cest/cest-frontend/lib_managed/jars/xerces/xercesImpl/xercesImpl-2.12.0.jar
+7fbb44ff0000-7fbb44ff1000 r--s 0000b000 fd:01 20449086                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/play-health_2.11/play-health_2.11-3.14.0-play-26.jar
+7fbb44ff1000-7fbb44ff4000 r--s 000c4000 fd:01 20448708                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/govuk-template_2.11/govuk-template_2.11-5.41.0-play-26.jar
+7fbb44ff4000-7fbb44ff5000 r--s 00003000 fd:01 20449081                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/logback-json-logger_2.11/logback-json-logger_2.11-4.6.0.jar
+7fbb44ff5000-7fbb45000000 r--s 00073000 fd:01 20449136                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.reactivemongo/reactivemongo-play-json_2.11/reactivemongo-play-json_2.11-0.17.1-play26.jar
+7fbb45000000-7fbb45002000 r--s 00009000 fd:01 20449043                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.google.inject.extensions/guice-assistedinject/guice-assistedinject-4.1.0.jar
+7fbb45002000-7fbb45004000 r--s 00000000 fd:01 20578434                   /home/johnny/cest/cest-frontend/lib_managed/jars/aopalliance/aopalliance/aopalliance-1.0.jar
+7fbb45004000-7fbb45012000 r--s 00097000 fd:01 20578415                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.google.inject/guice/guice-4.1.0.jar
+7fbb45012000-7fbb45014000 r--s 00004000 fd:01 20448984                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.slf4j/log4j-over-slf4j/log4j-over-slf4j-1.7.26.jar
+7fbb45014000-7fbb45016000 r--s 00009000 fd:01 20448950                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.slf4j/slf4j-api/slf4j-api-1.7.26.jar
+7fbb45016000-7fbb45019000 r--s 00021000 fd:01 20448879                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.apache.logging.log4j/log4j-api/log4j-api-2.5.jar
+7fbb45019000-7fbb45020000 r--s 0004b000 fd:01 20448764                   /home/johnny/cest/cest-frontend/lib_managed/jars/commons-codec/commons-codec/commons-codec-1.11.jar
+7fbb45020000-7fbb45029000 r--s 00095000 fd:01 20448961                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.scala-stm/scala-stm_2.11/scala-stm_2.11-0.8.jar
+7fbb45029000-7fbb4503b000 r--s 000ad000 fd:01 20578371                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-iteratees_2.11/play-iteratees_2.11-2.6.1.jar
+7fbb4503b000-7fbb45040000 r--s 00048000 fd:01 20448973                   /home/johnny/cest/cest-frontend/lib_managed/jars/dnsjava/dnsjava/dnsjava-2.1.8.jar
+7fbb45040000-7fbb4506a000 r--s 001ea000 fd:01 20449003                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.reactivemongo/reactivemongo-shaded/reactivemongo-shaded-0.17.1.jar
+7fbb4506a000-7fbb45075000 r--s 00073000 fd:01 20449024                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.reactivemongo/reactivemongo-bson_2.11/reactivemongo-bson_2.11-0.17.1.jar
+7fbb45075000-7fbb45079000 r--s 00031000 fd:01 20449106                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.reactivemongo/reactivemongo-bson-macros_2.11/reactivemongo-bson-macros_2.11-0.17.1.jar
+7fbb45079000-7fbb450c5000 r--s 0034f000 fd:01 20448823                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.reactivemongo/reactivemongo_2.11/reactivemongo_2.11-0.17.1.jar
+7fbb450c5000-7fbb450c9000 r--s 00020000 fd:01 20448711                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.joda/joda-convert/joda-convert-2.2.0.jar
+7fbb450c9000-7fbb450da000 r--s 0008c000 fd:01 20449247                   /home/johnny/cest/cest-frontend/lib_managed/jars/joda-time/joda-time/joda-time-2.10.1.jar
+7fbb450da000-7fbb450de000 r--s 0002e000 fd:01 20448749                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.github.nscala-time/nscala-time_2.11/nscala-time_2.11-2.22.0.jar
+7fbb450de000-7fbb450e2000 r--s 0002b000 fd:01 20448817                   /home/johnny/cest/cest-frontend/lib_managed/jars/uk.gov.hmrc/simple-reactivemongo_2.11/simple-reactivemongo_2.11-7.20.0-play-26.jar
+7fbb450e2000-7fbb450e5000 r--s 0000a000 fd:01 21758989                   /home/johnny/cest/cest-frontend/lib_managed/jars/javax.cache/cache-api/cache-api-1.0.0.jar
+7fbb450e5000-7fbb450e8000 r--s 00015000 fd:01 21758984                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/shaded-oauth/shaded-oauth-1.1.10.jar
+7fbb450e8000-7fbb4511f000 r--s 0027f000 fd:01 20449099                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/shaded-asynchttpclient/shaded-asynchttpclient-1.1.10.jar
+7fbb4511f000-7fbb4512b000 r--s 00068000 fd:01 20448938                   /home/johnny/cest/cest-frontend/lib_managed/bundles/org.scala-lang.modules/scala-parser-combinators_2.11/scala-parser-combinators_2.11-1.1.0.jar
+7fbb4512b000-7fbb45134000 r--s 00046000 fd:01 20448941                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/cachecontrol_2.11/cachecontrol_2.11-1.1.3.jar
+7fbb45134000-7fbb4513b000 r--s 00055000 fd:01 20578378                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-ahc-ws-standalone_2.11/play-ahc-ws-standalone_2.11-1.1.10.jar
+7fbb4513b000-7fbb4513c000 r--s 00002000 fd:01 20448980                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-ws-standalone-json_2.11/play-ws-standalone-json_2.11-1.1.10.jar
+7fbb4513c000-7fbb4513f000 r--s 00018000 fd:01 20578466                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-ws-standalone_2.11/play-ws-standalone_2.11-1.1.10.jar
+7fbb4513f000-7fbb45141000 r--s 00005000 fd:01 20448840                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-ws_2.11/play-ws_2.11-2.6.20.jar
+7fbb45141000-7fbb45143000 r--s 00014000 fd:01 20448874                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-ahc-ws_2.11/play-ahc-ws_2.11-2.6.20.jar
+7fbb45143000-7fbb4514e000 r--s 00069000 fd:01 20448800                   /home/johnny/cest/cest-frontend/lib_managed/jars/ch.qos.logback/logback-core/logback-core-1.2.3.jar
+7fbb4514e000-7fbb45154000 r--s 00041000 fd:01 20448752                   /home/johnny/cest/cest-frontend/lib_managed/jars/ch.qos.logback/logback-classic/logback-classic-1.2.3.jar
+7fbb45154000-7fbb4515e000 r--s 0005f000 fd:01 20578448                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/filters-helpers_2.11/filters-helpers_2.11-2.6.20.jar
+7fbb4515e000-7fbb451aa000 r--s 00418000 fd:01 20448771                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.scala-lang/scala-reflect/scala-reflect-2.11.11.jar
+7fbb451aa000-7fbb451c1000 r--s 00112000 fd:01 20578364                   /home/johnny/cest/cest-frontend/lib_managed/bundles/org.scala-lang.modules/scala-java8-compat_2.11/scala-java8-compat_2.11-0.8.0.jar
+7fbb451c1000-7fbb4521a000 r--s 00523000 fd:01 20448861                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.scala-lang/scala-library/scala-library-2.11.11.jar
+7fbb4521a000-7fbb45235000 r--s 001d6000 fd:01 22418668                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/nashorn.jar
+7fbb45235000-7fbb45250000 r--s 00394000 fd:01 22418663                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/cldrdata.jar
+7fbb45250000-7fbb45251000 ---p 00000000 00:00 0 
+7fbb45251000-7fbb45351000 rw-p 00000000 00:00 0 
+7fbb45351000-7fbb45352000 ---p 00000000 00:00 0 
+7fbb45352000-7fbb45355000 ---p 00000000 00:00 0 
+7fbb45355000-7fbb45452000 rw-p 00000000 00:00 0 
+7fbb45452000-7fbb45453000 ---p 00000000 00:00 0 
+7fbb45453000-7fbb45456000 ---p 00000000 00:00 0 
+7fbb45456000-7fbb45553000 rw-p 00000000 00:00 0 
+7fbb45553000-7fbb45554000 ---p 00000000 00:00 0 
+7fbb45554000-7fbb45557000 ---p 00000000 00:00 0 
+7fbb45557000-7fbb45654000 rw-p 00000000 00:00 0 
+7fbb45654000-7fbb45655000 ---p 00000000 00:00 0 
+7fbb45655000-7fbb45658000 ---p 00000000 00:00 0 
+7fbb45658000-7fbb45755000 rw-p 00000000 00:00 0 
+7fbb45755000-7fbb46124000 r--p 00000000 fd:01 22420078                   /usr/lib/locale/locale-archive
+7fbb46124000-7fbb46125000 ---p 00000000 00:00 0 
+7fbb46125000-7fbb48000000 rw-p 00000000 00:00 0 
+7fbb48000000-7fbb48021000 rw-p 00000000 00:00 0 
+7fbb48021000-7fbb4c000000 ---p 00000000 00:00 0 
+7fbb4c000000-7fbb4c021000 rw-p 00000000 00:00 0 
+7fbb4c021000-7fbb50000000 ---p 00000000 00:00 0 
+7fbb50000000-7fbb50021000 rw-p 00000000 00:00 0 
+7fbb50021000-7fbb54000000 ---p 00000000 00:00 0 
+7fbb54000000-7fbb58000000 rw-p 00000000 00:00 0 
+7fbb58000000-7fbb58021000 rw-p 00000000 00:00 0 
+7fbb58021000-7fbb5c000000 ---p 00000000 00:00 0 
+7fbb5c000000-7fbb5c021000 rw-p 00000000 00:00 0 
+7fbb5c021000-7fbb60000000 ---p 00000000 00:00 0 
+7fbb60000000-7fbb60021000 rw-p 00000000 00:00 0 
+7fbb60021000-7fbb64000000 ---p 00000000 00:00 0 
+7fbb64000000-7fbb64021000 rw-p 00000000 00:00 0 
+7fbb64021000-7fbb68000000 ---p 00000000 00:00 0 
+7fbb68000000-7fbb68021000 rw-p 00000000 00:00 0 
+7fbb68021000-7fbb6c000000 ---p 00000000 00:00 0 
+7fbb6c000000-7fbb6c001000 r--s 00003000 fd:01 20448834                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-ws-standalone-xml_2.11/play-ws-standalone-xml_2.11-1.1.10.jar
+7fbb6c001000-7fbb6c005000 r--s 00018000 fd:01 20448868                   /home/johnny/cest/cest-frontend/lib_managed/jars/io.jsonwebtoken/jjwt/jjwt-0.7.0.jar
+7fbb6c005000-7fbb6c62c000 rw-p 00000000 00:00 0 
+7fbb6c62c000-7fbb6c7fc000 r--s 03c5c000 fd:01 22418696                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar
+7fbb6c7fc000-7fbb6cbfc000 rw-p 00000000 00:00 0 
+7fbb6cbfc000-7fbb6cbfd000 ---p 00000000 00:00 0 
+7fbb6cbfd000-7fbb6ccfd000 rw-p 00000000 00:00 0 
+7fbb6ccfd000-7fbb6ccfe000 ---p 00000000 00:00 0 
+7fbb6ccfe000-7fbb6cdfe000 rw-p 00000000 00:00 0 
+7fbb6cdfe000-7fbb6cdff000 ---p 00000000 00:00 0 
+7fbb6cdff000-7fbb6ceff000 rw-p 00000000 00:00 0 
+7fbb6ceff000-7fbb6cf00000 ---p 00000000 00:00 0 
+7fbb6cf00000-7fbb6d000000 rw-p 00000000 00:00 0 
+7fbb6d000000-7fbb6db00000 rwxp 00000000 00:00 0 
+7fbb6db00000-7fbb7c000000 ---p 00000000 00:00 0 
+7fbb7c000000-7fbb7d8ba000 rw-p 00000000 00:00 0 
+7fbb7d8ba000-7fbb80000000 ---p 00000000 00:00 0 
+7fbb80000000-7fbb80001000 r--s 00004000 fd:01 20578311                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-logback_2.11/play-logback_2.11-2.6.20.jar
+7fbb80001000-7fbb80002000 r--s 00000000 fd:01 20448925                   /home/johnny/cest/cest-frontend/lib_managed/jars/javax.inject/javax.inject/javax.inject-1.jar
+7fbb80002000-7fbb80004000 r--s 00001000 fd:01 20578316                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.google.j2objc/j2objc-annotations/j2objc-annotations-1.1.jar
+7fbb80004000-7fbb80009000 r--s 00041000 fd:01 20449033                   /home/johnny/cest/cest-frontend/lib_managed/bundles/com.typesafe/config/config-1.3.3.jar
+7fbb80009000-7fbb800ee000 rw-p 00000000 00:00 0 
+7fbb800ee000-7fbb800ef000 ---p 00000000 00:00 0 
+7fbb800ef000-7fbb801ef000 rw-p 00000000 00:00 0 
+7fbb801ef000-7fbb801f0000 ---p 00000000 00:00 0 
+7fbb801f0000-7fbb802f0000 rw-p 00000000 00:00 0 
+7fbb802f0000-7fbb802f1000 ---p 00000000 00:00 0 
+7fbb802f1000-7fbb803f1000 rw-p 00000000 00:00 0 
+7fbb803f1000-7fbb803f2000 ---p 00000000 00:00 0 
+7fbb803f2000-7fbb80678000 rw-p 00000000 00:00 0 
+7fbb80678000-7fbb8079d000 ---p 00000000 00:00 0 
+7fbb8079d000-7fbb80923000 rw-p 00000000 00:00 0 
+7fbb80923000-7fbb80a47000 ---p 00000000 00:00 0 
+7fbb80a47000-7fbb80b20000 rw-p 00000000 00:00 0 
+7fbb80b20000-7fbb80b9d000 ---p 00000000 00:00 0 
+7fbb80b9d000-7fbb80bca000 rw-p 00000000 00:00 0 
+7fbb80bca000-7fbb80f5e000 ---p 00000000 00:00 0 
+7fbb80f5e000-7fbb80f66000 r-xp 00000000 fd:01 22418649                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libzip.so
+7fbb80f66000-7fbb81165000 ---p 00008000 fd:01 22418649                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libzip.so
+7fbb81165000-7fbb81166000 r--p 00007000 fd:01 22418649                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libzip.so
+7fbb81166000-7fbb81167000 rw-p 00008000 fd:01 22418649                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libzip.so
+7fbb81167000-7fbb81172000 r-xp 00000000 fd:01 12063458                   /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fbb81172000-7fbb81371000 ---p 0000b000 fd:01 12063458                   /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fbb81371000-7fbb81372000 r--p 0000a000 fd:01 12063458                   /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fbb81372000-7fbb81373000 rw-p 0000b000 fd:01 12063458                   /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fbb81373000-7fbb81379000 rw-p 00000000 00:00 0 
+7fbb81379000-7fbb81390000 r-xp 00000000 fd:01 12063452                   /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fbb81390000-7fbb8158f000 ---p 00017000 fd:01 12063452                   /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fbb8158f000-7fbb81590000 r--p 00016000 fd:01 12063452                   /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fbb81590000-7fbb81591000 rw-p 00017000 fd:01 12063452                   /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fbb81591000-7fbb81593000 rw-p 00000000 00:00 0 
+7fbb81593000-7fbb8159e000 r-xp 00000000 fd:01 12063469                   /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fbb8159e000-7fbb8179d000 ---p 0000b000 fd:01 12063469                   /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fbb8179d000-7fbb8179e000 r--p 0000a000 fd:01 12063469                   /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fbb8179e000-7fbb8179f000 rw-p 0000b000 fd:01 12063469                   /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fbb8179f000-7fbb817a7000 r-xp 00000000 fd:01 12063454                   /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fbb817a7000-7fbb819a7000 ---p 00008000 fd:01 12063454                   /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fbb819a7000-7fbb819a8000 r--p 00008000 fd:01 12063454                   /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fbb819a8000-7fbb819a9000 rw-p 00009000 fd:01 12063454                   /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fbb819a9000-7fbb819d3000 r-xp 00000000 fd:01 22418630                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libjava.so
+7fbb819d3000-7fbb81bd2000 ---p 0002a000 fd:01 22418630                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libjava.so
+7fbb81bd2000-7fbb81bd3000 r--p 00029000 fd:01 22418630                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libjava.so
+7fbb81bd3000-7fbb81bd5000 rw-p 0002a000 fd:01 22418630                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libjava.so
+7fbb81bd5000-7fbb81be5000 r-xp 00000000 fd:01 22418648                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libverify.so
+7fbb81be5000-7fbb81de4000 ---p 00010000 fd:01 22418648                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libverify.so
+7fbb81de4000-7fbb81de6000 r--p 0000f000 fd:01 22418648                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libverify.so
+7fbb81de6000-7fbb81de7000 rw-p 00011000 fd:01 22418648                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libverify.so
+7fbb81de7000-7fbb81dee000 r-xp 00000000 fd:01 12063509                   /lib/x86_64-linux-gnu/librt-2.27.so
+7fbb81dee000-7fbb81fed000 ---p 00007000 fd:01 12063509                   /lib/x86_64-linux-gnu/librt-2.27.so
+7fbb81fed000-7fbb81fee000 r--p 00006000 fd:01 12063509                   /lib/x86_64-linux-gnu/librt-2.27.so
+7fbb81fee000-7fbb81fef000 rw-p 00007000 fd:01 12063509                   /lib/x86_64-linux-gnu/librt-2.27.so
+7fbb81fef000-7fbb82006000 r-xp 00000000 fd:01 12063283                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fbb82006000-7fbb82205000 ---p 00017000 fd:01 12063283                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fbb82205000-7fbb82206000 r--p 00016000 fd:01 12063283                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fbb82206000-7fbb82207000 rw-p 00017000 fd:01 12063283                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7fbb82207000-7fbb823a4000 r-xp 00000000 fd:01 12063431                   /lib/x86_64-linux-gnu/libm-2.27.so
+7fbb823a4000-7fbb825a3000 ---p 0019d000 fd:01 12063431                   /lib/x86_64-linux-gnu/libm-2.27.so
+7fbb825a3000-7fbb825a4000 r--p 0019c000 fd:01 12063431                   /lib/x86_64-linux-gnu/libm-2.27.so
+7fbb825a4000-7fbb825a5000 rw-p 0019d000 fd:01 12063431                   /lib/x86_64-linux-gnu/libm-2.27.so
+7fbb825a5000-7fbb8271e000 r-xp 00000000 fd:01 22415404                   /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7fbb8271e000-7fbb8291e000 ---p 00179000 fd:01 22415404                   /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7fbb8291e000-7fbb82928000 r--p 00179000 fd:01 22415404                   /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7fbb82928000-7fbb8292a000 rw-p 00183000 fd:01 22415404                   /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7fbb8292a000-7fbb8292e000 rw-p 00000000 00:00 0 
+7fbb8292e000-7fbb835cd000 r-xp 00000000 fd:01 22418652                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+7fbb835cd000-7fbb837cd000 ---p 00c9f000 fd:01 22418652                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+7fbb837cd000-7fbb83861000 r--p 00c9f000 fd:01 22418652                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+7fbb83861000-7fbb8388a000 rw-p 00d33000 fd:01 22418652                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+7fbb8388a000-7fbb838ba000 rw-p 00000000 00:00 0 
+7fbb838ba000-7fbb838d4000 r-xp 00000000 fd:01 12063501                   /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fbb838d4000-7fbb83ad3000 ---p 0001a000 fd:01 12063501                   /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fbb83ad3000-7fbb83ad4000 r--p 00019000 fd:01 12063501                   /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fbb83ad4000-7fbb83ad5000 rw-p 0001a000 fd:01 12063501                   /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fbb83ad5000-7fbb83ad9000 rw-p 00000000 00:00 0 
+7fbb83ad9000-7fbb83adc000 r-xp 00000000 fd:01 12063391                   /lib/x86_64-linux-gnu/libdl-2.27.so
+7fbb83adc000-7fbb83cdb000 ---p 00003000 fd:01 12063391                   /lib/x86_64-linux-gnu/libdl-2.27.so
+7fbb83cdb000-7fbb83cdc000 r--p 00002000 fd:01 12063391                   /lib/x86_64-linux-gnu/libdl-2.27.so
+7fbb83cdc000-7fbb83cdd000 rw-p 00003000 fd:01 12063391                   /lib/x86_64-linux-gnu/libdl-2.27.so
+7fbb83cdd000-7fbb83cf9000 r-xp 00000000 fd:01 12063540                   /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fbb83cf9000-7fbb83ef8000 ---p 0001c000 fd:01 12063540                   /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fbb83ef8000-7fbb83ef9000 r--p 0001b000 fd:01 12063540                   /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fbb83ef9000-7fbb83efa000 rw-p 0001c000 fd:01 12063540                   /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fbb83efa000-7fbb840e1000 r-xp 00000000 fd:01 12063368                   /lib/x86_64-linux-gnu/libc-2.27.so
+7fbb840e1000-7fbb842e1000 ---p 001e7000 fd:01 12063368                   /lib/x86_64-linux-gnu/libc-2.27.so
+7fbb842e1000-7fbb842e5000 r--p 001e7000 fd:01 12063368                   /lib/x86_64-linux-gnu/libc-2.27.so
+7fbb842e5000-7fbb842e7000 rw-p 001eb000 fd:01 12063368                   /lib/x86_64-linux-gnu/libc-2.27.so
+7fbb842e7000-7fbb842eb000 rw-p 00000000 00:00 0 
+7fbb842eb000-7fbb842f9000 r-xp 00000000 fd:01 22418616                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+7fbb842f9000-7fbb844f8000 ---p 0000e000 fd:01 22418616                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+7fbb844f8000-7fbb844f9000 r--p 0000d000 fd:01 22418616                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+7fbb844f9000-7fbb844fa000 rw-p 0000e000 fd:01 22418616                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+7fbb844fa000-7fbb84521000 r-xp 00000000 fd:01 12063340                   /lib/x86_64-linux-gnu/ld-2.27.so
+7fbb84521000-7fbb84522000 r--s 00003000 fd:01 20448845                   /home/johnny/cest/cest-frontend/lib_managed/jars/javax.transaction/jta/jta-1.1.jar
+7fbb84522000-7fbb84523000 r--s 00000000 fd:01 20448872                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.typelevel/macro-compat_2.11/macro-compat_2.11-1.1.1.jar
+7fbb84523000-7fbb84524000 r--s 00000000 fd:01 20578348                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.reactivestreams/reactive-streams/reactive-streams-1.0.2.jar
+7fbb84524000-7fbb84526000 r--s 00003000 fd:01 20448741                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.slf4j/jcl-over-slf4j/jcl-over-slf4j-1.7.25.jar
+7fbb84526000-7fbb84528000 r--s 00000000 fd:01 20448786                   /home/johnny/cest/cest-frontend/lib_managed/jars/org.slf4j/jul-to-slf4j/jul-to-slf4j-1.7.25.jar
+7fbb84528000-7fbb8452a000 r--s 00011000 fd:01 20578392                   /home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/twirl-api_2.11/twirl-api_2.11-1.3.15.jar
+7fbb8452a000-7fbb8452c000 r--s 00001000 fd:01 22418664                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/dnsns.jar
+7fbb8452c000-7fbb8452e000 r--s 00007000 fd:01 22808699                   /usr/share/java/java-atk-wrapper.jar
+7fbb8452e000-7fbb84533000 r--s 0003c000 fd:01 22418670                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar
+7fbb84533000-7fbb845ff000 rw-p 00000000 00:00 0 
+7fbb845ff000-7fbb84600000 ---p 00000000 00:00 0 
+7fbb84600000-7fbb84603000 ---p 00000000 00:00 0 
+7fbb84603000-7fbb84702000 rw-p 00000000 00:00 0 
+7fbb84702000-7fbb84703000 r--s 00010000 fd:01 22418676                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/zipfs.jar
+7fbb84703000-7fbb84704000 r--s 0000a000 fd:01 22418666                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jaccess.jar
+7fbb84704000-7fbb84707000 r--s 0000f000 fd:01 22418665                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/icedtea-sound.jar
+7fbb84707000-7fbb84711000 r--s 00116000 fd:01 22418667                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/localedata.jar
+7fbb84711000-7fbb84712000 r--s 0000d000 fd:01 22418669                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunec.jar
+7fbb84712000-7fbb84715000 r--s 00039000 fd:01 22418675                   /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunpkcs11.jar
+7fbb84715000-7fbb8471d000 rw-s 00000000 fd:01 26217863                   /tmp/hsperfdata_johnny/6111
+7fbb8471d000-7fbb8471e000 rw-p 00000000 00:00 0 
+7fbb8471e000-7fbb8471f000 ---p 00000000 00:00 0 
+7fbb8471f000-7fbb84721000 rw-p 00000000 00:00 0 
+7fbb84721000-7fbb84722000 r--p 00027000 fd:01 12063340                   /lib/x86_64-linux-gnu/ld-2.27.so
+7fbb84722000-7fbb84723000 rw-p 00028000 fd:01 12063340                   /lib/x86_64-linux-gnu/ld-2.27.so
+7fbb84723000-7fbb84724000 rw-p 00000000 00:00 0 
+7ffe17aad000-7ffe17ad4000 rw-p 00000000 00:00 0                          [stack]
+7ffe17bcf000-7ffe17bd2000 r--p 00000000 00:00 0                          [vvar]
+7ffe17bd2000-7ffe17bd4000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Djna.nosys=true -Xms1024m -Xmx2G -Xss256m -XX:MaxPermSize=4G 
+java_command: sbt.ForkMain 34063
+java_class_path (initial): /home/johnny/cest/cest-frontend/target/scala-2.11/test-classes:/home/johnny/cest/cest-frontend/target/web/classes/test:/home/johnny/cest/cest-frontend/target/scala-2.11/classes:/home/johnny/cest/cest-frontend/target/web/classes/main:/home/johnny/cest/cest-frontend/lib_managed/jars/org.scala-lang/scala-library/scala-library-2.11.11.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/twirl-api_2.11/twirl-api_2.11-1.3.15.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/org.slf4j/jul-to-slf4j/jul-to-slf4j-1.7.25.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/org.slf4j/jcl-over-slf4j/jcl-over-slf4j-1.7.25.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/org.reactivestreams/reactive-streams/reactive-streams-1.0.2.jar:/home/johnny/cest/cest-frontend/lib_managed/bundles/com.typesafe/config/config-1.3.3.jar:/home/johnny/cest/cest-frontend/lib_managed/bundles/org.scala-lang.modules/scala-java8-compat_2.11/scala-java8-compat_2.11-0.8.0.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/org.scala-lang/scala-reflect/scala-reflect-2.11.11.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/org.typelevel/macro-compat_2.11/macro-compat_2.11-1.1.1.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/com.google.j2objc/j2objc-annotations/j2objc-annotations-1.1.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/io.jsonwebtoken/jjwt/jjwt-0.7.0.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/javax.transaction/jta/jta-1.1.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/javax.inject/javax.inject/javax.inject-1.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/filters-helpers_2.11/filters-helpers_2.11-2.6.20.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/com.typesafe.play/play-logback_2.11/play-logback_2.11-2.6.20.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/ch.qos.logback/logback-classic/logback-classic-1.2.3.jar:/home/johnny/cest/cest-frontend/lib_managed/jars/ch.qos.logback/log
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+_JAVA_OPTIONS=-Xms1024m -Xmx2G -Xss256m -XX:MaxPermSize=4G
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xab92f0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xab92f0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x8ee560], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x8ee560], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x8ee560], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x8ee560], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x8ee410], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x8eea80], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x8eea80], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x8eea80], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x8eea80], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.3 LTS"
+
+uname:Linux 4.15.0-72-generic #81-Ubuntu SMP Tue Nov 26 12:20:02 UTC 2019 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE 0k, NPROC 62990, NOFILE 1048576, AS infinity
+load average:4.17 2.06 1.26
+
+/proc/meminfo:
+MemTotal:       16238928 kB
+MemFree:          162212 kB
+MemAvailable:     152608 kB
+Buffers:           16860 kB
+Cached:           719468 kB
+SwapCached:        23816 kB
+Active:         13460792 kB
+Inactive:        1968604 kB
+Active(anon):   13371768 kB
+Inactive(anon):  1854972 kB
+Active(file):      89024 kB
+Inactive(file):   113632 kB
+Unevictable:          96 kB
+Mlocked:              96 kB
+SwapTotal:       1003516 kB
+SwapFree:              0 kB
+Dirty:               576 kB
+Writeback:             0 kB
+AnonPages:      14669996 kB
+Mapped:           680068 kB
+Shmem:            534324 kB
+Slab:             283512 kB
+SReclaimable:      98784 kB
+SUnreclaim:       184728 kB
+KernelStack:       27936 kB
+PageTables:       105352 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     9122980 kB
+Committed_AS:   139291452 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      798728 kB
+DirectMap2M:    15794176 kB
+DirectMap1G:           0 kB
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-7
+cpu_memory_nodes: 0
+active_processor_count: 8
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -2
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 14930812928
+memory_max_usage_in_bytes: 15103000576
+
+
+CPU:total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 94 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+stepping	: 3
+microcode	: 0xd6
+cpu MHz		: 1582.594
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+stepping	: 3
+microcode	: 0xd6
+cpu MHz		: 1862.417
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+stepping	: 3
+microcode	: 0xd6
+cpu MHz		: 2464.469
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+stepping	: 3
+microcode	: 0xd6
+cpu MHz		: 2544.877
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+stepping	: 3
+microcode	: 0xd6
+cpu MHz		: 1657.453
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+stepping	: 3
+microcode	: 0xd6
+cpu MHz		: 3210.109
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+stepping	: 3
+microcode	: 0xd6
+cpu MHz		: 1323.039
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+stepping	: 3
+microcode	: 0xd6
+cpu MHz		: 1970.572
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 16238928k(162212k free), swap 1003516k(0k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.222-b10) for linux-amd64 JRE (1.8.0_222-8u222-b10-1ubuntu1~18.04.1-b10), built on Jul 18 2019 18:52:48 by "buildd" with gcc 7.4.0
+
+time: Tue Dec 10 16:14:03 2019
+timezone: GMT
+elapsed time: 4 seconds (0d 0h 0m 4s)
+
