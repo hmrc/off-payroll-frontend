@@ -261,7 +261,7 @@ hirer.benefits.title = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u 
 hirer.benefits.subheading = Cyfraniad y gweithiwr
 hirer.benefits.heading = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr?
 hirer.benefits.checkYourAnswersLabel = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr?
-hirer.benefits.p1 = Gall hyn gynnwys aelodaeth â champfa allanol, yswiriant iechyd neu ostyngiadau manwerthu.
+hirer.benefits.p1 = Gall hyn gynnwys aelodaeth hirer.identifyToStakeholders.titlâ champfa allanol, yswiriant iechyd neu ostyngiadau manwerthu.
 #########################
 
 ## Put Right at Workers Own Cost
@@ -639,6 +639,7 @@ hirer.result.undetermined.paye.doNext.p2.preLink = Gallwch hefyd ddarllen arwein
 hirer.result.undetermined.paye.doNext.p2.postLink = Bydd hyn yn rhoi rhagor o wybodaeth i chi ynghylch pennu statws cyflogaeth
 hirer.result.undetermined.paye.doNext.p3 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 
+##TODO: Need Welsh
 worker.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 worker.result.inside.ir35.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu eich bod yn cynnig gwasanaeth personol i’ch cleient. Golyga hyn y cewch eich trin fel petaech yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 worker.result.inside.ir35.make.doNext.p1 = You told us you are providing your services through an intermediary, such as a limited company, partnership, or unincorporated body. Your intermediary needs to operate PAYE on your earnings.
@@ -652,7 +653,7 @@ worker.result.inside.ir35.check.doNext.p3.link = Canllaw Statws Cyflogaeth.
 ## -------------------
 ##TODO: Need Welsh
 worker.result.undetermined.ir35.heading = Methu gwneud penderfyniad
-worker.result.undetermined.ir35.whyResult.p1 = It is not clear from your answers if the off-payroll working rules apply to this work.
+worker.result.undetermined.ir35.whyResult.p1 = Nid yw’n glir o’ch atebion a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
 worker.result.undetermined.ir35.doNext.p1 = Firstly, you should download a copy of this result and show it to your client. Check your answers with them to make sure they reflect the actual or expected working practices.
 worker.result.undetermined.ir35.doNext.p2.preLink = You could also read guidance in the
 worker.result.undetermined.ir35.doNext.p2.postLink = This will provide you with more information about determining your employment status for tax purposes.
@@ -706,12 +707,11 @@ agent.result.inside.doNext.p2.link = Canllaw Statws Cyflogaeth
 ## ------------------
 ## Undetermined Agent
 ## ------------------
-##TODO: Need Welsh
 agent.result.undetermined.heading = Methu gwneud penderfyniad
-agent.result.undetermined.whyResult.p1 = It is not clear from your answers if the off-payroll working rules apply to this work.
-agent.result.undetermined.doNext.p1 = Firstly, if this result is different from the one you are checking, you should download a copy of this result and show it to the worker’s client. Check your answers with them to make sure they are correct.
-agent.result.undetermined.doNext.p2.preLink = You could also read guidance in the
-agent.result.undetermined.doNext.p2.postLink = This will provide you with more information about determining the employment status of a worker for tax purposes.
+agent.result.undetermined.whyResult.p1 = Nid yw’n glir o’ch atebion a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+agent.result.undetermined.doNext.p1 = Yn gyntaf, os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos i gleient y gweithiwr. Gwiriwch eich atebion gydag ef i wneud yn siŵr eu bod yn gywir.
+agent.result.undetermined.doNext.p2.preLink = Gallech hefyd ddarllen arweiniad yn y
+agent.result.undetermined.doNext.p2.postLink = Bydd hyn yn rhoi rhagor o wybodaeth i chi ynghylch pennu statws cyflogaeth gweithiwr at ddibenion treth.
 
 ## ------------------
 ## Hirer IR35
@@ -741,7 +741,6 @@ worker.result.inside.paye.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’
 
 ## Undetermined PAYE Worker
 ## ------------------
-##TODO: Need Welsh
 worker.result.undetermined.paye.heading = Methu gwneud penderfyniad
 worker.result.undetermined.paye.whyResult.p1 = Nid yw’n glir o’ch atebion a ydych yn gyflogedig neu’n hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn
 worker.result.undetermined.paye.doNext.p1 = Yn gyntaf, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos i’ch cleient. Gwiriwch eich atebion gydag ef i wneud yn siŵr eu bod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig.
@@ -769,9 +768,9 @@ addDetails.fileName = Enw’r ffeil (dewisol)
 finishedChecking.title = Rydych wedi gorffen gwirio’r gwaith hwn
 finishedChecking.heading = Rydych wedi gorffen gwirio’r gwaith hwn
 finishedChecking.p1.beforeLink1 = Gallwch nawr
-finishedChecking.p1.link1 = gadael
+finishedChecking.p1.link1 = adael
 finishedChecking.p1.beforeLink2 = , neu
-finishedChecking.p1.link2 = dechrau eto
+finishedChecking.p1.link2 = ddechrau eto
 finishedChecking.p1.afterLink2 = i wirio statws cyflogaeth rhyw waith arall.
 finishedChecking.downloadAnswers = Lawrlwythwch eich atebion a’ch canlyniad (PDF, o dan {0}kb)
 
@@ -829,7 +828,7 @@ hirer.equipmentExpenses.heading = A fydd yn rhaid i’r gweithiwr brynu offer cy
 hirer.equipmentExpenses.checkYourAnswersLabel = A fydd yn rhaid i’r gweithiwr brynu offer cyn i’ch sefydliad ei dalu?
 hirer.equipmentExpenses.p1 = Gall hyn gynnwys peiriannau trwm neu offer arbenigol sydd â chost uchel a ddefnyddir ar gyfer y gwaith hwn. Nid yw hyn yn cynnwys gliniaduron, llechi na ffonau.
 hirer.equipmentExpenses.p2 = Ymdrinnir â chostau cerbyd yn y cwestiwn nesaf.
-#TODO NEED WELSH
+
 worker.equipmentExpenses.error.required = Dewiswch ‘Iawn’ os bydd yn rhaid i chi brynu offer cyn i’ch cleient eich talu
 agency.equipmentExpenses.error.required = Dewiswch ‘Iawn’ os bydd yn rhaid i chi brynu offer cyn i’ch cleient eich talu
 worker.equipmentExpenses.title = A fydd yn rhaid i chi brynu offer cyn i’ch cleient eich talu?
@@ -839,6 +838,7 @@ worker.equipmentExpenses.checkYourAnswersLabel = A fydd yn rhaid i chi brynu unr
 worker.equipmentExpenses.p1 = Gall hyn gynnwys peiriannau trwm neu offer arbenigol sydd â chost uchel a ddefnyddiwyd ar gyfer y gwaith hwn. Nid yw’n cynnwys gliniaduron, llechi a ffonau.
 worker.equipmentExpenses.p2 = Ymdrinnir â chostau cerbyd yn y cwestiwn nesaf.
 
+##TODO: Need Welsh
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
 result.pdf.customisedBy = Enw’r person a gwblhaodd y gwiriad hwn:
 result.pdf.client = Enw’r cleient terfynol:
@@ -850,13 +850,13 @@ hirer.result.pdf.client = Your organisation’s name
 result.pdf.decisionVersion =  Gwasanaeth Penderfynu, fersiwn: {0}
 result.pdf.decisionVersion.p1 = Bydd CThEM yn glynu wrth y canlyniad hwn cyn belled â’i fod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig. Os bydd yr arferion gwaith hyn yn newid, dylech ddefnyddio’r twlsyn hwn eto.
 
-##TODO: Need Welsh
 personalServiceSectionChangeWarning.title = Drwy newid eich atebion yn yr adran hon, mae’n bosibl y bydd yn rhaid i chi ateb cwestiynau ychwanegol
 personalServiceSectionChangeWarning.heading = Drwy newid eich atebion yn yr adran hon, mae’n bosibl y bydd yn rhaid i chi ateb cwestiynau ychwanegol
 
 businessOnOwnAccountSectionChangeWarning.title = Drwy newid eich atebion yn yr adran hon, efallai y bydd angen i chi ateb cwestiynau ychwanegol.
 businessOnOwnAccountSectionChangeWarning.heading = Drwy newid eich atebion yn yr adran hon, efallai y bydd angen i chi ateb cwestiynau ychwanegol.
 
+##TODO: Need Welsh
 hirer.result.outside.ir35.title = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.result.outside.ir35.heading = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.result.outside.ir35.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
@@ -877,12 +877,11 @@ hirer.result.outside.ir35.whyResult.businessToBusiness = Mae’r atebion a roddw
 ## ------------------
 ## Out Agent
 ## ------------------
-##TODO: Need Welsh
 agent.result.outside.heading = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 agent.result.outside.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
 agent.result.outside.whyResult.substituteToDoWork = mae cleient y gweithiwr wedi derbyn, neu byddai’n derbyn, eilydd
 agent.result.outside.whyResult.clientNotControlWork = nid oes gan gleient y gweithiwr reolaeth dros y gwaith hwn
-agent.result.outside.whyResult.incurCostNoReclaim = the worker or their business will have to fund costs before their client pays them
+agent.result.outside.whyResult.incurCostNoReclaim = bydd yn rhaid i’r gweithiwr neu’i fusnes ariannu costau cyn i’w gleient ei dalu
 agent.result.outside.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
 agent.result.outside.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
 agent.result.outside.doNext.p2.text = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
@@ -893,7 +892,6 @@ agent.result.outside.whyResult.incurCostNoReclaimOnlyReason = Yn ôl eich atebio
 agent.result.outside.whyResult.businessToBusiness = Mae’r atebion a roddwyd gennych yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
 
 ##TODO: Need Welsh
-
 hirer.result.outside.paye.heading = Hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn
 hirer.result.outside.paye.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
 hirer.result.outside.paye.whyResult.substituteToDoWork = rydych wedi derbyn, neu byddech yn derbyn, eilydd
