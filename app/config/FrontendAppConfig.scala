@@ -81,6 +81,7 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   lazy val employmentStatusManualUrl = servicesConfig.getString("urls.employmentStatusManual")
   lazy val employmentStatusManualChapter5Url = servicesConfig.getString("urls.employmentStatusManualChapter5")
   lazy val employmentStatusManualESM0527Url = servicesConfig.getString("urls.employmentStatusManualESM0527")
+  lazy val employmentStatusManualESM0521Url = servicesConfig.getString("urls.employmentStatusManualESM0521")
   lazy val officeHolderUrl = servicesConfig.getString("urls.officeHolder")
   lazy val understandingOffPayrollUrl = servicesConfig.getString("urls.understandingOffPayroll")
   lazy val feePayerResponsibilitiesUrl = servicesConfig.getString("urls.feePayerResponsibilities")
