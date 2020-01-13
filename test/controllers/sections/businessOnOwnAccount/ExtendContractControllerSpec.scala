@@ -43,17 +43,18 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[ExtendContractView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ExtendContractController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new ExtendContractController(
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = FakeBusinessOnOwnAccountNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     compareAnswerService = mockCompareAnswerService,
-
     appConfig = frontendAppConfig
   )
 
@@ -70,7 +71,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(ExtendContractPage.toString -> Json.toJson(true))
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -87,6 +88,13 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "redirect to the start of the journey when no user type is given" in {
+
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
