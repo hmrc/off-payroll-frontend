@@ -36,6 +36,7 @@ class SimilarWorkOtherClientsController @Inject()(override val dataCacheConnecto
                                                   identify: IdentifierAction,
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,
+                                                  requireUserType: UserTypeRequiredAction,
                                                   formProvider: SimilarWorkOtherClientsFormProvider,
                                                   override val controllerComponents: MessagesControllerComponents,
                                                   override val compareAnswerService: CompareAnswerService,
@@ -43,7 +44,7 @@ class SimilarWorkOtherClientsController @Inject()(override val dataCacheConnecto
                                                   implicit val appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(SimilarWorkOtherClientsPage, formProvider()), mode))
   }
 

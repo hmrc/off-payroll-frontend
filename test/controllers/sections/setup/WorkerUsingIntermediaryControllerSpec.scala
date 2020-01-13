@@ -70,7 +70,6 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered for the normal flow" in {
 
-
       val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -78,7 +77,7 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(form.fill(true))
     }
 
-    "redirect to the start of the journey when no user type is given" in {
+    "redirect to the something went wrong page when no user type is given" in {
 
       val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
 
@@ -86,7 +85,6 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted for the normal flow" in {
-
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
@@ -98,6 +96,7 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
@@ -105,6 +104,7 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER

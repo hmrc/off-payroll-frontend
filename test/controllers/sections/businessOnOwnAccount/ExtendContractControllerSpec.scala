@@ -33,11 +33,6 @@ import views.html.sections.businessOnOwnAccount.ExtendContractView
 
 class ExtendContractControllerSpec extends ControllerSpecBase {
 
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-
-  }
-
   val formProvider = new ExtendContractFormProvider()
   val form = formProvider()
 
@@ -63,6 +58,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
   "ExtendContractController" must {
 
     "return OK and the correct view for a GET" in {
+
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
@@ -70,6 +66,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
+
       val validData = Map(ExtendContractPage.toString -> Json.toJson(true))
       val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
@@ -79,6 +76,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val answers = userAnswers.set(ExtendContractPage,true)
@@ -90,7 +88,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "redirect to the start of the journey when no user type is given" in {
+    "redirect to the something went wrong page when no user type is given" in {
 
       val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
 
@@ -98,6 +96,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
@@ -108,6 +107,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a GET if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
@@ -115,6 +115,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a POST if no existing data is found" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 

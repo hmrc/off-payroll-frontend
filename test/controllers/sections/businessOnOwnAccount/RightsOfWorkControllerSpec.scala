@@ -33,27 +33,23 @@ import views.html.sections.businessOnOwnAccount.RightsOfWorkView
 
 class RightsOfWorkControllerSpec extends ControllerSpecBase {
 
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-
-  }
-
   val formProvider = new RightsOfWorkFormProvider()
   val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[RightsOfWorkView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new RightsOfWorkController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new RightsOfWorkController(
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = FakeBusinessOnOwnAccountNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     compareAnswerService = mockCompareAnswerService,
-
     appConfig = frontendAppConfig
   )
 
@@ -62,6 +58,7 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
   "RightsOfWorkController" must {
 
     "return OK and the correct view for a GET" in {
+
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
@@ -69,8 +66,9 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
+
       val validData = Map(RightsOfWorkPage.toString -> Json.toJson(true))
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -78,8 +76,8 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val validData = Map(RightsOfWorkPage.toString -> Json.toJson(true))
 
       val answers = userAnswers.set(RightsOfWorkPage,true)
       mockConstructAnswers(DataRequest(postRequest,"id",answers), true)(answers)
@@ -91,6 +89,7 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
@@ -101,6 +100,7 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a GET if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
@@ -108,6 +108,7 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a POST if no existing data is found" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
