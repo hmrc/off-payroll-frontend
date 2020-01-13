@@ -35,6 +35,7 @@ import scala.concurrent.Future
 class WorkerUsingIntermediaryController @Inject()(identify: IdentifierAction,
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,
+                                                  requireUserType: UserTypeRequiredAction,
                                                   workerUsingIntermediaryFormProvider: WorkerUsingIntermediaryFormProvider,
                                                   override val controllerComponents: MessagesControllerComponents,
                                                   workerUsingIntermediaryView: WorkerUsingIntermediaryView,
@@ -43,7 +44,7 @@ class WorkerUsingIntermediaryController @Inject()(identify: IdentifierAction,
                                                   override val navigator: SetupNavigator,
                                                   implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(workerUsingIntermediaryView(fillForm(WorkerUsingIntermediaryPage, workerUsingIntermediaryFormProvider()), mode))
   }
 

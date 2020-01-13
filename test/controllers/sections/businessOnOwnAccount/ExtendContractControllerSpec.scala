@@ -94,7 +94,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
 
       val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
 
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

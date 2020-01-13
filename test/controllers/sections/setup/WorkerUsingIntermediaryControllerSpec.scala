@@ -38,18 +38,20 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[WorkerUsingIntermediaryView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) =
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: FakeUserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) =
     new WorkerUsingIntermediaryController(
-      FakeIdentifierAction,
-      dataRetrievalAction,
-      new DataRequiredActionImpl(messagesControllerComponents),
-      formProvider,
-      messagesControllerComponents,
-      view,
+      identify = FakeIdentifierAction,
+      getData = dataRetrievalAction,
+      requireData = new DataRequiredActionImpl(messagesControllerComponents),
+      requireUserType = requireUserType,
+      workerUsingIntermediaryFormProvider = formProvider,
+      controllerComponents = messagesControllerComponents,
+      workerUsingIntermediaryView = view,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
       navigator = FakeSetupNavigator,
-      frontendAppConfig
+      appConfig = frontendAppConfig
     )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -74,6 +76,13 @@ class WorkerUsingIntermediaryControllerSpec extends ControllerSpecBase {
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
       contentAsString(result) mustBe viewAsString(form.fill(true))
+    }
+
+    "redirect to the start of the journey when no user type is given" in {
+
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
     }
 
     "return a Bad Request and errors when invalid data is submitted for the normal flow" in {

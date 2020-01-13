@@ -51,7 +51,7 @@ class ExtendContractController @Inject()(override val dataCacheConnector: DataCa
     Ok(view(fillForm(ExtendContractPage, form), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType).async { implicit request =>
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
       value => redirect(mode, value, ExtendContractPage)
