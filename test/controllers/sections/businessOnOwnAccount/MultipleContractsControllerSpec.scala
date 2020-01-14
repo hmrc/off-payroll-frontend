@@ -75,6 +75,13 @@ class MultipleContractsControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(form.fill(true))
     }
 
+    "redirect to the something went wrong page when no user type is given" in {
+
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+    }
+
     "redirect to the next page when valid data is submitted" in {
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))

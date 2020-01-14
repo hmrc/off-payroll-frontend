@@ -75,7 +75,6 @@ class FirstContractControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(form.fill(true))
     }
 
-
     "redirect to the something went wrong page when no user type is given" in {
 
       val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)

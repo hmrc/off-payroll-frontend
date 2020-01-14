@@ -39,18 +39,19 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
   val view = injector.instanceOf[HowWorkIsDoneView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkIsDoneController(
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new HowWorkIsDoneController(
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
     view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-
     navigator = FakeControlNavigator
   )
 
@@ -69,15 +70,22 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
     "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
 
-
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
       contentAsString(result) mustBe viewAsString(form.fill(HowWorkIsDone.values.head))
     }
 
+    "redirect to the something went wrong page when no user type is given" in {
+
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+    }
+
     "redirect to the next page when valid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options.head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
@@ -92,7 +100,6 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     }
 
     "redirect to the next page when valid data is submitted for optimised view" in {
-
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options.head.value))
 
@@ -109,7 +116,6 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
     "return a Bad Request and errors when invalid data is submitted for optimised view" in {
 
-
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
@@ -120,6 +126,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
@@ -127,6 +134,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options.head.value))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 

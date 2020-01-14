@@ -38,18 +38,20 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[HowWorkerIsPaidView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkerIsPaidController(
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new HowWorkerIsPaidController(
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     navigator = FakeFinancialRiskNavigator,
-    frontendAppConfig
+    appConfig = frontendAppConfig
   )
 
   val validData = Map(HowWorkerIsPaidPage.toString -> Json.toJson(HowWorkerIsPaid.values.head))
@@ -62,7 +64,6 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
       "return OK and the correct view for a GET" in {
 
-
         val result = controller().onPageLoad(NormalMode)(fakeRequest)
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
@@ -70,11 +71,18 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
       "populate the view correctly on a GET when the question has previously been answered" in {
 
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
         contentAsString(result) mustBe viewAsString(form.fill(HowWorkerIsPaid.values.head))
+      }
+
+      "redirect to the something went wrong page when no user type is given" in {
+
+        val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
       }
 
       "redirect to the next page when valid data is submitted" in {

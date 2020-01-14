@@ -40,18 +40,19 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
   val view = injector.instanceOf[ChooseWhereWorkView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new ChooseWhereWorkController(
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-
     navigator = FakeControlNavigator
   )
 
@@ -79,8 +80,14 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
       contentAsString(result) mustBe viewAsString(form.fill(WorkerChooses))
     }
 
-    "redirect to the next page when valid data is submitted for optimised view" in {
+    "redirect to the something went wrong page when no user type is given" in {
 
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+    }
+
+    "redirect to the next page when valid data is submitted for optimised view" in {
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -96,7 +103,6 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     }
 
     "return a Bad Request and errors when invalid data is submitted for optimised view" in {
-
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
