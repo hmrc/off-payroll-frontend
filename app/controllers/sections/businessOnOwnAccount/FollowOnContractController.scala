@@ -37,6 +37,7 @@ class FollowOnContractController @Inject()(override val dataCacheConnector: Data
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
+                                           requireUserType: UserTypeRequiredAction,
                                            formProvider: FollowOnContractFormProvider,
                                            override val controllerComponents: MessagesControllerComponents,
                                            override val compareAnswerService: CompareAnswerService,
@@ -46,7 +47,7 @@ class FollowOnContractController @Inject()(override val dataCacheConnector: Data
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(FollowOnContractPage, form), mode))
   }
 

@@ -35,6 +35,7 @@ import scala.concurrent.Future
 class BenefitsController @Inject()(identify: IdentifierAction,
                                    getData: DataRetrievalAction,
                                    requireData: DataRequiredAction,
+                                   requireUserType: UserTypeRequiredAction,
                                    formProvider: BenefitsFormProvider,
                                    override val controllerComponents: MessagesControllerComponents,
                                    view: BenefitsView,
@@ -46,7 +47,7 @@ class BenefitsController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController with FeatureSwitching {
 
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(BenefitsPage, formProvider()), mode))
   }
 

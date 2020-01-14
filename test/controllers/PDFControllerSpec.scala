@@ -52,46 +52,50 @@ class PDFControllerSpec extends ControllerSpecBase {
   val customisePdfView = injector.instanceOf[CustomisePDFView]
   val addDetailsView = injector.instanceOf[AddDetailsView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
-    mockDataCacheConnector,
-    FakeCYANavigator,
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: FakeUserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new PDFController(
+    dataCacheConnector = mockDataCacheConnector,
+    navigator = FakeCYANavigator,
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    customisePdfView,
-    addDetailsView,
-    mockDecisionService,
-    mockPDFService,
-    errorHandler,
-    FakeTimestamp,
-    mockCompareAnswerService,
-    mockCheckYourAnswersService,
-    mockEncryptionService,
-    MockSourceUtil,
-    frontendAppConfig
+    customisePdfView = customisePdfView,
+    view = addDetailsView,
+    decisionService = mockDecisionService,
+    pdfService = mockPDFService,
+    errorHandler = errorHandler,
+    time = FakeTimestamp,
+    compareAnswerService = mockCompareAnswerService,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    encryption = mockEncryptionService,
+    source = MockSourceUtil,
+    appConfig = frontendAppConfig
   )
 
-  def optController(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
-    mockDataCacheConnector,
-    FakeCYANavigator,
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    optFormProvider,
+  def optController(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                    requireUserType: FakeUserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new PDFController(
+    dataCacheConnector = mockDataCacheConnector,
+    navigator = FakeCYANavigator,
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
+    formProvider = optFormProvider,
     controllerComponents = messagesControllerComponents,
-    customisePdfView,
-    addDetailsView,
-    mockDecisionService,
-    mockPDFService,
-    errorHandler,
-    FakeTimestamp,
-    mockCompareAnswerService,
-    mockCheckYourAnswersService,
-    mockEncryptionService,
-    MockSourceUtil,
-    frontendAppConfig
+    customisePdfView = customisePdfView,
+    view = addDetailsView,
+    decisionService = mockDecisionService,
+    pdfService = mockPDFService,
+    errorHandler = errorHandler,
+    time = FakeTimestamp,
+    compareAnswerService = mockCompareAnswerService,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    encryption = mockEncryptionService,
+    source = MockSourceUtil,
+    appConfig = frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = customisePdfView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
@@ -103,7 +107,6 @@ class PDFControllerSpec extends ControllerSpecBase {
 
     "download the pdf" in {
 
-
       val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
       val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
 
@@ -114,7 +117,7 @@ class PDFControllerSpec extends ControllerSpecBase {
         Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp())
       )
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       mockDecryptDetails(AdditionalPdfDetails(Some("answer"), reference = Some("filenames,,,,,,")))
 
@@ -132,7 +135,6 @@ class PDFControllerSpec extends ControllerSpecBase {
 
     "download the pdf and default the filename if it's not ascii" in {
 
-
       val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
       val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
 
@@ -143,7 +145,7 @@ class PDFControllerSpec extends ControllerSpecBase {
         Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp())
       )
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       mockDecryptDetails(AdditionalPdfDetails(Some("answer"), reference = Some("€€€€€###¢¢¢€€#¢,,,,,,,,")))
 
@@ -157,11 +159,9 @@ class PDFControllerSpec extends ControllerSpecBase {
       status(result) mustBe OK
 
       contentAsString(result) mustBe "PDF"
-
     }
 
     "handle errors from the pdf" in {
-
 
       val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
       val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
@@ -173,11 +173,9 @@ class PDFControllerSpec extends ControllerSpecBase {
         Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp())
       )
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       mockDecryptDetails(AdditionalPdfDetails(Some("answer")))
-
-      val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
 
       mockCheckYourAnswers(Seq())
 
@@ -189,7 +187,6 @@ class PDFControllerSpec extends ControllerSpecBase {
 
     "download the pdf when no data is entered" in {
 
-
       val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
       val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
 
@@ -199,7 +196,7 @@ class PDFControllerSpec extends ControllerSpecBase {
         Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp())
       )
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
 
@@ -213,10 +210,26 @@ class PDFControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe "PDF"
     }
 
+    "redirect to the something went wrong page when no user type is given" in {
+
+      val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
+      val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
+
+      val validData = Map(
+        Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp())
+      )
+
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controller(getRelevantData, FakeUserTypeRequiredFailureAction).downloadPDF()(request)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+    }
+
     "If the OptimisedFlow is enabled" should {
 
       "return OK and the correct view for a GET" in {
-
 
         val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
@@ -229,7 +242,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
 
         val validData = Map(CustomisePDFPage.toString -> Json.toJson(AdditionalPdfDetails(Some("answer"))))
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         mockDecryptDetails(AdditionalPdfDetails(Some("answer")))
 
@@ -240,12 +253,10 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       "show the PDF view" in {
 
-
         val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
         val validData = Map(CustomisePDFPage.toString -> Json.toJson(AdditionalPdfDetails(Some("answer"))))
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
-        val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
         val answers = userAnswers.set(CustomisePDFPage,AdditionalPdfDetails(Some("answer")))
@@ -260,12 +271,9 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       "show the PDF view with a default timestamp" in {
 
-
         val validData = Map(CustomisePDFPage.toString -> Json.toJson(AdditionalPdfDetails(Some("answer"))))
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
-
-        val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
 
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
 
@@ -279,6 +287,16 @@ class PDFControllerSpec extends ControllerSpecBase {
         status(result) mustBe 303
       }
 
+      "redirect to the something went wrong page when no user type is given" in {
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
+
+        val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+      }
+
       "show the PDF view when the feature is disabled" in {
 
         disable(PrintPDF)
@@ -286,7 +304,7 @@ class PDFControllerSpec extends ControllerSpecBase {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
         val validData = Map(CustomisePDFPage.toString -> Json.toJson(AdditionalPdfDetails(Some("answer"))))
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
         val answers = userAnswers.set(CustomisePDFPage,AdditionalPdfDetails(Some("answer")))
@@ -300,12 +318,11 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       "return a Bad Request and errors when invalid data is submitted" in {
 
-
         val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", "a" * (AdditionalPdfDetailsFormProvider.maxFieldLength + 1)))
         val boundForm = optForm.bind(Map("completedBy" -> "a" * (AdditionalPdfDetailsFormProvider.maxFieldLength + 1)))
 
         val validData = Map(CustomisePDFPage.toString -> Json.toJson(AdditionalPdfDetails(Some("answer"))))
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         val result = optController(getRelevantData).onSubmit(NormalMode)(postRequest)
 
@@ -315,7 +332,6 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       "redirect to Index Controller for a GET if no existing data is found" in {
 
-
         val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe SEE_OTHER
@@ -323,7 +339,6 @@ class PDFControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to Index Controller for a POST if no existing data is found" in {
-
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testAnswer))
         val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)

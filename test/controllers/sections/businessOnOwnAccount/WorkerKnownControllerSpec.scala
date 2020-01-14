@@ -33,27 +33,23 @@ import views.html.sections.businessOnOwnAccount.WorkerKnownView
 
 class WorkerKnownControllerSpec extends ControllerSpecBase {
 
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-
-  }
-
   val formProvider = new WorkerKnownFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[WorkerKnownView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WorkerKnownController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new WorkerKnownController(
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = FakeBusinessOnOwnAccountNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     compareAnswerService = mockCompareAnswerService,
-
     appConfig = frontendAppConfig
   )
 
@@ -62,6 +58,7 @@ class WorkerKnownControllerSpec extends ControllerSpecBase {
   "WorkerKnownController" must {
 
     "return OK and the correct view for a GET" in {
+
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
@@ -69,17 +66,25 @@ class WorkerKnownControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
+
       val validData = Map(WorkerKnownPage.toString -> Json.toJson(true))
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
       contentAsString(result) mustBe viewAsString(form.fill(true))
     }
 
+    "redirect to the something went wrong page when no user type is given" in {
+
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+    }
+
     "redirect to the next page when valid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val validData = Map(WorkerKnownPage.toString -> Json.toJson(true))
 
       val answers = userAnswers.set(WorkerKnownPage,true)
       mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
@@ -91,6 +96,7 @@ class WorkerKnownControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
@@ -101,6 +107,7 @@ class WorkerKnownControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a GET if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
@@ -108,6 +115,7 @@ class WorkerKnownControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a POST if no existing data is found" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 

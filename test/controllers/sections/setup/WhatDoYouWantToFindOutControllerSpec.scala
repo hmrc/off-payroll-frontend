@@ -48,7 +48,6 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
       checkYourAnswersService = mockCheckYourAnswersService,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
-
       navigator = FakeSetupNavigator,
       appConfig = frontendAppConfig
     )
@@ -67,7 +66,8 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -75,6 +75,7 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhatDoYouWantToFindOut.options.head.value))
       val answers = userAnswers.set(WhatDoYouWantToFindOutPage,WhatDoYouWantToFindOut.IR35)
       mockConstructAnswers(DataRequest(postRequest,"id",answers),WhatDoYouWantToFindOut)(answers)
@@ -88,6 +89,7 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
@@ -98,6 +100,7 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
@@ -105,6 +108,7 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhatDoYouWantToFindOut.options.head.value))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 

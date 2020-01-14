@@ -33,6 +33,7 @@ class CheckYourAnswersController @Inject()(override val navigator: CYANavigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
+                                           requireUserType: UserTypeRequiredAction,
                                            override val controllerComponents: MessagesControllerComponents,
                                            view: CheckYourAnswersView,
                                            checkYourAnswersService: CheckYourAnswersService,
@@ -43,14 +44,15 @@ class CheckYourAnswersController @Inject()(override val navigator: CYANavigator,
                                            implicit val appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
-  def onPageLoad(sectionToExpand: Option[SectionEnum] = None): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    checkYourAnswersValidationService.isValid(request.userAnswers) match {
-      case Right(_) => Ok(view(checkYourAnswersService.sections, sectionToExpand))
-      case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
-    }
+  def onPageLoad(sectionToExpand: Option[SectionEnum] = None): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) {
+    implicit request =>
+      checkYourAnswersValidationService.isValid(request.userAnswers) match {
+        case Right(_) => Ok(view(checkYourAnswersService.sections, sectionToExpand))
+        case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
+      }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Redirect(navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers))
   }
 }

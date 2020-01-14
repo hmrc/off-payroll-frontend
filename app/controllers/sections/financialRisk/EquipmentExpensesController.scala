@@ -36,6 +36,7 @@ class EquipmentExpensesController @Inject()(override val dataCacheConnector: Dat
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
+                                            requireUserType: UserTypeRequiredAction,
                                             formProvider: EquipmentExpensesFormProvider,
                                             override val controllerComponents: MessagesControllerComponents,
                                             view: EquipmentExpensesView,
@@ -43,7 +44,7 @@ class EquipmentExpensesController @Inject()(override val dataCacheConnector: Dat
                                             implicit val appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(EquipmentExpensesPage, formProvider()), mode))
   }
 

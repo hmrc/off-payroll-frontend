@@ -39,19 +39,19 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
   val view = injector.instanceOf[MoveWorkerView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction =
-                 FakeEmptyCacheMapDataRetrievalAction) = new MoveWorkerController(
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new MoveWorkerController(
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-
     navigator = FakeControlNavigator
   )
 
@@ -63,7 +63,6 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
     "return OK and the correct view for a GET for optimised view" in {
 
-
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
@@ -72,7 +71,6 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
     "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
 
-
       val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -80,8 +78,14 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
       contentAsString(result) mustBe viewAsString(form.fill(MoveWorker.CanMoveWorkerWithPermission))
     }
 
-    "redirect to the next page when valid data is submitted for optimised view" in {
+    "redirect to the something went wrong page when no user type is given" in {
 
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+    }
+
+    "redirect to the next page when valid data is submitted for optimised view" in {
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.CanMoveWorkerWithPermission.toString))
 
@@ -97,7 +101,6 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     }
 
     "return a Bad Request and errors when invalid data is submitted for optimised view" in {
-
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))

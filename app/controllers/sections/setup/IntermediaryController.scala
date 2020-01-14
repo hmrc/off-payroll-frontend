@@ -31,6 +31,7 @@ class IntermediaryController @Inject()(override val navigator: SetupNavigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
+                                       requireUserType: UserTypeRequiredAction,
                                        override val controllerComponents: MessagesControllerComponents,
                                        view: IntermediaryView,
                                        override val compareAnswerService: CompareAnswerService,
@@ -38,7 +39,7 @@ class IntermediaryController @Inject()(override val navigator: SetupNavigator,
                                        implicit val appConfig: FrontendAppConfig)
   extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(controllers.routes.StartAgainController.redirectToDisclaimer()))
   }
 }

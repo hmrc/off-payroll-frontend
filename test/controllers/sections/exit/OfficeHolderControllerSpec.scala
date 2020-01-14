@@ -37,10 +37,12 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[OfficeHolderView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new OfficeHolderController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new OfficeHolderController(
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
@@ -48,7 +50,6 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-
     navigator = FakeExitNavigator
   )
 
@@ -66,7 +67,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
@@ -82,7 +83,6 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       "return OK and the correct view for a GET" in {
 
-
         val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe OK
@@ -91,11 +91,17 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       "populate the view correctly on a GET when the question has previously been answered" in {
 
-
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
         contentAsString(result) mustBe viewAsString(form.fill(true))
+      }
+
+      "redirect to the something went wrong page when no user type is given" in {
+
+        val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
       }
 
       "redirect to the next page when valid data is submitted" in {
@@ -132,7 +138,6 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       "return a Bad Request and errors when invalid data is submitted" in {
 
-
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
         val boundForm = form.bind(Map("value" -> "invalid value"))
 
@@ -143,6 +148,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to Index Controller for a GET if no existing data is found" in {
+
         val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe SEE_OTHER
@@ -150,6 +156,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to Index Controller for a POST if no existing data is found" in {
+
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
         val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 

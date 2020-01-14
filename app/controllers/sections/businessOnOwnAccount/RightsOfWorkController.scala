@@ -36,6 +36,7 @@ class RightsOfWorkController @Inject()(override val dataCacheConnector: DataCach
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
+                                       requireUserType: UserTypeRequiredAction,
                                        formProvider: RightsOfWorkFormProvider,
                                        override val controllerComponents: MessagesControllerComponents,
                                        override val compareAnswerService: CompareAnswerService,
@@ -43,7 +44,7 @@ class RightsOfWorkController @Inject()(override val dataCacheConnector: DataCach
                                        implicit val appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(RightsOfWorkPage, formProvider()), mode))
   }
 

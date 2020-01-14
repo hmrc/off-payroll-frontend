@@ -29,15 +29,15 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix: String = "workerUsingIntermediary"
+  val messageKeyPrefix: String = "worker.workerUsingIntermediary"
 
-  val form = new WorkerUsingIntermediaryFormProvider()()(fakeDataRequest, frontendAppConfig)
+  val form = new WorkerUsingIntermediaryFormProvider()()(workerFakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[WorkerUsingIntermediaryView]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 

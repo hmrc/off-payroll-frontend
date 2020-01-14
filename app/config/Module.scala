@@ -32,5 +32,7 @@ class Module extends AbstractModule {
     bind(classOf[IdentifierAction]).to(classOf[SessionIdentifierAction]).asEagerSingleton()
 
     bind(classOf[DataCacheConnector]).to(classOf[MongoCacheConnector]).asEagerSingleton()
+
+    bind(classOf[UserTypeRequiredAction]).to(classOf[UserTypeRequiredActionImpl]).asEagerSingleton()
   }
 }

@@ -33,6 +33,7 @@ class AgencyAdvisoryController @Inject()(override val navigator: SetupNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
+                                         requireUserType: UserTypeRequiredAction,
                                          override val controllerComponents: MessagesControllerComponents,
                                          view: AgencyAdvisoryView,
                                          checkYourAnswersService: CheckYourAnswersService,
@@ -40,7 +41,7 @@ class AgencyAdvisoryController @Inject()(override val navigator: SetupNavigator,
                                          override val dataCacheConnector: DataCacheConnector,
                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(
       postAction = routes.AgencyAdvisoryController.onSubmit()
     ))

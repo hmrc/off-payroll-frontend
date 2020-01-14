@@ -32,6 +32,7 @@ import views.html.FinishedCheckingView
 class PrintPreviewController @Inject()(identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
+                                       requireUserType: UserTypeRequiredAction,
                                        override val controllerComponents: MessagesControllerComponents,
                                        decisionService: DecisionService,
                                        checkYourAnswersService: CheckYourAnswersService,
@@ -42,7 +43,7 @@ class PrintPreviewController @Inject()(identify: IdentifierAction,
                                        implicit val appConfig: FrontendAppConfig)
   extends BaseController with FeatureSwitching {
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
 
     val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryptionService.decryptDetails(answer)).getOrElse(AdditionalPdfDetails())
     val timestamp = time.timestamp(request.userAnswers.get(Timestamp))

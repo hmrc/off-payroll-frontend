@@ -46,10 +46,12 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
 
   val view = injector.instanceOf[BusinessOnOwnAccountSectionChangeWarningView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BusinessOnOwnAccountSectionChangeWarningController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: FakeUserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new BusinessOnOwnAccountSectionChangeWarningController(
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType,
     controllerComponents = messagesControllerComponents,
     view = view,
     appConfig = frontendAppConfig,
@@ -188,6 +190,13 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
       val result = controller().onSubmit(WorkerKnownPage)(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(businessOnOwnAccountRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+    }
+
+    "redirect to the something went wrong page when no user type is given" in {
+
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(ExtendContractPage)(fakeRequest)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
     }
 
     "render an ISE if the page is invalid" in {

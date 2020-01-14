@@ -39,11 +39,13 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IdentifyToStakeholdersController(
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new IdentifyToStakeholdersController(
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
@@ -51,7 +53,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     dataCacheConnector = mockDataCacheConnector,
 
     navigator = FakePartAndParcelNavigator,
-    frontendAppConfig
+    appConfig = frontendAppConfig
   )
 
   val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(IdentifyToStakeholders.values.head))
@@ -72,22 +74,27 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
       "populate the view correctly on a GET when the question has previously been answered" in {
 
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
         contentAsString(result) mustBe viewAsString(form.fill(IdentifyToStakeholders.values.head))
       }
 
-      "redirect to the next page when valid data is submitted" in {
+      "redirect to the something went wrong page when no user type is given" in {
 
+        val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+      }
+
+      "redirect to the next page when valid data is submitted" in {
 
         val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, WorkForEndClient)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 
         mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -96,7 +103,6 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
       }
 
       "return a Bad Request and errors when invalid data is submitted" in {
-
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
         val boundForm = form.bind(Map("value" -> "invalid value"))
@@ -109,7 +115,6 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
       "redirect to Index Controller for a GET if no existing data is found" in {
 
-
         val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe SEE_OTHER
@@ -117,7 +122,6 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to Index Controller for a POST if no existing data is found" in {
-
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
         val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)

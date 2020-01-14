@@ -55,11 +55,12 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
 
   val version = frontendAppConfig.decisionVersion
 
-  object TestResultController extends ResultController(
+  def controller(requireUserType: FakeUserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new ResultController(
     FakeIdentifierAction,
     FakeEmptyCacheMapDataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
+    requireUserType,
     formProvider,
     formProviderPDF,
     FakeCYANavigator,
@@ -80,7 +81,6 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
 
         "return OK and the HTML returned from the Decision Service" in {
 
-
           val validData = Map(Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp()))
           val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
           val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)
@@ -91,7 +91,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
           mockDetermineResultView(decisionResponse)(Right(Html("Success")))
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-          val result = TestResultController.onPageLoad(dataRequest)
+          val result = controller().onPageLoad(dataRequest)
 
           status(result) mustBe OK
           contentAsString(result) mustBe "Success"
@@ -103,7 +103,6 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
 
         "redirect to the something went wrong page" in {
 
-
           val validData = Map(Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp()))
           val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
           implicit val dataRequest = DataRequest(fakeRequest, "id", answers)
@@ -112,7 +111,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
           mockDecide(Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, "Err")))
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-          val result = TestResultController.onPageLoad(dataRequest)
+          val result = controller().onPageLoad(dataRequest)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
@@ -122,7 +121,6 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
       "If an error response is returned from the Optimised Decision Service determine result view method" should {
 
         "redirect to the something went wrong page" in {
-
 
           val validData = Map(Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp()))
           val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
@@ -134,7 +132,21 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
           mockDetermineResultView(decisionResponse)(Left(Html("Error")))
 
-          val result = TestResultController.onPageLoad(dataRequest)
+          val result = controller().onPageLoad(dataRequest)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+        }
+      }
+
+      "If no user type is given" should {
+
+        "redirect to the something went wrong page" in {
+
+          val answers = userAnswers.set(Timestamp, FakeTimestamp.timestamp())
+          implicit val dataRequest = DataRequest(fakeRequest, "id", answers)
+
+          val result = controller(FakeUserTypeRequiredFailureAction).onPageLoad(dataRequest)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
@@ -142,7 +154,6 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
       }
 
       "redirect to next page" in {
-
 
         val validData = Map(Timestamp.toString -> Json.toJson(FakeTimestamp.timestamp()))
 
@@ -153,7 +164,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
         mockConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-        val result = TestResultController.onSubmit(postRequest)
+        val result = controller().onSubmit(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)

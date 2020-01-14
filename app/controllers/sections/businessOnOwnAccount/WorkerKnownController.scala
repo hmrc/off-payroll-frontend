@@ -37,6 +37,7 @@ class WorkerKnownController @Inject()(override val dataCacheConnector: DataCache
                                       identify: IdentifierAction,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
+                                      requireUserType: UserTypeRequiredAction,
                                       formProvider: WorkerKnownFormProvider,
                                       override val controllerComponents: MessagesControllerComponents,
                                       override val compareAnswerService: CompareAnswerService,
@@ -46,7 +47,7 @@ class WorkerKnownController @Inject()(override val dataCacheConnector: DataCache
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(WorkerKnownPage, form), mode))
   }
 
