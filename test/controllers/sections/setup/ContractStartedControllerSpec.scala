@@ -37,10 +37,12 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockAuditCon
 
   val view = injector.instanceOf[views.html.sections.setup.ContractStartedView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new ContractStartedController(
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
@@ -69,11 +71,18 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockAuditCon
     "populate the view correctly on a GET when the question has previously been answered for normal flow" in {
 
       val validData = Map(ContractStartedPage.toString -> Json.toJson(true))
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
       contentAsString(result) mustBe viewAsStringOptimised(form.fill(true))
+    }
+
+    "redirect to the something went wrong page when no user type is given" in {
+
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -92,6 +101,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockAuditCon
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
@@ -99,6 +109,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockAuditCon
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 

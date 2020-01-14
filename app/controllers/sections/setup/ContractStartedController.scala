@@ -36,6 +36,7 @@ import scala.concurrent.Future
 class ContractStartedController @Inject()(identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
+                                          requireUserType: UserTypeRequiredAction,
                                           formProvider: ContractStartedFormProvider,
                                           override val controllerComponents: MessagesControllerComponents,
                                           view: ContractStartedView,
@@ -46,7 +47,7 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           val auditConnector: AuditConnector,
                                           implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(ContractStartedPage, formProvider()), mode))
   }
 

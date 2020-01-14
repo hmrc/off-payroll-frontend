@@ -35,6 +35,7 @@ import scala.concurrent.Future
 class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
+                                             requireUserType: UserTypeRequiredAction,
                                              formProvider: ArrangedSubstituteFormProvider,
                                              override val controllerComponents: MessagesControllerComponents,
                                              view: ArrangedSubstituteView,
@@ -46,7 +47,7 @@ class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController with FeatureSwitching {
 
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(ArrangedSubstitutePage, formProvider()), mode))
   }
 

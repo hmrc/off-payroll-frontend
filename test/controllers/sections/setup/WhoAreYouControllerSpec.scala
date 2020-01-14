@@ -48,7 +48,6 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       view = view,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
-
       navigator = FakeSetupNavigator,
       appConfig = frontendAppConfig
     )
@@ -71,7 +70,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
 
         val userAnswers = UserAnswers("id").set(WhatDoYouWantToFindOutPage, IR35)
 
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(userAnswers.cacheMap))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(userAnswers.cacheMap))
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -86,7 +85,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
 
         val userAnswers = UserAnswers("id").set(WhatDoYouWantToFindOutPage, PAYE)
 
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(userAnswers.cacheMap))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(userAnswers.cacheMap))
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -96,7 +95,8 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -104,6 +104,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", Worker.toString))
       val answers = userAnswers.set(WhoAreYouPage, Worker)
       mockConstructAnswers(DataRequest(postRequest,"id",answers), Worker)(answers)
@@ -116,6 +117,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
@@ -126,6 +128,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
+
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
@@ -133,6 +136,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", Worker.toString))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 

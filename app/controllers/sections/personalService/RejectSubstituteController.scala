@@ -35,6 +35,7 @@ import scala.concurrent.Future
 class RejectSubstituteController @Inject()(identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
+                                           requireUserType: UserTypeRequiredAction,
                                            formProvider: RejectSubstituteFormProvider,
                                            override val controllerComponents: MessagesControllerComponents,
                                            view: RejectSubstituteView,
@@ -45,7 +46,7 @@ class RejectSubstituteController @Inject()(identify: IdentifierAction,
                                            implicit val appConfig: FrontendAppConfig)
   extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(RejectSubstitutePage, formProvider()), mode))
   }
 

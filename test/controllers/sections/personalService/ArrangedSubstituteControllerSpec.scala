@@ -39,10 +39,12 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
 
   val view = injector.instanceOf[ArrangedSubstituteView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ArrangedSubstituteController(
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: UserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new ArrangedSubstituteController(
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
@@ -50,7 +52,6 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-
     navigator = FakePersonalServiceNavigator
   )
 
@@ -71,7 +72,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
 
       "populate the view correctly on a GET when the question has previously been answered" in {
 
-        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 

@@ -37,6 +37,7 @@ import scala.concurrent.Future
 class WhatDoYouWantToDoController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
+                                            requireUserType: UserTypeRequiredAction,
                                             WhatDoYouWantToDoFormProvider: WhatDoYouWantToDoFormProvider,
                                             override val controllerComponents: MessagesControllerComponents,
                                             whatDoYouWantToDoView: WhatDoYouWantToDoView,
@@ -49,7 +50,7 @@ class WhatDoYouWantToDoController @Inject()(identify: IdentifierAction,
 
   val form: Form[WhatDoYouWantToDo] = WhatDoYouWantToDoFormProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(whatDoYouWantToDoView(fillForm(WhatDoYouWantToDoPage, form), mode))
   }
 

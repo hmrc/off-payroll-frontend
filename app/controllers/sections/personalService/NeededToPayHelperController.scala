@@ -35,6 +35,7 @@ import scala.concurrent.Future
 class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
+                                            requireUserType: UserTypeRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
                                             view: NeededToPayHelperView,
                                             override val controllerComponents: MessagesControllerComponents,
@@ -45,7 +46,7 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             implicit val appConfig: FrontendAppConfig)
   extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(fillForm(NeededToPayHelperPage, formProvider()), mode))
   }
 
