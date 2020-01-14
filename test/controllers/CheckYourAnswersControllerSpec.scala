@@ -31,18 +31,19 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
   val view = injector.instanceOf[CheckYourAnswersView]
   val mockCheckAnswerService = app.injector.instanceOf[CheckYourAnswersService]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new CheckYourAnswersController(
-    FakeCYANavigator,
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                 requireUserType: FakeUserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new CheckYourAnswersController(
+    navigator = FakeCYANavigator,
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
     controllerComponents = messagesControllerComponents,
     view = view,
     appConfig = frontendAppConfig,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-
     errorHandler = errorHandler,
     checkYourAnswersValidationService = mockCheckYourAnswersValidationService
   )
@@ -73,6 +74,14 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
         redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
       }
     }
+
+    "redirect to the something went wrong page when no user type is given" in {
+
+      val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad()(fakeRequest)
+
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+    }
+
 
     "redirect to the result page" in {
       val result = controller().onSubmit(fakeRequest)

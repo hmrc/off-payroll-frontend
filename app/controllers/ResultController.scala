@@ -34,6 +34,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
                                  requireData: DataRequiredAction,
                                  override val controllerComponents: MessagesControllerComponents,
+                                 requireUserType: UserTypeRequiredAction,
                                  formProvider: DeclarationFormProvider,
                                  formProviderPDF: DownloadPDFCopyFormProvider,
                                  override val navigator: CYANavigator,
@@ -45,7 +46,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  errorHandler: ErrorHandler,
                                  implicit val appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType).async { implicit request =>
     val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)
 
     dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>

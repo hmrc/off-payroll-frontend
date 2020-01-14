@@ -35,6 +35,7 @@ import scala.concurrent.Future
 class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,
+                                              requireUserType: UserTypeRequiredAction,
                                               formProvider: AddReferenceDetailsFormProvider,
                                               override val controllerComponents: MessagesControllerComponents,
                                               addReferenceDetails: AddReferenceDetailsView,
@@ -46,7 +47,7 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(addReferenceDetails(fillForm(AddReferenceDetailsPage, form)))
   }
 

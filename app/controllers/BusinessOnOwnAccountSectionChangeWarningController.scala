@@ -33,6 +33,7 @@ import views.html.BusinessOnOwnAccountSectionChangeWarningView
 class BusinessOnOwnAccountSectionChangeWarningController @Inject()(identify: IdentifierAction,
                                                                    getData: DataRetrievalAction,
                                                                    requireData: DataRequiredAction,
+                                                                   requireUserType: UserTypeRequiredAction,
                                                                    override val controllerComponents: MessagesControllerComponents,
                                                                    view: BusinessOnOwnAccountSectionChangeWarningView,
                                                                    checkYourAnswersService: CheckYourAnswersService,
@@ -41,7 +42,7 @@ class BusinessOnOwnAccountSectionChangeWarningController @Inject()(identify: Ide
                                                                    implicit val appConfig: FrontendAppConfig)
   extends BaseController with FeatureSwitching {
 
-  def onPageLoad(page: String): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(page: String): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
     Ok(view(routes.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(page)))
   }
 

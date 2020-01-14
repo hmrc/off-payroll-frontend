@@ -45,6 +45,7 @@ class PDFController @Inject()(override val dataCacheConnector: DataCacheConnecto
                               identify: IdentifierAction,
                               getData: DataRetrievalAction,
                               requireData: DataRequiredAction,
+                              requireUserType: UserTypeRequiredAction,
                               formProvider: AdditionalPdfDetailsFormProvider,
                               override val controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
@@ -62,14 +63,14 @@ class PDFController @Inject()(override val dataCacheConnector: DataCacheConnecto
 
   def form: Form[AdditionalPdfDetails] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
 
     val decryptedForm = request.userAnswers.get(CustomisePDFPage).fold(AdditionalPdfDetails())(answer => encryption.decryptDetails(answer))
 
     Ok(view(form.fill(decryptedForm), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
       additionalData => {
@@ -80,7 +81,7 @@ class PDFController @Inject()(override val dataCacheConnector: DataCacheConnecto
       }
     )
   }
-  def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType).async { implicit request =>
 
     val decisionResponse = request.session.getModel[DecisionResponse](SessionKeys.decisionResponse)
     val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryption.decryptDetails(answer)).getOrElse(AdditionalPdfDetails())

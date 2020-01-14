@@ -29,17 +29,19 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[FinishedCheckingView]
 
-  def testPrintPreviewController(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PrintPreviewController(
+  def testPrintPreviewController(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
+                                 requireUserType: FakeUserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new PrintPreviewController(
     identify = FakeIdentifierAction,
     dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    requireUserType = requireUserType,
+    controllerComponents = messagesControllerComponents,
     decisionService = mockDecisionService,
     checkYourAnswersService = mockCheckYourAnswersService,
     finishedCheckingView = view,
     encryptionService = mockEncryptionService,
-    errorHandler = errorHandler,
     time = FakeTimestamp,
-    controllerComponents = messagesControllerComponents,
+    errorHandler = errorHandler,
     appConfig = frontendAppConfig
   )
 
@@ -75,6 +77,13 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
         }
+      }
+
+      "redirect to the something went wrong page when no user type is given" in {
+
+        val result = testPrintPreviewController(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad()(fakeRequest)
+
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
       }
     }
 
