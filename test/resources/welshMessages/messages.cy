@@ -212,7 +212,7 @@ hirer.identifyToStakeholders.heading = Sut y byddai’r gweithiwr yn cyflwyno’
 hirer.identifyToStakeholders.checkYourAnswersLabel = Sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu’ch cyflenwyr?
 hirer.identifyToStakeholders.workForEndClient = Mae’n gweithio i chi
 hirer.identifyToStakeholders.workAsIndependent = Mae’n weithiwr annibynnol sy’n gweithredu ar eich rhan
-hirer.identifyToStakeholders.workAsBusiness = Mae’r gweithio i’w fusnes ei hun
+hirer.identifyToStakeholders.workAsBusiness = Mae’n gweithio i’w fusnes ei hun
 hirer.identifyToStakeholders.wouldNotHappen = Ni fyddai hyn yn digwydd
 
 worker.identifyToStakeholders.error.required = Dewiswch sut y byddech yn cyflwyno’ch hun i ddefnyddwyr neu gyflenwyr eich cleient
@@ -257,7 +257,7 @@ hirer.benefits.title = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u 
 hirer.benefits.subheading = Cyfraniad y gweithiwr
 hirer.benefits.heading = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr?
 hirer.benefits.checkYourAnswersLabel = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr?
-hirer.benefits.p1 = Gall hyn gynnwys aelodaeth hirer.identifyToStakeholders.titlâ champfa allanol, yswiriant iechyd neu ostyngiadau manwerthu.
+hirer.benefits.p1 = Gall hyn gynnwys aelodaeth â champfa allanol, yswiriant iechyd neu ostyngiadau manwerthu.
 #########################
 
 ## Put Right at Workers Own Cost
@@ -629,7 +629,7 @@ hirer.result.undetermined.paye.whyResult.p1 = Nid yw’n glir o’ch atebion a y
 hirer.result.undetermined.paye.doNext.p1.workerKnown = Yn gyntaf, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos i’r gweithiwr. Gwiriwch eich atebion gydag ef i wneud yn siŵr eu bod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig. Os yw’r gweithiwr yn rhoi unrhyw wybodaeth newydd i chi, dylech ddefnyddio’r twlsyn hwn eto.
 hirer.result.undetermined.paye.doNext.p1.workerNotKnown = Unwaith y bydd eich sefydliad yn gwybod pwy yw’r gweithiwr, efallai y cewch ragor o wybodaeth am ei arferion gwaith. Yna gallwch ddefnyddio’r twlsyn hwn eto i wirio a fydd yr wybodaeth hon yn newid eich penderfyniad.
 hirer.result.undetermined.paye.doNext.p2.preLink = Gallwch hefyd ddarllen arweiniad yn y
-hirer.result.undetermined.paye.doNext.p2.postLink = Bydd hyn yn rhoi rhagor o wybodaeth i chi ynghylch pennu statws cyflogaeth
+hirer.result.undetermined.paye.doNext.p2.postLink = Bydd hyn yn rhoi rhagor o wybodaeth i chi ynghylch pennu statws cyflogaeth gweithiwr at ddibenion treth.
 hirer.result.undetermined.paye.doNext.p3 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 
 worker.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
