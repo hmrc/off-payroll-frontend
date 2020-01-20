@@ -343,8 +343,8 @@ hirer.chooseWhereWork.workerAgreeWithOthers = Na, mae’n rhaid gwneud peth gwai
 
 ## Schedule of Working Hours
 #########################
-worker.scheduleOfWorkingHours.error.required = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl I benderfynu 12re ich oriau gwaith
-worker.scheduleOfWorkingHours.error.invalid = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl I benderfynu 12re ich oriau gwaith
+worker.scheduleOfWorkingHours.error.required = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith
+worker.scheduleOfWorkingHours.error.invalid = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith
 worker.scheduleOfWorkingHours.title = Does your client have the right to decide your working hours?
 worker.scheduleOfWorkingHours.subheading = Trefniadau gweithio
 worker.scheduleOfWorkingHours.heading = A oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith?
@@ -381,7 +381,7 @@ hirer.howWorkIsDone.p3.link = sut y gwneir y gwaith
 hirer.howWorkIsDone.checkYourAnswersLabel = A oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith?
 hirer.howWorkIsDone.noWorkerInputAllowed = Iawn
 hirer.howWorkIsDone.workerDecidesWithoutInput = Na, y gweithiwr yn unig sy’n penderfynu
-hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = Na, oherwydd ei fod yn waith tra medrus
+hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = Ddim yn berthnasol, oherwydd ei fod yn waith tra medrus
 hirer.howWorkIsDone.workerAgreeWithOthers = Na, mae’ch sefydliad a’r gweithiwr yn cytuno ar y cyd
 
 worker.howWorkIsDone.error.required = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith
@@ -389,14 +389,14 @@ worker.howWorkIsDone.error.invalid = Dewiswch ‘Iawn’ os oes gan eich cleient
 worker.howWorkIsDone.title = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
 worker.howWorkIsDone.subheading = Trefniadau gweithio
 worker.howWorkIsDone.heading = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
-worker.howWorkIsDone.p1 = Byddai hyn yn wir os bydd eich cleient yn dweud wrthych sut y dylid cwblhau’r dasg drwy gyfarwyddo, arwain neu gynghori.
+worker.howWorkIsDone.p1 = Gall hyn gynnwys eich cleient yn cyfarwyddo, yn arwain, neu’n rhoi cyngor ynghylch y ffordd y dylai’r dasg gael ei chwblhau.
 worker.howWorkIsDone.p2 = Nid yw hyn yn berthnasol os yw’n waith tra medrus. Er enghraifft, peilot cwmni hedfan.
 worker.howWorkIsDone.p3.text = Darllenwch ragor o enghreifftiau am
 worker.howWorkIsDone.p3.link = sut y gwneir y gwaith
 worker.howWorkIsDone.checkYourAnswersLabel = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
 worker.howWorkIsDone.noWorkerInputAllowed = Iawn
 worker.howWorkIsDone.workerDecidesWithoutInput = Na, chi yn unig sy’n penderfynu
-worker.howWorkIsDone.workerFollowStrictEmployeeProcedures = Na, oherwydd ei fod yn waith tra medrus
+worker.howWorkIsDone.workerFollowStrictEmployeeProcedures = Ddim yn berthnasol, oherwydd ei fod yn waith tra medrus
 worker.howWorkIsDone.workerAgreeWithOthers = Na, byddwch chi â’ch cleient yn cytuno â’ch gilydd
 #########################
 
