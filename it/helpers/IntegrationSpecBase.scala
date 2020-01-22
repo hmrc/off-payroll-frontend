@@ -25,7 +25,7 @@ trait IntegrationSpecBase extends WordSpec
 
   def titleOf(response: WSResponse): String = Jsoup.parse(response.body).title
 
-  implicit lazy val cookies: Seq[WSCookie] = whenReady(getRequest("/disclaimer", true))(_.cookies)
+  implicit lazy val cookies: Seq[WSCookie] = whenReady(getRequest("/disclaimer", followRedirect = true))(_.cookies)
 
   override implicit lazy val app: Application = new GuiceApplicationBuilder()
     .configure(Map(
