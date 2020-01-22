@@ -27,8 +27,7 @@ class IntermediaryViewSpec extends ViewBehaviours {
     override val h2 = (i: Int) => s"#content article h2:nth-of-type($i)"
     val p1 = "#content > article > p:nth-child(3)"
     val p2 = "#content > article > p:nth-child(4)"
-    val p3 = "#content > article > p:nth-child(6)"
-    val p4 = "#content > article > p:nth-child(7)"
+    val p3 = "#content > article > p:nth-child(5)"
     val startAgain = "#start-again"
     val understandingOffPayroll = "#understanding-off-payroll"
   }
@@ -68,18 +67,8 @@ class IntermediaryViewSpec extends ViewBehaviours {
         document.select(Selectors.p2).text mustBe IntermediaryMessages.Worker.p2
       }
 
-      "have the correct h2" in {
-        document.select(Selectors.h2(1)).text mustBe IntermediaryMessages.Worker.subheading
-      }
-
       "have the correct p3" in {
         document.select(Selectors.p3).text mustBe IntermediaryMessages.Worker.p3
-      }
-
-      "have the correct p4" in {
-        document.select(Selectors.p4).text mustBe IntermediaryMessages.Worker.p4
-        document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
-        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
       }
     }
 
@@ -103,18 +92,8 @@ class IntermediaryViewSpec extends ViewBehaviours {
         document.select(Selectors.p2).text mustBe IntermediaryMessages.Hirer.p2
       }
 
-      "have the correct h2" in {
-        document.select(Selectors.h2(1)).text mustBe IntermediaryMessages.Hirer.subheading
-      }
-
       "have the correct p3" in {
         document.select(Selectors.p3).text mustBe IntermediaryMessages.Hirer.p3
-      }
-
-      "have the correct p4" in {
-        document.select(Selectors.p4).text mustBe IntermediaryMessages.Hirer.p4
-        document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
-        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
       }
     }
   }

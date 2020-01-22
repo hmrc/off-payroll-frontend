@@ -1103,31 +1103,22 @@ whatDoYouWantToDo.checkYourAnswersLabel = Beth ydych am ei wneud?
 whatDoYouWantToDo.makeNewDetermination = Gwneud penderfyniad newydd
 whatDoYouWantToDo.checkDetermination = Gwirio penderfyniad
 
+//TODO NEED WELSH
 ### Intermediary Result Page
 ### -----------------------------
-worker.intermediaryResult.title = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
-worker.intermediaryResult.heading = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
-worker.intermediaryResult.p1 = Rhoesoch wybod i ni yr hoffech gael gwybod a yw’r gwaith hwn yn cael ei ystyried yn gyflogedig neu’n hunangyflogedig at ddibenion treth.
-worker.intermediaryResult.p2 = Yna, rhoesoch wybod i ni eich bod yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig, a elwir yn gyfryngwr. Mae hyn yn golygu y gallai’r rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol i’r gwaith hwn.
-worker.intermediaryResult.subheading = Beth y dylech ei wneud nesaf
-worker.intermediaryResult.p3 = Os ydych yn masnachu drwy gyfryngwr, dylech fynd ati i gael gwybod a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+worker.intermediaryResult.title = You need to start again
+worker.intermediaryResult.heading = You need to start again
+worker.intermediaryResult.p1 = When a worker is providing their services through an intermediary, you need to find out if the
+worker.intermediaryResult.p2 = off-payroll working rules (IR35)
+worker.intermediaryResult.p3 = apply.
+worker.intermediaryResult.startAgain = Start again
 
-worker.intermediaryResult.p4.text1 = Dysgwch ragor am y
-worker.intermediaryResult.p4.link1 = rheolau gweithio oddi ar y gyflogres
-worker.intermediaryResult.p4.text2 = , neu
-worker.intermediaryResult.p4.link2 = dechreuwch eto
-
-hirer.intermediaryResult.title = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
-hirer.intermediaryResult.heading = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
-hirer.intermediaryResult.p1 = Rhoesoch wybod i ni yr hoffech gael gwybod a yw’r gwaith hwn yn cael ei ystyried yn gyflogedig neu’n hunangyflogedig at ddibenion treth.
-hirer.intermediaryResult.p2 = Yna, rhoesoch wybod i ni fod y gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig, a elwir yn gyfryngwr. Mae hyn yn golygu y gallai’r rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol i’r gwaith hwn.
-hirer.intermediaryResult.subheading = Beth y dylech ei wneud nesaf
-hirer.intermediaryResult.p3 = Os yw’r gweithiwr yn masnachu drwy gyfryngwr, dylech fynd ati i gael gwybod a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
-
-hirer.intermediaryResult.p4.text1 = Dysgwch ragor am y
-hirer.intermediaryResult.p4.link1 = rheolau gweithio oddi ar y gyflogres
-hirer.intermediaryResult.p4.text2 = , neu
-hirer.intermediaryResult.p4.link2 = dechreuwch eto
+hirer.intermediaryResult.title = You need to start again
+hirer.intermediaryResult.heading = You need to start again
+hirer.intermediaryResult.p1 = When you provide your services through an intermediary, you need to find out if the
+hirer.intermediaryResult.p2 = off-payroll working rules (IR35)
+hirer.intermediaryResult.p3 = apply.
+hirer.intermediaryResult.startAgain = Start again
 
 ### No Intermediary Result Page
 ### -----------------------------
