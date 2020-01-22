@@ -26,8 +26,6 @@ class IntermediaryViewSpec extends ViewBehaviours {
   object Selectors extends BaseCSSSelectors {
     override val h2 = (i: Int) => s"#content article h2:nth-of-type($i)"
     val p1 = "#content > article > p:nth-child(3)"
-    val p2 = "#content > article > p:nth-child(4)"
-    val p3 = "#content > article > p:nth-child(5)"
     val startAgain = "#start-again"
     val understandingOffPayroll = "#understanding-off-payroll"
   }
@@ -62,14 +60,6 @@ class IntermediaryViewSpec extends ViewBehaviours {
       "have the correct p1" in {
         document.select(Selectors.p1).text mustBe IntermediaryMessages.Worker.p1
       }
-
-      "have the correct p2" in {
-        document.select(Selectors.p2).text mustBe IntermediaryMessages.Worker.p2
-      }
-
-      "have the correct p3" in {
-        document.select(Selectors.p3).text mustBe IntermediaryMessages.Worker.p3
-      }
     }
 
     "For Hirer" should {
@@ -86,14 +76,6 @@ class IntermediaryViewSpec extends ViewBehaviours {
 
       "have the correct p1" in {
         document.select(Selectors.p1).text mustBe IntermediaryMessages.Hirer.p1
-      }
-
-      "have the correct p2" in {
-        document.select(Selectors.p2).text mustBe IntermediaryMessages.Hirer.p2
-      }
-
-      "have the correct p3" in {
-        document.select(Selectors.p3).text mustBe IntermediaryMessages.Hirer.p3
       }
     }
   }
