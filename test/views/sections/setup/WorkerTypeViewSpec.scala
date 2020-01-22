@@ -61,6 +61,16 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Worker.heading
       }
 
+      "have the correct p1" in {
+
+        document.select(Selectors.p1).text mustBe WorkerUsingIntermediaryMessages.Worker.p1
+      }
+
+      "have the correct p2" in {
+
+        document.select(Selectors.p2).text mustBe WorkerUsingIntermediaryMessages.Worker.p1
+      }
+
       "have the correct radio option messages" in {
 
         document.select(Selectors.multichoice(1)).text mustBe WorkerUsingIntermediaryMessages.yes
@@ -82,6 +92,16 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
 
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Hirer.heading
+      }
+
+      "have the correct p1" in {
+
+        document.select(Selectors.p1).text mustBe WorkerUsingIntermediaryMessages.Hirer.p1
+      }
+
+      "have the correct p2" in {
+
+        document.select(Selectors.p2).text mustBe WorkerUsingIntermediaryMessages.Hirer.p1
       }
 
       "have the correct radio option messages" in {

@@ -518,21 +518,26 @@ agencyAdvisory.heading = Continue as the worker to check a determination
 agencyAdvisory.p1 = It is the not the agency’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work. You can continue as if you are the worker to check a determination.
 
 
-worker.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
-worker.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
-agency.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
-agency.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
-worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
-worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.error.required = Select yes if you provide your services through a limited company, partnership or unincorporated association
+worker.workerUsingIntermediary.error.invalid = Select yes if you provide your services through a limited company, partnership or unincorporated association
+##TODO delete ##
+agency.workerUsingIntermediary.error.required = Select yes if you provide your services through a limited company, partnership or unincorporated association
+agency.workerUsingIntermediary.error.invalid = Select yes if you provide your services through a limited company, partnership or unincorporated association
+worker.workerUsingIntermediary.title = Do you provide your services through a limited company, partnership or unincorporated association?
+worker.workerUsingIntermediary.heading = Do you provide your services through a limited company, partnership or unincorporated association?
 worker.workerUsingIntermediary.subHeading = About you and the work
-worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.p1 = These are also known as intermediaries.
+worker.workerUsingIntermediary.p2 = An ‘unincorporated association’ is an organisation set up by a group of people for a reason other than to make a profit. For example, a voluntary group or a sports club.
+worker.workerUsingIntermediary.checkYourAnswersLabel = Do you provide your services through a limited company, partnership or unincorporated association?
 
-hirer.workerUsingIntermediary.error.required = Select yes if the worker is trading through a limited company, partnership or unincorporated body
-hirer.workerUsingIntermediary.error.invalid = Select yes if the worker is trading through a limited company, partnership or unincorporated body
-hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
-hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.error.required = Select yes if the worker provides their services through a limited company, partnership or unincorporated association
+hirer.workerUsingIntermediary.error.invalid = Select yes if the worker provides their services through a limited company, partnership or unincorporated association
+hirer.workerUsingIntermediary.title = Does the worker provide their services through a limited company, partnership or unincorporated association?
+hirer.workerUsingIntermediary.heading = Does the worker provide their services through a limited company, partnership or unincorporated association?
 hirer.workerUsingIntermediary.subHeading = About you and the work
-hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.p1 = These are also known as intermediaries.
+hirer.workerUsingIntermediary.p2 = An ‘unincorporated association’ is an organisation set up by a group of people for a reason other than to make a profit. For example, a voluntary group or a sports club.
+hirer.workerUsingIntermediary.checkYourAnswersLabel = Does the worker provide their services through a limited company, partnership or unincorporated association?
 
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
