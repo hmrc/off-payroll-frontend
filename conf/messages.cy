@@ -518,21 +518,28 @@ agencyAdvisory.title = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.heading = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.p1 = Nid cyfrifoldeb yr asiantaeth yw penderfynu a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract neu gyfnod arall o waith. Gallwch fynd yn eich blaen fel pe bai chi yw’r gweithiwr i wirio penderfyniad.
 
-worker.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-worker.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-agency.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-agency.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-worker.workerUsingIntermediary.title = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
-worker.workerUsingIntermediary.heading = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
-worker.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
-worker.workerUsingIntermediary.checkYourAnswersLabel = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
 
-hirer.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-hirer.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-hirer.workerUsingIntermediary.title = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
-hirer.workerUsingIntermediary.heading = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
+##TODO Need Welsh
+worker.workerUsingIntermediary.error.required = Select yes if you provide your services through a limited company, partnership or unincorporated association
+worker.workerUsingIntermediary.error.invalid = Select yes if you provide your services through a limited company, partnership or unincorporated association
+##TODO delete ##
+agency.workerUsingIntermediary.error.required = Select yes if you provide your services through a limited company, partnership or unincorporated association
+agency.workerUsingIntermediary.error.invalid = Select yes if you provide your services through a limited company, partnership or unincorporated association
+worker.workerUsingIntermediary.title = Do you provide your services through a limited company, partnership or unincorporated association?
+worker.workerUsingIntermediary.heading = Do you provide your services through a limited company, partnership or unincorporated association?
+worker.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
+worker.workerUsingIntermediary.p1 = These are also known as intermediaries.
+worker.workerUsingIntermediary.p2 = An ‘unincorporated association’ is an organisation set up by a group of people for a reason other than to make a profit. For example, a voluntary group or a sports club.
+worker.workerUsingIntermediary.checkYourAnswersLabel = Do you provide your services through a limited company, partnership or unincorporated association?
+
+hirer.workerUsingIntermediary.error.required = Select yes if the worker provides their services through a limited company, partnership or unincorporated association
+hirer.workerUsingIntermediary.error.invalid = Select yes if the worker provides their services through a limited company, partnership or unincorporated association
+hirer.workerUsingIntermediary.title = Does the worker provide their services through a limited company, partnership or unincorporated association?
+hirer.workerUsingIntermediary.heading = Does the worker provide their services through a limited company, partnership or unincorporated association?
 hirer.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
-hirer.workerUsingIntermediary.checkYourAnswersLabel = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
+hirer.workerUsingIntermediary.p1 = These are also known as intermediaries.
+hirer.workerUsingIntermediary.p2 = An ‘unincorporated association’ is an organisation set up by a group of people for a reason other than to make a profit. For example, a voluntary group or a sports club.
+hirer.workerUsingIntermediary.checkYourAnswersLabel = Does the worker provide their services through a limited company, partnership or unincorporated association?
 
 checkYourAnswers.title = Adolygwch eich atebion ym mhob adran isod
 checkYourAnswers.heading = Adolygwch eich atebion ym mhob adran isod

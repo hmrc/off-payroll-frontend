@@ -27,7 +27,10 @@ import views.html.sections.setup.WorkerUsingIntermediaryView
 
 class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
-  object Selectors extends BaseCSSSelectors
+  object Selectors extends BaseCSSSelectors {
+    val p1 = "#content form p:nth-of-type(1)"
+    val p2 = "#content form p:nth-of-type(2)"
+  }
 
   val messageKeyPrefix: String = "worker.workerUsingIntermediary"
 
@@ -63,12 +66,12 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
       "have the correct p1" in {
 
-        document.select(Selectors.p1).text mustBe WorkerUsingIntermediaryMessages.Worker.p1
+        document.select(Selectors.p1).text() mustBe WorkerUsingIntermediaryMessages.Worker.p1
       }
 
       "have the correct p2" in {
 
-        document.select(Selectors.p2).text mustBe WorkerUsingIntermediaryMessages.Worker.p1
+        document.select(Selectors.p2).text mustBe WorkerUsingIntermediaryMessages.Worker.p2
       }
 
       "have the correct radio option messages" in {
@@ -90,7 +93,6 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
       "have the correct heading" in {
 
-
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Hirer.heading
       }
 
@@ -101,11 +103,10 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
       "have the correct p2" in {
 
-        document.select(Selectors.p2).text mustBe WorkerUsingIntermediaryMessages.Hirer.p1
+        document.select(Selectors.p2).text mustBe WorkerUsingIntermediaryMessages.Hirer.p2
       }
 
       "have the correct radio option messages" in {
-
 
         document.select(Selectors.multichoice(1)).text mustBe WorkerUsingIntermediaryMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WorkerUsingIntermediaryMessages.no
