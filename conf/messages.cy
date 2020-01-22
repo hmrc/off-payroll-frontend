@@ -1136,25 +1136,23 @@ hirer.intermediaryResult.p4.link2 = dechreuwch eto
 
 ### No Intermediary Result Page
 ### -----------------------------
-worker.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-worker.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-worker.noIntermediaryResult.p1 = Rhoesoch wybod i ni nad ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
-worker.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
+#TODO Welsh needed
+worker.noIntermediaryResult.title = You need to start again
+worker.noIntermediaryResult.heading = You need to start again
+worker.noIntermediaryResult.p1.text1 = The
+worker.noIntermediaryResult.p1.link = off-payroll working rules (IR35)
+worker.noIntermediaryResult.p1.text2 = can only apply if you are providing your services through an intermediary.
+worker.noIntermediaryResult.p2 = As you told us there is no intermediary involved, you need to find out if this work is classed as employment or self-employment for tax purposes.
+worker.noIntermediaryResult.startAgain = Start again
 
-worker.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
-worker.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
-worker.noIntermediaryResult.p2.text2 = , neu
-worker.noIntermediaryResult.p2.link2 = dechreuwch eto
-
-hirer.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-hirer.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-hirer.noIntermediaryResult.p1 = Rydych wedi rhoi gwybod i ni nad yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
-hirer.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
-
-hirer.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
-hirer.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
-hirer.noIntermediaryResult.p2.text2 = , neu
-hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
+#TODO Welsh needed
+hirer.noIntermediaryResult.title = You need to start again
+hirer.noIntermediaryResult.heading = You need to start again
+hirer.noIntermediaryResult.p1.text1 = The
+hirer.noIntermediaryResult.p1.link = off-payroll working rules (IR35)
+hirer.noIntermediaryResult.p1.text2 = can only apply if the worker provides their services through an intermediary.
+hirer.noIntermediaryResult.p2 = As you told us there is no intermediary involved, you need to find out if this work is classed as employment or self-employment for tax purposes.
+hirer.noIntermediaryResult.startAgain = Start again
 
 ### CYA Change Link Context for Screen Readers and Other Accessible Software
 ### ------------------------------------------------------------------------
@@ -1186,10 +1184,8 @@ hirer.moveWorker.changeLinkContext = os oes gan eich sefydliad yr hawl i symud y
 worker.howWorkIsDone.changeLinkContext = os bydd eich cleient yn penderfynu sut y gwneir y gwaith
 hirer.howWorkIsDone.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith
 worker.scheduleOfWorkingHours.changeLinkContext = os bydd eich cleient yn penderfynu’r oriau gwaith
-#TODO Welsh needed
 hirer.scheduleOfWorkingHours.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu ar oriau gwaith y gweithiwr
 worker.chooseWhereWork.changeLinkContext = os bydd eich cleient yn penderfynu ble rydych yn gwneud y gwaith
-#TODO Welsh needed
 hirer.chooseWhereWork.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu ble mae’r gweithiwr yn gwneud y gwaith
 worker.equipmentExpenses.changeLinkContext = os bydd gennych gostau ar gyfer offer na fydd eich cleient yn talu amdanynt
 hirer.equipmentExpenses.changeLinkContext = os bydd yn rhaid i’r gweithiwr brynu offer cyn i’ch sefydliad ei dalu
