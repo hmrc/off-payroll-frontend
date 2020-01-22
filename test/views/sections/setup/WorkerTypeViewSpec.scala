@@ -121,8 +121,8 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
       "contain radio buttons for the value" in {
 
         val doc = asDocument(createViewUsingForm(form))
-        assertContainsRadioButton(doc, "value-yes", "value", "true", false)
-        assertContainsRadioButton(doc, "value-no", "value", "false", false)
+        assertContainsRadioButton(doc, "value-yes", "value", "true", isChecked = false)
+        assertContainsRadioButton(doc, "value-no", "value", "false", isChecked = false)
       }
     }
 
@@ -130,8 +130,8 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
       s"have the 'true' radio button selected" in {
 
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"true"))))
-        assertContainsRadioButton(doc, "value-yes", "value", "true", true)
-        assertContainsRadioButton(doc, "value-no", "value", "false", false)
+        assertContainsRadioButton(doc, "value-yes", "value", "true", isChecked = true)
+        assertContainsRadioButton(doc, "value-no", "value", "false", isChecked = false)
       }
     }
   }

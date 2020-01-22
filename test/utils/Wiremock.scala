@@ -25,7 +25,7 @@ class Wiremock {
   val stubPort = 8080
   val stubHost = "localhost"
 
-  var wireMockServer: WireMockServer = new WireMockServer(wireMockConfig().port(stubPort))
+  val wireMockServer: WireMockServer = new WireMockServer(wireMockConfig().port(stubPort))
 
   def host(): String = s"http://$stubHost:$stubPort"
 

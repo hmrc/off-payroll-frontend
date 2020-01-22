@@ -37,7 +37,4 @@ trait MockDataCacheConnector extends MockFactory {
       .expects(cacheId)
       .returns(Future.successful(response))
   }
-
-  def mockGetEntry[A](cacheId: String, key: String)(response: Option[A]): Unit = ???
-
 }

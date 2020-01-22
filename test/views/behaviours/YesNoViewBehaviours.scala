@@ -54,11 +54,11 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
       }
 
       "rendered with a value of true" must {
-        behave like answeredYesNoPage(createView, true, invertedAnswer)
+        behave like answeredYesNoPage(createView, answer = true, invertedAnswer = invertedAnswer)
       }
 
       "rendered with a value of false" must {
-        behave like answeredYesNoPage(createView, false, invertedAnswer)
+        behave like answeredYesNoPage(createView, answer = false, invertedAnswer = invertedAnswer)
       }
 
       "rendered with an error" must {
