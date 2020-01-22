@@ -32,7 +32,7 @@ bodyClasses = None) {
 
     @components.heading(tailorMsg("intermediaryResult.heading"))
 
-    <p>@messages(tailorMsg("intermediaryResult.p1.text1")) <a>@components.new_window_link(tailorMsg("intermediaryResult.p1.text2"), appConfig.understandingOffPayrollUrl, Some("understanding-off-payroll"))@messages(tailorMsg("intermediaryResult.p1.text2"))</a>@messages(tailorMsg("intermediaryResult.p1.text3"))</p>
+    <p>@messages(tailorMsg("intermediaryResult.p1.text1")) <a>@components.new_window_link(tailorMsg("intermediaryResult.p1.text2"), appConfig.understandingOffPayrollUrl, Some("understanding-off-payroll"))</a> @messages(tailorMsg("intermediaryResult.p1.text3"))</p>
 
-    <p><a id="start-again" href="@{startAgain.url}">@messages(tailorMsg("intermediaryResult.startAgain"))</a></p>
+    @components.button_link(tailorMsg("intermediaryResult.startAgain"), startAgain.url)
 }

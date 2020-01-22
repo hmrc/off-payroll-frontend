@@ -1108,14 +1108,14 @@ whatDoYouWantToDo.checkDetermination = Gwirio penderfyniad
 ### -----------------------------
 worker.intermediaryResult.title = You need to start again
 worker.intermediaryResult.heading = You need to start again
-worker.intermediaryResult.p1.text1 = When a worker is providing their services through an intermediary, you need to find out if the
+worker.intermediaryResult.p1.text1 = When you provide your services through an intermediary, you need to find out if the
 worker.intermediaryResult.p1.text2 = off-payroll working rules (IR35)
 worker.intermediaryResult.p1.text3 = apply.
 worker.intermediaryResult.startAgain = Start again
 
 hirer.intermediaryResult.title = You need to start again
 hirer.intermediaryResult.heading = You need to start again
-hirer.intermediaryResult.p1.text1 = When you provide your services through an intermediary, you need to find out if the
+hirer.intermediaryResult.p1.text1 = When a worker is providing their services through an intermediary, you need to find out if the
 hirer.intermediaryResult.p1.text2 = off-payroll working rules (IR35)
 hirer.intermediaryResult.p1.text3 = apply.
 hirer.intermediaryResult.startAgain = Start again
