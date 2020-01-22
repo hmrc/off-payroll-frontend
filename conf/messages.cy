@@ -519,27 +519,28 @@ agencyAdvisory.heading = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.p1 = Nid cyfrifoldeb yr asiantaeth yw penderfynu a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract neu gyfnod arall o waith. Gallwch fynd yn eich blaen fel pe bai chi yw’r gweithiwr i wirio penderfyniad.
 
 
-##TODO Need Welsh
+##TODO Need Welsh #TODO check if correct to change
 worker.workerUsingIntermediary.error.required = Select yes if you provide your services through a limited company, partnership or unincorporated association
 worker.workerUsingIntermediary.error.invalid = Select yes if you provide your services through a limited company, partnership or unincorporated association
 ##TODO delete ##
 agency.workerUsingIntermediary.error.required = Select yes if you provide your services through a limited company, partnership or unincorporated association
 agency.workerUsingIntermediary.error.invalid = Select yes if you provide your services through a limited company, partnership or unincorporated association
-worker.workerUsingIntermediary.title = Do you provide your services through a limited company, partnership or unincorporated association?
-worker.workerUsingIntermediary.heading = Do you provide your services through a limited company, partnership or unincorporated association?
+worker.workerUsingIntermediary.title = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
+worker.workerUsingIntermediary.heading = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 worker.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
-worker.workerUsingIntermediary.p1 = These are also known as intermediaries.
-worker.workerUsingIntermediary.p2 = An ‘unincorporated association’ is an organisation set up by a group of people for a reason other than to make a profit. For example, a voluntary group or a sports club.
-worker.workerUsingIntermediary.checkYourAnswersLabel = Do you provide your services through a limited company, partnership or unincorporated association?
+worker.workerUsingIntermediary.p1 = Gelwir y rhain hefyd yn gyfryngwyr.
+worker.workerUsingIntermediary.p2 = Mae ‘cymdeithas anghorfforedig’ yn sefydliad a grëwyd gan grŵp o bobl am reswm heblaw gwneud elw. Er enghraifft, grŵp gwirfoddol neu glwb chwaraeon.
+worker.workerUsingIntermediary.checkYourAnswersLabel = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 
+##TODO Need Welsh #TODO check if correct to change
 hirer.workerUsingIntermediary.error.required = Select yes if the worker provides their services through a limited company, partnership or unincorporated association
 hirer.workerUsingIntermediary.error.invalid = Select yes if the worker provides their services through a limited company, partnership or unincorporated association
-hirer.workerUsingIntermediary.title = Does the worker provide their services through a limited company, partnership or unincorporated association?
-hirer.workerUsingIntermediary.heading = Does the worker provide their services through a limited company, partnership or unincorporated association?
+hirer.workerUsingIntermediary.title = A yw’r gweithiwr yn darparu ei wasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
+hirer.workerUsingIntermediary.heading = A yw’r gweithiwr yn darparu ei wasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 hirer.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
-hirer.workerUsingIntermediary.p1 = These are also known as intermediaries.
-hirer.workerUsingIntermediary.p2 = An ‘unincorporated association’ is an organisation set up by a group of people for a reason other than to make a profit. For example, a voluntary group or a sports club.
-hirer.workerUsingIntermediary.checkYourAnswersLabel = Does the worker provide their services through a limited company, partnership or unincorporated association?
+hirer.workerUsingIntermediary.p1 = Gelwir y rhain hefyd yn gyfryngwyr.
+hirer.workerUsingIntermediary.p2 = Mae ‘cymdeithas anghorfforedig’ yn sefydliad a grëwyd gan grŵp o bobl am reswm heblaw gwneud elw. Er enghraifft, grŵp gwirfoddol neu glwb chwaraeon.
+hirer.workerUsingIntermediary.checkYourAnswersLabel = A yw’r gweithiwr yn darparu ei wasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 
 checkYourAnswers.title = Adolygwch eich atebion ym mhob adran isod
 checkYourAnswers.heading = Adolygwch eich atebion ym mhob adran isod
