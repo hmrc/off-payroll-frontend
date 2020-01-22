@@ -24,6 +24,8 @@ object MajorityOfWorkingTimeMessages extends BaseMessages {
     val heading = "Will this work take up the majority of your available working time?"
     val subheading = "Worker’s contracts"
     val p1 = "This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract."
+    val p2 = "Read more about the worker’s available working time (opens in a new window)."
+
   }
 
   object Hirer {
@@ -32,5 +34,6 @@ object MajorityOfWorkingTimeMessages extends BaseMessages {
     val heading = "Will this work take up the majority of the worker’s available working time?"
     val subheading = "Worker’s contracts"
     val p1 = "This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract."
+    val p2 = "Read more about the worker’s available working time (opens in a new window)."
   }
 }

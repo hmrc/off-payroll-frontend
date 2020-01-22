@@ -1013,6 +1013,8 @@ worker.majorityOfWorkingTime.heading = Will this work take up the majority of yo
 worker.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of your available working time?
 worker.majorityOfWorkingTime.subheading = Worker’s contracts
 worker.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
+worker.majorityOfWorkingTime.p2 = Read more about the
+worker.majorityOfWorkingTime.p2.link = worker’s available working time
 
 hirer.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of the worker’s available working time
 hirer.majorityOfWorkingTime.title = Will this work take up the majority of the worker’s available working time?
@@ -1020,7 +1022,8 @@ hirer.majorityOfWorkingTime.heading = Will this work take up the majority of the
 hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of the worker’s available working time?
 hirer.majorityOfWorkingTime.subheading = Worker’s contracts
 hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
-
+hirer.majorityOfWorkingTime.p2 = Read more about the
+hirer.majorityOfWorkingTime.p2.link = worker’s available working time
 
 ### RightsOfWork Page - BoOA
 ### ---------------------------------

@@ -63,6 +63,7 @@ class MajorityOfWorkingTimeViewSpec extends YesNoViewBehaviours {
 
       "have the correct p1" in {
         document.select(Selectors.p(1)).text mustBe MajorityOfWorkingTimeMessages.Worker.p1
+        document.select(Selectors.p(2)).text mustBe MajorityOfWorkingTimeMessages.Worker.p2
       }
 
       "have the correct radio option messages" in {
@@ -85,6 +86,7 @@ class MajorityOfWorkingTimeViewSpec extends YesNoViewBehaviours {
 
       "have the correct p1" in {
         document.select(Selectors.p(1)).text mustBe MajorityOfWorkingTimeMessages.Hirer.p1
+        document.select(Selectors.p(2)).text mustBe MajorityOfWorkingTimeMessages.Hirer.p2
       }
 
       "have the correct radio option messages" in {
