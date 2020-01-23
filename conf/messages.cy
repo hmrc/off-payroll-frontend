@@ -212,7 +212,7 @@ hirer.identifyToStakeholders.heading = Sut y byddai’r gweithiwr yn cyflwyno’
 hirer.identifyToStakeholders.checkYourAnswersLabel = Sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu’ch cyflenwyr?
 hirer.identifyToStakeholders.workForEndClient = Mae’n gweithio i chi
 hirer.identifyToStakeholders.workAsIndependent = Mae’n weithiwr annibynnol sy’n gweithredu ar eich rhan
-hirer.identifyToStakeholders.workAsBusiness = Mae’r gweithio i’w fusnes ei hun
+hirer.identifyToStakeholders.workAsBusiness = Mae’n gweithio i’w fusnes ei hun
 hirer.identifyToStakeholders.wouldNotHappen = Ni fyddai hyn yn digwydd
 
 worker.identifyToStakeholders.error.required = Dewiswch sut y byddech yn cyflwyno’ch hun i ddefnyddwyr neu gyflenwyr eich cleient
@@ -257,7 +257,7 @@ hirer.benefits.title = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u 
 hirer.benefits.subheading = Cyfraniad y gweithiwr
 hirer.benefits.heading = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr?
 hirer.benefits.checkYourAnswersLabel = A fyddwch yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr?
-hirer.benefits.p1 = Gall hyn gynnwys aelodaeth hirer.identifyToStakeholders.titlâ champfa allanol, yswiriant iechyd neu ostyngiadau manwerthu.
+hirer.benefits.p1 = Gall hyn gynnwys aelodaeth â champfa allanol, yswiriant iechyd neu ostyngiadau manwerthu.
 #########################
 
 ## Put Right at Workers Own Cost
@@ -343,8 +343,8 @@ hirer.chooseWhereWork.workerAgreeWithOthers = Na, mae’n rhaid gwneud peth gwai
 
 ## Schedule of Working Hours
 #########################
-worker.scheduleOfWorkingHours.error.required = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl I benderfynu 12re ich oriau gwaith
-worker.scheduleOfWorkingHours.error.invalid = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl I benderfynu 12re ich oriau gwaith
+worker.scheduleOfWorkingHours.error.required = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith
+worker.scheduleOfWorkingHours.error.invalid = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith
 worker.scheduleOfWorkingHours.title = Does your client have the right to decide your working hours?
 worker.scheduleOfWorkingHours.subheading = Trefniadau gweithio
 worker.scheduleOfWorkingHours.heading = A oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith?
@@ -381,7 +381,7 @@ hirer.howWorkIsDone.p3.link = sut y gwneir y gwaith
 hirer.howWorkIsDone.checkYourAnswersLabel = A oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith?
 hirer.howWorkIsDone.noWorkerInputAllowed = Iawn
 hirer.howWorkIsDone.workerDecidesWithoutInput = Na, y gweithiwr yn unig sy’n penderfynu
-hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = Na, oherwydd ei fod yn waith tra medrus
+hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = Ddim yn berthnasol, oherwydd ei fod yn waith tra medrus
 hirer.howWorkIsDone.workerAgreeWithOthers = Na, mae’ch sefydliad a’r gweithiwr yn cytuno ar y cyd
 
 worker.howWorkIsDone.error.required = Dewiswch ‘Iawn’ os oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith
@@ -389,14 +389,14 @@ worker.howWorkIsDone.error.invalid = Dewiswch ‘Iawn’ os oes gan eich cleient
 worker.howWorkIsDone.title = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
 worker.howWorkIsDone.subheading = Trefniadau gweithio
 worker.howWorkIsDone.heading = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
-worker.howWorkIsDone.p1 = Byddai hyn yn wir os bydd eich cleient yn dweud wrthych sut y dylid cwblhau’r dasg drwy gyfarwyddo, arwain neu gynghori.
+worker.howWorkIsDone.p1 = Gall hyn gynnwys eich cleient yn cyfarwyddo, yn arwain, neu’n rhoi cyngor ynghylch y ffordd y dylai’r dasg gael ei chwblhau.
 worker.howWorkIsDone.p2 = Nid yw hyn yn berthnasol os yw’n waith tra medrus. Er enghraifft, peilot cwmni hedfan.
 worker.howWorkIsDone.p3.text = Darllenwch ragor o enghreifftiau am
 worker.howWorkIsDone.p3.link = sut y gwneir y gwaith
 worker.howWorkIsDone.checkYourAnswersLabel = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
 worker.howWorkIsDone.noWorkerInputAllowed = Iawn
 worker.howWorkIsDone.workerDecidesWithoutInput = Na, chi yn unig sy’n penderfynu
-worker.howWorkIsDone.workerFollowStrictEmployeeProcedures = Na, oherwydd ei fod yn waith tra medrus
+worker.howWorkIsDone.workerFollowStrictEmployeeProcedures = Ddim yn berthnasol, oherwydd ei fod yn waith tra medrus
 worker.howWorkIsDone.workerAgreeWithOthers = Na, byddwch chi â’ch cleient yn cytuno â’ch gilydd
 #########################
 
@@ -518,21 +518,26 @@ agencyAdvisory.title = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.heading = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.p1 = Nid cyfrifoldeb yr asiantaeth yw penderfynu a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract neu gyfnod arall o waith. Gallwch fynd yn eich blaen fel pe bai chi yw’r gweithiwr i wirio penderfyniad.
 
-worker.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-worker.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-agency.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-agency.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-worker.workerUsingIntermediary.title = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
-worker.workerUsingIntermediary.heading = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
-worker.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
-worker.workerUsingIntermediary.checkYourAnswersLabel = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
 
-hirer.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-hirer.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-hirer.workerUsingIntermediary.title = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
-hirer.workerUsingIntermediary.heading = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
+##TODO Need Welsh #TODO check if correct to change
+worker.workerUsingIntermediary.error.required = Dewiswch ie os ydych chi'n darparu'ch gwasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
+worker.workerUsingIntermediary.error.invalid = Dewiswch ie os ydych chi'n darparu'ch gwasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
+worker.workerUsingIntermediary.title = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
+worker.workerUsingIntermediary.heading = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
+worker.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
+worker.workerUsingIntermediary.p1 = Gelwir y rhain hefyd yn gyfryngwyr.
+worker.workerUsingIntermediary.p2 = Mae ‘cymdeithas anghorfforedig’ yn sefydliad a grëwyd gan grŵp o bobl am reswm heblaw gwneud elw. Er enghraifft, grŵp gwirfoddol neu glwb chwaraeon.
+worker.workerUsingIntermediary.checkYourAnswersLabel = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
+
+##TODO Need Welsh #TODO check if correct to change
+hirer.workerUsingIntermediary.error.required = Dewiswch ie os yw'r gweithiwr yn darparu ei wasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
+hirer.workerUsingIntermediary.error.invalid = Dewiswch ie os yw'r gweithiwr yn darparu ei wasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
+hirer.workerUsingIntermediary.title = A yw’r gweithiwr yn darparu ei wasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
+hirer.workerUsingIntermediary.heading = A yw’r gweithiwr yn darparu ei wasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 hirer.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
-hirer.workerUsingIntermediary.checkYourAnswersLabel = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
+hirer.workerUsingIntermediary.p1 = Gelwir y rhain hefyd yn gyfryngwyr.
+hirer.workerUsingIntermediary.p2 = Mae ‘cymdeithas anghorfforedig’ yn sefydliad a grëwyd gan grŵp o bobl am reswm heblaw gwneud elw. Er enghraifft, grŵp gwirfoddol neu glwb chwaraeon.
+hirer.workerUsingIntermediary.checkYourAnswersLabel = A yw’r gweithiwr yn darparu ei wasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 
 checkYourAnswers.title = Adolygwch eich atebion ym mhob adran isod
 checkYourAnswers.heading = Adolygwch eich atebion ym mhob adran isod
@@ -629,7 +634,7 @@ hirer.result.undetermined.paye.whyResult.p1 = Nid yw’n glir o’ch atebion a y
 hirer.result.undetermined.paye.doNext.p1.workerKnown = Yn gyntaf, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos i’r gweithiwr. Gwiriwch eich atebion gydag ef i wneud yn siŵr eu bod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig. Os yw’r gweithiwr yn rhoi unrhyw wybodaeth newydd i chi, dylech ddefnyddio’r twlsyn hwn eto.
 hirer.result.undetermined.paye.doNext.p1.workerNotKnown = Unwaith y bydd eich sefydliad yn gwybod pwy yw’r gweithiwr, efallai y cewch ragor o wybodaeth am ei arferion gwaith. Yna gallwch ddefnyddio’r twlsyn hwn eto i wirio a fydd yr wybodaeth hon yn newid eich penderfyniad.
 hirer.result.undetermined.paye.doNext.p2.preLink = Gallwch hefyd ddarllen arweiniad yn y
-hirer.result.undetermined.paye.doNext.p2.postLink = Bydd hyn yn rhoi rhagor o wybodaeth i chi ynghylch pennu statws cyflogaeth
+hirer.result.undetermined.paye.doNext.p2.postLink = Bydd hyn yn rhoi rhagor o wybodaeth i chi ynghylch pennu statws cyflogaeth gweithiwr at ddibenion treth.
 hirer.result.undetermined.paye.doNext.p3 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 
 worker.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
@@ -1121,25 +1126,21 @@ hirer.intermediaryResult.startAgain = Dechrau eto
 
 ### No Intermediary Result Page
 ### -----------------------------
-worker.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-worker.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-worker.noIntermediaryResult.p1 = Rhoesoch wybod i ni nad ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
-worker.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
+worker.noIntermediaryResult.title = Mae’n rhaid i chi ddechrau eto
+worker.noIntermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
+worker.noIntermediaryResult.p1.text1 = Dim ond os byddwch yn darparu’ch gwasanaethau drwy gyfryngwr y mae’r rheolau
+worker.noIntermediaryResult.p1.link = gweithio oddi ar y gyflogres (IR35)
+worker.noIntermediaryResult.p1.text2 = yn berthnasol.
+worker.noIntermediaryResult.p2 = Gan i chi roi gwybod i ni nad oes cyfryngwr, mae’n rhaid i chi wirio a yw’r gwaith hwn yn cael ei ystyried yn gyflogaeth neu’n hunangyflogaeth at ddibenion treth.
+worker.noIntermediaryResult.startAgain = Dechrau eto
 
-worker.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
-worker.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
-worker.noIntermediaryResult.p2.text2 = , neu
-worker.noIntermediaryResult.p2.link2 = dechreuwch eto
-
-hirer.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-hirer.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-hirer.noIntermediaryResult.p1 = Rydych wedi rhoi gwybod i ni nad yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
-hirer.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
-
-hirer.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
-hirer.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
-hirer.noIntermediaryResult.p2.text2 = , neu
-hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
+hirer.noIntermediaryResult.title = Mae’n rhaid i chi ddechrau eto
+hirer.noIntermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
+hirer.noIntermediaryResult.p1.text1 = Dim ond os bydd y gweithiwr yn darparu ei wasanaethau drwy gyfryngwr y mae’r rheolau
+hirer.noIntermediaryResult.p1.link = gweithio oddi ar y gyflogres (IR35)
+hirer.noIntermediaryResult.p1.text2 = yn berthnasol.
+hirer.noIntermediaryResult.p2 = Gan i chi roi gwybod i ni nad oes cyfryngwr, mae’n rhaid i chi wirio a yw’r gwaith hwn yn cael ei ystyried yn gyflogaeth neu’n hunangyflogaeth at ddibenion treth.
+hirer.noIntermediaryResult.startAgain = Dechrau eto
 
 ### CYA Change Link Context for Screen Readers and Other Accessible Software
 ### ------------------------------------------------------------------------
@@ -1149,8 +1150,9 @@ hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
 whatDoYouWantToFindOut.changeLinkContext = yr hyn yr hoffech ei wneud
 whoAreYou.changeLinkContext = pwy ydych
 whatDoYouWantToDo.changeLinkContext = yr hyn yr hoffech ei wneud
-worker.workerUsingIntermediary.changeLinkContext = os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-hirer.workerUsingIntermediary.changeLinkContext = os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
+#TODO Welsh
+worker.workerUsingIntermediary.changeLinkContext = os ydych chi'n darparu'ch gwasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
+hirer.workerUsingIntermediary.changeLinkContext = os yw'r gweithiwr yn darparu ei wasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
 worker.contractStarted.changeLinkContext = os ydych eisoes wedi dechrau gweithio i’r cleient hwn
 hirer.contractStarted.changeLinkContext = os yw’r gweithiwr eisoes wedi dechrau gweithio i’ch sefydliad
 worker.officeHolder.changeLinkContext = os byddwch yn ‘Ddeiliad Swydd’
@@ -1170,10 +1172,8 @@ hirer.moveWorker.changeLinkContext = os oes gan eich sefydliad yr hawl i symud y
 worker.howWorkIsDone.changeLinkContext = os bydd eich cleient yn penderfynu sut y gwneir y gwaith
 hirer.howWorkIsDone.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith
 worker.scheduleOfWorkingHours.changeLinkContext = os bydd eich cleient yn penderfynu’r oriau gwaith
-#TODO Welsh needed
 hirer.scheduleOfWorkingHours.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu ar oriau gwaith y gweithiwr
 worker.chooseWhereWork.changeLinkContext = os bydd eich cleient yn penderfynu ble rydych yn gwneud y gwaith
-#TODO Welsh needed
 hirer.chooseWhereWork.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu ble mae’r gweithiwr yn gwneud y gwaith
 worker.equipmentExpenses.changeLinkContext = os bydd gennych gostau ar gyfer offer na fydd eich cleient yn talu amdanynt
 hirer.equipmentExpenses.changeLinkContext = os bydd yn rhaid i’r gweithiwr brynu offer cyn i’ch sefydliad ei dalu
@@ -1193,7 +1193,6 @@ worker.lineManagerDuties.changeLinkContext = os bydd gennych unrhyw gyfrifoldeba
 hirer.lineManagerDuties.changeLinkContext = os bydd gan y gweithiwr unrhyw gyfrifoldebau rheoli ar gyfer eich sefydliad
 worker.identifyToStakeholders.changeLinkContext = sut y byddech yn cyflwyno’ch hun i ddefnyddwyr neu gyflenwyr eich cleient
 hirer.identifyToStakeholders.changeLinkContext = sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu gyflenwyr
-#TODO Welsh needed
 hirer.workerKnown.changeLinkContext = os ydych yn gwybod pwy fydd yn gwneud y gwaith hwn
 worker.multipleContracts.changeLinkContext = os bydd y contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill
 hirer.multipleContracts.changeLinkContext = os yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill

@@ -27,7 +27,10 @@ import views.html.sections.setup.WorkerUsingIntermediaryView
 
 class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
-  object Selectors extends BaseCSSSelectors
+  object Selectors extends BaseCSSSelectors {
+    val p1 = "#content form p:nth-of-type(1)"
+    val p2 = "#content form p:nth-of-type(2)"
+  }
 
   val messageKeyPrefix: String = "worker.workerUsingIntermediary"
 
@@ -61,6 +64,16 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Worker.heading
       }
 
+      "have the correct p1" in {
+
+        document.select(Selectors.p1).text() mustBe WorkerUsingIntermediaryMessages.Worker.p1
+      }
+
+      "have the correct p2" in {
+
+        document.select(Selectors.p2).text mustBe WorkerUsingIntermediaryMessages.Worker.p2
+      }
+
       "have the correct radio option messages" in {
 
         document.select(Selectors.multichoice(1)).text mustBe WorkerUsingIntermediaryMessages.yes
@@ -80,35 +93,20 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
       "have the correct heading" in {
 
-
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Hirer.heading
       }
 
-      "have the correct radio option messages" in {
+      "have the correct p1" in {
 
-
-        document.select(Selectors.multichoice(1)).text mustBe WorkerUsingIntermediaryMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe WorkerUsingIntermediaryMessages.no
-      }
-    }
-
-    "If the user type is of Agency" should {
-
-      lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
-
-      "have the correct title" in {
-
-        document.title mustBe title(WorkerUsingIntermediaryMessages.NonTailored.title)
+        document.select(Selectors.p1).text mustBe WorkerUsingIntermediaryMessages.Hirer.p1
       }
 
-      "have the correct heading" in {
+      "have the correct p2" in {
 
-
-        document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.NonTailored.heading
+        document.select(Selectors.p2).text mustBe WorkerUsingIntermediaryMessages.Hirer.p2
       }
 
       "have the correct radio option messages" in {
-
 
         document.select(Selectors.multichoice(1)).text mustBe WorkerUsingIntermediaryMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WorkerUsingIntermediaryMessages.no
@@ -121,8 +119,8 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
       "contain radio buttons for the value" in {
 
         val doc = asDocument(createViewUsingForm(form))
-        assertContainsRadioButton(doc, "value-yes", "value", "true", false)
-        assertContainsRadioButton(doc, "value-no", "value", "false", false)
+        assertContainsRadioButton(doc, "value-yes", "value", "true", isChecked = false)
+        assertContainsRadioButton(doc, "value-no", "value", "false", isChecked = false)
       }
     }
 
@@ -130,8 +128,8 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
       s"have the 'true' radio button selected" in {
 
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"true"))))
-        assertContainsRadioButton(doc, "value-yes", "value", "true", true)
-        assertContainsRadioButton(doc, "value-no", "value", "false", false)
+        assertContainsRadioButton(doc, "value-yes", "value", "true", isChecked = true)
+        assertContainsRadioButton(doc, "value-no", "value", "false", isChecked = false)
       }
     }
   }

@@ -26,7 +26,7 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
   object Selectors extends BaseCSSSelectors {
     override val h2 = (i: Int) => s"#content article h2:nth-of-type($i)"
     val p1 = "#content > article > p:nth-child(3)"
-    val p2 = "#content > article > p:nth-child(5)"
+    val p2 = "#content > article > p:nth-child(4)"
     val startAgain = "#start-again"
     val understandingOffPayroll = "#understanding-off-payroll"
   }
@@ -58,15 +58,14 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
 
       "have the correct p1" in {
         document.select(Selectors.p1).text mustBe NoIntermediaryMessages.Worker.p1
-      }
-
-      "have the correct h2" in {
-        document.select(Selectors.h2(1)).text mustBe NoIntermediaryMessages.Worker.subheading
+        document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
       }
 
       "have the correct p2" in {
         document.select(Selectors.p2).text mustBe NoIntermediaryMessages.Worker.p2
-        document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
+      }
+
+      "have the correct start again link" in {
         document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
       }
     }
@@ -85,15 +84,14 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
 
       "have the correct p1" in {
         document.select(Selectors.p1).text mustBe NoIntermediaryMessages.Hirer.p1
-      }
-
-      "have the correct h2" in {
-        document.select(Selectors.h2(1)).text mustBe NoIntermediaryMessages.Hirer.subheading
+        document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
       }
 
       "have the correct p2" in {
         document.select(Selectors.p2).text mustBe NoIntermediaryMessages.Hirer.p2
-        document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
+      }
+
+      "have the correct start again link" in {
         document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
       }
     }
