@@ -1103,22 +1103,21 @@ whatDoYouWantToDo.checkYourAnswersLabel = Beth ydych am ei wneud?
 whatDoYouWantToDo.makeNewDetermination = Gwneud penderfyniad newydd
 whatDoYouWantToDo.checkDetermination = Gwirio penderfyniad
 
-### TODO NEED WELSH
 ### Intermediary Result Page
 ### -----------------------------
-worker.intermediaryResult.title = You need to start again
-worker.intermediaryResult.heading = You need to start again
-worker.intermediaryResult.p1.text1 = When you provide your services through an intermediary, you need to find out if the
-worker.intermediaryResult.p1.text2 = off-payroll working rules (IR35)
-worker.intermediaryResult.p1.text3 = apply.
-worker.intermediaryResult.startAgain = Start again
+worker.intermediaryResult.title = Mae’n rhaid i chi ddechrau eto
+worker.intermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
+worker.intermediaryResult.p1.text1 = Pan fyddwch yn darparu’ch gwasanaethau drwy gyfryngwr, mae’n rhaid i chi wirio a yw’r rheolau
+worker.intermediaryResult.p1.text2 = gweithio oddi ar y gyflogres (IR35)
+worker.intermediaryResult.p1.text3 = yn berthnasol.
+worker.intermediaryResult.startAgain = Dechrau eto
 
-hirer.intermediaryResult.title = You need to start again
-hirer.intermediaryResult.heading = You need to start again
-hirer.intermediaryResult.p1.text1 = When a worker is providing their services through an intermediary, you need to find out if the
-hirer.intermediaryResult.p1.text2 = off-payroll working rules (IR35)
-hirer.intermediaryResult.p1.text3 = apply.
-hirer.intermediaryResult.startAgain = Start again
+hirer.intermediaryResult.title = Mae’n rhaid i chi ddechrau eto
+hirer.intermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
+hirer.intermediaryResult.p1.text1 = Pan fydd gweithiwr yn darparu ei wasanaethau drwy gyfryngwr, mae’n rhaid i chi wirio a yw’r rheolau
+hirer.intermediaryResult.p1.text2 = gweithio oddi ar y gyflogres (IR35)
+hirer.intermediaryResult.p1.text3 = yn berthnasol.
+hirer.intermediaryResult.startAgain = Dechrau eto
 
 ### No Intermediary Result Page
 ### -----------------------------
