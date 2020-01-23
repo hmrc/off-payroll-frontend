@@ -32,16 +32,14 @@ bodyClasses = None) {
 
     @components.heading(tailorMsg("noIntermediaryResult.heading"))
 
-    <p>@messages(tailorMsg("noIntermediaryResult.p1"))</p>
-
-    <h2>@messages(tailorMsg("noIntermediaryResult.subheading"))</h2>
-
     <p>
-        @messages(tailorMsg("noIntermediaryResult.p2.text1"))
-        @components.new_window_link(tailorMsg("noIntermediaryResult.p2.link1"), appConfig.understandingOffPayrollUrl, Some("understanding-off-payroll"))@messages(tailorMsg("noIntermediaryResult.p2.text2"))
-
-
-        <a id="start-again" href="@{startAgain.url}">@messages(tailorMsg("noIntermediaryResult.p2.link2"))</a>
+        @messages(tailorMsg("noIntermediaryResult.p1.text1"))
+        @components.new_window_link(tailorMsg("noIntermediaryResult.p1.link"), appConfig.understandingOffPayrollUrl, Some("understanding-off-payroll"))
+        @messages(tailorMsg("noIntermediaryResult.p1.text2"))
     </p>
+
+    <p>@messages(tailorMsg("noIntermediaryResult.p2"))</p>
+
+    <a id="start-again" href="@{startAgain.url}" class="button">@messages(tailorMsg("noIntermediaryResult.startAgain"))</a>
 
 }

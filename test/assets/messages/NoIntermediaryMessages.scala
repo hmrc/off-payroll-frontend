@@ -20,19 +20,19 @@ object NoIntermediaryMessages extends BaseMessages {
 
   object Worker {
 
-    val title = "Off-payroll working rules (IR35) cannot apply"
-    val heading = "Off-payroll working rules (IR35) cannot apply"
-    val p1 = "You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off-payroll working rules are not relevant to this work."
-    val subheading = "What you should do next"
-    val p2 = "Find out more about the Off-payroll working rules (opens in a new window), or start again"
+    val title = "You need to start again"
+    val heading = "You need to start again"
+    val p1 = "The off-payroll working rules (IR35) (opens in a new window) can only apply if you are providing your services through an intermediary."
+    val p2 = "As you told us there is no intermediary involved, you need to find out if this work is classed as employment or self-employment for tax purposes."
+    val startAgain = "Start again"
   }
 
   object Hirer {
 
-    val title = "Off-payroll working rules (IR35) cannot apply"
-    val heading = "Off-payroll working rules (IR35) cannot apply"
-    val p1 = "You told us that the worker is not trading through a limited company, partnership or unincorporated body. This means the off-payroll working rules are not relevant to this work."
-    val subheading = "What you should do next"
-    val p2 = "Find out more about the Off-payroll working rules (opens in a new window), or start again"
+    val title = "You need to start again"
+    val heading = "You need to start again"
+    val p1 = "The off-payroll working rules (IR35) (opens in a new window) can only apply if the worker provides their services through an intermediary."
+    val p2 = "As you told us there is no intermediary involved, you need to find out if this work is classed as employment or self-employment for tax purposes."
+    val startAgain = "Start again"
   }
 }

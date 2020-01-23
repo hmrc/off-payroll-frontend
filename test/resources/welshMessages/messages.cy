@@ -1136,25 +1136,21 @@ hirer.intermediaryResult.p4.link2 = dechreuwch eto
 
 ### No Intermediary Result Page
 ### -----------------------------
-worker.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-worker.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-worker.noIntermediaryResult.p1 = Rhoesoch wybod i ni nad ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
-worker.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
+worker.noIntermediaryResult.title = Mae’n rhaid i chi ddechrau eto
+worker.noIntermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
+worker.noIntermediaryResult.p1.text1 = Dim ond os byddwch yn darparu’ch gwasanaethau drwy gyfryngwr y mae’r rheolau
+worker.noIntermediaryResult.p1.link = gweithio oddi ar y gyflogres (IR35)
+worker.noIntermediaryResult.p1.text2 = yn berthnasol.
+worker.noIntermediaryResult.p2 = Gan i chi roi gwybod i ni nad oes cyfryngwr, mae’n rhaid i chi wirio a yw’r gwaith hwn yn cael ei ystyried yn gyflogaeth neu’n hunangyflogaeth at ddibenion treth.
+worker.noIntermediaryResult.startAgain = Dechrau eto
 
-worker.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
-worker.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
-worker.noIntermediaryResult.p2.text2 = , neu
-worker.noIntermediaryResult.p2.link2 = dechreuwch eto
-
-hirer.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-hirer.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
-hirer.noIntermediaryResult.p1 = Rydych wedi rhoi gwybod i ni nad yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
-hirer.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
-
-hirer.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
-hirer.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
-hirer.noIntermediaryResult.p2.text2 = , neu
-hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
+hirer.noIntermediaryResult.title = Mae’n rhaid i chi ddechrau eto
+hirer.noIntermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
+hirer.noIntermediaryResult.p1.text1 = Dim ond os bydd y gweithiwr yn darparu ei wasanaethau drwy gyfryngwr y mae’r rheolau
+hirer.noIntermediaryResult.p1.link = gweithio oddi ar y gyflogres (IR35)
+hirer.noIntermediaryResult.p1.text2 = yn berthnasol.
+hirer.noIntermediaryResult.p2 = Gan i chi roi gwybod i ni nad oes cyfryngwr, mae’n rhaid i chi wirio a yw’r gwaith hwn yn cael ei ystyried yn gyflogaeth neu’n hunangyflogaeth at ddibenion treth.
+hirer.noIntermediaryResult.startAgain = Dechrau eto
 
 ### CYA Change Link Context for Screen Readers and Other Accessible Software
 ### ------------------------------------------------------------------------
@@ -1186,10 +1182,8 @@ hirer.moveWorker.changeLinkContext = os oes gan eich sefydliad yr hawl i symud y
 worker.howWorkIsDone.changeLinkContext = os bydd eich cleient yn penderfynu sut y gwneir y gwaith
 hirer.howWorkIsDone.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith
 worker.scheduleOfWorkingHours.changeLinkContext = os bydd eich cleient yn penderfynu’r oriau gwaith
-#TODO Welsh needed
 hirer.scheduleOfWorkingHours.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu ar oriau gwaith y gweithiwr
 worker.chooseWhereWork.changeLinkContext = os bydd eich cleient yn penderfynu ble rydych yn gwneud y gwaith
-#TODO Welsh needed
 hirer.chooseWhereWork.changeLinkContext = os oes gan eich sefydliad yr hawl i benderfynu ble mae’r gweithiwr yn gwneud y gwaith
 worker.equipmentExpenses.changeLinkContext = os bydd gennych gostau ar gyfer offer na fydd eich cleient yn talu amdanynt
 hirer.equipmentExpenses.changeLinkContext = os bydd yn rhaid i’r gweithiwr brynu offer cyn i’ch sefydliad ei dalu

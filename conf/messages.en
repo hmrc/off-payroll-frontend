@@ -1153,23 +1153,21 @@ hirer.intermediaryResult.p4.link2 = start again
 
 ### No Intermediary Result Page
 ### -----------------------------
-worker.noIntermediaryResult.title = Off-payroll working rules (IR35) cannot apply
-worker.noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
-worker.noIntermediaryResult.p1 = You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off-payroll working rules are not relevant to this work.
-worker.noIntermediaryResult.subheading = What you should do next
-worker.noIntermediaryResult.p2.text1 = Find out more about the
-worker.noIntermediaryResult.p2.link1 = Off-payroll working rules
-worker.noIntermediaryResult.p2.text2 = , or
-worker.noIntermediaryResult.p2.link2 = start again
+worker.noIntermediaryResult.title = You need to start again
+worker.noIntermediaryResult.heading = You need to start again
+worker.noIntermediaryResult.p1.text1 = The
+worker.noIntermediaryResult.p1.link = off-payroll working rules (IR35)
+worker.noIntermediaryResult.p1.text2 = can only apply if you are providing your services through an intermediary.
+worker.noIntermediaryResult.p2 = As you told us there is no intermediary involved, you need to find out if this work is classed as employment or self-employment for tax purposes.
+worker.noIntermediaryResult.startAgain = Start again
 
-hirer.noIntermediaryResult.title = Off-payroll working rules (IR35) cannot apply
-hirer.noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
-hirer.noIntermediaryResult.p1 = You told us that the worker is not trading through a limited company, partnership or unincorporated body. This means the off-payroll working rules are not relevant to this work.
-hirer.noIntermediaryResult.subheading = What you should do next
-hirer.noIntermediaryResult.p2.text1 = Find out more about the
-hirer.noIntermediaryResult.p2.link1 = Off-payroll working rules
-hirer.noIntermediaryResult.p2.text2 = , or
-hirer.noIntermediaryResult.p2.link2 = start again
+hirer.noIntermediaryResult.title = You need to start again
+hirer.noIntermediaryResult.heading = You need to start again
+hirer.noIntermediaryResult.p1.text1 = The
+hirer.noIntermediaryResult.p1.link = off-payroll working rules (IR35)
+hirer.noIntermediaryResult.p1.text2 = can only apply if the worker provides their services through an intermediary.
+hirer.noIntermediaryResult.p2 = As you told us there is no intermediary involved, you need to find out if this work is classed as employment or self-employment for tax purposes.
+hirer.noIntermediaryResult.startAgain = Start again
 
 
 ### CYA Change Link Context for Screen Readers and Other Accessible Software
