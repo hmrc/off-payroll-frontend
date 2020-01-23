@@ -520,11 +520,8 @@ agencyAdvisory.p1 = Nid cyfrifoldeb yr asiantaeth yw penderfynu a yw’r rheolau
 
 
 ##TODO Need Welsh #TODO check if correct to change
-worker.workerUsingIntermediary.error.required = Select yes if you provide your services through a limited company, partnership or unincorporated association
-worker.workerUsingIntermediary.error.invalid = Select yes if you provide your services through a limited company, partnership or unincorporated association
-##TODO delete ##
-agency.workerUsingIntermediary.error.required = Select yes if you provide your services through a limited company, partnership or unincorporated association
-agency.workerUsingIntermediary.error.invalid = Select yes if you provide your services through a limited company, partnership or unincorporated association
+worker.workerUsingIntermediary.error.required = Dewiswch ie os ydych chi'n darparu'ch gwasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
+worker.workerUsingIntermediary.error.invalid = Dewiswch ie os ydych chi'n darparu'ch gwasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
 worker.workerUsingIntermediary.title = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 worker.workerUsingIntermediary.heading = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 worker.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
@@ -533,8 +530,8 @@ worker.workerUsingIntermediary.p2 = Mae ‘cymdeithas anghorfforedig’ yn sefyd
 worker.workerUsingIntermediary.checkYourAnswersLabel = A ydych yn darparu’ch gwasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 
 ##TODO Need Welsh #TODO check if correct to change
-hirer.workerUsingIntermediary.error.required = Select yes if the worker provides their services through a limited company, partnership or unincorporated association
-hirer.workerUsingIntermediary.error.invalid = Select yes if the worker provides their services through a limited company, partnership or unincorporated association
+hirer.workerUsingIntermediary.error.required = Dewiswch ie os yw'r gweithiwr yn darparu ei wasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
+hirer.workerUsingIntermediary.error.invalid = Dewiswch ie os yw'r gweithiwr yn darparu ei wasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
 hirer.workerUsingIntermediary.title = A yw’r gweithiwr yn darparu ei wasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 hirer.workerUsingIntermediary.heading = A yw’r gweithiwr yn darparu ei wasanaethau drwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig?
 hirer.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
@@ -1167,8 +1164,9 @@ hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
 whatDoYouWantToFindOut.changeLinkContext = yr hyn yr hoffech ei wneud
 whoAreYou.changeLinkContext = pwy ydych
 whatDoYouWantToDo.changeLinkContext = yr hyn yr hoffech ei wneud
-worker.workerUsingIntermediary.changeLinkContext = os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-hirer.workerUsingIntermediary.changeLinkContext = os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
+#TODO Welsh
+worker.workerUsingIntermediary.changeLinkContext = os ydych chi'n darparu'ch gwasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
+hirer.workerUsingIntermediary.changeLinkContext = os yw'r gweithiwr yn darparu ei wasanaethau trwy gwmni cyfyngedig, partneriaeth neu gymdeithas anghorfforedig
 worker.contractStarted.changeLinkContext = os ydych eisoes wedi dechrau gweithio i’r cleient hwn
 hirer.contractStarted.changeLinkContext = os yw’r gweithiwr eisoes wedi dechrau gweithio i’ch sefydliad
 worker.officeHolder.changeLinkContext = os byddwch yn ‘Ddeiliad Swydd’
@@ -1211,7 +1209,6 @@ worker.lineManagerDuties.changeLinkContext = os bydd gennych unrhyw gyfrifoldeba
 hirer.lineManagerDuties.changeLinkContext = os bydd gan y gweithiwr unrhyw gyfrifoldebau rheoli ar gyfer eich sefydliad
 worker.identifyToStakeholders.changeLinkContext = sut y byddech yn cyflwyno’ch hun i ddefnyddwyr neu gyflenwyr eich cleient
 hirer.identifyToStakeholders.changeLinkContext = sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu gyflenwyr
-#TODO Welsh needed
 hirer.workerKnown.changeLinkContext = os ydych yn gwybod pwy fydd yn gwneud y gwaith hwn
 worker.multipleContracts.changeLinkContext = os bydd y contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill
 hirer.multipleContracts.changeLinkContext = os yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill

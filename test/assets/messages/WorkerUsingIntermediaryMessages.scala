@@ -35,8 +35,4 @@ object WorkerUsingIntermediaryMessages extends BaseMessages {
     val p2 = "An ‘unincorporated association’ is an organisation set up by a group of people for a reason other than to make a profit. For example, a voluntary group or a sports club."
   }
 
-  object NonTailored {
-    val heading = "Do you provide your services through a limited company, partnership or unincorporated association?"
-    val title = heading
-  }
 }
