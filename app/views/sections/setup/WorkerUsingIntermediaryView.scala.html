@@ -29,18 +29,24 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = WorkerUsingIntermediaryController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()(mode)
 
-        @components.back_link()(mode)
+    @formWithCsrf(action = WorkerUsingIntermediaryController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
         @components.input_yes_no(
             field = form("value"),
             legend = components.heading(tailorMsg("workerUsingIntermediary.heading"), Some(tailorMsg("workerUsingIntermediary.subHeading")), asLegend = true),
+            otherContent = Some(pageContent),
             labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
     }
+}
+
+@pageContent = {
+    <p>@messages(tailorMsg("workerUsingIntermediary.p1"))</p>
+    <p>@messages(tailorMsg("workerUsingIntermediary.p2"))</p>
 }

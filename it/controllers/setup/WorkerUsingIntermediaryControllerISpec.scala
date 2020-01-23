@@ -12,7 +12,7 @@ class WorkerUsingIntermediaryControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Do you provide your services through a limited company, partnership or unincorporated association?")
       }
     }
 
@@ -31,7 +31,7 @@ class WorkerUsingIntermediaryControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Do you provide your services through a limited company, partnership or unincorporated association?")
 
       }
     }
@@ -45,7 +45,7 @@ class WorkerUsingIntermediaryControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Do you provide your services through a limited company, partnership or unincorporated association?")
       }
     }
 
@@ -64,7 +64,7 @@ class WorkerUsingIntermediaryControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        titleOf(result) should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        titleOf(result) should include ("Do you provide your services through a limited company, partnership or unincorporated association?")
 
       }
     }
