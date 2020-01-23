@@ -997,6 +997,8 @@ worker.majorityOfWorkingTime.heading = A fydd y gwaith hwn yn cymryd y rhan fwya
 worker.majorityOfWorkingTime.checkYourAnswersLabel = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael?
 worker.majorityOfWorkingTime.subheading = Contractau’r gweithiwr
 worker.majorityOfWorkingTime.p1 = Mae hyn yn cynnwys gwaith paratoi neu unrhyw amser arall angenrheidiol i gyflawni’r gwaith, hyd yn oed os na chyfeirir ato yn y contract.
+worker.majorityOfWorkingTime.p2 = Darllenwch ragor am yr
+worker.majorityOfWorkingTime.p2.link = amser gwaith sydd ar gael i’r gweithiwr
 
 hirer.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr
 hirer.majorityOfWorkingTime.title = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr?
@@ -1004,6 +1006,8 @@ hirer.majorityOfWorkingTime.heading = A fydd y gwaith hwn yn cymryd y rhan fwyaf
 hirer.majorityOfWorkingTime.checkYourAnswersLabel = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr?
 hirer.majorityOfWorkingTime.subheading = Contractau’r gweithiwr
 hirer.majorityOfWorkingTime.p1 = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr.
+hirer.majorityOfWorkingTime.p2 = Darllenwch ragor am yr
+hirer.majorityOfWorkingTime.p2.link = amser gwaith sydd ar gael i’r gweithiwr
 
 ### RightsOfWork Page
 ### ---------------------------------
