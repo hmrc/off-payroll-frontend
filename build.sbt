@@ -12,7 +12,7 @@ lazy val root = (project in file("."))
   .settings(DefaultBuildSettings.defaultSettings(): _*)
   .settings(SbtDistributablesPlugin.publishingSettings: _*)
   .settings(majorVersion := 1)
-  .settings(SbtAutoBuildPlugin.forceSourceHeader := true)
+  .settings(SbtAutoBuildPlugin.forceLicenseHeader := true)
   .configs(IntegrationTest)
   .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
   .settings(
