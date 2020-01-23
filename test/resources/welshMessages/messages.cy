@@ -1136,23 +1136,21 @@ hirer.intermediaryResult.p4.link2 = dechreuwch eto
 
 ### No Intermediary Result Page
 ### -----------------------------
-#TODO Welsh needed
-worker.noIntermediaryResult.title = You need to start again
-worker.noIntermediaryResult.heading = You need to start again
-worker.noIntermediaryResult.p1.text1 = The
-worker.noIntermediaryResult.p1.link = off-payroll working rules (IR35)
-worker.noIntermediaryResult.p1.text2 = can only apply if you are providing your services through an intermediary.
-worker.noIntermediaryResult.p2 = As you told us there is no intermediary involved, you need to find out if this work is classed as employment or self-employment for tax purposes.
-worker.noIntermediaryResult.startAgain = Start again
+worker.noIntermediaryResult.title = Mae’n rhaid i chi ddechrau eto
+worker.noIntermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
+worker.noIntermediaryResult.p1.text1 = Dim ond os byddwch yn darparu’ch gwasanaethau drwy gyfryngwr y mae’r rheolau
+worker.noIntermediaryResult.p1.link = gweithio oddi ar y gyflogres (IR35)
+worker.noIntermediaryResult.p1.text2 = yn berthnasol.
+worker.noIntermediaryResult.p2 = Gan i chi roi gwybod i ni nad oes cyfryngwr, mae’n rhaid i chi wirio a yw’r gwaith hwn yn cael ei ystyried yn gyflogaeth neu’n hunangyflogaeth at ddibenion treth.
+worker.noIntermediaryResult.startAgain = Dechrau eto
 
-#TODO Welsh needed
-hirer.noIntermediaryResult.title = You need to start again
-hirer.noIntermediaryResult.heading = You need to start again
-hirer.noIntermediaryResult.p1.text1 = The
-hirer.noIntermediaryResult.p1.link = off-payroll working rules (IR35)
-hirer.noIntermediaryResult.p1.text2 = can only apply if the worker provides their services through an intermediary.
-hirer.noIntermediaryResult.p2 = As you told us there is no intermediary involved, you need to find out if this work is classed as employment or self-employment for tax purposes.
-hirer.noIntermediaryResult.startAgain = Start again
+hirer.noIntermediaryResult.title = Mae’n rhaid i chi ddechrau eto
+hirer.noIntermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
+hirer.noIntermediaryResult.p1.text1 = Dim ond os bydd y gweithiwr yn darparu ei wasanaethau drwy gyfryngwr y mae’r rheolau
+hirer.noIntermediaryResult.p1.link = gweithio oddi ar y gyflogres (IR35)
+hirer.noIntermediaryResult.p1.text2 = yn berthnasol.
+hirer.noIntermediaryResult.p2 = Gan i chi roi gwybod i ni nad oes cyfryngwr, mae’n rhaid i chi wirio a yw’r gwaith hwn yn cael ei ystyried yn gyflogaeth neu’n hunangyflogaeth at ddibenion treth.
+hirer.noIntermediaryResult.startAgain = Dechrau eto
 
 ### CYA Change Link Context for Screen Readers and Other Accessible Software
 ### ------------------------------------------------------------------------
