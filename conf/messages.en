@@ -1129,27 +1129,19 @@ whatDoYouWantToDo.checkDetermination = Check a determination
 
 ### Intermediary Result Page
 ### -----------------------------
-worker.intermediaryResult.title = Off-payroll working rules might apply to this work
-worker.intermediaryResult.heading = Off-payroll working rules might apply to this work
-worker.intermediaryResult.p1 = You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes.
-worker.intermediaryResult.p2 = Then you told us that you are trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work.
-worker.intermediaryResult.subheading = What you should do next
-worker.intermediaryResult.p3 = If you are trading through an intermediary, you should find out if the off-payroll working rules apply to this work.
-worker.intermediaryResult.p4.text1 = Find out more about the
-worker.intermediaryResult.p4.link1 = Off-payroll working rules
-worker.intermediaryResult.p4.text2 = , or
-worker.intermediaryResult.p4.link2 = start again
+worker.intermediaryResult.title = You need to start again
+worker.intermediaryResult.heading = You need to start again
+worker.intermediaryResult.p1.text1 = When you provide your services through an intermediary, you need to find out if the
+worker.intermediaryResult.p1.text2 = off-payroll working rules (IR35)
+worker.intermediaryResult.p1.text3 = apply.
+worker.intermediaryResult.startAgain = Start again
 
-hirer.intermediaryResult.title = Off-payroll working rules might apply to this work
-hirer.intermediaryResult.heading = Off-payroll working rules might apply to this work
-hirer.intermediaryResult.p1 = You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes.
-hirer.intermediaryResult.p2 = Then you told us that the worker is trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work.
-hirer.intermediaryResult.subheading = What you should do next
-hirer.intermediaryResult.p3 = If the worker is trading through an intermediary, you should find out if the off-payroll working rules apply to this work.
-hirer.intermediaryResult.p4.text1 = Find out more about the
-hirer.intermediaryResult.p4.link1 = Off-payroll working rules
-hirer.intermediaryResult.p4.text2 = , or
-hirer.intermediaryResult.p4.link2 = start again
+hirer.intermediaryResult.title = You need to start again
+hirer.intermediaryResult.heading = You need to start again
+hirer.intermediaryResult.p1.text1 = When a worker is providing their services through an intermediary, you need to find out if the
+hirer.intermediaryResult.p1.text2 = off-payroll working rules (IR35)
+hirer.intermediaryResult.p1.text3 = apply.
+hirer.intermediaryResult.startAgain = Start again
 
 ### No Intermediary Result Page
 ### -----------------------------

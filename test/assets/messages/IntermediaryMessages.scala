@@ -20,23 +20,15 @@ object IntermediaryMessages extends BaseMessages {
 
   object Worker {
 
-    val title = "Off-payroll working rules might apply to this work"
+    val title = "You need to start again"
     val heading = title
-    val p1 = "You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes."
-    val p2 = "Then you told us that you are trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work."
-    val subheading = "What you should do next"
-    val p3 = "If you are trading through an intermediary, you should find out if the off-payroll working rules apply to this work."
-    val p4 = "Find out more about the Off-payroll working rules (opens in a new window), or start again"
+    val p1 = "When you provide your services through an intermediary, you need to find out if the off-payroll working rules (IR35) (opens in a new window) apply."
   }
 
   object Hirer {
 
-    val title = "Off-payroll working rules might apply to this work"
+    val title = "You need to start again"
     val heading = title
-    val p1 = "You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes."
-    val p2 = "Then you told us that the worker is trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work."
-    val subheading = "What you should do next"
-    val p3 = "If the worker is trading through an intermediary, you should find out if the off-payroll working rules apply to this work."
-    val p4 = "Find out more about the Off-payroll working rules (opens in a new window), or start again"
+    val p1 = "When a worker is providing their services through an intermediary, you need to find out if the off-payroll working rules (IR35) (opens in a new window) apply."
   }
 }
