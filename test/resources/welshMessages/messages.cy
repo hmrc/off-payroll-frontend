@@ -987,8 +987,8 @@ hirer.followOnContract.p1 = Nid yw hyn yn cynnwys unrhyw gyfnod o wyliau rhwng y
 ### ---------------------------------
 worker.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael
 agency.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael
-worker.majorityOfWorkingTime.title = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael?
-worker.majorityOfWorkingTime.heading = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael?
+worker.majorityOfWorkingTime.title = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i chi?
+worker.majorityOfWorkingTime.heading = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i chi?
 worker.majorityOfWorkingTime.checkYourAnswersLabel = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael?
 worker.majorityOfWorkingTime.subheading = Contractau’r gweithiwr
 worker.majorityOfWorkingTime.p1 = Mae hyn yn cynnwys gwaith paratoi neu unrhyw amser arall angenrheidiol i gyflawni’r gwaith, hyd yn oed os na chyfeirir ato yn y contract.
@@ -1000,7 +1000,7 @@ hirer.majorityOfWorkingTime.title = A fydd y gwaith hwn yn cymryd y rhan fwyaf o
 hirer.majorityOfWorkingTime.heading = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr?
 hirer.majorityOfWorkingTime.checkYourAnswersLabel = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr?
 hirer.majorityOfWorkingTime.subheading = Contractau’r gweithiwr
-hirer.majorityOfWorkingTime.p1 = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr.
+hirer.majorityOfWorkingTime.p1 = Mae hyn yn cynnwys gwaith paratoi neu unrhyw amser arall angenrheidiol i gyflawni’r gwaith, hyd yn oed os na chyfeirir ato yn y contract.
 hirer.majorityOfWorkingTime.p2 = Darllenwch ragor am yr
 hirer.majorityOfWorkingTime.p2.link = amser gwaith sydd ar gael i’r gweithiwr
 
