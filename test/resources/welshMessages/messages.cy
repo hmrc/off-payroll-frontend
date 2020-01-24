@@ -985,8 +985,8 @@ hirer.followOnContract.p1 = Nid yw hyn yn cynnwys unrhyw gyfnod o wyliau rhwng y
 
 ### MajorityOfWorkingTime Page
 ### ---------------------------------
-worker.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael
-agency.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael
+worker.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael i chi
+agency.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael i chi
 worker.majorityOfWorkingTime.title = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i chi?
 worker.majorityOfWorkingTime.heading = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i chi?
 worker.majorityOfWorkingTime.checkYourAnswersLabel = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael?
