@@ -1116,15 +1116,15 @@ whatDoYouWantToDo.checkDetermination = Gwirio penderfyniad
 ### -----------------------------
 worker.intermediaryResult.title = Mae’n rhaid i chi ddechrau eto
 worker.intermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
-worker.intermediaryResult.p1.text1 = Pan fyddwch yn darparu’ch gwasanaethau drwy gyfryngwr, mae’n rhaid i chi wirio a yw’r rheolau
-worker.intermediaryResult.p1.text2 = gweithio oddi ar y gyflogres (IR35)
+worker.intermediaryResult.p1.text1 = Pan fyddwch yn darparu’ch gwasanaethau drwy gyfryngwr, mae’n rhaid i chi wirio a yw’r
+worker.intermediaryResult.p1.text2 = rheolau gweithio oddi ar y gyflogres (IR35)
 worker.intermediaryResult.p1.text3 = yn berthnasol.
 worker.intermediaryResult.startAgain = Dechrau eto
 
 hirer.intermediaryResult.title = Mae’n rhaid i chi ddechrau eto
 hirer.intermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
-hirer.intermediaryResult.p1.text1 = Pan fydd gweithiwr yn darparu ei wasanaethau drwy gyfryngwr, mae’n rhaid i chi wirio a yw’r rheolau
-hirer.intermediaryResult.p1.text2 = gweithio oddi ar y gyflogres (IR35)
+hirer.intermediaryResult.p1.text1 = Pan fydd gweithiwr yn darparu ei wasanaethau drwy gyfryngwr, mae’n rhaid i chi wirio a yw’r
+hirer.intermediaryResult.p1.text2 = rheolau gweithio oddi ar y gyflogres (IR35)
 hirer.intermediaryResult.p1.text3 = yn berthnasol.
 hirer.intermediaryResult.startAgain = Dechrau eto
 
@@ -1132,16 +1132,16 @@ hirer.intermediaryResult.startAgain = Dechrau eto
 ### -----------------------------
 worker.noIntermediaryResult.title = Mae’n rhaid i chi ddechrau eto
 worker.noIntermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
-worker.noIntermediaryResult.p1.text1 = Dim ond os byddwch yn darparu’ch gwasanaethau drwy gyfryngwr y mae’r rheolau
-worker.noIntermediaryResult.p1.link = gweithio oddi ar y gyflogres (IR35)
+worker.noIntermediaryResult.p1.text1 = Dim ond os byddwch yn darparu’ch gwasanaethau drwy gyfryngwr y mae’r
+worker.noIntermediaryResult.p1.link = rheolau gweithio oddi ar y gyflogres (IR35)
 worker.noIntermediaryResult.p1.text2 = yn berthnasol.
 worker.noIntermediaryResult.p2 = Gan i chi roi gwybod i ni nad oes cyfryngwr, mae’n rhaid i chi wirio a yw’r gwaith hwn yn cael ei ystyried yn gyflogaeth neu’n hunangyflogaeth at ddibenion treth.
 worker.noIntermediaryResult.startAgain = Dechrau eto
 
 hirer.noIntermediaryResult.title = Mae’n rhaid i chi ddechrau eto
 hirer.noIntermediaryResult.heading = Mae’n rhaid i chi ddechrau eto
-hirer.noIntermediaryResult.p1.text1 = Dim ond os bydd y gweithiwr yn darparu ei wasanaethau drwy gyfryngwr y mae’r rheolau
-hirer.noIntermediaryResult.p1.link = gweithio oddi ar y gyflogres (IR35)
+hirer.noIntermediaryResult.p1.text1 = Dim ond os bydd y gweithiwr yn darparu ei wasanaethau drwy gyfryngwr y mae’r
+hirer.noIntermediaryResult.p1.link = rheolau gweithio oddi ar y gyflogres (IR35)
 hirer.noIntermediaryResult.p1.text2 = yn berthnasol.
 hirer.noIntermediaryResult.p2 = Gan i chi roi gwybod i ni nad oes cyfryngwr, mae’n rhaid i chi wirio a yw’r gwaith hwn yn cael ei ystyried yn gyflogaeth neu’n hunangyflogaeth at ddibenion treth.
 hirer.noIntermediaryResult.startAgain = Dechrau eto
