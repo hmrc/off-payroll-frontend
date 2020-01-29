@@ -605,7 +605,7 @@ hirer.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogre
 hirer.result.officeHolder.ir35.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y bydd y gweithiwr yn cyflawni dyletswyddau deiliad swydd. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.result.officeHolder.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion. Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
 hirer.result.officeHolder.ir35.doNext.p2.preLink = Gallech hefyd ddarllen rhagor am
-hirer.result.officeHolder.ir35.doNext.p2.link = gyfrifoldebau’r talwr ffioedd.
+hirer.result.officeHolder.ir35.doNext.p2.link = gyfrifoldebau’r talwr ffioedd
 ## ------------------
 
 ## Office Holder Agent
