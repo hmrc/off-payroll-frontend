@@ -12,8 +12,10 @@
   @if(isMake || request.userType.contains(Hirer)){
     @if(isUndetermined){
       <p>@messages("result.download.p1.undetermined")</p>
+    } else if(request.userType.contains(Hirer)){
+      <p>@messages("result.download.p1.hirer.determined")</p>
     } else {
-      <p>@messages("result.download.p1.determined")</p>
+      <p>@messages("result.download.p1.worker.determined")</p>
     }
   }
 

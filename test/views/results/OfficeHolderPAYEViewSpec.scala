@@ -91,7 +91,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgWorkerDetermined
           document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
@@ -132,7 +132,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgHirerDetermined
           document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
