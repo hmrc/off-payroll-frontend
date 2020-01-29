@@ -564,7 +564,8 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Contractau’r gweithiwr
 result.title = Canlyniad
 result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
 result.doNext.h2 = Beth y dylech ei wneud nesaf
-result.download.p1.determined = Mae’n bwysig eich bod yn cadw copi o’r penderfyniad hwn ar gyfer eich cofnodion.
+result.download.p1.worker.determined = Mae’n bwysig eich bod yn cadw copi o’r penderfyniad hwn ar gyfer eich cofnodion.
+result.download.p1.hirer.determined = Mae’n bwysig eich bod yn cadw copi o’r canlyniad hwn ar gyfer eich cofnodion. Os ydych yn cytuno â’r canlyniad, gallwch ei ddefnyddio er mwyn ategu’r rhesymau dros eich penderfyniad ar statws cyflogaeth y gweithiwr.
 result.download.p1.undetermined = Mae’n bwysig eich bod yn cadw copi o’r canlyniad hwn ar gyfer eich cofnodion.
 result.download.getCopy = Cael copi o’r canlyniad hwn
 result.download.p2.preExit = Os nad ydych am lawrlwytho copi o’ch canlyniad, gallwch
@@ -604,7 +605,7 @@ hirer.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogre
 hirer.result.officeHolder.ir35.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y bydd y gweithiwr yn cyflawni dyletswyddau deiliad swydd. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.result.officeHolder.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion. Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
 hirer.result.officeHolder.ir35.doNext.p2.preLink = Gallech hefyd ddarllen rhagor am
-hirer.result.officeHolder.ir35.doNext.p2.link = gyfrifoldebau’r talwr ffioedd.
+hirer.result.officeHolder.ir35.doNext.p2.link = gyfrifoldebau’r talwr ffioedd
 ## ------------------
 
 ## Office Holder Agent

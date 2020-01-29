@@ -124,7 +124,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgWorkerDetermined
           document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
@@ -165,7 +165,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgHirerDetermined
           document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
