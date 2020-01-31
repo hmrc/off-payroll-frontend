@@ -560,9 +560,11 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
 result.title = Result
 result.whyResult.h2 = Why you are getting this result
 result.doNext.h2 = What you should do next
-result.download.p1.worker.determined = It is important that you keep a copy of this determination for your records.
-result.download.p1.hirer.determined = It is important that you keep a copy of this result for your records. If you agree with the result, you can use it to support the reasons for your decision on the worker’s employment status.
-result.download.p1.undetermined = It is important that you keep a copy of this result for your records.
+
+result.keepCopy.worker.determined = It is important that you keep a copy of this determination for your records.
+result.keepCopy.hirer.determined = It is important that you keep a copy of this result for your records. If you agree with the result, you can use it to support the reasons for your decision on the worker’s employment status.
+result.keepCopy.undetermined = It is important that you keep a copy of this result for your records.
+
 result.download.getCopy = Get a copy of this result
 result.download.p2.preExit = If you do not want to download a copy of your result, you can
 result.download.p2.exitLink = exit

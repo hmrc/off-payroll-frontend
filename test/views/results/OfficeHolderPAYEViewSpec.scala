@@ -91,8 +91,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgWorkerDetermined
-          document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -118,6 +117,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.doNext_p1
+      document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.downloadMsgWorkerDetermined
     }
   }
 
@@ -132,8 +132,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgHirerDetermined
-          document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -160,6 +159,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.doNext_p1
       document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.PAYE.doNext_p2
+      document.select(Selectors.DoNext.p(3)).text mustBe OfficeHolderMessages.downloadMsgHirerDetermined
     }
   }
 }

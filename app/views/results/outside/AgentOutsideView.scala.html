@@ -43,7 +43,7 @@
                 @formWithCsrf(ResultController.onSubmit(), 'autoComplete -> "off") {
                     @results.sections.why_result(whyResult)
                     @results.sections.do_next(doNext)
-                    @results.sections.download(form, false)
+                    @results.sections.download()
                 }
             }
             case ResultPrintPreview => {
@@ -77,4 +77,6 @@
         @messages("agent.result.outside.doNext.p2.text")
         @components.new_window_link("agent.result.outside.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
     </p>
+
+    @results.sections.keep_copy(isMake = false)
 }

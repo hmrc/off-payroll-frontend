@@ -161,8 +161,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgHirerDetermined
-          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -191,6 +190,9 @@ class IR35InsideViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextP2
       if(!workerKnown) {
         document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerIR35.workerNotKnown
+        document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.downloadMsgHirerDetermined
+      } else {
+        document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.downloadMsgHirerDetermined
       }
     }
 
@@ -211,12 +213,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
         }
         "Have the correct Download section" in {
-          if(isMakingNewDetermination){
-            document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgWorkerDetermined
-            document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
-          } else {
-            document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg
-          }
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -251,6 +248,9 @@ class IR35InsideViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP2
         document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP3
         document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP4
+        if(isMakingNewDetermination) {
+          document.select(Selectors.DoNext.p(5)).text mustBe InDecisionMessages.downloadMsgWorkerDetermined
+        }
       }
 
       "Have a link to the Employment Status Manual" in {

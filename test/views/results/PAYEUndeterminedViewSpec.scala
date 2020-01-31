@@ -124,8 +124,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
-          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -154,6 +153,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP2
       document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP3
       document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(5)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
     }
   }
 
@@ -168,8 +168,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
-          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -202,6 +201,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP2
       document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP3
       document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(5)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
     }
   }
 }

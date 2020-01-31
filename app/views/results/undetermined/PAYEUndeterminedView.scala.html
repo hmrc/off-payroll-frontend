@@ -43,7 +43,7 @@
 
                     @results.sections.why_result(whyResult)
                     @results.sections.do_next(doNext)
-                    @results.sections.download(form = form, isUndetermined = true)
+                    @results.sections.download()
                 }
             }
 
@@ -84,4 +84,6 @@
     <p>@messages(tailorMsg("result.undetermined.paye.doNext.p3"))</p>
 
     @contact_details()
+
+    @results.sections.keep_copy(isUndetermined = true)
 }
