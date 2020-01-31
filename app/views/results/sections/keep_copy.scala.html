@@ -1,0 +1,19 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ *@
+
+@import models.requests.DataRequest
+@import models.sections.setup.WhoAreYou.Hirer
+
+@(isMake: Boolean = true, isUndetermined: Boolean = false)(implicit messages: Messages, request: DataRequest[_])
+
+@if(isMake || request.userType.contains(Hirer)){
+    @if(isUndetermined){
+      <p>@messages("result.keepCopy.undetermined")</p>
+    } else if(request.userType.contains(Hirer)){
+      <p>@messages("result.keepCopy.hirer.determined")</p>
+    } else {
+      <p>@messages("result.keepCopy.worker.determined")</p>
+    }
+}

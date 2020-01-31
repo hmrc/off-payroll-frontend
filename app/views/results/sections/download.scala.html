@@ -6,18 +6,9 @@
 @import models.requests.DataRequest
 @import models.sections.setup.WhoAreYou.Hirer
 
-@(form: Form[_], isMake: Boolean = true, isUndetermined: Boolean = false)(implicit messages: Messages, request: DataRequest[_])
+@()(implicit messages: Messages, request: DataRequest[_])
 
 <div id="download">
-  @if(isMake || request.userType.contains(Hirer)){
-    @if(isUndetermined){
-      <p>@messages("result.download.p1.undetermined")</p>
-    } else if(request.userType.contains(Hirer)){
-      <p>@messages("result.download.p1.hirer.determined")</p>
-    } else {
-      <p>@messages("result.download.p1.worker.determined")</p>
-    }
-  }
 
  <button class="button form-group" id ="getCopy-button">@messages("result.download.getCopy")</button>
 

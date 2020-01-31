@@ -200,11 +200,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
             document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
           }
           "Have the correct Download section" in {
-          if(isMake){
-            document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsgWorkerDetermined
-            document.select(Selectors.Download.p(2)).text mustBe OutDecisionMessages.downloadExitMsg
-          } else {
-            document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadExitMsg}
+            document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadExitMsg
           }
         case ResultPrintPreview =>
           "Have the correct title" in {
@@ -235,6 +231,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         "Have the correct Do Next section which" in {
           document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
           document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.makeDoNextP1
+          document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.downloadMsgWorkerDetermined
         }
       } else {
         "Have the correct Do Next section which" in {
@@ -272,8 +269,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerIR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsgHirerDetermined
-          document.select(Selectors.Download.p(2)).text mustBe OutDecisionMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -308,6 +304,9 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
       if(!workerKnown) {
         document.select(Selectors.DoNext.p(4)).text mustBe OutDecisionMessages.HirerIR35.workerNotKnown
+        document.select(Selectors.DoNext.p(5)).text mustBe OutDecisionMessages.downloadMsgHirerDetermined
+      } else {
+        document.select(Selectors.DoNext.p(4)).text mustBe OutDecisionMessages.downloadMsgHirerDetermined
       }
     }
 

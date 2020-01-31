@@ -45,7 +45,7 @@
                 @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
                     @results.sections.why_result(whyResult)
                     @results.sections.do_next(doNext)
-                    @results.sections.download(form, isMake)
+                    @results.sections.download()
                 }
             }
             case ResultPrintPreview => {
@@ -100,4 +100,6 @@
             </p>
         }
     }
+
+    @results.sections.keep_copy(isMake)
 }

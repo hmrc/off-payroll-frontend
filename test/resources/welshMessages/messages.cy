@@ -564,9 +564,11 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Contractau’r gweithiwr
 result.title = Canlyniad
 result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
 result.doNext.h2 = Beth y dylech ei wneud nesaf
-result.download.p1.worker.determined = Mae’n bwysig eich bod yn cadw copi o’r penderfyniad hwn ar gyfer eich cofnodion.
-result.download.p1.hirer.determined = Mae’n bwysig eich bod yn cadw copi o’r canlyniad hwn ar gyfer eich cofnodion. Os ydych yn cytuno â’r canlyniad, gallwch ei ddefnyddio er mwyn ategu’r rhesymau dros eich penderfyniad ar statws cyflogaeth y gweithiwr.
-result.download.p1.undetermined = Mae’n bwysig eich bod yn cadw copi o’r canlyniad hwn ar gyfer eich cofnodion.
+
+result.keepCopy.worker.determined = Mae’n bwysig eich bod yn cadw copi o’r penderfyniad hwn ar gyfer eich cofnodion.
+result.keepCopy.hirer.determined = Mae’n bwysig eich bod yn cadw copi o’r canlyniad hwn ar gyfer eich cofnodion. Os ydych yn cytuno â’r canlyniad, gallwch ei ddefnyddio er mwyn ategu’r rhesymau dros eich penderfyniad ar statws cyflogaeth y gweithiwr.
+result.keepCopy.undetermined = Mae’n bwysig eich bod yn cadw copi o’r canlyniad hwn ar gyfer eich cofnodion.
+
 result.download.getCopy = Cael copi o’r canlyniad hwn
 result.download.p2.preExit = Os nad ydych am lawrlwytho copi o’ch canlyniad, gallwch
 result.download.p2.exitLink = adael

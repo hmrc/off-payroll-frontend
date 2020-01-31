@@ -124,8 +124,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgWorkerDetermined
-          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -151,6 +150,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerPAYE.doNext
+      document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.downloadMsgWorkerDetermined
     }
   }
 
@@ -165,8 +165,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgHirerDetermined
-          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -195,6 +194,9 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerPAYE.doNextP2
       if(!workerKnown) {
         document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerPAYE.workerNotKnown
+        document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.downloadMsgHirerDetermined
+      } else {
+        document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.downloadMsgHirerDetermined
       }
     }
 

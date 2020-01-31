@@ -126,8 +126,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerIR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
-          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -153,9 +152,10 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
     "Have the correct Do Next section which" in {
       document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP1
-      document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP2
-      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP3
-      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP2
+      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP3
+      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(5)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
     }
   }
 
@@ -170,8 +170,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerIR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
-          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -201,9 +200,10 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
       } else {
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextP1_WorkerNotKnown
       }
-      document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP2
-      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP3
-      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextP2
+      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextP3
+      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(5)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
     }
   }
 }
