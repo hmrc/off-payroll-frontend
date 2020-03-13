@@ -106,18 +106,7 @@ languageSelection: LanguageSelection)
     @footer_links(accessibilityFooterUrl = Some(controllers.routes.AccessibilityStatementController.onPageLoad(request.uri).url))
 }
 
-@phaseBanner = {
-    <div class="beta-banner">
-        <p>
-            <strong id="phase" class="phase-tag">BETA</strong>
-            <span>
-                @messages("feedback.before")
-                <a id="beta-banner-feedback" href="@{appConfig.feedbackUrl}">@messages("feedback.link")</a>
-                @messages("feedback.after")
-            </span>
-        </p>
-    </div>
-}
+@phaseBanner = {}
 
 @serviceInfoHtml = {
     @serviceInfo(
