@@ -5,11 +5,11 @@
 
 @(headingKey: String, subHeading: Option[String] = None, asLegend: Boolean = false)(implicit messages: Messages)
 
-@if(asLegend){<legend>}
-    <header class="page-heading">
-        <h1 class="heading-large">@messages(headingKey)</h1>
-        @subHeading.map { x =>
-            <span class="heading-secondary">@messages(x)</span>
-        }
-    </header>
-@if(asLegend){</legend>}
+<header class="page-heading">
+    @if(asLegend){<legend>}
+    <h1 class="heading-large">@messages(headingKey)</h1>
+    @subHeading.map { x =>
+        <span class="heading-secondary">@messages(x)</span>
+    }
+    @if(asLegend){</legend>}
+</header>

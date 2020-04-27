@@ -28,7 +28,7 @@ ul li {
 }
 
 .print-document .print-header .column-one-third {
-    border-left: #28A197 solid;
+    border-left: #00703C solid;
     padding-left: 8px;
 }
 
@@ -43,7 +43,7 @@ ul li {
     text-align: right;
     margin-top: 2em;
     font-size: 1.2em;
-    color: #28A197;
+    color: #00703C;
     font-weight: 600
 }
 
@@ -53,7 +53,7 @@ ul li {
 }
 
 .print-document__information-box {
-    border: 2px solid #28a197;
+    border: 2px solid #00703C;
     display: block;
     margin-bottom: 1em;
     padding: 5mm;
@@ -67,7 +67,7 @@ ul li {
 }
 
 .date-of-result, .decision-service-version {
-    border-bottom: 2px solid #28a197
+    border-bottom: 2px solid #00703C
 }
 
 .date-of-result h3 {
