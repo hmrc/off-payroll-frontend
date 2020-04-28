@@ -37,7 +37,7 @@ trait ResultViewFixture extends ViewBehaviours {
       val exit = "#exitLink"
       val startAgain = "#startAgainLink"
       val p = (i: Int) => Selectors.p(i, id)
-      val printHeading = "span[id=result]"
+      val printHeading = ".print-document__information-box span"
     }
 
     object AdditionalPDF {
@@ -75,7 +75,7 @@ trait ResultViewFixture extends ViewBehaviours {
     }
 
     object WhatYouToldUs {
-      val id = "#userAnswers"
+      val id = "#userAnswers-page-0"
       val h2 = Selectors.h2(id)
       val setupSection = s"#${Section.setup}-heading"
       val earlyExitSection = s"#${Section.earlyExit}-heading"

@@ -6,10 +6,10 @@
 @import viewmodels._
 @import config.FrontendAppConfig
 
-@(answerSections: Seq[Section])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(answerSections: Seq[Section], pageNumber: Int)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
 
-<div id="userAnswers">
+<div id="userAnswers-page-@pageNumber">
 
     <h2>@messages("result.pdf.whatYouToldUs")</h2>
 
