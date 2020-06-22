@@ -1,5 +1,5 @@
-common.standardErrorMessageContent = Rhowch gynnig arall arni mewn ychydig o eiliadau
-common.standardErrorMessageHeader = Mae’n ddrwg gennym, rydym yn wynebu problemau technegol
+common.standardErrorMessageContent = Rhowch gynnig arall arni yn nes ymlaen.
+common.standardErrorMessageHeader = Mae’n ddrwg gennym – mae problem gyda’r gwasanaeth
 common.standardPageNotFoundErrorMessageContent1= Gwnewch yn siŵr fod y cyfeiriad yn gywir
 common.standardPageNotFoundErrorMessageContent2= Os gwnaethoch deipio’r cyfeiriad gwe
 common.standardPageNotFoundErrorMessageContent3= Gwiriwch y cyfeiriad a gwnewch yn siŵr eich bod wedi’i deipio’n gywir.
