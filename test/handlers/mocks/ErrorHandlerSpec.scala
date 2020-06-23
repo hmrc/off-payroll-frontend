@@ -54,6 +54,17 @@ class ErrorHandlerSpec extends ControllerSpecBase {
         }
       }
 
+      "Error Status is 500" should {
+
+        "Render the Internal Server error" in {
+
+          val result = TestErrorHandler.onClientError(fakeRequest, Status.INTERNAL_SERVER_ERROR, "Internal server error")
+
+          status(result) mustBe Status.INTERNAL_SERVER_ERROR
+          assert(await(bodyOf(result)).contains(messages("common.standardErrorMessageHeader")))
+        }
+      }
+
       "Error Status is anything else" should {
 
         "Render the ISE error" in {
