@@ -17,8 +17,8 @@
   mainClass: Option[String] = None,
   scriptElem: Option[Html] = None,
   articleLayout: Boolean = true,
-  js: Option[String] = None,
-  css: Option[String] = None,
+  js: Seq[String] = Seq("show-hide-content.js", "offpayrollfrontend.js"),
+  css: Option[String] = Some("offpayrollfrontend-app"),
   showSignout: Boolean = true)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts

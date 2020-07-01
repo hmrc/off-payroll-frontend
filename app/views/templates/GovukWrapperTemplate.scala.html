@@ -40,7 +40,7 @@ languageSelection: LanguageSelection)
   mainBody: Html = Html(""),
   serviceInfoContent: Html = Html(""),
   scriptElem: Option[Html] = None,
-  js: Option[String] = None,
+  js: Seq[String] = Seq(),
   css: Option[String] = None,
   showSignout: Boolean = true)(implicit request: Request[_], messages: Messages)
 
@@ -49,7 +49,6 @@ languageSelection: LanguageSelection)
       linkElem = None,
       headScripts = None)
     <meta name="format-detection" content="telephone=no" />
-    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/offpayrollfrontend-app.css")' />
     @css.map { x =>
         <link rel="stylesheet" href='@routes.Assets.versioned(s"stylesheets/$x.css")' />
     }
@@ -97,7 +96,6 @@ languageSelection: LanguageSelection)
       ssoUrl = None,
       scriptElem = Some(scriptElement),
       gaCalls = None)
-      <script src='@routes.Assets.versioned("javascripts/offpayrollfrontend-app.min.js")'> </script>
       @js.map { x =>
         <script src='@routes.Assets.versioned(s"javascripts/$x")'> </script>
       }
