@@ -10,7 +10,7 @@ import connectors.mocks.MockAuditConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.ContractStartedFormProvider
-import models.{AuditJourneyStart, AuditResult, NormalMode}
+import models.{AuditJourneyStart, NormalMode}
 import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.ContractStartedPage

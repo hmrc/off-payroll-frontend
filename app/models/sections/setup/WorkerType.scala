@@ -5,9 +5,8 @@
 
 package models.sections.setup
 
-import models.{Enumerable, WithName}
+import models.WithName
 import play.api.libs.json._
-import viewmodels.{Radio, RadioOption}
 
 sealed trait WorkerType
 

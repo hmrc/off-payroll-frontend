@@ -14,7 +14,6 @@ import org.scalatest.OptionValues
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.JsString
 import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 

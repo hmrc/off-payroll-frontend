@@ -10,8 +10,6 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.WorkerUsingIntermediaryFormProvider
 import models._
-import models.requests.DataRequest
-import models.sections.setup.WorkerType
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.WorkerUsingIntermediaryPage
 import play.api.data.Form

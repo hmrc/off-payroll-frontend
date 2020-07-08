@@ -20,7 +20,6 @@ import models.sections.financialRisk.PutRightAtOwnCost.AsPartOfUsualRateInWorkin
 import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
 import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
 import models.sections.setup.WhoAreYou.Worker
-import models.sections.setup.WorkerType.SoleTrader
 import play.mvc.Http.Status
 
 import scala.concurrent.Future

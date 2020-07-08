@@ -16,14 +16,14 @@ class LogHttpParserSpec extends SpecBase {
 
   "Http parser" should {
     "parse success response" in {
-      LogHttpParser.LogReads.read("","", HttpResponse(NO_CONTENT)) mustBe Right(true)
+      LogHttpParser.LogReads.read("","", HttpResponse.apply(NO_CONTENT, "")) mustBe Right(true)
     }
 
     "handle errors" in {
-      LogHttpParser.LogReads.read("","", HttpResponse(BAD_REQUEST, None)) mustBe
+      LogHttpParser.LogReads.read("","", HttpResponse.apply(BAD_REQUEST, "")) mustBe
         Left(ErrorResponse(BAD_REQUEST,"Unexpected Response returned from log API"))
 
-      LogHttpParser.LogReads.read("","", HttpResponse(BAD_REQUEST, Some(Json.parse("""{"error":"bad request"}""")))) mustBe
+      LogHttpParser.LogReads.read("","", HttpResponse.apply(BAD_REQUEST, Json.parse("""{"error":"bad request"}""").toString())) mustBe
         Left(ErrorResponse(BAD_REQUEST,"Unexpected Response returned from log API"))
     }
   }
