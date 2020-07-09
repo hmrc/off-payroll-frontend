@@ -6,19 +6,9 @@
 package models
 
 import base.GuiceAppSpecBase
-import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
-import models.sections.financialRisk.{HowWorkerIsPaid, PutRightAtOwnCost}
-import models.sections.partAndParcel.IdentifyToStakeholders
-import models.sections.personalService.ArrangedSubstitute
 import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
 import models.sections.setup.{WhatDoYouWantToFindOut, WhoAreYou}
 import pages._
-import pages.sections.businessOnOwnAccount._
-import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
-import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
-import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.libs.json.Json.JsValueWrapper
 import play.api.libs.json.{Json, Writes}

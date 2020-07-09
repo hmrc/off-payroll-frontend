@@ -13,7 +13,7 @@ import controllers.routes
 import play.api.Environment
 import play.api.i18n.Lang
 import play.api.mvc.{Call, Request}
-import uk.gov.hmrc.play.binders.ContinueUrl
+import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 
 @Singleton
@@ -39,11 +39,12 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   lazy val whitelistExcludedPaths: Seq[Call] = whitelistConfig("whitelist.excludedPaths").map(path => Call("GET", path))
   lazy val shutterPage: String = servicesConfig.getString("whitelist.shutter-page-url")
 
-  private def requestPath(implicit request: Request[_]) = ContinueUrl(host + request.path).encodedUrl
+  private def requestPath(implicit request: Request[_]) = SafeRedirectUrl(host + request.path).encodedUrl
   def feedbackUrl(implicit request: Request[_]): String =
     s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier&backUrl=$requestPath"
   def reportAccessibilityIssueUrl(problemPageUri: String)(implicit request: Request[_]): String =
-    s"$contactHost/contact/accessibility-unauthenticated?service=${contactFormServiceIdentifier}&userAction=${ContinueUrl(host + problemPageUri).encodedUrl}"
+    s"$contactHost/contact/accessibility-unauthenticated?service=" +
+      s"${contactFormServiceIdentifier}&userAction=${SafeRedirectUrl(host + problemPageUri).encodedUrl}"
 
   lazy val loginUrl = servicesConfig.getString("urls.login")
   lazy val loginContinueUrl = servicesConfig.getString("urls.loginContinue")
