@@ -7,13 +7,13 @@ package models
 
 import pages._
 import pages.sections.setup._
-import play.api.Logger
+import play.api.Logging
 import play.api.libs.json.{Json, Reads, Writes}
 import utils.JsonObjectSugar
 
 case class AuditJourneyStart(userAnswers: UserAnswers)
 
-object AuditJourneyStart extends JsonObjectSugar {
+object AuditJourneyStart extends JsonObjectSugar with Logging {
 
   implicit val writes: Writes[AuditJourneyStart] = Writes { implicit model =>
     val json = jsonObjNoNulls(
@@ -26,7 +26,7 @@ object AuditJourneyStart extends JsonObjectSugar {
         answerFor(ContractStartedPage)
       )
     )
-    Logger.debug(s"[AuditJourneyStart][JsonWrites] Audit Detail Json: $json")
+    logger.debug(s"[AuditJourneyStart][JsonWrites] Audit Detail Json: $json")
     json
   }
 

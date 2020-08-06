@@ -45,7 +45,6 @@ lazy val microservice = Project(appName, file("."))
     fork                       in Test := true,
     Keys.fork                  in IntegrationTest :=  false,
     unmanagedSourceDirectories in IntegrationTest := (baseDirectory in IntegrationTest)(base => Seq(base / "it")).value,
-    addTestReportOption(IntegrationTest, "int-test-reports"),
     parallelExecution in IntegrationTest := false,
     // ***************
     // Use the silencer plugin to suppress warnings from unused imports in compiled twirl templates

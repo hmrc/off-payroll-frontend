@@ -16,7 +16,7 @@ trait IntFieldBehaviours extends FieldBehaviours {
 
     "not bind non-numeric numbers" in {
 
-      forAll(nonNumerics -> "nonNumeric") {
+      forAll(nonNumerics) {
         nonNumeric =>
           val result = form.bind(Map(fieldName -> nonNumeric)).apply(fieldName)
           result.errors mustBe Seq(nonNumericError)

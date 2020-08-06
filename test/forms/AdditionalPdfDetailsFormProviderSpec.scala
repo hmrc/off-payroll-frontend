@@ -23,7 +23,7 @@ class AdditionalPdfDetailsFormProviderSpec extends GuiceAppSpecBase with StringF
       "behave well" in {
 
         val result = form.bind(Map(fieldName -> "Testing this out")).apply(fieldName)
-        result.value.value mustBe "Testing this out"
+        result.value.get mustBe "Testing this out"
 
       }
 
@@ -60,7 +60,7 @@ class AdditionalPdfDetailsFormProviderSpec extends GuiceAppSpecBase with StringF
     "behave well" in {
 
       val result = form.bind(Map("reference" -> "Testing this out")).apply("reference")
-      result.value.value mustBe "Testing this out"
+      result.value.get mustBe "Testing this out"
     }
 
     "return a length error" in {

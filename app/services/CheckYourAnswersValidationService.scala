@@ -15,16 +15,16 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.setup._
-import play.api.Logger
+import play.api.Logging
 
-class CheckYourAnswersValidationService @Inject()(implicit val appConfig: FrontendAppConfig) extends CheckYourAnswersValidationServiceHelper {
+class CheckYourAnswersValidationService @Inject()(implicit val appConfig: FrontendAppConfig) extends CheckYourAnswersValidationServiceHelper with Logging {
 
   def isValid(implicit userAnswers: UserAnswers): Either[Set[QuestionPage[_]], Boolean] = {
     lazy val invalidPages = mandatoryPages.map(page =>
       (page, userAnswers.cacheMap.data.exists(_._1 == page.toString))
     ).collect {
       case (missingPage, false) => {
-        Logger.warn(s"[CheckYourAnswersValidationService][isValid] Missing Answers: $missingPage")
+        logger.warn(s"[CheckYourAnswersValidationService][isValid] Missing Answers: $missingPage")
         missingPage
       }
     }

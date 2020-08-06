@@ -8,6 +8,7 @@ package base
 import config.FrontendAppConfig
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
+import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.i18n.{Messages, MessagesApi}
@@ -16,10 +17,9 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesControllerComponents
 
 import scala.concurrent.ExecutionContext
-import scala.language.implicitConversions
 
 
-trait GuiceAppSpecBase extends SpecBase with GuiceOneAppPerSuite {
+trait GuiceAppSpecBase extends SpecBase with GuiceOneAppPerSuite with BeforeAndAfterEach {
 
   override lazy val app: Application = GuiceApplicationBuilder()
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])

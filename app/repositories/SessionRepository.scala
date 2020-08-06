@@ -8,7 +8,6 @@ package repositories
 import config.FrontendAppConfig
 import javax.inject.{Inject, Named, Singleton}
 import org.joda.time.{DateTime, DateTimeZone}
-import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.indexes.{Index, IndexType}
@@ -52,11 +51,11 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     collection.indexesManager.ensure(Index(Seq((field, IndexType.Ascending)), Some(indexName),
       options = BSONDocument(expireAfterSeconds -> ttl))) map {
       result => {
-        Logger.debug(s"set [$indexName] with value $ttl -> result : $result")
+        logger.debug(s"set [$indexName] with value $ttl -> result : $result")
         result
       }
     } recover {
-      case e => Logger.error("Failed to set TTL index", e)
+      case e => logger.error("Failed to set TTL index", e)
         false
     }
   }
@@ -69,14 +68,14 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     collection.update(ordered = false).one(selector, modifier, upsert = true, multi = false).map { lastError =>
       lastError.ok
     }.recoverWith {
-      case ex: Exception => Logger.error("[DecisionConnector][upsert]",ex)
+      case ex: Exception => logger.error("[DecisionConnector][upsert]",ex)
         throw ex
     }
   }
 
   def get(id: String): Future[Option[CacheMap]] =
     collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap].map(res => res).recoverWith {
-      case ex: Exception => Logger.error("[DecisionConnector][get]",ex)
+      case ex: Exception => logger.error("[DecisionConnector][get]",ex)
         Future.successful(None)
     }
   }

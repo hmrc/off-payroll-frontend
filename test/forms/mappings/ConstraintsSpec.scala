@@ -5,10 +5,11 @@
 
 package forms.mappings
 
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.data.validation.{Invalid, Valid}
 
-class ConstraintsSpec extends WordSpec with MustMatchers with Constraints {
+class ConstraintsSpec extends AnyWordSpec with Matchers with Constraints {
 
 
   "firstError" must {

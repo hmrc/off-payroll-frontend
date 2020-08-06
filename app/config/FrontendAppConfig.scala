@@ -14,10 +14,10 @@ import play.api.Environment
 import play.api.i18n.Lang
 import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
-import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig: ServicesConfig, runMode: RunMode) {
+class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig: ServicesConfig) {
 
   private lazy val contactHost = servicesConfig.getString("contact-frontend.host")
   private val contactFormServiceIdentifier = "off-payroll"

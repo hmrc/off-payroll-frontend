@@ -20,7 +20,7 @@ class OptionFieldBehaviours extends FieldBehaviours {
       for(value <- validValues) {
 
         val result = form.bind(Map(fieldName -> value.toString)).apply(fieldName)
-        result.value.value mustBe value.toString
+        result.value.get mustBe value.toString
       }
     }
 

@@ -13,14 +13,14 @@ import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import play.api.Logger
+import play.api.Logging
 import play.api.libs.json.{Json, Reads, Writes}
 import utils.JsonObjectSugar
 
 case class AuditResult(userAnswers: UserAnswers,
                        decisionResponse: DecisionResponse)
 
-object AuditResult extends JsonObjectSugar {
+object AuditResult extends JsonObjectSugar with Logging {
 
   implicit val writes: Writes[AuditResult] = Writes { implicit model =>
     val json = jsonObjNoNulls(
@@ -84,7 +84,7 @@ object AuditResult extends JsonObjectSugar {
         "decisionWithoutBusinessOnOwnAccount" -> model.decisionResponse.resultWithoutBooa
       )
     )
-    Logger.debug(s"[AuditModel][JsonWrites] Audit Detail Json: $json")
+    logger.debug(s"[AuditModel][JsonWrites] Audit Detail Json: $json")
     json
   }
 

@@ -5,9 +5,10 @@
 
 import assets.messages._
 import base.GuiceAppSpecBase
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.i18n.Messages
 
-class ErrorMessagesSpec extends GuiceAppSpecBase {
+class ErrorMessagesSpec extends AnyWordSpec with GuiceAppSpecBase {
 
   "Messages file" should {
 
