@@ -5,7 +5,6 @@
 
 package controllers
 
-import play.api.Play
 import play.api.http.Status
 import play.api.i18n.Lang
 import play.api.mvc.Cookie
@@ -42,8 +41,8 @@ class LanguageSwitchControllerSpec extends ControllerSpecBase {
       }
 
       "use the English language" in {
-        cookies(result).get(Play.langCookieName(messagesApi)) mustBe
-          Some(Cookie("PLAY_LANG", "en", None, "/", None, secure = false, httpOnly = false))
+        cookies(result).get(messagesApi.langCookieName) mustBe
+          Some(Cookie("PLAY_LANG", "en", None, "/", None, secure = false, httpOnly = false, Some(Cookie.SameSite.Lax)))
       }
     }
 
@@ -56,8 +55,8 @@ class LanguageSwitchControllerSpec extends ControllerSpecBase {
       }
 
       "use the Welsh language" in {
-        cookies(result).get(Play.langCookieName(messagesApi)) mustBe
-          Some(Cookie("PLAY_LANG", "cy", None, "/", None, secure = false, httpOnly = false))
+        cookies(result).get(messagesApi.langCookieName) mustBe
+          Some(Cookie("PLAY_LANG", "cy", None, "/", None, secure = false, httpOnly = false, Some(Cookie.SameSite.Lax)))
       }
     }
 
@@ -71,8 +70,8 @@ class LanguageSwitchControllerSpec extends ControllerSpecBase {
       }
 
       "keep the current language" in {
-        cookies(result).get(Play.langCookieName(messagesApi)) mustBe
-          Some(Cookie("PLAY_LANG", "en", None, "/", None, secure = false, httpOnly = false))
+        cookies(result).get(messagesApi.langCookieName) mustBe
+          Some(Cookie("PLAY_LANG", "en", None, "/", None, secure = false, httpOnly = false, Some(Cookie.SameSite.Lax)))
       }
     }
   }

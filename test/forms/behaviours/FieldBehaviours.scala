@@ -9,8 +9,8 @@ import config.featureSwitch.FeatureSwitching
 import forms.FormSpec
 import generators.Generators
 import org.scalacheck.Gen
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.data.{Form, FormError}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 trait FieldBehaviours extends FormSpec with ScalaCheckPropertyChecks with Generators with FeatureSwitching{
 
@@ -23,7 +23,7 @@ trait FieldBehaviours extends FormSpec with ScalaCheckPropertyChecks with Genera
       forAll(validDataGenerator -> "validDataItem") {
         dataItem: String =>
           val result = form.bind(Map(fieldName -> dataItem)).apply(fieldName)
-          result.value.value mustBe dataItem
+          result.value.get mustBe dataItem
       }
     }
   }

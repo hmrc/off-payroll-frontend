@@ -3,6 +3,8 @@ package helpers
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import org.jsoup.Jsoup
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest._
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
@@ -17,11 +19,9 @@ import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
 
-trait IntegrationSpecBase extends WordSpec
-  with GivenWhenThen with TestSuite with ScalaFutures with IntegrationPatience with Matchers
-  with WiremockHelper
-  with GuiceOneServerPerSuite
-  with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with Status with TestData with FeatureSwitching {
+trait IntegrationSpecBase extends AnyWordSpec with Matchers with TestSuite with ScalaFutures with IntegrationPatience
+  with GuiceOneServerPerSuite with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper
+  with Status with TestData with FeatureSwitching with WiremockHelper {
 
   def titleOf(response: WSResponse): String = Jsoup.parse(response.body).title
 

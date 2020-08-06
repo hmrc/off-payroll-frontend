@@ -10,8 +10,9 @@ import config.featureSwitch.FeatureSwitching
 import models.UserAnswers
 import models.requests.DataRequest
 import models.sections.setup.WhoAreYou.{Agency, Hirer, Worker}
-import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.play.PlaySpec
+import org.scalatest.TestSuite
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.i18n.{Lang, Messages}
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
@@ -21,8 +22,7 @@ import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, Future}
 import scala.language.implicitConversions
 
-
-trait SpecBase extends PlaySpec with BeforeAndAfterEach with MaterializerSupport with FeatureSwitching {
+trait SpecBase extends AnyWordSpec with TestSuite with MaterializerSupport with FeatureSwitching with Matchers {
 
   def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
     s"$heading - ${section.fold("")(_ + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"

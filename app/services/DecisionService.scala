@@ -19,7 +19,7 @@ import models.sections.setup.WhoAreYou.Agency
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup._
-import play.api.Logger
+import play.api.Logging
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.twirl.api.Html
@@ -51,7 +51,7 @@ class DecisionService @Inject()(decisionConnector: DecisionConnector,
                                 val outsideIR35: IR35OutsideView,
                                 val outsidePAYE: PAYEOutsideView,
                                 val auditConnector: AuditConnector,
-                                implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
+                                implicit val appConf: FrontendAppConfig) extends FeatureSwitching with Logging {
 
   lazy val defaultForm: Form[Boolean] = formProvider()
 
@@ -98,7 +98,7 @@ class DecisionService @Inject()(decisionConnector: DecisionConnector,
       case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
       case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
       case ResultEnum.UNKNOWN => Right(routeUndetermined)
-      case ResultEnum.NOT_MATCHED => Logger.error("[decisionService][determineResultView]: NOT MATCHED final decision")
+      case ResultEnum.NOT_MATCHED => logger.error("[decisionService][determineResultView]: NOT MATCHED final decision")
         Left(errorHandler.internalServerErrorTemplate)
     }
   }

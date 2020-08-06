@@ -8,11 +8,13 @@ package models
 import models.sections.partAndParcel.IdentifyToStakeholders
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
+class IdentifyToStakeholdersSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with OptionValues {
 
   "IdentifyToStakeholders" must {
 

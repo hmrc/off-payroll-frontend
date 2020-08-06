@@ -10,13 +10,13 @@ import models.UserAnswers
 import models.requests.DataRequest
 import navigation.QuestionDeletionLookup
 import pages._
-import play.api.Logger
+import play.api.Logging
 import play.api.libs.json.{Reads, Writes}
 
 import scala.annotation.tailrec
 import scala.concurrent.ExecutionContext
 
-class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLookup) {
+class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLookup) extends Logging {
 
   def constructAnswers[T](request: DataRequest[_], value: T,
                           page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],ec: ExecutionContext): UserAnswers = {
@@ -25,7 +25,7 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
       case _ => {
         val userAnswers = request.userAnswers.set(page,value)
         val pagesToRemove = questionDeletionLookup.getPagesToRemove(page)(userAnswers)
-        Logger.debug(s"[CompareAnswerService][constructAnswers] Questions to be removed: \n$pagesToRemove")
+        logger.debug(s"[CompareAnswerService][constructAnswers] Questions to be removed: \n$pagesToRemove")
         recursivelyClearQuestions(pagesToRemove, userAnswers)
       }
     }

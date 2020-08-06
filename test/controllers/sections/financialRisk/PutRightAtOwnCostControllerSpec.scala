@@ -18,7 +18,6 @@ import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.financialRisk.PutRightAtOwnCostView
 
@@ -71,8 +70,6 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to the next page when valid data is submitted" in {
-
-        implicit val hc = HeaderCarrier()
 
         val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, OutsideOfHoursNoCharge)
 
