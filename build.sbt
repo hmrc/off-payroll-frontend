@@ -8,7 +8,7 @@ val appName: String = "cest-frontend"
 lazy val appDependencies : Seq[ModuleID] = AppDependencies()
 lazy val plugins : Seq[Plugins] = Seq(play.sbt.PlayScala)
 lazy val playSettings : Seq[Setting[_]] = Seq.empty
-val silencerVersion = "1.7.0"
+val silencerVersion = "1.7.1"
 
 lazy val scoverageSettings = {
     import scoverage.ScoverageKeys
