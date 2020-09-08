@@ -25,7 +25,7 @@ import services._
 import utils.SessionUtils._
 import utils.SourceUtil
 import viewmodels.ResultPDF
-import views.html.{AddDetailsView, CustomisePDFView}
+import views.html.AddDetailsView
 
 import scala.concurrent.Future
 
@@ -37,7 +37,6 @@ class PDFController @Inject()(override val dataCacheConnector: DataCacheConnecto
                               requireUserType: UserTypeRequiredAction,
                               formProvider: AdditionalPdfDetailsFormProvider,
                               override val controllerComponents: MessagesControllerComponents,
-                              customisePdfView: CustomisePDFView,
                               view: AddDetailsView,
                               decisionService: DecisionService,
                               pdfService: PDFService,

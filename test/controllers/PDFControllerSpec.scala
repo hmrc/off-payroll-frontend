@@ -26,20 +26,20 @@ import views.html.{AddDetailsView, CustomisePDFView}
 
 class PDFControllerSpec extends ControllerSpecBase {
 
-  override def beforeEach = {
+  override def beforeEach: Unit = {
     super.beforeEach()
     enable(PrintPDF)
   }
 
 
   val optFormProvider = new AdditionalPdfDetailsFormProvider()
-  val optForm = optFormProvider()
+  val optForm: Form[AdditionalPdfDetails] = optFormProvider()
 
   val formProvider = new AdditionalPdfDetailsFormProvider()
-  val form = formProvider()
+  val form: Form[AdditionalPdfDetails] = formProvider()
 
-  val customisePdfView = injector.instanceOf[CustomisePDFView]
-  val addDetailsView = injector.instanceOf[AddDetailsView]
+  val customisePdfView: CustomisePDFView = injector.instanceOf[CustomisePDFView]
+  val addDetailsView: AddDetailsView = injector.instanceOf[AddDetailsView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction,
                  requireUserType: FakeUserTypeRequiredAction = FakeUserTypeRequiredSuccessAction) = new PDFController(
@@ -51,7 +51,6 @@ class PDFControllerSpec extends ControllerSpecBase {
     requireUserType = requireUserType,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    customisePdfView = customisePdfView,
     view = addDetailsView,
     decisionService = mockDecisionService,
     pdfService = mockPDFService,
@@ -74,7 +73,6 @@ class PDFControllerSpec extends ControllerSpecBase {
     requireUserType = requireUserType,
     formProvider = optFormProvider,
     controllerComponents = messagesControllerComponents,
-    customisePdfView = customisePdfView,
     view = addDetailsView,
     decisionService = mockDecisionService,
     pdfService = mockPDFService,
@@ -87,8 +85,8 @@ class PDFControllerSpec extends ControllerSpecBase {
     appConfig = frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = customisePdfView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
-  def optViewAsString(form: Form[_] = form) = addDetailsView(form, NormalMode)(fakeRequest, messages,frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form): String = customisePdfView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
+  def optViewAsString(form: Form[_] = form): String = addDetailsView(form, NormalMode)(fakeRequest, messages,frontendAppConfig).toString
 
   val testAnswer = "answer"
 
