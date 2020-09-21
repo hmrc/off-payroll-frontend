@@ -65,6 +65,10 @@ class MajorityOfWorkingTimeViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.multichoice(1)).text mustBe MajorityOfWorkingTimeMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe MajorityOfWorkingTimeMessages.no
       }
+
+      "have the correct href link" in {
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualESM11160Url
+      }
     }
 
     "the WhoAreYou is Hirer" must {
@@ -90,6 +94,10 @@ class MajorityOfWorkingTimeViewSpec extends YesNoViewBehaviours {
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe MajorityOfWorkingTimeMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe MajorityOfWorkingTimeMessages.no
+      }
+
+      "have the correct href link" in {
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualESM11160Url
       }
     }
   }
