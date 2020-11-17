@@ -31,7 +31,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(scalaSettings: _*)
   .settings(publishingSettings: _*)
   .settings(defaultSettings(): _*)
-  .settings(scalaVersion := "2.12.11")
+  .settings(scalaVersion := "2.12.12")
   .settings(scalacOptions += "-Ywarn-unused:-explicits,-implicits")
   .settings(playSettings ++ scoverageSettings: _*)
   .settings(
