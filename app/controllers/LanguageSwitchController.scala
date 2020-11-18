@@ -10,6 +10,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, WelshLanguage}
 import play.api.i18n.Lang
 import play.api.mvc._
+import utils.RefererUtil.asRelativeUrl
 
 class LanguageSwitchController @Inject()(override val controllerComponents: MessagesControllerComponents,
                                          implicit val appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
@@ -22,8 +23,9 @@ class LanguageSwitchController @Inject()(override val controllerComponents: Mess
     implicit request =>
       val enabled = isWelshEnabled
       val lang = if (enabled) languageMap.getOrElse(language, Lang("en")) else Lang("en")
-      val redirectURL = request.headers.get(REFERER).getOrElse(fallbackURL)
-
+      val redirectURL = request.headers.get(REFERER)
+      .flatMap(asRelativeUrl)
+      .getOrElse(fallbackURL)
 
       Redirect(redirectURL).withLang(Lang.apply(lang.code)).flashing(Flash(Map("switching-language" -> "true")))
   }
