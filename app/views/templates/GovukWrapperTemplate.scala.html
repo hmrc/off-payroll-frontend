@@ -1,10 +1,10 @@
 @*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  *@
 
 @import layouts.GovUkTemplate
-@import uk.gov.hmrc.play.views.html.layouts.Head
+@import uk.gov.hmrc.play.views.html.layouts.HeadWithTrackingConsent
 @import uk.gov.hmrc.play.views.html.layouts.HeaderNav
 @import uk.gov.hmrc.play.views.html.layouts.Footer
 @import uk.gov.hmrc.play.views.html.layouts.ServiceInfo
@@ -17,7 +17,7 @@
 @import views.html.LanguageSelection
 @import _root_.views.ViewUtils._
 
-@this(head: Head,
+@this(head: HeadWithTrackingConsent,
 headerNav: HeaderNav,
 footer: Footer,
 serviceInfo: ServiceInfo,
@@ -91,8 +91,8 @@ languageSelection: LanguageSelection)
 
 @bodyEnd = {
     @footer(
-      analyticsToken = Some(appConfig.analyticsToken),
-      analyticsHost = appConfig.analyticsHost,
+      analyticsToken = None,
+      analyticsHost = "",
       ssoUrl = None,
       scriptElem = Some(scriptElement),
       gaCalls = None)
