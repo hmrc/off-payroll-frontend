@@ -14,7 +14,7 @@ import uk.gov.hmrc.allowlist.AkamaiAllowlistFilter
 import scala.concurrent.Future
 
 @Singleton
-class AlllowlistFilter @Inject()(val appConfig: FrontendAppConfig, implicit val mat: Materializer) extends AkamaiAllowlistFilter {
+class AllowlistFilter @Inject()(val appConfig: FrontendAppConfig, implicit val mat: Materializer) extends AkamaiAllowlistFilter {
 
   override lazy val allowlist: Seq[String] = appConfig.allowlistedIps
   override lazy val destination: Call = Call("GET", appConfig.shutterPage)

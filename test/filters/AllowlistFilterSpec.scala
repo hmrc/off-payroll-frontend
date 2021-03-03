@@ -17,7 +17,7 @@ import play.api.{Application, Configuration}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class AlllowlistFilterSpec extends GuiceAppSpecBase {
+class AllowlistFilterSpec extends GuiceAppSpecBase {
 
   object TestAction extends ActionBuilder[Request, AnyContent] {
     override implicit protected def executionContext: ExecutionContext = messagesControllerComponents.executionContext
