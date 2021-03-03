@@ -17,7 +17,7 @@ import play.api.{Application, Configuration}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class WhitelistFilterSpec extends GuiceAppSpecBase {
+class AllowlistFilterSpec extends GuiceAppSpecBase {
 
   object TestAction extends ActionBuilder[Request, AnyContent] {
     override implicit protected def executionContext: ExecutionContext = messagesControllerComponents.executionContext
@@ -29,7 +29,7 @@ class WhitelistFilterSpec extends GuiceAppSpecBase {
     new GuiceApplicationBuilder()
       .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
       .configure(Configuration(
-        "whitelist.enabled" -> true
+        "allowlist.enabled" -> true
       ))
       .routes({
         case ("GET", "/hello-world") => TestAction(Ok("success"))
@@ -37,9 +37,9 @@ class WhitelistFilterSpec extends GuiceAppSpecBase {
       })
       .build()
 
-  "WhitelistFilter" when {
+  "AllowlistFilter" when {
 
-    "supplied with a non-whitelisted IP" should {
+    "supplied with a non-allowlisted IP" should {
 
       lazy val fakeRequest = FakeRequest("GET", "/hello-world").withHeaders(
         "True-Client-IP" -> "127.0.0.2"
@@ -58,7 +58,7 @@ class WhitelistFilterSpec extends GuiceAppSpecBase {
       }
     }
 
-    "supplied with a whitelisted IP" should {
+    "supplied with a allowlisted IP" should {
 
       lazy val fakeRequest = FakeRequest("GET", "/hello-world").withHeaders(
         "True-Client-IP" -> "127.0.0.1"

@@ -28,14 +28,14 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   private lazy val exitSurveyBaseUrl = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
   lazy val exitSurveyUrl = s"$exitSurveyBaseUrl/$contactFormServiceIdentifier"
 
-  private def whitelistConfig(key: String): Seq[String] =
+  private def allowlistConfig(key: String): Seq[String] =
     Some(new String(Base64.getDecoder.decode(servicesConfig.getString(key)), "UTF-8"))
       .map(_.split(",")).getOrElse(Array.empty).toSeq
 
-  lazy val whitelistEnabled: Boolean = servicesConfig.getBoolean("whitelist.enabled")
-  lazy val whitelistedIps: Seq[String] = whitelistConfig("whitelist.allowedIps")
-  lazy val whitelistExcludedPaths: Seq[Call] = whitelistConfig("whitelist.excludedPaths").map(path => Call("GET", path))
-  lazy val shutterPage: String = servicesConfig.getString("whitelist.shutter-page-url")
+  lazy val allowlistEnabled: Boolean = servicesConfig.getBoolean("allowlist.enabled")
+  lazy val allowlistedIps: Seq[String] = allowlistConfig("allowlist.allowedIps")
+  lazy val allowlistExcludedPaths: Seq[Call] = allowlistConfig("allowlist.excludedPaths").map(path => Call("GET", path))
+  lazy val shutterPage: String = servicesConfig.getString("allowlist.shutter-page-url")
 
   private def requestPath(implicit request: Request[_]) = SafeRedirectUrl(host + request.path).encodedUrl
   def feedbackUrl(implicit request: Request[_]): String =
