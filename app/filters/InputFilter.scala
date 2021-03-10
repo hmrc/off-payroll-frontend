@@ -26,9 +26,9 @@ trait InputFilter {
 
   def filter(input: String): String = {
     @tailrec
-    def applyFilters(filters: Seq[Pattern], sanitizedOuput: String): String = filters match {
-      case Nil => sanitizedOuput
-      case filter :: tail => applyFilters(tail, filter.matcher(sanitizedOuput).replaceAll(""))
+    def applyFilters(filters: Seq[Pattern], sanitizedOutput: String): String = filters match {
+      case Nil => sanitizedOutput
+      case filter :: tail => applyFilters(tail, filter.matcher(sanitizedOutput).replaceAll(""))
     }
     applyFilters(filters, input)
   }

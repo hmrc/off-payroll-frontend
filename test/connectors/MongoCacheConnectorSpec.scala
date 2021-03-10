@@ -18,10 +18,11 @@ import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class MongoCacheConnectorSpec extends SpecBase with ScalaCheckPropertyChecks with Generators with MockitoSugar with ScalaFutures with OptionValues {
 
-  val mockSessionRepository = mock[SessionRepository]
+  val mockSessionRepository: SessionRepository = mock[SessionRepository]
 
   ".save" must {
 
