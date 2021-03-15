@@ -6,9 +6,8 @@
 package repositories
 
 import config.FrontendAppConfig
-import javax.inject.{Inject, Named, Singleton}
 import org.joda.time.{DateTime, DateTimeZone}
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{Format, JsValue, Json, OFormat}
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson.{BSONDocument, BSONObjectID}
@@ -16,23 +15,25 @@ import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
 import uk.gov.hmrc.mongo.json.ReactiveMongoFormats
+import uk.gov.hmrc.play.http.logging.Mdc
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import javax.inject.{Inject, Named, Singleton}
+import scala.concurrent.{ExecutionContext, Future}
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
                          lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
 
 object DatedCacheMap {
-  implicit val dateFormat = ReactiveMongoFormats.dateTimeFormats
-  implicit val formats = Json.format[DatedCacheMap]
+  implicit val dateFormat: Format[DateTime] = ReactiveMongoFormats.dateTimeFormats
+  implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
 @Singleton
 class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appConfig: FrontendAppConfig, @Named("appName") appName: String)
+                                 (implicit ec: ExecutionContext)
   extends ReactiveRepository[DatedCacheMap, BSONObjectID](
     collectionName = appName,
     mongo = mongoComponent.mongoConnector.db,
@@ -65,17 +66,21 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     val cmDocument = Json.toJson(DatedCacheMap(cm))
     val modifier = BSONDocument("$set" -> cmDocument)
 
-    collection.update(ordered = false).one(selector, modifier, upsert = true, multi = false).map { lastError =>
-      lastError.ok
-    }.recoverWith {
-      case ex: Exception => logger.error("[DecisionConnector][upsert]",ex)
-        throw ex
-    }
+    Mdc.preservingMdc(collection.update(ordered = false).one(selector, modifier, upsert = true, multi = false))
+      .map { lastError =>
+        lastError.ok
+      }
+      .recoverWith {
+        case ex: Exception => logger.error("[DecisionConnector][upsert]", ex)
+          throw ex
+      }
   }
 
   def get(id: String): Future[Option[CacheMap]] =
-    collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap].map(res => res).recoverWith {
-      case ex: Exception => logger.error("[DecisionConnector][get]",ex)
-        Future.successful(None)
-    }
-  }
+    Mdc.preservingMdc(collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap])
+      .map(res => res)
+      .recoverWith {
+        case ex: Exception => logger.error("[DecisionConnector][get]", ex)
+          Future.successful(None)
+      }
+}

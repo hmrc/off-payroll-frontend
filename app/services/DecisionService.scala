@@ -10,6 +10,7 @@ import config.featureSwitch.FeatureSwitching
 import connectors.DecisionConnector
 import forms.DownloadPDFCopyFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.{Inject, Singleton}
 import models._
 import models.requests.DataRequest
@@ -31,8 +32,7 @@ import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHold
 import views.html.results.outside._
 import views.html.results.undetermined._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class DecisionService @Inject()(decisionConnector: DecisionConnector,
@@ -51,7 +51,8 @@ class DecisionService @Inject()(decisionConnector: DecisionConnector,
                                 val outsideIR35: IR35OutsideView,
                                 val outsidePAYE: PAYEOutsideView,
                                 val auditConnector: AuditConnector,
-                                implicit val appConf: FrontendAppConfig) extends FeatureSwitching with Logging {
+                                implicit val appConf: FrontendAppConfig)
+                               (implicit ec: ExecutionContext) extends FeatureSwitching with Logging {
 
   lazy val defaultForm: Form[Boolean] = formProvider()
 
