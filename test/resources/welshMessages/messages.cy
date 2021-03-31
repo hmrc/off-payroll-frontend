@@ -62,11 +62,9 @@ site.service_name.camel = Gwirio Statws Cyflogaeth ar Gyfer Treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
-site.ir35email = gwasanaeth.cymraeg@hmrc.gov.uk
 site.employmentStatusManual = Canllaw Statws Cyflogaeth
 site.telephone = Ffôn:
 site.telephone.number = 0300 200 1900
-site.email = E-bost:
 site.opensInNewWindow = (yn agor mewn ffenestr newydd)
 site.opensInNewWindowOrTab = (yn agor ffenestr neu dab newydd)
 

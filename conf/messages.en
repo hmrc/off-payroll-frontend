@@ -62,13 +62,11 @@ site.service_name.camel = Check Employment Status for Tax
 site.home = Home
 site.govuk = GOV.UK
 site.hmrc = HM Revenue & Customs
-site.ir35email = ir35@hmrc.gov.uk
 site.employmentStatusManual = Employment Status Manual
 site.accordion.openAll = Open all
 site.accordion.closeAll = Close all
 site.telephone = Telephone:
 site.telephone.number = 0300 123 2326
-site.email = Email:
 site.opensInNewWindow = (opens in a new window)
 site.opensInNewWindowOrTab = (opens in a new window or tab)
 

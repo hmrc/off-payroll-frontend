@@ -18,7 +18,7 @@ object OutDecisionMessages extends BaseResultMessages {
     val makeDoNextP1 = "Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting Income Tax and National Insurance contributions."
     val checkDoNextP1 = "If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct."
     val checkDoNextP2 = "If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline."
-    val checkDoNextP3 = s"$telephone $telephoneNumber $email $emailAddress"
+    val checkDoNextP3 = s"$telephone $telephoneNumber"
     val checkDoNextP4 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
     val whyResultReason1 = "Your answers told us your client has accepted, or would accept, a substitute."
     val whyResultReason2 = "Your answers told us your client does not have control over this work."

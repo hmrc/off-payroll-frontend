@@ -8,7 +8,7 @@ package assets.messages.results
 object UndeterminedDecisionMessages extends BaseResultMessages {
 
   object Site {
-    val contactDetails = "Telephone: 0300 123 2326 Email: ir35@hmrc.gov.uk"
+    val contactDetails = "Telephone: 0300 123 2326"
   }
 
   object WorkerIR35 {
