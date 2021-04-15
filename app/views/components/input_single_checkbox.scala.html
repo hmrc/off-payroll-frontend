@@ -10,7 +10,6 @@
   legend: String,
   legendClass: Option[String] = None,
   hint: Option[String] = None,
-  trackGa: Boolean = false
 )(implicit messages: Messages)
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
@@ -31,8 +30,7 @@
                    type="checkbox"
                    name="@{field.id}"
                    value="true"
-                   @if(field.value.contains("true")){checked="checked"}
-                   @if(trackGa){data-journey-click="check-employment-status-for-tax:click:@{field.id}"}><label for="@{field.id}">
+                   @if(field.value.contains("true")){checked="checked"}><label for="@{field.id}">
                 @label
             </label>
         </div>

@@ -15,7 +15,6 @@
         otherContent: Option[Html] = None,
         legendClass: Option[String] = None,
         hint: Option[Html] = None,
-        trackGa: Boolean = false,
         inputs: Seq[RadioOption]
 )(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
@@ -37,7 +36,7 @@
         <div id="multiple-choice-options">
         @for(input <- inputs) {
             <div class="multiple-choice">
-                <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} @if(trackGa){data-journey-click="check-employment-status-for-tax:click:@{input.id}"} />
+                <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} />
 
                 <label class="block-label selection-button-radio" for="@{input.id}">
                     @if(input.hasTailoredMsgs) {

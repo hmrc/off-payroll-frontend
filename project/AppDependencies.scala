@@ -7,11 +7,11 @@ object AppDependencies {
 
   val compile = Seq(
     play.sbt.PlayImport.ws,
-    "uk.gov.hmrc" %% "simple-reactivemongo" % "7.31.0-play-27",
-    "uk.gov.hmrc" %% "logback-json-logger" % "4.9.0",
-    "uk.gov.hmrc" %% "govuk-template" % "5.63.0-play-27",
+    "uk.gov.hmrc" %% "simple-reactivemongo" % "8.0.0-play-27",
+    "uk.gov.hmrc" %% "logback-json-logger" % "5.1.0",
+    "uk.gov.hmrc" %% "govuk-template" % "5.65.0-play-27",
     "uk.gov.hmrc" %% "play-health" % "3.16.0-play-27",
-    "uk.gov.hmrc" %% "play-ui" % "8.21.0-play-27",
+    "uk.gov.hmrc" %% "play-ui" % "9.1.0-play-27",
     "uk.gov.hmrc" %% "http-caching-client" % "9.2.0-play-27",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "1.6.0-play-26",
     "uk.gov.hmrc" %% "bootstrap-frontend-play-27" % "3.4.0",
@@ -20,8 +20,8 @@ object AppDependencies {
   )
 
   val test = Seq(
-    "uk.gov.hmrc" %% "service-integration-test" % "0.13.0-play-27",
-    "uk.gov.hmrc" %% "reactivemongo-test" % "4.22.0-play-27",
+    "uk.gov.hmrc" %% "service-integration-test" % "1.1.0-play-27",
+    "uk.gov.hmrc" %% "reactivemongo-test" % "5.0.0-play-27",
     "org.scalatest" %% "scalatest" % "3.3.0-SNAP3",
     "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3",
     "org.scalatestplus" %% "scalatestplus-mockito" % "1.0.0-SNAP5",

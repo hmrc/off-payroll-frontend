@@ -12,7 +12,6 @@
   legend: String,
   legendClass: Option[String] = None,
   hint: Option[String] = None,
-  trackGa: Boolean = false,
   inputs: Seq[RadioOption]
 )(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
@@ -36,8 +35,7 @@
                        type="@{input.optionType}"
                        name=@{s"${field.id}[]"}
                        value="@{input.value}"
-                       @if(form.data.exists(_._2 == input.value)){checked="checked"}
-                       @if(trackGa){data-journey-click="check-employment-status-for-tax:click:@{input.id}"}>
+                       @if(form.data.exists(_._2 == input.value)){checked="checked"}>
                 <label for="@{input.id}">
                     @if(input.hasTailoredMsgs) {
                         @messages(tailorMsg(input.messageKey))
