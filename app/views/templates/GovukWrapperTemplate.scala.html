@@ -16,6 +16,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.ReportAProblemLink
 @import views.html.LanguageSelection
 @import _root_.views.ViewUtils._
+@import uk.gov.hmrc.webchat.client.WebChatClient
 
 @this(head: HeadWithTrackingConsent,
 headerNav: HeaderNav,
@@ -28,7 +29,8 @@ article: Article,
 reportAProblemLink: ReportAProblemLink,
 footer_links: FooterLinks,
 hmrcGovUkTemplate: GovUkTemplate,
-languageSelection: LanguageSelection)
+languageSelection: LanguageSelection,
+webChatClient: WebChatClient)
 
 @(appConfig: config.FrontendAppConfig,
   title: String,
@@ -87,6 +89,9 @@ languageSelection: LanguageSelection)
             }
         </script>
     @scriptElem.map(x => x)
+
+    @{webChatClient.loadRequiredElements()}
+    @{webChatClient.loadWebChatContainer("HMRC_Anchored_1")}
 }
 
 @bodyEnd = {
