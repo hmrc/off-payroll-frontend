@@ -39,7 +39,8 @@ trait BaseNavigationController extends BaseController {
     val boOAWarning = request.userAnswers.get(BusinessOnOwnAccountSectionChangeWarningPage).isDefined
 
     //Remove the Personal Service warning page viewed flag from the request
-    val req = DataRequest(request.request, request.internalId ,request.userAnswers.remove(PersonalServiceSectionChangeWarningPage).remove(BusinessOnOwnAccountSectionChangeWarningPage))
+    val req = DataRequest(request.request, request.internalId,
+    request.userAnswers.remove(PersonalServiceSectionChangeWarningPage).remove(BusinessOnOwnAccountSectionChangeWarningPage))
 
     val answers = compareAnswerService.constructAnswers(req, value, page)
 

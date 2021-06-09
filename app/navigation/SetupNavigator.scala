@@ -29,7 +29,8 @@ class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Na
     AboutYourResultPage -> (_ => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)),
     WhatDoYouWantToFindOutPage -> (_ => setupRoutes.WhoAreYouController.onPageLoad(NormalMode)),
     WhoAreYouPage -> (answers => (answers.get(WhatDoYouWantToFindOutPage), answers.get(WhoAreYouPage)) match {
-      case (Some(WhatDoYouWantToFindOut.PAYE),_) | (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Hirer)) => setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
+      case (Some(WhatDoYouWantToFindOut.PAYE),_) | (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Hirer)) =>
+        setupRoutes.WorkerUsingIntermediaryController.onPageLoad(NormalMode)
       case (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Worker)) => setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
       case (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Agency)) => setupRoutes.AgencyAdvisoryController.onPageLoad()
       case (None,_) => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)

@@ -146,7 +146,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     yesNoRowTailored(MultipleContractsPage, controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MultipleContractsPage))
 
   def permissionToWorkWithOthers(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailored(PermissionToWorkWithOthersPage, controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PermissionToWorkWithOthersPage))
+    yesNoRowTailored(PermissionToWorkWithOthersPage,
+    controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PermissionToWorkWithOthersPage))
 
   def ownershipRights(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     yesNoRowTailored(OwnershipRightsPage, controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(OwnershipRightsPage))
