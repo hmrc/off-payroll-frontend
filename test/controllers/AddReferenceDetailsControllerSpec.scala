@@ -64,8 +64,8 @@ class AddReferenceDetailsControllerSpec extends ControllerSpecBase {
     "redirect to the something went wrong page when no user type is given" in {
 
       val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad()(fakeRequest)
-      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
-.url)
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong.url)
+
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -98,8 +98,8 @@ class AddReferenceDetailsControllerSpec extends ControllerSpecBase {
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
-.url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad.url)
+
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
@@ -108,8 +108,8 @@ class AddReferenceDetailsControllerSpec extends ControllerSpecBase {
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
-.url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad.url)
+
     }
   }
 }

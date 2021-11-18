@@ -57,8 +57,8 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
       }
 
       "have the correct start again link" in {
-        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer
-.url
+        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer.url
+
       }
     }
 
@@ -84,8 +84,8 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
       }
 
       "have the correct start again link" in {
-        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer
-.url
+        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer.url
+
       }
     }
   }

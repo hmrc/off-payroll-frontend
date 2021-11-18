@@ -47,15 +47,15 @@ class AboutYourResultControllerSpec extends ControllerSpecBase {
     "redirect to Index Controller for a GET if no existing data is found" in {
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(fakeRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
-.url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad.url)
+
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
-.url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad.url)
+
     }
   }
 }

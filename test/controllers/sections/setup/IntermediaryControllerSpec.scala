@@ -45,8 +45,8 @@ class IntermediaryControllerSpec extends ControllerSpecBase {
 
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(fakeRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
-.url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad.url)
+
     }
 
 
@@ -54,8 +54,8 @@ class IntermediaryControllerSpec extends ControllerSpecBase {
     "redirect to the something went wrong page when no user type is given" in {
 
       val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad()(fakeRequest)
-      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
-.url)
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong.url)
+
     }
   }
 }

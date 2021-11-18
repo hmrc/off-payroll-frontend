@@ -64,8 +64,8 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
           val result = testPrintPreviewController().onPageLoad()(request)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
-.url)
+          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong.url)
+
         }
       }
 
@@ -73,8 +73,8 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
 
         val result = testPrintPreviewController(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad()(fakeRequest)
 
-        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
-.url)
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong.url)
+
       }
     }
 
@@ -85,8 +85,8 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
         val result = testPrintPreviewController().onPageLoad()(fakeRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
-.url)
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong.url)
+
       }
     }
   }

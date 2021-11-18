@@ -60,8 +60,8 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
 
         val result = controller().onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
-.url)
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong.url)
+
       }
     }
 
@@ -69,8 +69,8 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
 
       val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad()(fakeRequest)
 
-      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
-.url)
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong.url)
+
     }
 
 

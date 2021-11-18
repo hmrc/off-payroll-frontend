@@ -220,8 +220,8 @@ trait ResultViewFixture extends ViewBehaviours {
       "have the start again link" in {
         val element = document.select(Selectors.PrintAndSave.startAgain)
         element.text mustBe PrintAndSaveMessages.startAgainLink
-        element.attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer
-.url
+        element.attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer.url
+
         element.attr("aria-label") mustBe PrintAndSaveMessages.startAgainLinkAria
       }
 
