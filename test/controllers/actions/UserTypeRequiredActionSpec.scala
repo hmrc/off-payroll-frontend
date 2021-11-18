@@ -30,7 +30,8 @@ class UserTypeRequiredActionSpec extends GuiceAppSpecBase with MockDataCacheConn
       "return a Left redirect to the the something went wrong page" in {
 
         val futureResult = Harness.callRefine(fakeDataRequest)
-        val expectedResult = Left(Redirect(controllers.routes.StartAgainController.somethingWentWrong()))
+        val expectedResult = Left(Redirect(controllers.routes.StartAgainController.somethingWentWrong
+))
 
         whenReady(futureResult) { actualResult =>
           actualResult mustBe expectedResult

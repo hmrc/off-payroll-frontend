@@ -37,7 +37,7 @@ class CheckYourAnswersController @Inject()(override val navigator: CYANavigator,
     implicit request =>
       checkYourAnswersValidationService.isValid(request.userAnswers) match {
         case Right(_) => Ok(view(checkYourAnswersService.sections, sectionToExpand))
-        case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
+        case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
       }
   }
 

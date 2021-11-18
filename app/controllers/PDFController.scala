@@ -77,7 +77,7 @@ class PDFController @Inject()(override val dataCacheConnector: DataCacheConnecto
 
     decisionResponse match {
       case Some(decision) => printResult(decision, pdfDetails, timestamp)
-      case _ => Future.successful(Redirect(controllers.routes.StartAgainController.somethingWentWrong()))
+      case _ => Future.successful(Redirect(controllers.routes.StartAgainController.somethingWentWrong))
     }
   }
   private def printResult(decision: DecisionResponse, additionalPdfDetails: AdditionalPdfDetails, timestamp: String)
@@ -91,7 +91,7 @@ class PDFController @Inject()(override val dataCacheConnector: DataCacheConnecto
       timestamp = Some(timestamp)
     ) match {
       case Right(html) => generatePdf(html, additionalPdfDetails.fileName)
-      case Left(_) => Future.successful(Redirect(controllers.routes.StartAgainController.somethingWentWrong()))
+      case Left(_) => Future.successful(Redirect(controllers.routes.StartAgainController.somethingWentWrong))
     }
   }
 

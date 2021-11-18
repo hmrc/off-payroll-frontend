@@ -3,12 +3,18 @@
  *
  */
 
-package base
+// /*
+//  * Copyright 2021 HM Revenue & Customs
+//  *
+//  */
 
-import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
+// package base
 
-trait MaterializerSupport {
-  implicit val system = ActorSystem("Sys")
-  implicit val materializer = ActorMaterializer()
-}
+// import akka.actor.ActorSystem
+// import akka.stream.Materializer
+// import play.api.test.Injecting
+
+// trait MaterializerSupport extends Injecting {
+//   implicit val system = ActorSystem("Sys")
+//   implicit val materializer: Materializer    = inject[Materializer]
+// }

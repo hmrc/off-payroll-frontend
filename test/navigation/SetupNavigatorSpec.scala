@@ -30,7 +30,8 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
       "go from the IndexPage to the AboutYourResultPage" in {
 
 
-        nextPage(IndexPage) mustBe setupRoutes.AboutYourResultController.onPageLoad()
+        nextPage(IndexPage) mustBe setupRoutes.AboutYourResultController.onPageLoad
+
       }
 
 

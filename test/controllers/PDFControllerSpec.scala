@@ -169,7 +169,8 @@ class PDFControllerSpec extends ControllerSpecBase {
       val result = controller(getRelevantData).downloadPDF()(request)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
+.url)
     }
 
     "download the pdf when no data is entered" in {
@@ -211,7 +212,8 @@ class PDFControllerSpec extends ControllerSpecBase {
       val result = controller(getRelevantData, FakeUserTypeRequiredFailureAction).downloadPDF()(request)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
+.url)
     }
 
     "If the OptimisedFlow is enabled" should {
@@ -281,7 +283,8 @@ class PDFControllerSpec extends ControllerSpecBase {
         val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
+.url)
       }
 
       "show the PDF view when the feature is disabled" in {
@@ -322,7 +325,8 @@ class PDFControllerSpec extends ControllerSpecBase {
         val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
+.url)
       }
 
       "redirect to Index Controller for a POST if no existing data is found" in {
@@ -331,7 +335,8 @@ class PDFControllerSpec extends ControllerSpecBase {
         val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
+.url)
       }
     }
   }

@@ -49,9 +49,9 @@ class PrintPreviewController @Inject()(identify: IdentifierAction,
 
         match {
           case Right(result) => Ok(result)
-          case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
+          case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
         }
-      case _ => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
+      case _ => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
     }
   }
 }

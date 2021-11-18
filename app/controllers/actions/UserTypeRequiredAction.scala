@@ -19,7 +19,7 @@ class UserTypeRequiredActionImpl @Inject()(val controllerComponents: MessagesCon
   override protected def refine[A](request: DataRequest[A]): Future[Either[Result, DataRequest[A]]] = {
     Future.successful(
       request.userType match {
-        case None => Left(Redirect(controllers.routes.StartAgainController.somethingWentWrong()))
+        case None => Left(Redirect(controllers.routes.StartAgainController.somethingWentWrong))
         case Some(_) => Right(request)
       }
     )

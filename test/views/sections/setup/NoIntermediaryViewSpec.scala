@@ -24,9 +24,11 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[NoIntermediaryView]
 
-  def createView = () => view(controllers.routes.StartAgainController.redirectToDisclaimer())(workerFakeRequest, messages, frontendAppConfig)
+  def createView = () => view(controllers.routes.StartAgainController.redirectToDisclaimer
+)(workerFakeRequest, messages, frontendAppConfig)
   def createViewWithRequest =
-    (req: Request[_]) => view(controllers.routes.StartAgainController.redirectToDisclaimer())(req, messages, frontendAppConfig)
+    (req: Request[_]) => view(controllers.routes.StartAgainController.redirectToDisclaimer
+)(req, messages, frontendAppConfig)
 
   "no intermediary view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
@@ -55,7 +57,8 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
       }
 
       "have the correct start again link" in {
-        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
+        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer
+.url
       }
     }
 
@@ -81,7 +84,8 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
       }
 
       "have the correct start again link" in {
-        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
+        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer
+.url
       }
     }
   }

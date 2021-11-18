@@ -213,14 +213,15 @@ trait ResultViewFixture extends ViewBehaviours {
       "have the exit link" in {
         val element = document.select(Selectors.PrintAndSave.exit)
         element.text mustBe PrintAndSaveMessages.exitLink
-        element.attr("href") mustBe controllers.routes.ExitSurveyController.redirectToExitSurvey().url
+        element.attr("href") mustBe controllers.routes.ExitSurveyController.redirectToExitSurvey.url
         element.attr("aria-label") mustBe PrintAndSaveMessages.exitLinkAria
       }
 
       "have the start again link" in {
         val element = document.select(Selectors.PrintAndSave.startAgain)
         element.text mustBe PrintAndSaveMessages.startAgainLink
-        element.attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
+        element.attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer
+.url
         element.attr("aria-label") mustBe PrintAndSaveMessages.startAgainLinkAria
       }
 

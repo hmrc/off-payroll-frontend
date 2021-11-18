@@ -103,7 +103,8 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
           val result = controller().onPageLoad(dataRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
+.url)
         }
       }
 
@@ -124,7 +125,8 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
           val result = controller().onPageLoad(dataRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
+.url)
         }
       }
 
@@ -138,7 +140,8 @@ class ResultControllerSpec extends ControllerSpecBase with MockDecisionService w
           val result = controller(FakeUserTypeRequiredFailureAction).onPageLoad(dataRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
+.url)
         }
       }
 

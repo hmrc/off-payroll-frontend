@@ -29,6 +29,6 @@ class IntermediaryController @Inject()(override val navigator: SetupNavigator,
   extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData andThen requireUserType) { implicit request =>
-    Ok(view(controllers.routes.StartAgainController.redirectToDisclaimer()))
+    Ok(view(controllers.routes.StartAgainController.redirectToDisclaimer))
   }
 }

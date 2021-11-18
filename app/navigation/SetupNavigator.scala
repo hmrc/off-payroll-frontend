@@ -23,7 +23,7 @@ class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Na
 
   private val setupRouteMap: Map[Page, UserAnswers => Call] = Map(
     //Initialisation Section
-    IndexPage -> (_ => setupRoutes.AboutYourResultController.onPageLoad()),
+    IndexPage -> (_ => setupRoutes.AboutYourResultController.onPageLoad),
 
     //Setup Section
     AboutYourResultPage -> (_ => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)),
@@ -54,6 +54,6 @@ class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Na
   )
 
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call = {
-    setupRouteMap.getOrElse(page, _ => IndexController.onPageLoad())
+    setupRouteMap.getOrElse(page, _ => IndexController.onPageLoad)
   }
 }

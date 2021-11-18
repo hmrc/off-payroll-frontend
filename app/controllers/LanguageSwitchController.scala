@@ -15,7 +15,7 @@ import utils.RefererUtil.asRelativeUrl
 class LanguageSwitchController @Inject()(override val controllerComponents: MessagesControllerComponents,
                                          implicit val appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
-  private def fallbackURL: String = routes.IndexController.onPageLoad().url
+  private def fallbackURL: String = routes.IndexController.onPageLoad.url
 
   private def languageMap: Map[String, Lang] = appConfig.languageMap
 

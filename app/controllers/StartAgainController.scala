@@ -23,7 +23,7 @@ class StartAgainController @Inject()(identify: IdentifierAction,
   }
 
   def redirectToDisclaimer: Action[AnyContent] = identify { implicit request =>
-    Redirect(routes.IndexController.onPageLoad()).withNewSession
+    Redirect(routes.IndexController.onPageLoad).withNewSession
   }
 
   def somethingWentWrong: Action[AnyContent] = identify { implicit request =>

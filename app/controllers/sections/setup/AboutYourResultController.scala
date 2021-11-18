@@ -31,7 +31,7 @@ class AboutYourResultController @Inject()(override val navigator: SetupNavigator
   extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(routes.AboutYourResultController.onSubmit()))
+    Ok(view(routes.AboutYourResultController.onSubmit))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

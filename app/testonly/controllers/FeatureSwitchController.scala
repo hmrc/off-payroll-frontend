@@ -28,7 +28,7 @@ class FeatureSwitchController @Inject()(override val controllerComponents: Messa
   def show: Action[AnyContent] = Action { implicit req =>
     val bfs: Map[BooleanFeatureSwitch, Boolean] = ListMap(booleanFeatureSwitches map (switch => switch -> isEnabled(switch)):_*)
     val cfs: Map[CustomValueFeatureSwitch, Set[String]] = ListMap(customValueFeatureSwitch map (switch => switch -> switch.values):_*)
-    Ok(view(bfs, cfs, FeatureSwitchController.submit()))
+    Ok(view(bfs, cfs, FeatureSwitchController.submit))
   }
 
   def submit: Action[AnyContent] = Action { implicit req =>
@@ -52,6 +52,6 @@ class FeatureSwitchController @Inject()(override val controllerComponents: Messa
     booleanFeatureSwitches.foreach(fs => if (bfs.exists(_._1 == fs)) enable(fs) else disable(fs))
     cfs.foreach(fs => setValue(fs._1, fs._2))
 
-    Redirect(FeatureSwitchController.show())
+    Redirect(FeatureSwitchController.show)
   }
 }

@@ -7,7 +7,7 @@ package connectors
 
 import base.SpecBase
 import generators.Generators
-import org.mockito.Matchers.{eq => eqTo, _}
+import org.mockito.ArgumentMatchers.{eq => eqTo, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.OptionValues

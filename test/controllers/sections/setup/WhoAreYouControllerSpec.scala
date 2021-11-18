@@ -11,6 +11,7 @@ import forms.sections.setup.WhoAreYouFormProvider
 import models._
 import models.requests.DataRequest
 import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.sections.setup.WhoAreYou
 import models.sections.setup.WhoAreYou.{Worker, _}
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
@@ -49,7 +50,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       showAgency
     )(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(WhoAreYouPage.toString -> Json.toJson(Worker))
+  val validData = Map(WhoAreYouPage.toString -> Json.toJson[WhoAreYou](Worker))
 
   "WhoAreYou Controller" must {
 
@@ -121,7 +122,8 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
+.url)
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
@@ -130,7 +132,8 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
+.url)
     }
   }
 }

@@ -43,9 +43,9 @@ class ResultController @Inject()(identify: IdentifierAction,
         case Right(decision) =>
           decisionService.determineResultView(decision) match {
             case Right(result) => Ok(result).addingToSession(SessionKeys.decisionResponse -> decision)
-            case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
+            case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
           }
-        case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
+        case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
       }
     }
   }

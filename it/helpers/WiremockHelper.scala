@@ -1,13 +1,13 @@
 package helpers
 
 import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import org.scalatestplus.play.BaseOneServerPerSuite
+import play.api.test.Injecting
 
 object WiremockHelper {
   val wiremockPort = 11111
@@ -15,7 +15,7 @@ object WiremockHelper {
   val wiremockURL = s"http://$wiremockHost:$wiremockPort"
 }
 
-trait WiremockHelper {
+trait WiremockHelper extends Injecting {
   self: BaseOneServerPerSuite =>
 
   import WiremockHelper._
@@ -23,7 +23,7 @@ trait WiremockHelper {
   val wireMockServer = new WireMockServer(wmConfig)
 
   implicit val system = ActorSystem("my-system")
-  implicit val materializer = ActorMaterializer()
+  //implicit val materializer = ActorMaterializer()
 
   def startWiremock(): Unit = {
     WireMock.configureFor(wiremockHost, wiremockPort)

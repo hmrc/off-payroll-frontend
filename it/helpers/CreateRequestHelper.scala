@@ -10,6 +10,7 @@ import play.api.mvc.Cookie
 
 import scala.concurrent.Future
 import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
+import models.sections.setup.WhoAreYou
 import models.sections.setup.WhoAreYou.Worker
 
 trait CreateRequestHelper extends ServerProvider {
@@ -34,7 +35,7 @@ trait CreateRequestHelper extends ServerProvider {
 
   def buildSessionRequest(path: String, followRedirect: Boolean = false): WSRequest = {
     ws.url(s"http://localhost:$port/check-employment-status-for-tax$path")
-      .withHttpHeaders(HeaderNames.COOKIE -> SessionCookieBaker.bakeSessionCookie(Map(SessionKeys.userType -> Json.toJson(Worker).toString)))
+      .withHttpHeaders(HeaderNames.COOKIE -> SessionCookieBaker.bakeSessionCookie(Map(SessionKeys.userType -> Json.toJson[WhoAreYou](Worker).toString)))
       .withFollowRedirects(followRedirect)
   }
 

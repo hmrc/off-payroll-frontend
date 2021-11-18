@@ -34,7 +34,7 @@ class AuthenticatedIdentifierAction @Inject()(override val authConnector: AuthCo
       case _: NoActiveSession =>
         Redirect(config.loginUrl, Map("continue" -> Seq(config.loginContinueUrl)))
       case _ =>
-        Redirect(routes.UnauthorisedController.onPageLoad())
+        Redirect(routes.UnauthorisedController.onPageLoad)
     }
   }
 }
@@ -51,7 +51,7 @@ class SessionIdentifierAction @Inject()(config: FrontendAppConfig,
   override def invokeBlock[A](request: Request[A], block: IdentifierRequest[A] => Future[Result]): Future[Result] = {
     hc(request).sessionId match {
       case Some(session) => block(IdentifierRequest(request, session.value))
-      case None => Future.successful(Redirect(controllers.errors.routes.SessionExpiredController.onPageLoad()))
+      case None => Future.successful(Redirect(controllers.errors.routes.SessionExpiredController.onPageLoad))
     }
   }
 }

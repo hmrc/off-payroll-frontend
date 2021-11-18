@@ -54,5 +54,5 @@ class PersonalServiceNavigator @Inject()(implicit appConfig: FrontendAppConfig) 
   }
 
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call =
-    routeMap(mode).getOrElse(page, _ => IndexController.onPageLoad())
+    routeMap(mode).getOrElse(page, _ => IndexController.onPageLoad)
 }

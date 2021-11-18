@@ -25,6 +25,6 @@ class SessionExpiredController @Inject()(val appConfig: FrontendAppConfig,
   }
 
   def onSubmit: Action[AnyContent] = Action { implicit request =>
-    Redirect(controllers.routes.IndexController.onPageLoad())
+    Redirect(controllers.routes.IndexController.onPageLoad)
   }
 }

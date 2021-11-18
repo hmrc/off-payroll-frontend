@@ -23,7 +23,8 @@ trait FakeUserTypeRequiredAction extends GuiceAppSpecBase with UserTypeRequiredA
 object FakeUserTypeRequiredFailureAction extends FakeUserTypeRequiredAction {
 
   override protected def refine[A](request: DataRequest[A]): Future[Either[Result, DataRequest[A]]] =
-    Future.successful(Left(Redirect(controllers.routes.StartAgainController.somethingWentWrong())))
+    Future.successful(Left(Redirect(controllers.routes.StartAgainController.somethingWentWrong
+)))
 }
 
 object FakeUserTypeRequiredSuccessAction extends FakeUserTypeRequiredAction {

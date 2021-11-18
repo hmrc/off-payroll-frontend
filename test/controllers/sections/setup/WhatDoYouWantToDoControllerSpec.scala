@@ -69,7 +69,8 @@ class WhatDoYouWantToDoControllerSpec extends ControllerSpecBase {
 
       val result = controller(requireUserType = FakeUserTypeRequiredFailureAction).onPageLoad(NormalMode)(fakeRequest)
 
-      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong
+.url)
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -102,7 +103,8 @@ class WhatDoYouWantToDoControllerSpec extends ControllerSpecBase {
       val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
+.url)
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
@@ -111,7 +113,8 @@ class WhatDoYouWantToDoControllerSpec extends ControllerSpecBase {
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad
+.url)
     }
   }
 }

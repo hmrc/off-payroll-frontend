@@ -20,12 +20,13 @@ class SessionIdFilter (
                         override val mat: Materializer,
                         uuid: => UUID,
                         implicit val ec: ExecutionContext,
-                        val cookieBaker: SessionCookieBaker
+                        val cookieBaker: SessionCookieBaker,
+                        cookieHeaderEncoding: CookieHeaderEncoding
                       ) extends Filter {
 
   @Inject
-  def this(mat: Materializer, ec: ExecutionContext, cb: SessionCookieBaker) {
-    this(mat, UUID.randomUUID(), ec, cb)
+  def this(mat: Materializer, ec: ExecutionContext, cb: SessionCookieBaker, che: CookieHeaderEncoding) {
+    this(mat, UUID.randomUUID(), ec, cb, che)
   }
 
   override def apply(f: (RequestHeader) => Future[Result])(rh: RequestHeader): Future[Result] = {
@@ -37,7 +38,7 @@ class SessionIdFilter (
       val cookies: String = {
         val session: Session = rh.session + (SessionKeys.sessionId -> sessionId)
         val cookies: Traversable[Cookie] = rh.cookies ++ Seq(cookieBaker.encodeAsCookie(session))
-        Cookies.encodeCookieHeader(cookies.toSeq)
+        cookieHeaderEncoding.encodeCookieHeader(cookies.toSeq)
       }
 
       val headers = Headers(

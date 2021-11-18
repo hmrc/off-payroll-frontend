@@ -40,7 +40,6 @@ lazy val microservice = Project(appName, file("."))
     inConfig(IntegrationTest)(Defaults.itSettings),
     libraryDependencies ++= appDependencies,
     retrieveManaged := true,
-    evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
     parallelExecution          in Test := true,
     fork                       in Test := true,
     Keys.fork                  in IntegrationTest :=  false,

@@ -17,11 +17,15 @@ import org.jsoup.Jsoup
 import play.api.mvc.{Call, Result}
 import services.mocks._
 import uk.gov.hmrc.http.cache.client.CacheMap
-
+import akka.actor.ActorSystem
+import akka.stream.Materializer
+import play.api.test.Injecting
 import scala.concurrent.Future
 
 trait ControllerSpecBase extends GuiceAppSpecBase with MockCompareAnswerService with MockCheckYourAnswersService
-  with MockDataCacheConnector with MockPDFService with MockDecisionService with MockDecisionConnector with MockErrorHandler with MockEncryptionService {
+  with MockDataCacheConnector with MockPDFService with MockDecisionService with MockDecisionConnector with MockErrorHandler with MockEncryptionService with Injecting {
+
+  implicit val system = ActorSystem("Sys")
 
   val onwardRoute = Call("POST", "/foo")
   val userAnswers = UserAnswers("id")
