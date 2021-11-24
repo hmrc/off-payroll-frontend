@@ -10,22 +10,26 @@
 
    <div class="grid-row">
     <div id="printAndSave" class="column-full">
-      <p id="download">
-        <a id="printLink" href="#" onclick="window.print();"
-        aria-label='@messages("site.letter.print.aria")'>@messages("site.letter.print")</a>
-        &nbsp; &nbsp;
-        <a id="saveAsPdfLink" href="@controllers.routes.PDFController.downloadPDF().url"
-           aria-label='@messages("site.letter.pdf.aria")'>@messages("site.letter.pdf")</a>
-      </p>
-      <p>
-          @messages("site.letter.copyOf.onceYouHave")
-          <a id="exitLink" href="@routes.ExitSurveyController.redirectToExitSurvey"
-             aria-label='@messages("site.letter.copyOf.exit.aria")'>@messages("site.letter.copyOf.exit")</a>@messages("site.letter.copyOf.or")
-
-          <a id="startAgainLink" href="@routes.StartAgainController.redirectToDisclaimer.url"
-             aria-label='@messages("site.letter.copyOf.startAgain.aria")'>@messages("site.letter.copyOf.startAgain")</a>
-          <span aria-hidden="true">@messages("site.letter.copyOf.otherWork")</span>
-      </p>
+      <div class="form-group">
+        <p id="download">
+          <a id="printLink" href="#" onclick="window.print();">
+            @messages("site.letter.print")
+          </a>
+          <br>
+          <a id="saveAsPdfLink" href="@controllers.routes.PDFController.downloadPDF().url">
+            @messages("site.letter.pdf")
+          </a>
+        </p>
+      </div>
+      <p>@messages("site.letter.copyOf.onceYouHave")</p>
+      <ul class="list list-bullet">
+        <li>
+          <a id="exitLink" href="@routes.ExitSurveyController.redirectToExitSurvey">@messages("site.letter.copyOf.exit")</a>
+        </li>
+        <li>
+          <a id="startAgainLink" href="@routes.StartAgainController.redirectToDisclaimer().url">@messages("site.letter.copyOf.startAgain")</a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
