@@ -70,8 +70,8 @@ site.opensInNewWindowOrTab = (yn agor ffenestr neu dab newydd)
 
 site.letter.h1 = Cadwch copi o’ch penderfyniad
 site.letter.forYourRecords = Ar gyfer eich cofnodion
-site.letter.print = Argraffu'ch penderfyniad
-site.letter.pdf = Cadw'ch penderfyniad fel ffeil PDF
+site.letter.print = Argraffu’ch penderfyniad
+site.letter.pdf = Cadw’ch penderfyniad fel ffeil PDF
 site.letter.copyOf.onceYouHave = Ar ôl i chi gael copi o’ch penderfyniad gallwch:
 site.letter.copyOf.exit = gadael y gwasanaeth gwirio statws cyflogaeth
 site.letter.copyOf.startAgain = gwirio statws cyflogaeth gwaith arall
