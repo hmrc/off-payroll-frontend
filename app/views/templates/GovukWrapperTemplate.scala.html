@@ -107,9 +107,6 @@ webChatClient: WebChatClient)
 }
 
 @footerTop = {}
-@footerLinks = {
-    @footer_links(accessibilityFooterUrl = Some(controllers.routes.AccessibilityStatementController.onPageLoad(request.uri).url))
-}
 
 @phaseBanner = {}
 
@@ -148,4 +145,4 @@ webChatClient: WebChatClient)
       sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footer_links()), true)(content)

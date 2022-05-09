@@ -81,13 +81,5 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   lazy val eassUrl: String = servicesConfig.getString("urls.eass")
   lazy val ecniUrl: String = servicesConfig.getString("urls.ecni")
   lazy val hmrcAdditionalNeedsUrl: String = servicesConfig.getString("urls.hmrcAdditionalNeeds")
-  lazy val dacUrl: String = servicesConfig.getString("urls.dac")
-
-  lazy val accessibilityStatementLastUpdatedDay: String = servicesConfig.getString("accessibilityStatementLastUpdatedDate.day")
-  lazy val accessibilityStatementLastUpdatedMonth: String = servicesConfig.getString("accessibilityStatementLastUpdatedDate.month")
-  lazy val accessibilityStatementLastUpdatedYear: String = servicesConfig.getString("accessibilityStatementLastUpdatedDate.year")
-  lazy val lastDacTestDay: String = servicesConfig.getString("lastDacTestDate.day")
-  lazy val lastDacTestMonth: String = servicesConfig.getString("lastDacTestDate.month")
-  lazy val lastDacTestYear: String = servicesConfig.getString("lastDacTestDate.year")
 
 }
